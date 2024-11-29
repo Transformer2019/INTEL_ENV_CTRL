@@ -446,29 +446,32 @@ int main(void)
 							UART3_RxCounter = 0; //重新等待接收下一个推送消息
 							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 						}else{
-							UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,12,\"Invalid data\"\r\n",imei_no);//发布消息
-							delay_ms(30);
+							json_t *t1_flag = json_object_get(root, "t1");
+							json_t *t2_flag = json_object_get(root, "t2");
+							json_t *t3_flag = json_object_get(root, "t3");
+							json_t *t_max = json_object_get(root, "t_max");
+							json_t *t_min = json_object_get(root, "t_min");
+							json_t *NH3_max_data = json_object_get(root, "NH3_max");
+							json_t *NH3_flag_data = json_object_get(root, "NH3_flag");
 							
-							UART3_RxCounter = 0; //重新等待接收下一个推送消息
-							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-						}
-						
-						json_t *t1_flag = json_object_get(root, "t1");
-						json_t *t2_flag = json_object_get(root, "t2");
-						json_t *t3_flag = json_object_get(root, "t3");
-						json_t *t_max = json_object_get(root, "t_max");
-						json_t *t_min = json_object_get(root, "t_min");
-						json_t *NH3_max_data = json_object_get(root, "NH3_max");
-						json_t *NH3_flag_data = json_object_get(root, "NH3_flag");
-						
-						if(t1_flag && t2_flag && t3_flag && t_max && t_min && NH3_max_data && NH3_flag_data){
-							warn_temp1_flag = json_integer_value(t1_flag);
-							warn_temp2_flag = json_integer_value(t2_flag);
-							warn_temp3_flag = json_integer_value(t3_flag);
-							limit_temp_maxvalue = json_integer_value(t_max);
-							limit_temp_minvalue = json_integer_value(t_min);
-							NH3_max = json_integer_value(NH3_max_data);
-							NH3_warn_flag = json_integer_value(NH3_flag_data);
+							if(t1_flag && t2_flag && t3_flag && t_max && t_min && NH3_max_data && NH3_flag_data){
+								warn_temp1_flag = json_integer_value(t1_flag);
+								warn_temp2_flag = json_integer_value(t2_flag);
+								warn_temp3_flag = json_integer_value(t3_flag);
+								limit_temp_maxvalue = json_integer_value(t_max);
+								limit_temp_minvalue = json_integer_value(t_min);
+								NH3_max = json_integer_value(NH3_max_data);
+								NH3_warn_flag = json_integer_value(NH3_flag_data);
+								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"TNOK\"\r\n",imei_no);//发布消息
+								delay_ms(30);
+								UART3_RxCounter = 0; 
+								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+							}else{
+								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"TN Invalid data\"\r\n",imei_no);//发布消息
+								delay_ms(30);
+								UART3_RxCounter = 0; 
+								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+							}
 						}
 						
 
