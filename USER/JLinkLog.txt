@@ -1,0 +1,82 @@
+T0774 000:158.996   SEGGER J-Link V8.10f Log File
+T0774 000:159.113   DLL Compiled: Nov  6 2024 16:02:06
+T0774 000:159.120   Logging started @ 2024-11-13 10:15
+T0774 000:159.126   Process: D:\develop\keil\app\UV4\UV4.exe
+T0774 000:159.136 - 159.132ms 
+T0774 000:159.145 JLINK_SetWarnOutHandler(...)
+T0774 000:159.152 - 0.007ms 
+T0774 000:159.159 JLINK_OpenEx(...)
+T0774 000:163.043   Firmware: J-Link V9 compiled May  7 2021 16:26:12
+T0774 000:163.947   Firmware: J-Link V9 compiled May  7 2021 16:26:12
+T0774 000:164.089   Decompressing FW timestamp took 112 us
+T0774 000:171.171   Hardware: V9.40
+T0774 000:171.186   S/N: 59400616
+T0774 000:171.194   OEM: SEGGER
+T0774 000:171.202   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T0774 000:172.426   Bootloader: (FW returned invalid version)
+T0774 000:175.216   EMU: Cleaned up zombie connection 0. PID: 0x0A00 (2560)
+T0774 000:176.643   TELNET listener socket opened on port 19021
+T0774 000:176.735   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T0774 000:176.885   WEBSRV Webserver running on local port 19080
+T0774 000:176.986   Looking for J-Link GUI Server exe at: D:\develop\keil\app\ARM\Segger\JLinkGUIServer.exe
+T0774 000:177.055   Looking for J-Link GUI Server exe at: D:\develop\Jlink\JLink_V810f\JLinkGUIServer.exe
+T0774 000:177.069   Forking J-Link GUI Server: D:\develop\Jlink\JLink_V810f\JLinkGUIServer.exe
+T0774 000:192.347   J-Link GUI Server info: "J-Link GUI server V8.10f "
+T0774 000:194.172 - 35.007ms returns "O.K."
+T0774 000:194.199 JLINK_GetEmuCaps()
+T0774 000:194.209 - 0.009ms returns 0xB9FF7BBF
+T0774 000:194.219 JLINK_TIF_GetAvailable(...)
+T0774 000:194.627 - 0.407ms 
+T0774 000:194.646 JLINK_SetErrorOutHandler(...)
+T0774 000:194.654 - 0.008ms 
+T0774 000:194.691 JLINK_ExecCommand("ProjectFile = "E:\GD\C8T6_0.96_iicoled-add485\USER\JLinkSettings.ini"", ...). 
+T0774 000:205.498   Ref file found at: D:\develop\keil\app\ARM\Segger\JLinkDevices.ref
+T0774 000:205.558   REF file references invalid XML file: D:\develop\Jlink\JLink_V810f\JLinkDevices.xml
+T0774 000:206.372 - 11.696ms returns 0x00
+T0774 000:206.393 JLINK_ExecCommand("Device = GD32F103CB", ...). 
+T0774 000:206.473   Flash bank @ 0x1FFFF800: SFL: Parsing sectorization info from ELF file
+T0774 000:206.483     FlashDevice.SectorInfo[0]: .SectorSize = 0x00000010, .SectorStartAddr = 0x00000000
+T0774 000:206.499   Device "GD32F103CB" selected.
+T0774 000:206.696 - 0.295ms returns 0x00
+T0774 000:206.710 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T0774 000:206.721   ERROR: Unknown command
+T0774 000:206.729 - 0.011ms returns 0x01
+T0774 000:206.736 JLINK_GetHardwareVersion()
+T0774 000:206.741 - 0.005ms returns 94000
+T0774 000:206.748 JLINK_GetDLLVersion()
+T0774 000:206.753 - 0.005ms returns 81006
+T0774 000:206.760 JLINK_GetOEMString(...)
+T0774 000:206.767 JLINK_GetFirmwareString(...)
+T0774 000:206.773 - 0.006ms 
+T0774 000:206.781 JLINK_GetDLLVersion()
+T0774 000:206.787 - 0.005ms returns 81006
+T0774 000:206.793 JLINK_GetCompileDateTime()
+T0774 000:206.798 - 0.005ms 
+T0774 000:206.806 JLINK_GetFirmwareString(...)
+T0774 000:206.811 - 0.005ms 
+T0774 000:206.817 JLINK_GetHardwareVersion()
+T0774 000:206.823 - 0.005ms returns 94000
+T0774 000:206.829 JLINK_GetSN()
+T0774 000:206.835 - 0.005ms returns 59400616
+T0774 000:206.841 JLINK_GetOEMString(...)
+T0774 000:206.849 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T0774 000:208.181 - 1.331ms returns 0x00
+T0774 000:208.195 JLINK_HasError()
+T0774 000:208.206 JLINK_SetSpeed(5000)
+T0774 000:208.406 - 0.200ms 
+T0774 000:208.619 JLINK_HasError()
+T0774 000:208.629 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T0774 000:208.635 - 0.006ms returns JLINKARM_RESET_TYPE_NORMAL
+T0774 000:208.642 JLINK_Reset()
+T0774 000:208.902   InitTarget() start
+T0774 000:208.912    J-Link Script File: Executing InitTarget()
+T0774 000:208.923   SWD selected. Executing JTAG -> SWD switching sequence.
+T0774 000:311.964   Secured GD32 device detected.
+For debugger connection the device needs to be unsecured.
+Note: Unsecuring will erase the entire device and set the option bytes to default values.
+T0774 000:312.088   Executing default behavior previously saved in the registry.
+T0774 000:312.120   Device will be unsecured now.
+T44F8 010:149.349   Looking for J-Link GUI Server exe at: D:\develop\keil\app\ARM\Segger\JLinkGUIServer.exe
+T44F8 010:149.414   Looking for J-Link GUI Server exe at: D:\develop\Jlink\JLink_V810f\JLinkGUIServer.exe
+T44F8 010:149.440   Forking J-Link GUI Server: D:\develop\Jlink\JLink_V810f\JLinkGUIServer.exe
+T44F8 010:154.708   J-Link GUI Server info: "J-Link GUI server V8.10f "

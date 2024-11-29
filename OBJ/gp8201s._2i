@@ -1,0 +1,5 @@
+--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\LED -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S
+-ID:\develop\keil\Packs\Geehy\APM32F1xx_DFP\1.1.0\Device\Device\Geehy\APM32F10x\Include
+-ID:\develop\keil\app\ARM\CMSIS\Include
+-D__UVISION_VERSION="531" -DAPM32F10X_MD -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER
+-o ..\obj\gp8201s.o --omf_browse ..\obj\gp8201s.crf --depend ..\obj\gp8201s.d --feedback "..\OBJ\Model_c8t6.fed" "..\HARDWARE\GP8201S\GP8201S.c"
