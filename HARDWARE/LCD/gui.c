@@ -8,6 +8,7 @@
 #include "GP8201S.h"
 #include "pic.h"
 #include "mb_hook.h"
+//#include "home.h"
 
 //#pragma pack(4) 
 
@@ -168,7 +169,7 @@ uint8_t GUI_Refresh(void)
 			default:break;
 		}
 	    delay_ms(5);
-		if(func_index == 0 && (last_index == 1 || last_index == 2 || last_index == 3 || last_index == 4 || last_index == 5 || last_index == 6)){LCD_Clear(BLACK);}//从主菜单返回主页
+		if(func_index == 0 && (last_index == 1 || last_index == 2 || last_index == 3 || last_index == 4 || last_index == 5 || last_index == 6)){LCD_Fill(0,0,480,320,HOME_BACK);}//从主菜单返回主页
 		if(func_index == 1 && last_index == 0){LCD_Clear(BLACK);}//从主页进入主菜单
 		if(func_index == 12 && last_index == 1){LCD_Clear_upper_tail(BLACK);}//从主菜单进入风机一
 		
@@ -356,15 +357,15 @@ void Main_UI(u8 page_index,u8 key_val)
 	
 	
 	
-	showdigit_color(20,96,y1,UNDET,BLACK);showdigit_color(36,96,y2,UNDET,BLACK);showdigit_color(52,96,y3,UNDET,BLACK);showdigit_color(68,96,y4,UNDET,BLACK);
-	showdigit_color(84,96,11,UNDET,BLACK);
-	showdigit_color(100,96,mh1,UNDET,BLACK);showdigit_color(116,96,mh2,UNDET,BLACK);
-	showdigit_color(132,96,11,UNDET,BLACK);
-	showdigit_color(148,96,d1,UNDET,BLACK);showdigit_color(164,96,d2,UNDET,BLACK);
+	showdigit_color(20,96,y1,WHITE,HOME_BACK);showdigit_color(36,96,y2,WHITE,HOME_BACK);showdigit_color(52,96,y3,WHITE,HOME_BACK);showdigit_color(68,96,y4,WHITE,HOME_BACK);
+	showdigit_color(84,96,11,WHITE,HOME_BACK);
+	showdigit_color(100,96,mh1,WHITE,HOME_BACK);showdigit_color(116,96,mh2,WHITE,HOME_BACK);
+	showdigit_color(132,96,11,WHITE,HOME_BACK);
+	showdigit_color(148,96,d1,WHITE,HOME_BACK);showdigit_color(164,96,d2,WHITE,HOME_BACK);
 	
-	showdigit_color(60,168,h1,UNDET,BLACK);showdigit_color(76,168,h2,UNDET,BLACK);
-	showdigit_color(92,168,12,UNDET,BLACK);
-	showdigit_color(108,168,m1,UNDET,BLACK);showdigit_color(124,168,m2,UNDET,BLACK);
+	showdigit_color(60,168,h1,WHITE,HOME_BACK);showdigit_color(76,168,h2,WHITE,HOME_BACK);
+	showdigit_color(92,168,12,WHITE,HOME_BACK);
+	showdigit_color(108,168,m1,WHITE,HOME_BACK);showdigit_color(124,168,m2,WHITE,HOME_BACK);
 //	showdigit_color(96,150,12,GREEN,BLACK);
 //	showdigit_color(112,150,s1,GREEN,BLACK);showdigit_color(128,150,s2,GREEN,BLACK);
 
@@ -377,12 +378,12 @@ void Main_UI(u8 page_index,u8 key_val)
 //		showhanzi_1(96,0,73,1); 
 //		showhanzi_1(128,0,74,1);
 		
-		Gui_Drawbmp_logo(0,0,gImage_88);
+		//Gui_Drawbmp_logo(0,0,gImage_88);
 		
-		LCD_Fill(128,0,436,31,WHITE);
+		LCD_Fill(128,0,436,31,HOME_BACK);
 		show_4g(437,0,0);
 		show_4g(453,0,1);
-		LCD_Fill(469,0,480,31,WHITE);
+		LCD_Fill(469,0,480,31,HOME_BACK);
 	}else{
 		//连接网络中
 //		showhanzi_1(0,0,73,1);   
@@ -391,29 +392,29 @@ void Main_UI(u8 page_index,u8 key_val)
 //		showhanzi_1(96,0,76,1); 
 //		showhanzi_1(128,0,77,1); 
 		
-		Gui_Drawbmp_logo(0,0,gImage_88);
-		LCD_Fill(128,0,320,31,WHITE);
-		showhanzi_1(320,0,73,1);   
-		showhanzi_1(352,0,74,1);  
-		showhanzi_1(384,0,75,1);  
-		showhanzi_1(416,0,76,1);  
-		showhanzi_1(448,0,77,1); 
+		//Gui_Drawbmp_logo(0,0,gImage_88);
+		LCD_Fill(0,0,320,31,HOME_BACK);
+		showhanzi_color(320,0,73,FONT_TOP,HOME_BACK);   
+		showhanzi_color(352,0,74,FONT_TOP,HOME_BACK);  
+		showhanzi_color(384,0,75,FONT_TOP,HOME_BACK);  
+		showhanzi_color(416,0,76,FONT_TOP,HOME_BACK);  
+		showhanzi_color(448,0,77,FONT_TOP,HOME_BACK); 
 		
 	}
 
-	LCD_Fill(0,39,480,40,WHITE);
-	LCD_Fill(0,249,480,250,WHITE);
+	LCD_Fill(0,38,480,40,LINE);
+	LCD_Fill(0,248,480,250,LINE);
     //显示温度
-	showhanzi_color(224,60,39,GREEN,BLACK);  
-	showhanzi_color(256,60,66,GREEN,BLACK);  
-	showhanzi_color(288,60,63,GREEN,BLACK); 
-	showdigit_color(320,60,12,GREEN,BLACK);
+	showhanzi_color(224,60,111,WHITE,HOME_BACK);  
+	showhanzi_color(256,60,112,WHITE,HOME_BACK);  
+	showhanzi_color(288,60,113,WHITE,HOME_BACK); 
+	showdigit_color(320,60,12,WHITE,HOME_BACK);
 	
 	
-	showhanzi_color(224,132,39,GREEN,BLACK);  
-	showhanzi_color(256,132,66,GREEN,BLACK);  
-	showhanzi_color(288,132,64,GREEN,BLACK); 
-	showdigit_color(320,132,12,GREEN,BLACK);
+	showhanzi_color(224,132,111,WHITE,HOME_BACK);  
+	showhanzi_color(256,132,112,WHITE,HOME_BACK);  
+	showhanzi_color(288,132,114,WHITE,HOME_BACK); 
+	showdigit_color(320,132,12,WHITE,HOME_BACK);
 	
 	
 	//showhanzi_color(336,60,39,GREEN,BLACK);  
@@ -422,10 +423,10 @@ void Main_UI(u8 page_index,u8 key_val)
 	
 	
 	//变频器 氨气值
-	showhanzi_color(224,204,105,GREEN,BLACK);  
-	showhanzi_color(256,204,106,GREEN,BLACK);  
-	showhanzi_color(288,204,88,GREEN,BLACK); 
-	showdigit_color(320,204,12,GREEN,BLACK);
+	showhanzi_color(224,204,109,WHITE,HOME_BACK);  
+	showhanzi_color(256,204,110,WHITE,HOME_BACK);  
+	showhanzi_color(288,204,107,WHITE,HOME_BACK); 
+	showdigit_color(320,204,12,WHITE,HOME_BACK);
 
 
 
@@ -435,30 +436,30 @@ void Main_UI(u8 page_index,u8 key_val)
 	
 	//如果温度小于-5度，显示断开，表示温度传感器没连接
 	if(temperature1<0 || temperature1>90){
-		showhanzi_color(336,60,95,RED,BLACK);showhanzi_color(368,60,70,RED,BLACK);LCD_Fill(400,60,420,92,BLACK);
+		showhanzi_color(336,60,95,FONT_MID,HOME_BACK);showhanzi_color(368,60,108,FONT_MID,HOME_BACK);LCD_Fill(400,60,420,92,HOME_BACK);
 	}else{
 		
 		uint8_t t1_1 = (unsigned int)((temperature1+temp1_correct)/10) % 10;
 		uint8_t t1_2 = (unsigned int)(temperature1+temp1_correct) % 10;
 		uint8_t t1_3 = (unsigned int)((temperature1+temp1_correct)*10) % 10;
-		LCD_Fill(336,60,352,92,BLACK);
-		showdigit_color(352,60,t1_1,UNDET,BLACK);
-		showdigit_color(368,60,t1_2,UNDET,BLACK);
-		showdigit_color(384,60,10,UNDET,BLACK);
-		showdigit_color(400,60,t1_3,UNDET,BLACK);
+		LCD_Fill(336,60,352,92,HOME_BACK);
+		showdigit_color(352,60,t1_1,FONT_MID,HOME_BACK);
+		showdigit_color(368,60,t1_2,FONT_MID,HOME_BACK);
+		showdigit_color(384,60,10,FONT_MID,HOME_BACK);
+		showdigit_color(400,60,t1_3,FONT_MID,HOME_BACK);
 	}
 	
 	if(temperature2<0 || temperature2>90){
-		showhanzi_color(336,132,95,RED,BLACK);showhanzi_color(368,132,70,RED,BLACK);LCD_Fill(400,132,420,164,BLACK);
+		showhanzi_color(336,132,95,FONT_MID,HOME_BACK);showhanzi_color(368,132,108,FONT_MID,HOME_BACK);LCD_Fill(400,132,420,164,HOME_BACK);
 	}else{
 		uint8_t t2_1 = (unsigned int)((temperature2+temp2_correct)/10) % 10;
 		uint8_t t2_2 = (unsigned int)(temperature2+temp2_correct) % 10;
 		uint8_t t2_3 = (unsigned int)((temperature2+temp2_correct)*10) % 10;
-		LCD_Fill(336,132,351,164,BLACK);
-		showdigit_color(352,132,t2_1,UNDET,BLACK);
-		showdigit_color(368,132,t2_2,UNDET,BLACK);
-		showdigit_color(384,132,10,UNDET,BLACK);
-		showdigit_color(400,132,t2_3,UNDET,BLACK);
+		LCD_Fill(336,132,351,164,HOME_BACK);
+		showdigit_color(352,132,t2_1,FONT_MID,HOME_BACK);
+		showdigit_color(368,132,t2_2,FONT_MID,HOME_BACK);
+		showdigit_color(384,132,10,FONT_MID,HOME_BACK);
+		showdigit_color(400,132,t2_3,FONT_MID,HOME_BACK);
 	}
 	
 //	if(temperature3<-5){
@@ -519,37 +520,37 @@ void Main_UI(u8 page_index,u8 key_val)
 	
 
 	if(send_NH3>100 || send_NH3<0){
-        showhanzi_color(336,204,95,RED,BLACK);
-		showhanzi_color(368,204,70,RED,BLACK);
-		LCD_Fill(400,204,468,236,BLACK);
+        showhanzi_color(336,204,95,FONT_MID,HOME_BACK);
+		showhanzi_color(368,204,108,FONT_MID,HOME_BACK);
+		LCD_Fill(400,204,468,236,HOME_BACK);
 	}else if(send_NH3>=10&& send_NH3<100){
-		LCD_Fill(336,204,351,236,BLACK);
-		showdigit_color(352,204,send_NH3 / 10,UNDET,BLACK);
-		showdigit_color(368,204,send_NH3 % 10,UNDET,BLACK);
-		LCD_Fill(384,204,405,236,BLACK);
-		showdigit_color(406,204,16,UNDET,BLACK);
-		showdigit_color(422,204,16,UNDET,BLACK);
-		showdigit_color(438,204,17,UNDET,BLACK);
+		LCD_Fill(336,204,351,236,HOME_BACK);
+		showdigit_color(352,204,send_NH3 / 10,FONT_MID,HOME_BACK);
+		showdigit_color(368,204,send_NH3 % 10,FONT_MID,HOME_BACK);
+		LCD_Fill(384,204,405,236,HOME_BACK);
+		showdigit_color(406,204,16,FONT_MID,HOME_BACK);
+		showdigit_color(422,204,16,FONT_MID,HOME_BACK);
+		showdigit_color(438,204,17,FONT_MID,HOME_BACK);
 	}else if(send_NH3>=0&& send_NH3<10){
-		LCD_Fill(336,204,367,236,BLACK);
-		showdigit_color(368,204,send_NH3,UNDET,BLACK);
-		LCD_Fill(384,204,405,236,BLACK);
-		showdigit_color(406,204,16,UNDET,BLACK);
-		showdigit_color(422,204,16,UNDET,BLACK);
-		showdigit_color(438,204,17,UNDET,BLACK);
+		LCD_Fill(336,204,367,236,HOME_BACK);
+		showdigit_color(368,204,send_NH3,FONT_MID,HOME_BACK);
+		LCD_Fill(384,204,405,236,HOME_BACK);
+		showdigit_color(406,204,16,FONT_MID,HOME_BACK);
+		showdigit_color(422,204,16,FONT_MID,HOME_BACK);
+		showdigit_color(438,204,17,FONT_MID,HOME_BACK);
 	}
 
 	//根据relay_structure[10]数组判断风机1-10的开关状态
-	showhanzi(12,253,78);
-	showhanzi(59,253,79);
-	showhanzi(106,253,80);
-	showhanzi(153,253,81);
-	showhanzi(200,253,82);
-	showhanzi(247,253,83);
-	showhanzi(294,253,84);
-	showhanzi(341,253,85);
-	showhanzi(388,253,86);
-	showhanzi(435,253,87);
+	showhanzi_color(12,253,78,WHITE,HOME_BACK);
+	showhanzi_color(59,253,79,WHITE,HOME_BACK);
+	showhanzi_color(106,253,80,WHITE,HOME_BACK);
+	showhanzi_color(153,253,81,WHITE,HOME_BACK);
+	showhanzi_color(200,253,82,WHITE,HOME_BACK);
+	showhanzi_color(247,253,83,WHITE,HOME_BACK);
+	showhanzi_color(294,253,84,WHITE,HOME_BACK);
+	showhanzi_color(341,253,85,WHITE,HOME_BACK);
+	showhanzi_color(388,253,86,WHITE,HOME_BACK);
+	showhanzi_color(435,253,87,WHITE,HOME_BACK);
 
 //	if(relay_structure[0].on_off)gui_circle(28,303,GREEN,16,1);else gui_circle(28,303,RED,16,1);
 //	if(relay_structure[1].on_off)gui_circle(75,303,GREEN,16,1);else gui_circle(75,303,RED,16,1);
@@ -593,6 +594,10 @@ void Main_UI(u8 page_index,u8 key_val)
 	if(relay_structure[9].on_off){
 		if(ctrl_ui==0)Gui_Drawbmp16(435,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,288,gImage_4);
 	}else Gui_Drawbmp16(435,288,gImage_1);
+	
+	
+	
+	
 }
 
 

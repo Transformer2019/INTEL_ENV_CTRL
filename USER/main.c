@@ -28,7 +28,7 @@ uint8_t mqtt_flag=0;
 u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 u8 relay1_Control_1[2] = {0x00, 0x00};
 
-//static char send_data_config_temp[350]="";
+char flash_data[9]={0x00};
 //static char send_data_config[350]="";
 //uint8_t send_index_t;
 
@@ -64,7 +64,7 @@ int main(void)
 		
 		LCD_Init();	   //液晶屏初始化
 		//LCD_Clear(BLACK);
-		LCD_Fill(0,0,lcddev.width,lcddev.height,BLACK);
+		LCD_Fill(0,0,lcddev.width,lcddev.height,HOME_BACK);
 		
 		/* GP8201S初始化 */
 		IIC_Init();
@@ -78,7 +78,21 @@ int main(void)
 		mbh_init(4800,0);
 		
 		//读取flash固定位置的数据
-//      ReadFlashData(0, (uint8_t *)relay_structure, 410);
+		
+		
+        //ReadFlashData(0, flash_data, 8);
+		//printf("%s\n", flash_data);
+
+//		printf("%s\n", flash_data[1]);
+//		printf("%d\n", flash_data[2]);
+//		printf("%d\n", flash_data[3]);
+//		printf("%x\n", flash_data[4]);
+//		printf("%x\n", flash_data[5]);
+//		printf("%x\n", flash_data[6]);
+//		printf("%x\n", flash_data[7]);
+//		printf("%x\n", flash_data[8]);
+//		printf("%x\n", flash_data[9]);
+
 //		if(relay_structure[1].relayNo == 0){
 //			Relay_Structure relay_structure[10] = {{0}};
 //			relay_structure[0].relayNo = 1;
@@ -446,6 +460,7 @@ int main(void)
 							UART3_RxCounter = 0; //重新等待接收下一个推送消息
 							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 						}else{
+							
 							json_t *t1_flag = json_object_get(root, "t1");
 							json_t *t2_flag = json_object_get(root, "t2");
 							json_t *t3_flag = json_object_get(root, "t3");
@@ -472,10 +487,11 @@ int main(void)
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 							}
+							
+					
 						}
 						
-
-
+						
 						json_decref(root);
 		
 					}else{
@@ -586,6 +602,13 @@ int main(void)
 	                    
 						//订阅报文
 						UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",0\r\n",imei_no);
+						delay_ms(50);
+						
+						//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
+						UART3_RxCounter = 0; //重新等待接收下一个推送消息
+						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+						
+						UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNCTRL/%s\",0\r\n",imei_no);
 						delay_ms(50);
 						
 						//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");

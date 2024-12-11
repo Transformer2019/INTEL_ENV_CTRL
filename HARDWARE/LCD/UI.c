@@ -900,11 +900,11 @@ void show_4g(unsigned int x,unsigned int y,unsigned char index)
 		{ 		     
 		 	if((*temp&(1<<i))!=0)
 			{
-				Lcd_WriteData_16Bit(BLACK);
+				Lcd_WriteData_16Bit(WHITE);
 			} 
 			else
 			{
-				Lcd_WriteData_16Bit(WHITE);
+				Lcd_WriteData_16Bit(HOME_BACK);
 			}   
 		}
 		temp++;

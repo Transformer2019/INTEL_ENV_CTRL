@@ -95,8 +95,8 @@ void ReadFlashData(uint32_t ReadAddress, uint8_t *dest_Data, uint32_t num)
     ReadAddress = (uint32_t)STARTADDR + ReadAddress; 
     while(i < num) 
     {
-        *(dest_Data+i) = *(__IO uint16_t*) ReadAddress;
-        ReadAddress += 2;
+        *(dest_Data+i) = *(__IO uint8_t*) ReadAddress;
+        ReadAddress += 1;
         
         i++;
     }

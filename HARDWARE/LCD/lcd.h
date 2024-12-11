@@ -134,6 +134,12 @@ extern u16  BACK_COLOR; //背景颜色.默认为白色
 #define RED1            0xfbea
 #define UNDET           0x1c9f
 
+//UI
+#define HOME_BACK       0x1063
+#define FONT_TOP        0xa67f
+#define FONT_MID        0x17e0
+#define LINE            0x1128
+
 //GUI颜色
 
 #define DARKBLUE      	 0X01CF	//深蓝色
