@@ -403,7 +403,7 @@ void Main_UI(u8 page_index,u8 key_val)
 	}
 
 	LCD_Fill(0,38,480,40,LINE);
-	LCD_Fill(0,248,480,250,LINE);
+	LCD_Fill(0,246,480,248,LINE);
     //显示温度
 	showhanzi_color(224,60,111,WHITE,HOME_BACK);  
 	showhanzi_color(256,60,112,WHITE,HOME_BACK);  
@@ -541,16 +541,16 @@ void Main_UI(u8 page_index,u8 key_val)
 	}
 
 	//根据relay_structure[10]数组判断风机1-10的开关状态
-	showhanzi_color(12,253,78,WHITE,HOME_BACK);
-	showhanzi_color(59,253,79,WHITE,HOME_BACK);
-	showhanzi_color(106,253,80,WHITE,HOME_BACK);
-	showhanzi_color(153,253,81,WHITE,HOME_BACK);
-	showhanzi_color(200,253,82,WHITE,HOME_BACK);
-	showhanzi_color(247,253,83,WHITE,HOME_BACK);
-	showhanzi_color(294,253,84,WHITE,HOME_BACK);
-	showhanzi_color(341,253,85,WHITE,HOME_BACK);
-	showhanzi_color(388,253,86,WHITE,HOME_BACK);
-	showhanzi_color(435,253,87,WHITE,HOME_BACK);
+	showhanzi_color(12,288,78,WHITE,HOME_BACK);
+	showhanzi_color(59,288,79,WHITE,HOME_BACK);
+	showhanzi_color(106,288,80,WHITE,HOME_BACK);
+	showhanzi_color(153,288,81,WHITE,HOME_BACK);
+	showhanzi_color(200,288,82,WHITE,HOME_BACK);
+	showhanzi_color(247,288,83,WHITE,HOME_BACK);
+	showhanzi_color(294,288,84,WHITE,HOME_BACK);
+	showhanzi_color(341,288,85,WHITE,HOME_BACK);
+	showhanzi_color(388,288,86,WHITE,HOME_BACK);
+	showhanzi_color(435,288,87,WHITE,HOME_BACK);
 
 //	if(relay_structure[0].on_off)gui_circle(28,303,GREEN,16,1);else gui_circle(28,303,RED,16,1);
 //	if(relay_structure[1].on_off)gui_circle(75,303,GREEN,16,1);else gui_circle(75,303,RED,16,1);
@@ -565,35 +565,35 @@ void Main_UI(u8 page_index,u8 key_val)
 
     //printf("ctrl_ui:%d",ctrl_ui);
 	if(relay_structure[0].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(12,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(12,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(12,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(12,288,gImage_4);
-	}else Gui_Drawbmp16(12,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(12,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(12,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(12,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(12,253,gImage_4);
+	}else Gui_Drawbmp16(12,253,gImage_1);
 	if(relay_structure[1].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(59,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(59,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(59,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(59,288,gImage_4);
-	}else Gui_Drawbmp16(59,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(59,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(59,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(59,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(59,253,gImage_4);
+	}else Gui_Drawbmp16(59,253,gImage_1);
 	if(relay_structure[2].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(106,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(106,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(106,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(106,288,gImage_4);
-	}else Gui_Drawbmp16(106,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(106,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(106,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(106,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(106,253,gImage_4);
+	}else Gui_Drawbmp16(106,253,gImage_1);
 	if(relay_structure[3].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(153,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(153,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(153,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(153,288,gImage_4);
-	}else Gui_Drawbmp16(153,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(153,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(153,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(153,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(153,253,gImage_4);
+	}else Gui_Drawbmp16(153,253,gImage_1);
 	if(relay_structure[4].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(200,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(200,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(200,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(200,288,gImage_4);
-	}else Gui_Drawbmp16(200,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(200,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(200,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(200,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(200,253,gImage_4);
+	}else Gui_Drawbmp16(200,253,gImage_1);
 	if(relay_structure[5].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(247,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(247,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(247,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(247,288,gImage_4);
-	}else Gui_Drawbmp16(247,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(247,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(247,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(247,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(247,253,gImage_4);
+	}else Gui_Drawbmp16(247,253,gImage_1);
 	if(relay_structure[6].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(294,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(294,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(294,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(294,288,gImage_4);
-	}else Gui_Drawbmp16(294,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(294,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(294,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(294,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(294,253,gImage_4);
+	}else Gui_Drawbmp16(294,253,gImage_1);
 	if(relay_structure[7].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(341,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(341,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(341,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(341,288,gImage_4);
-	}else Gui_Drawbmp16(341,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(341,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(341,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(341,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(341,253,gImage_4);
+	}else Gui_Drawbmp16(341,253,gImage_1);
 	if(relay_structure[8].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(388,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(388,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(388,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(388,288,gImage_4);
-	}else Gui_Drawbmp16(388,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(388,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(388,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(388,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(388,253,gImage_4);
+	}else Gui_Drawbmp16(388,253,gImage_1);
 	if(relay_structure[9].on_off){
-		if(ctrl_ui==0)Gui_Drawbmp16(435,288,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,288,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,288,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,288,gImage_4);
-	}else Gui_Drawbmp16(435,288,gImage_1);
+		if(ctrl_ui==0)Gui_Drawbmp16(435,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,253,gImage_4);
+	}else Gui_Drawbmp16(435,253,gImage_1);
 	
 	
 	
