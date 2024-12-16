@@ -55,7 +55,7 @@ int main(void)
         RTC_Init();
 		/* NTC初始化 */		
 		ADC_Configuration();
-		//TIM4_Int_Init(0,0);
+		TIM1_Int_Init(0,0);
 	    /* TIM3初始化 */	
 		TIM3_Int_Init(0,0);	
 	    /* TIM2初始化 */	

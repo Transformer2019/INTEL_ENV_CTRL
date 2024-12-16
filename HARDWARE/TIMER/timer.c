@@ -21,9 +21,18 @@ volatile u8 TIM4_flag=0;
 volatile uint16_t TIM5_Counter_10s=0;
 volatile u8 TIM5_flag=0;
 
+volatile u8 TIM1_Counter=0;
+volatile u8 TIM1_flag=0;
+
 volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
+
+//温度数组
+//volatile float temp1_list[11]={0};
+//volatile float temp2_list[11]={0};
+//volatile float temp3_list[11]={0};
+//volatile float temp_avg_list[11]={0};
 
 
 volatile float temperature1 = 99.0;
@@ -31,30 +40,30 @@ volatile float temperature2 = 99.0;
 volatile float temperature3 = 99.0;
 volatile float average_temp = 99.0;
 
-//void TIM4_Int_Init(u16 arr,u16 psc)
-//{
-//    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-//	NVIC_InitTypeDef NVIC_InitStructure;
+void TIM1_Int_Init(u16 arr,u16 psc)
+{
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
 
-//	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE); //时钟使能
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE); //时钟使能
 
-//	TIM_TimeBaseStructure.TIM_Period = 999; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
-//	TIM_TimeBaseStructure.TIM_Prescaler = 7199; //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
-//	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
-//	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
-//	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
-// 
-//	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE); //使能指定的TIM3中断,允许更新中断
+	TIM_TimeBaseStructure.TIM_Period = 499; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到2000为200ms
+	TIM_TimeBaseStructure.TIM_Prescaler = 7199; //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
+	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
+ 
+	TIM_ITConfig(TIM1,TIM_IT_Update,ENABLE); //使能指定的TIM3中断,允许更新中断
 
-//	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM3中断
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //先占优先级0级
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
-//	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
+	NVIC_InitStructure.NVIC_IRQChannel = TIM1_UP_IRQn;  //TIM3中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //先占优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
+	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
-//	TIM_Cmd(TIM4, ENABLE);  //使能TIMx外设
-//							 
-//}
+	TIM_Cmd(TIM1, ENABLE);  //使能TIMx外设
+							 
+}
 
 
 void TIM3_Int_Init(u16 arr,u16 psc)
@@ -74,7 +83,7 @@ void TIM3_Int_Init(u16 arr,u16 psc)
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //先占优先级0级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  //从优先级3级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
 	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
@@ -89,7 +98,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE); //时钟使能
 
-	TIM_TimeBaseStructure.TIM_Period = 9999; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
+	TIM_TimeBaseStructure.TIM_Period = 9999; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到1000为100ms
 	TIM_TimeBaseStructure.TIM_Prescaler = 7199; //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
@@ -99,7 +108,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;  //TIM2中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //先占优先级0级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级3级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
 	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
@@ -122,30 +131,56 @@ float get_temperature(Temp_Choose_flag flag) {
 
 
 //中值滤波算法
-float middleValueFilter(int N, u8 channel)
+float middleValueFilter(float value_buf[], int N)
 {
-    float value_buf[N];
-    int i,j,k,temp;
-    for( i = 0; i < N; ++i)
+    float temp_buf[N],temp;
+	float avg_temp = 0.0;
+    int i,j,k;
+    for(i = 0; i < N; ++i)
     {
-        value_buf[i] = Read_Temperature(channel);
+        temp_buf[i] = value_buf[i];
     }
-    for(j = 0 ; j < N-1; ++j)
+    for(j = 0; j < N-1; ++j)
     {
         for(k = 0; k < N-j-1; ++k)
         {
             //从小到大排序，冒泡法排序
-            if(value_buf[k] > value_buf[k+1])
+            if(temp_buf[k] > temp_buf[k+1])
             {
-                temp = value_buf[k];
-                value_buf[k] = value_buf[k+1];
-                value_buf[k+1] = temp;
+                temp = temp_buf[k];
+                temp_buf[k] = temp_buf[k+1];
+                temp_buf[k+1] = temp;
             }
         }
     }
-    return value_buf[(N-1)/2];
+	
+	for(j = 1; j < N-1; ++j){
+		avg_temp += temp_buf[j];
+	}
+	return avg_temp/8;
+    //return temp_buf[(N-1)/2];
 }
 
+void list_change(float value_buff[], u8 channel, int N){
+	int j;
+	for(j = 0 ; j < N-1; ++j){
+		value_buff[j] = value_buff[j+1];
+		//printf("value_buff[%d]: %.2f degrees Celsius\r\n", j, value_buff[j]);
+	}
+	value_buff[j]=Read_Temperature(channel);
+	//printf("value_buff[%d]: %.2f degrees Celsius\r\n", j, value_buff[j]);
+} 
+
+
+void list_change_end(float value_buff[], float temp_end, int N){
+	int j;
+	for(j = 0 ; j < N-1; ++j){
+		value_buff[j] = value_buff[j+1];
+		//printf("value_buff[%d]: %.2f degrees Celsius\r\n", j, value_buff[j]);
+	}
+	value_buff[j]=temp_end;
+
+}
 
 void TIM2_IRQHandler(void)   //TIM2中断
 {
@@ -185,22 +220,22 @@ void TIM2_IRQHandler(void)   //TIM2中断
 
 
 		
-		temperature1= middleValueFilter(10,ADC_Channel_2)-temp1_correct;
-		temperature2= middleValueFilter(10,ADC_Channel_3)-temp2_correct;
-		temperature3= middleValueFilter(10,ADC_Channel_4)-temp3_correct;
-		if(temperature1<0 || temperature1>90.0)temperature1=99.0;
-		if(temperature2<0 || temperature2>90.0)temperature2=99.0;
-		if(temperature3<0 || temperature3>90.0)temperature3=99.0;
-//		printf("Temperature: %.2f degrees Celsius\r\n", temperature1);	
-//    printf("Temperature: %.2f degrees Celsius\r\n", temperature2);	
-//    printf("Temperature: %.2f degrees Celsius\r\n", temperature3);	
-//		
-//	    temperature1 = Read_Temperature(0);//
-//		temperature2 = Read_Temperature(1)+17.3;//
-//		temperature3 = Read_Temperature(2)+17.3;//
-		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=0;}else{
-			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
-		}
+//		temperature1= middleValueFilter(10,ADC_Channel_2)-temp1_correct;
+//		temperature2= middleValueFilter(10,ADC_Channel_3)-temp2_correct;
+//		temperature3= middleValueFilter(10,ADC_Channel_4)-temp3_correct;
+//		if(temperature1<0 || temperature1>90.0)temperature1=99.0;
+//		if(temperature2<0 || temperature2>90.0)temperature2=99.0;
+//		if(temperature3<0 || temperature3>90.0)temperature3=99.0;
+////		printf("Temperature: %.2f degrees Celsius\r\n", temperature1);	
+////    printf("Temperature: %.2f degrees Celsius\r\n", temperature2);	
+////    printf("Temperature: %.2f degrees Celsius\r\n", temperature3);	
+////		
+////	    temperature1 = Read_Temperature(0);//
+////		temperature2 = Read_Temperature(1)+17.3;//
+////		temperature3 = Read_Temperature(2)+17.3;//
+//		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=0;}else{
+//			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
+//		}
 		
 		
 		uint8_t j = 0;
@@ -496,11 +531,140 @@ void TIM3_IRQHandler(void)   //TIM3中断
 }
 
 
-//void TIM4_IRQHandler(void){
-//	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET) {
-//		TIM_ClearITPendingBit(TIM4, TIM_IT_Update); //清除TIM4更新中断标志
-//	}
-//}
+void TIM1_UP_IRQHandler(void){
+	if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET) {
+		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); //清除TIM4更新中断标志
+		
+		if(TIM1_Counter>100)
+		{
+		  //TIM1_flag=1;
+		  TIM1_Counter=0;
+		}
+		TIM1_Counter++;
+		
+//		static float temp1_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+//		static float temp2_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+//		static float temp3_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+//		static float temp_avg_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+		
+		static float temp1_list_buff[10]={0.0};
+		static float temp2_list_buff[10]={0.0};
+		static float temp3_list_buff[10]={0.0};
+		
+		static float temp1_list[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+		static float temp2_list[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+		static float temp3_list[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
+
+		
+		float temperature1_buff = 0.0;
+		list_change(temp1_list_buff,ADC_Channel_2,10);
+		if(TIM1_Counter%10 == 0){
+			float temperature1_buff = middleValueFilter(temp1_list_buff,10);
+			list_change_end(temp1_list,temperature1_buff,10);
+			if((int)temp1_list[0]==99 || (int)temp1_list[1]==99 || (int)temp1_list[2]==99 || 
+			(int)temp1_list[3]==99 || (int)temp1_list[4]==99 || (int)temp1_list[5]==99 ||
+			(int)temp1_list[6]==99 || (int)temp1_list[7]==99 || (int)temp1_list[8]==99 ||
+			(int)temp1_list[9]==99){
+				temperature1 = 99.0;
+			}else{
+				temperature1 = middleValueFilter(temp1_list,10)-temp1_correct;
+			}
+		}
+//		if(TIM1_Counter==100){
+//			float temperature1 = middleValueFilter(temp1_list_buff,10)-temp1_correct;
+//			list_change_end(temp1_list,temperature1_buff,10);
+//		}	
+		if(temperature1<0 || temperature1>90.0)temperature1=99.0;
+		
+		
+
+//		list_change(temp1_list,ADC_Channel_2,10);
+//		if((int)temp1_list[0]==99 || (int)temp1_list[1]==99 || (int)temp1_list[2]==99 || 
+//			(int)temp1_list[3]==99 || (int)temp1_list[4]==99 || (int)temp1_list[5]==99 ||
+//			(int)temp1_list[6]==99 || (int)temp1_list[7]==99 || (int)temp1_list[8]==99 ||
+//			(int)temp1_list[9]==99){
+//				temperature1 = 99.0;
+//			}else{
+//				temperature1 = middleValueFilter(temp1_list,10)-temp1_correct;
+//			}
+//		if(temperature1<0 || temperature1>90.0)temperature1=99.0;
+//	    printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[0]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[1]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[2]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[3]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[4]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[5]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[6]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[7]);
+//		printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[8]);
+//				printf("temp1_list: %.2f degrees Celsius\r\n", temp1_list[9]);
+		
+		
+		float temperature2_buff = 0.0;
+		list_change(temp2_list_buff,ADC_Channel_3,10);
+		if(TIM1_Counter%10 == 0){
+			float temperature2_buff = middleValueFilter(temp2_list_buff,10);
+			list_change_end(temp2_list,temperature2_buff,10);
+			if((int)temp2_list[0]==99 || (int)temp2_list[1]==99 || (int)temp2_list[2]==99 || 
+			(int)temp2_list[3]==99 || (int)temp2_list[4]==99 || (int)temp2_list[5]==99 ||
+			(int)temp2_list[6]==99 || (int)temp2_list[7]==99 || (int)temp2_list[8]==99 ||
+			(int)temp2_list[9]==99){
+				temperature2 = 99.0;
+			}else{
+				temperature2 = middleValueFilter(temp2_list,10)-temp2_correct;
+			}
+		}
+		
+//		list_change(temp2_list,ADC_Channel_3,10);
+//		if((int)temp2_list[0]==99 || (int)temp2_list[1]==99 || (int)temp2_list[2]==99 || 
+//			(int)temp2_list[3]==99 || (int)temp2_list[4]==99 || (int)temp2_list[5]==99 ||
+//			(int)temp2_list[6]==99 || (int)temp2_list[7]==99 || (int)temp2_list[8]==99 ||
+//			(int)temp2_list[9]==99){
+//				temperature2 = 99.0;
+//			}else{
+//				temperature2= middleValueFilter(temp2_list,10)-temp2_correct;
+//			}
+		if(temperature2<0 || temperature2>90.0)temperature2=99.0;
+
+		
+		float temperature3_buff = 0.0;
+		list_change(temp3_list_buff,ADC_Channel_4,10);
+		if(TIM1_Counter%10 == 0){
+			float temperature3_buff = middleValueFilter(temp3_list_buff,10);
+			list_change_end(temp3_list,temperature3_buff,10);
+			if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
+			(int)temp3_list[3]==99 || (int)temp3_list[4]==99 || (int)temp3_list[5]==99 ||
+			(int)temp3_list[6]==99 || (int)temp3_list[7]==99 || (int)temp3_list[8]==99 ||
+			(int)temp3_list[9]==99){
+				temperature3 = 99.0;
+			}else{
+				temperature3 = middleValueFilter(temp3_list,10)-temp3_correct;
+			}
+		}
+		
+		
+//		list_change(temp3_list,ADC_Channel_4,10);
+//		if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
+//			(int)temp3_list[3]==99 || (int)temp3_list[4]==99 || (int)temp3_list[5]==99 ||
+//			(int)temp3_list[6]==99 || (int)temp3_list[7]==99 || (int)temp3_list[8]==99 ||
+//			(int)temp3_list[9]==99){
+//				temperature3 = 99.0;
+//			}else{
+//				temperature3= middleValueFilter(temp3_list,10)-temp3_correct;
+//			}
+		if(temperature3<0 || temperature3>90.0)temperature3=99.0;			
+	
+		
+//		printf("Temperature1: %.2f degrees Celsius\r\n", temperature1);	
+//		printf("Temperature2: %.2f degrees Celsius\r\n", temperature2);	
+//		printf("Temperature3: %.2f degrees Celsius\r\n", temperature3);	
+		
+		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=0;}else{
+			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
+		}
+		
+	}
+}
 
 //TIM3 PWM部分初始化 
 //PWM输出初始化
