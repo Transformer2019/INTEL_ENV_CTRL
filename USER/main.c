@@ -330,6 +330,7 @@ int main(void)
 											json_object_get(temp_ctrl_j, "min_nh3")
 										){
 											relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_ctrl_j, "max_temp"));
+											//showdigit_color(0,110,relay_structure[no].temp_control.max_temp%10,WHITE,HOME_BACK);
 											relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_ctrl_j, "min_temp"));
 											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_ctrl_j, "temp_choose_flag"));
 											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_ctrl_j, "startup_mode"));
@@ -338,8 +339,10 @@ int main(void)
 										
 										}
 										// 释放 JSON 对象
-										json_decref(temp_ctrl_j);
-									}								    
+										
+									}	
+									//释放 JSON 对象（位置有待确定）
+									json_decref(temp_ctrl_j);									
 									break;
 								case 2:
 									time_ctrl = json_object_get(root, "time_ctrl");
@@ -695,7 +698,7 @@ int main(void)
 			//printf("%d\n",send_MQTT_Flag);
 			u8 send_index = send_MQTT_Flag-12;
 			char send_data_config[50]="";
-			sprintf(send_data_config,"%d,%d,%d;%0.1f,%0.1f,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d",
+			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d",
 			relay_structure[send_index].relayNo,relay_structure[send_index].relay_mode,relay_structure[send_index].on_off,
 			relay_structure[send_index].temp_control.max_temp,relay_structure[send_index].temp_control.min_temp,relay_structure[send_index].temp_control.temp_choose_flag,relay_structure[send_index].temp_control.startup_mode,
 			relay_structure[send_index].temp_control.max_nh3,relay_structure[send_index].temp_control.min_nh3,

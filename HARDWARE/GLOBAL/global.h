@@ -59,8 +59,8 @@ typedef enum {
 } Temp_Choose_flag;
 typedef struct {
     uint8_t  relayNo;
-	float  max_temp;
-    float  min_temp;
+	uint8_t  max_temp;
+    uint8_t  min_temp;
 	uint16_t max_nh3;
 	uint16_t min_nh3;
 	uint8_t temp_choose_flag;//取值1,2,3(温度三),4(平均温度)

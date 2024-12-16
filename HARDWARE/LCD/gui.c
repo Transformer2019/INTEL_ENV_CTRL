@@ -1429,8 +1429,8 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 						if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
 						if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3+=1;
 						if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3+=1;
-						if(relay_structure[last_index_save-12].temp_control.max_nh3>=30)relay_structure[last_index_save-12].temp_control.max_nh3=30;
-						if(relay_structure[last_index_save-12].temp_control.min_nh3>=30)relay_structure[last_index_save-12].temp_control.min_nh3=30;
+						if(relay_structure[last_index_save-12].temp_control.max_nh3>=50)relay_structure[last_index_save-12].temp_control.max_nh3=50;
+						if(relay_structure[last_index_save-12].temp_control.min_nh3>=50)relay_structure[last_index_save-12].temp_control.min_nh3=50;
 						
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 2){
