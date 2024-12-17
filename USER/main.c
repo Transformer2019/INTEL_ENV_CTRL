@@ -32,6 +32,8 @@ char flash_data[9]={0x00};
 //static char send_data_config[350]="";
 //uint8_t send_index_t;
 
+uint8_t addr;
+
 int main(void)
 {	
 		GPIO_InitTypeDef GPIO_InitStructure;
@@ -177,9 +179,24 @@ int main(void)
 
 	next:	
 		//485代码
-		uint8_t cc[4] = {0x00,0x02,0x00,0x01};
-		mbh_send(1,0x03,cc,4);
-		mbh_poll();
+		addr++;
+		if(addr == 1){
+			uint8_t cc[4] = {0x00,0x02,0x00,0x01};
+			mbh_send(1,0x03,cc,4);
+			mbh_poll();
+		}
+		if(addr == 2){
+			uint8_t cc[4] = {0x00,0x00,0x00,0x02};
+			mbh_send(2,0x03,cc,4);
+			mbh_poll();
+		}
+		if(addr == 3){
+			uint8_t cc[4] = {0x00,0x00,0x00,0x03};
+			mbh_send(3,0x03,cc,4);
+			mbh_poll();
+			addr = 0;
+		}
+
 		
 		//printf("pframe[4]:%x\n",temp1);
 		
@@ -263,6 +280,11 @@ int main(void)
 					json_t *timer3;
 					json_t *timer4;
 					json_t *timer5;
+					json_t *hh;
+					json_t *mm;
+					json_t *ss;
+					json_t *on_off;
+					
                //showdigit_color(336,132,1,BLUE,BLACK);
 			  // const char *text = "{\"success\":2}";
 			  //char text[100]="{\"no\":5,\"mode\":2}";
@@ -336,7 +358,11 @@ int main(void)
 											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_ctrl_j, "startup_mode"));
 											relay_structure[no].temp_control.max_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "max_nh3"));
 											relay_structure[no].temp_control.min_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "min_nh3"));
-										
+											
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M1OK\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 										}
 										// 释放 JSON 对象
 										
@@ -365,6 +391,10 @@ int main(void)
 										if(time_stop_j && time_open_j){
 											relay_structure[no].time_control.time_open = json_integer_value(time_open_j);
 											relay_structure[no].time_control.time_stop = json_integer_value(time_stop_j);
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M2OK\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 										}
 
 										// 释放 JSON 对象
@@ -391,77 +421,234 @@ int main(void)
 											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_time_ctrl_j, "temp_choose_flag"));
 											relay_structure[no].time_control.time_open = json_integer_value(json_object_get(temp_time_ctrl_j, "time_open"));
 											relay_structure[no].time_control.time_stop = json_integer_value(json_object_get(temp_time_ctrl_j, "time_stop"));
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M3OK\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 										}
 										json_decref(temp_time_ctrl_j);
 									}
 									break;
 								case 4:
-									time_seg_ctrl = json_object_get(root, "time_seg_ctrl");
-									const char *time_seg_ctrl_text = json_string_value(time_seg_ctrl);
-									json_t *time_seg_ctrl_j  = json_loads(time_seg_ctrl_text, 0, &error);
-									if(json_is_object(time_seg_ctrl_j)){
-										timer1 = json_object_get(time_seg_ctrl, "timer1");
-										const char *timer1_text = json_string_value(timer1);
-										json_t *time1_j  = json_loads(timer1_text, 0, &error);
-										if(json_is_object(time1_j)){
-											relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(json_object_get(time1_j,"h"));
-											relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(json_object_get(time1_j,"m"));
-											relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(json_object_get(time1_j,"s"));
+									time_seg_ctrl = json_object_get(root,"time_seg_ctrl");
+									if(json_is_object(time_seg_ctrl)){
+										//timer1
+										timer1 = json_object_get(time_seg_ctrl,"timer1");
+										if(json_is_object(timer1)){
+											hh = json_object_get(timer1,"h");
+											mm = json_object_get(timer1,"m");
+											ss = json_object_get(timer1,"s");
+											on_off = json_object_get(timer1,"on-off");
+											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
+												relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(hh);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(mm);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(ss);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.on_off = json_integer_value(on_off);
+												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T1OK\"\r\n",imei_no);//timer1配置正确
+												delay_ms(30);
+												UART3_RxCounter = 0; 
+												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+											}else{
+												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms1 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+												delay_ms(30);
+												UART3_RxCounter = 0;
+												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+											}
+										}else{
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T1 Invalid data\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0;
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
 										}
-										json_decref(time1_j);
+//										//timer2
+//										timer2 = json_object_get(time_seg_ctrl,"timer2");
+//										if(json_is_object(timer2)){
+//											hh = json_object_get(timer2,"h");
+//											mm = json_object_get(timer2,"m");
+//											ss = json_object_get(timer2,"s");
+//											on_off = json_object_get(timer2,"on-off");
+//											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
+//												relay_structure[no].time_schedule.relay_time_seg.Time2.hour = json_integer_value(hh);
+//												relay_structure[no].time_schedule.relay_time_seg.Time2.minutes = json_integer_value(mm);
+//												relay_structure[no].time_schedule.relay_time_seg.Time2.seconds = json_integer_value(ss);
+//												relay_structure[no].time_schedule.relay_time_seg.Time2.on_off = json_integer_value(on_off);
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T2OK\"\r\n",imei_no);//timer1配置正确
+//												delay_ms(30);
+//												UART3_RxCounter = 0; 
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+//											}else{
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms2 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+//												delay_ms(30);
+//												UART3_RxCounter = 0;
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//											}
+//										}else{
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T2 Invalid data\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0;
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//										}
+//										//timer3
+//										timer3 = json_object_get(time_seg_ctrl,"timer3");
+//										if(json_is_object(timer3)){
+//											hh = json_object_get(timer3,"h");
+//											mm = json_object_get(timer3,"m");
+//											ss = json_object_get(timer3,"s");
+//											on_off = json_object_get(timer3,"on-off");
+//											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
+//												relay_structure[no].time_schedule.relay_time_seg.Time3.hour = json_integer_value(hh);
+//												relay_structure[no].time_schedule.relay_time_seg.Time3.minutes = json_integer_value(mm);
+//												relay_structure[no].time_schedule.relay_time_seg.Time3.seconds = json_integer_value(ss);
+//												relay_structure[no].time_schedule.relay_time_seg.Time3.on_off = json_integer_value(on_off);
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T3OK\"\r\n",imei_no);//timer1配置正确
+//												delay_ms(30);
+//												UART3_RxCounter = 0; 
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+//											}else{
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms3 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+//												delay_ms(30);
+//												UART3_RxCounter = 0;
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//											}
+//										}else{
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T3 Invalid data\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0;
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//										}
+//										//timer4
+//										timer4 = json_object_get(time_seg_ctrl,"timer4");
+//										if(json_is_object(timer4)){
+//											hh = json_object_get(timer4,"h");
+//											mm = json_object_get(timer4,"m");
+//											ss = json_object_get(timer4,"s");
+//											on_off = json_object_get(timer4,"on-off");
+//											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
+//												relay_structure[no].time_schedule.relay_time_seg.Time4.hour = json_integer_value(hh);
+//												relay_structure[no].time_schedule.relay_time_seg.Time4.minutes = json_integer_value(mm);
+//												relay_structure[no].time_schedule.relay_time_seg.Time4.seconds = json_integer_value(ss);
+//												relay_structure[no].time_schedule.relay_time_seg.Time4.on_off = json_integer_value(on_off);
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T4OK\"\r\n",imei_no);//timer1配置正确
+//												delay_ms(30);
+//												UART3_RxCounter = 0; 
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+//											}else{
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms4 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+//												delay_ms(30);
+//												UART3_RxCounter = 0;
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//											}
+//										}else{
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T4 Invalid data\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0;
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//										}
+//										//timer5
+//										timer5 = json_object_get(time_seg_ctrl,"timer5");
+//										if(json_is_object(timer5)){
+//											hh = json_object_get(timer5,"h");
+//											mm = json_object_get(timer5,"m");
+//											ss = json_object_get(timer5,"s");
+//											on_off = json_object_get(timer5,"on-off");
+//											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
+//												relay_structure[no].time_schedule.relay_time_seg.Time5.hour = json_integer_value(hh);
+//												relay_structure[no].time_schedule.relay_time_seg.Time5.minutes = json_integer_value(mm);
+//												relay_structure[no].time_schedule.relay_time_seg.Time5.seconds = json_integer_value(ss);
+//												relay_structure[no].time_schedule.relay_time_seg.Time5.on_off = json_integer_value(on_off);
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T5OK\"\r\n",imei_no);//timer1配置正确
+//												delay_ms(30);
+//												UART3_RxCounter = 0; 
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+//											}else{
+//												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms5 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+//												delay_ms(30);
+//												UART3_RxCounter = 0;
+//												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//											}
+//										}else{
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T5 Invalid data\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0;
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+//										}
 										
-										timer2 = json_object_get(time_seg_ctrl, "timer2");
-										const char *timer2_text = json_string_value(timer2);
-										json_t *time2_j  = json_loads(timer2_text, 0, &error);
-										if(json_is_object(time2_j)){
-											relay_structure[no].time_schedule.relay_time_seg.Time2.hour = json_integer_value(json_object_get(time2_j,"h"));
-											relay_structure[no].time_schedule.relay_time_seg.Time2.minutes = json_integer_value(json_object_get(time2_j,"m"));
-											relay_structure[no].time_schedule.relay_time_seg.Time2.seconds = json_integer_value(json_object_get(time2_j,"s"));
-										}
-										json_decref(time2_j);
 										
-										timer3 = json_object_get(time_seg_ctrl, "timer3");
-										const char *timer3_text = json_string_value(timer3);
-										json_t *time3_j  = json_loads(timer3_text, 0, &error);
-										if(json_is_object(time3_j)){
-											relay_structure[no].time_schedule.relay_time_seg.Time3.hour = json_integer_value(json_object_get(time3_j,"h"));
-											relay_structure[no].time_schedule.relay_time_seg.Time3.minutes = json_integer_value(json_object_get(time3_j,"m"));
-											relay_structure[no].time_schedule.relay_time_seg.Time3.seconds = json_integer_value(json_object_get(time3_j,"s"));
-										}
-										json_decref(time3_j);
-										
-										timer4 = json_object_get(time_seg_ctrl, "timer4");
-										const char *timer4_text = json_string_value(timer4);
-										json_t *time4_j  = json_loads(timer4_text, 0, &error);
-										if(json_is_object(time4_j)){
-											relay_structure[no].time_schedule.relay_time_seg.Time4.hour = json_integer_value(json_object_get(time4_j,"h"));
-											relay_structure[no].time_schedule.relay_time_seg.Time4.minutes = json_integer_value(json_object_get(time4_j,"m"));
-											relay_structure[no].time_schedule.relay_time_seg.Time4.seconds = json_integer_value(json_object_get(time4_j,"s"));
-										}
-										json_decref(time4_j);
-										
-										timer5 = json_object_get(time_seg_ctrl, "timer5");
-										const char *timer5_text = json_string_value(timer5);
-										json_t *time5_j  = json_loads(timer5_text, 0, &error);
-										if(json_is_object(time5_j)){
-											relay_structure[no].time_schedule.relay_time_seg.Time5.hour = json_integer_value(json_object_get(time5_j,"h"));
-											relay_structure[no].time_schedule.relay_time_seg.Time5.minutes = json_integer_value(json_object_get(time5_j,"m"));
-											relay_structure[no].time_schedule.relay_time_seg.Time5.seconds = json_integer_value(json_object_get(time5_j,"s"));
-										}
-										json_decref(time5_j);
+									}else{
+										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M4 Invalid data\"\r\n",imei_no);//发布消息
+										delay_ms(30);
+										UART3_RxCounter = 0; //重新等待接收下一个推送消息
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 									}
-									json_decref(time_seg_ctrl_j);
+								
+								
+								
+//									time_seg_ctrl = json_object_get(root, "time_seg_ctrl");
+//									const char *time_seg_ctrl_text = json_string_value(time_seg_ctrl);
+//									json_t *time_seg_ctrl_j  = json_loads(time_seg_ctrl_text, 0, &error);
+//									if(json_is_object(time_seg_ctrl_j)){
+//										timer1 = json_object_get(time_seg_ctrl, "timer1");
+//										const char *timer1_text = json_string_value(timer1);
+//										json_t *time1_j  = json_loads(timer1_text, 0, &error);
+//										if(json_is_object(time1_j)){
+//											relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(json_object_get(time1_j,"h"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(json_object_get(time1_j,"m"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(json_object_get(time1_j,"s"));
+//										}
+//										json_decref(time1_j);
+//										
+//										timer2 = json_object_get(time_seg_ctrl, "timer2");
+//										const char *timer2_text = json_string_value(timer2);
+//										json_t *time2_j  = json_loads(timer2_text, 0, &error);
+//										if(json_is_object(time2_j)){
+//											relay_structure[no].time_schedule.relay_time_seg.Time2.hour = json_integer_value(json_object_get(time2_j,"h"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time2.minutes = json_integer_value(json_object_get(time2_j,"m"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time2.seconds = json_integer_value(json_object_get(time2_j,"s"));
+//										}
+//										json_decref(time2_j);
+//										
+//										timer3 = json_object_get(time_seg_ctrl, "timer3");
+//										const char *timer3_text = json_string_value(timer3);
+//										json_t *time3_j  = json_loads(timer3_text, 0, &error);
+//										if(json_is_object(time3_j)){
+//											relay_structure[no].time_schedule.relay_time_seg.Time3.hour = json_integer_value(json_object_get(time3_j,"h"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time3.minutes = json_integer_value(json_object_get(time3_j,"m"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time3.seconds = json_integer_value(json_object_get(time3_j,"s"));
+//										}
+//										json_decref(time3_j);
+//										
+//										timer4 = json_object_get(time_seg_ctrl, "timer4");
+//										const char *timer4_text = json_string_value(timer4);
+//										json_t *time4_j  = json_loads(timer4_text, 0, &error);
+//										if(json_is_object(time4_j)){
+//											relay_structure[no].time_schedule.relay_time_seg.Time4.hour = json_integer_value(json_object_get(time4_j,"h"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time4.minutes = json_integer_value(json_object_get(time4_j,"m"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time4.seconds = json_integer_value(json_object_get(time4_j,"s"));
+//										}
+//										json_decref(time4_j);
+//										
+//										timer5 = json_object_get(time_seg_ctrl, "timer5");
+//										const char *timer5_text = json_string_value(timer5);
+//										json_t *time5_j  = json_loads(timer5_text, 0, &error);
+//										if(json_is_object(time5_j)){
+//											relay_structure[no].time_schedule.relay_time_seg.Time5.hour = json_integer_value(json_object_get(time5_j,"h"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time5.minutes = json_integer_value(json_object_get(time5_j,"m"));
+//											relay_structure[no].time_schedule.relay_time_seg.Time5.seconds = json_integer_value(json_object_get(time5_j,"s"));
+//										}
+//										json_decref(time5_j);
+//									}
+//									json_decref(time_seg_ctrl_j);
 									break;
 								default:break;
 							}
 						
 						
 							//发送回执消息
-							UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,2,\"OK\"\r\n",imei_no);//发布消息
-							delay_ms(30);
-							
-							UART3_RxCounter = 0; //重新等待接收下一个推送消息
-							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+//							UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,2,\"OK\"\r\n",imei_no);//发布消息
+//							delay_ms(30);
+//							
+//							UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 						}else{
 							
 							json_t *t1_flag = json_object_get(root, "t1");
@@ -495,16 +682,16 @@ int main(void)
 						}
 						
 						
-						json_decref(root);
+						//json_decref(root);
 		
 					}else{
-						UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,12,\"Invalid data\"\r\n",imei_no);//发布消息
+						UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"Invalid root data\"\r\n",imei_no);//发布消息
 						delay_ms(30);
 						
 						UART3_RxCounter = 0; //重新等待接收下一个推送消息
                         memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
-					//json_decref(root);
+					json_decref(root);
 					
 				    	
 					
