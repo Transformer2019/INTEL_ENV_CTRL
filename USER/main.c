@@ -33,6 +33,7 @@ char flash_data[9]={0x00};
 //uint8_t send_index_t;
 
 uint8_t addr;
+uint8_t addr_flag;
 
 int main(void)
 {	
@@ -179,25 +180,25 @@ int main(void)
 
 	next:	
 		//485代码
-		addr++;
-		if(addr == 1){
-			uint8_t cc[4] = {0x00,0x02,0x00,0x01};
-			mbh_send(1,0x03,cc,4);
-			mbh_poll();
+		addr_flag++;
+		if(addr_flag==1){
+//			uint8_t cc[4] = {0x00,0x02,0x00,0x01};
+//			mbh_send(1,0x03,cc,4);
+			//mbh_poll();
 		}
-		if(addr == 2){
-			uint8_t cc[4] = {0x00,0x00,0x00,0x02};
-			mbh_send(2,0x03,cc,4);
-			mbh_poll();
+		if(addr_flag == 201){
+//			uint8_t cc[4] = {0x00,0x00,0x00,0x02};
+//			mbh_send(2,0x03,cc,4);
+			//mbh_poll();
 		}
-		if(addr == 3){
+		if(addr_flag == 301){
 			uint8_t cc[4] = {0x00,0x00,0x00,0x03};
 			mbh_send(3,0x03,cc,4);
-			mbh_poll();
-			addr = 0;
+			//mbh_poll();
+			addr_flag = 0;
 		}
 
-		
+		mbh_poll();
 		//printf("pframe[4]:%x\n",temp1);
 		
 		if(mqtt_flag){
@@ -270,27 +271,27 @@ int main(void)
 //					i=0;
 					//解析字符串
 					json_error_t error;
-					json_t *root;
-					json_t *temp_ctrl;
-					json_t *time_ctrl;
-					json_t *temp_time_ctrl;
-					json_t *time_seg_ctrl;
-					json_t *timer1;
-					json_t *timer2;
-					json_t *timer3;
-					json_t *timer4;
-					json_t *timer5;
-					json_t *hh;
-					json_t *mm;
-					json_t *ss;
-					json_t *on_off;
+					//json_t *root;
+//					json_t *temp_ctrl;
+//					json_t *time_ctrl;
+//					json_t *temp_time_ctrl;
+//					json_t *time_seg_ctrl;
+//					json_t *timer1;
+//					json_t *timer2;
+//					json_t *timer3;
+//					json_t *timer4;
+//					json_t *timer5;
+//					json_t *hh;
+//					json_t *mm;
+//					json_t *ss;
+//					json_t *on_off;
 					
                //showdigit_color(336,132,1,BLUE,BLACK);
 			  // const char *text = "{\"success\":2}";
 			  //char text[100]="{\"no\":5,\"mode\":2}";
 			 // char *text = "{\"no\":5,\"mode\":2}";
 			  //LCD_ShowString(0,216,16,(char*)userData,0);
-					root = json_loads((const char*)userData, 0, &error); 
+					json_t *root = json_loads((const char*)userData, 0, &error); 
 					if(json_is_object(root)){
 						json_t *no_j = json_object_get(root, "no");
 //						if (!json_is_integer(no_j)) {
@@ -309,158 +310,262 @@ int main(void)
 						//LCD_ShowString(0,216,16,"time_ctrl",0);
 						//showdigit_color(380,132,3,BLUE,BLACK);
 						
-						json_t *out_voltage_j = json_object_get(root, "out_voltage");
-//						if (!json_is_integer(out_voltage_j)) {
-//							json_decref(root);
+//						json_t *out_voltage_j = json_object_get(root, "out_voltage");
+//						if(out_voltage_j){
+//							out_voltage = json_integer_value(out_voltage_j);
+//							if(out_voltage>=0 && out_voltage<=10){
+//								u16 data_v = out_voltage*4095/10;
+//								u8 v_low = data_v<<4 | 0x00;
+//								u8 v_high = data_v>>4 | 0x00;
+//								GP8201S_Write(0,0,v_low,v_high);
+//							}
 //						}
-						if(out_voltage_j){
-							out_voltage = json_integer_value(out_voltage_j);
-							if(out_voltage>=0 && out_voltage<=10){
-								u16 data_v = out_voltage*4095/10;
-								u8 v_low = data_v<<4 | 0x00;
-								u8 v_high = data_v>>4 | 0x00;
-								GP8201S_Write(0,0,v_low,v_high);
-							}
-						}
 
-						if(mode_j && no_j){
-							int no = json_integer_value(no_j)-1;
-							int mode = json_integer_value(mode_j);
-							relay_structure[no].relay_mode = mode;
+						if(json_is_integer(mode_j) && json_is_integer(no_j)){
+							uint8_t no = json_integer_value(no_j)-1;
+							uint8_t mode = json_integer_value(mode_j);
+//							relay_structure[no].relay_mode = mode;
 						
 							switch(mode){
-								case 1:						
-	//								temp_ctrl = json_object_get(root, "temp_ctrl");
-	//								if(json_is_object(temp_ctrl)){
-	//									relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_ctrl, "max_temp"));
-	//									relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_ctrl, "min_temp"));
-	//									relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_ctrl, "temp_choose_flag"));
-	//									relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_ctrl, "startup_mode"));
-	//									relay_structure[no].temp_control.max_nh3 = json_integer_value(json_object_get(temp_ctrl, "max_nh3"));
-	//									relay_structure[no].temp_control.min_nh3 = json_integer_value(json_object_get(temp_ctrl, "min_nh3"));
-	//								}
-									temp_ctrl = json_object_get(root, "temp_ctrl");
-									const char *temp_ctrl_text = json_string_value(temp_ctrl);
-									json_t *temp_ctrl_j  = json_loads(temp_ctrl_text, 0, &error);	
-									if(json_is_object(temp_ctrl_j)){
+								case 0:
+									relay_structure[no].relay_mode = 0;
+									break;
+								case 1:	
+									json_t *temp_ctrl = json_object_get(root, "temp_ctrl");
+									if(json_is_object(temp_ctrl)){
+										
+										json_t *max_temp = json_object_get(temp_ctrl, "max_temp");
+										json_t *min_temp = json_object_get(temp_ctrl, "min_temp");
+										json_t *temp_choose_flag = json_object_get(temp_ctrl, "temp_choose_flag");
+										json_t *startup_mode = json_object_get(temp_ctrl, "startup_mode");
+										json_t *max_nh3 = json_object_get(temp_ctrl, "max_nh3");
+										json_t *min_nh3 = json_object_get(temp_ctrl, "min_nh3");
 										//showdigit_color(0,90,8,BLUE,BLACK);
-										if(json_object_get(temp_ctrl_j, "max_temp") &&
-											json_object_get(temp_ctrl_j, "min_temp") &&
-										    json_object_get(temp_ctrl_j, "temp_choose_flag") &&
-										    json_object_get(temp_ctrl_j, "startup_mode") &&
-										    json_object_get(temp_ctrl_j, "max_nh3") &&
-											json_object_get(temp_ctrl_j, "min_nh3")
+										if(json_is_integer(max_temp) && json_is_integer(min_temp) && json_is_integer(temp_choose_flag) && json_is_integer(startup_mode) &&
+										    json_is_integer(max_nh3) && json_is_integer(min_nh3)
 										){
-											relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_ctrl_j, "max_temp"));
+											relay_structure[no].temp_control.max_temp = json_integer_value(max_temp);
 											//showdigit_color(0,110,relay_structure[no].temp_control.max_temp%10,WHITE,HOME_BACK);
-											relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_ctrl_j, "min_temp"));
-											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_ctrl_j, "temp_choose_flag"));
-											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_ctrl_j, "startup_mode"));
-											relay_structure[no].temp_control.max_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "max_nh3"));
-											relay_structure[no].temp_control.min_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "min_nh3"));
-											
+											relay_structure[no].temp_control.min_temp = json_integer_value(min_temp);
+											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(temp_choose_flag);
+											relay_structure[no].temp_control.startup_mode = json_integer_value(startup_mode);
+											relay_structure[no].temp_control.max_nh3 = json_integer_value(max_nh3);
+											relay_structure[no].temp_control.min_nh3 = json_integer_value(min_nh3);
+											relay_structure[no].relay_mode = 1;
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M1OK\"\r\n",imei_no);//发布消息
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-										}
-										// 释放 JSON 对象
-										
-									}	
-									//释放 JSON 对象（位置有待确定）
-									json_decref(temp_ctrl_j);									
-									break;
-								case 2:
-									time_ctrl = json_object_get(root, "time_ctrl");
-	//							    if (!json_is_string(time_ctrl)) {
-	//									json_decref(root);
-	//								}
-									// 解析 `data` 中的 JSON 字符串 
-									const char *time_ctrl_text = json_string_value(time_ctrl);
-									json_t *time_ctrl_j  = json_loads(time_ctrl_text, 0, &error);		
-									if(json_is_object(time_ctrl_j)){
-
-
-										//showdigit_color(0,110,8,BLUE,BLACK);
-										// 提取 "time_stop" 和 "time_open" 字段
-										json_t *time_stop_j = json_object_get(time_ctrl_j, "time_stop");
-										json_t *time_open_j = json_object_get(time_ctrl_j, "time_open");
-	//									if (!json_is_integer(time_stop_j) || !json_is_integer(time_open_j)) {
-	//										json_decref(time_ctrl_j);
-	//									}
-										if(time_stop_j && time_open_j){
-											relay_structure[no].time_control.time_open = json_integer_value(time_open_j);
-											relay_structure[no].time_control.time_stop = json_integer_value(time_stop_j);
-											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M2OK\"\r\n",imei_no);//发布消息
+										}else{
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M1V Invalid data\"\r\n",imei_no);//发布消息
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 										}
 
-										// 释放 JSON 对象
-										json_decref(time_ctrl_j);
-									}								    
+									}else{
+										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M1 Invalid data\"\r\n",imei_no);//发布消息
+										delay_ms(30);
+										UART3_RxCounter = 0; //重新等待接收下一个推送消息
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+									}
+									
+																		
+//									temp_ctrl = json_object_get(root, "temp_ctrl");
+//									const char *temp_ctrl_text = json_string_value(temp_ctrl);
+//									json_t *temp_ctrl_j  = json_loads(temp_ctrl_text, 0, &error);	
+//									if(json_is_object(temp_ctrl_j)){
+//										//showdigit_color(0,90,8,BLUE,BLACK);
+//										if(json_object_get(temp_ctrl_j, "max_temp") &&
+//											json_object_get(temp_ctrl_j, "min_temp") &&
+//										    json_object_get(temp_ctrl_j, "temp_choose_flag") &&
+//										    json_object_get(temp_ctrl_j, "startup_mode") &&
+//										    json_object_get(temp_ctrl_j, "max_nh3") &&
+//											json_object_get(temp_ctrl_j, "min_nh3")
+//										){
+//											relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_ctrl_j, "max_temp"));
+//											//showdigit_color(0,110,relay_structure[no].temp_control.max_temp%10,WHITE,HOME_BACK);
+//											relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_ctrl_j, "min_temp"));
+//											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_ctrl_j, "temp_choose_flag"));
+//											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_ctrl_j, "startup_mode"));
+//											relay_structure[no].temp_control.max_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "max_nh3"));
+//											relay_structure[no].temp_control.min_nh3 = json_integer_value(json_object_get(temp_ctrl_j, "min_nh3"));
+//											
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M1OK\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+//										}
+//										// 释放 JSON 对象
+//										
+//									}	
+//									//释放 JSON 对象（位置有待确定）
+//									json_decref(temp_ctrl_j);									
+									break;
+								case 2:
+									json_t *time_ctrl = json_object_get(root, "time_ctrl");
+									if(json_is_object(time_ctrl)){
+										json_t *time_stop = json_object_get(time_ctrl, "time_stop");
+										json_t *time_open = json_object_get(time_ctrl, "time_open");
+										if(json_is_integer(time_stop) && json_is_integer(time_open)){
+											relay_structure[no].time_control.time_open = json_integer_value(time_open);
+											relay_structure[no].time_control.time_stop = json_integer_value(time_stop);
+											relay_structure[no].relay_mode = 2;
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M2OK\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										}else{
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M2V Invalid data\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										}
 
+									}else{
+										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M2 Invalid data\"\r\n",imei_no);//发布消息
+										delay_ms(30);
+										UART3_RxCounter = 0; //重新等待接收下一个推送消息
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+									}
+									
+									//									time_ctrl = json_object_get(root, "time_ctrl");
+//	//							    if (!json_is_string(time_ctrl)) {
+//	//									json_decref(root);
+//	//								}
+//									// 解析 `data` 中的 JSON 字符串 
+//									const char *time_ctrl_text = json_string_value(time_ctrl);
+//									json_t *time_ctrl_j  = json_loads(time_ctrl_text, 0, &error);		
+//									if(json_is_object(time_ctrl_j)){
+
+
+//										//showdigit_color(0,110,8,BLUE,BLACK);
+//										// 提取 "time_stop" 和 "time_open" 字段
+//										json_t *time_stop_j = json_object_get(time_ctrl_j, "time_stop");
+//										json_t *time_open_j = json_object_get(time_ctrl_j, "time_open");
+//	//									if (!json_is_integer(time_stop_j) || !json_is_integer(time_open_j)) {
+//	//										json_decref(time_ctrl_j);
+//	//									}
+//										if(time_stop_j && time_open_j){
+//											relay_structure[no].time_control.time_open = json_integer_value(time_open_j);
+//											relay_structure[no].time_control.time_stop = json_integer_value(time_stop_j);
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M2OK\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+//										}
+
+//										// 释放 JSON 对象
+//										json_decref(time_ctrl_j);
+//									}	
 									break;
 								case 3:
-									temp_time_ctrl = json_object_get(root, "temp_time_ctrl");
-									const char *temp_time_ctrl_text = json_string_value(temp_time_ctrl);
-									json_t *temp_time_ctrl_j  = json_loads(temp_time_ctrl_text, 0, &error);
-									if(json_is_object(temp_time_ctrl_j)){
+									json_t *temp_time_ctrl = json_object_get(root, "temp_time_ctrl");
+									if(json_is_object(temp_time_ctrl)){
+										json_t *max_temp_j = json_object_get(temp_ctrl, "max_temp");
+										json_t *min_temp_j = json_object_get(temp_ctrl, "min_temp");
+										json_t *temp_choose_flag_j = json_object_get(temp_ctrl, "temp_choose_flag");
+										json_t *startup_mode_j = json_object_get(temp_ctrl, "startup_mode");
+										json_t *time_stop_j = json_object_get(time_ctrl, "time_stop");
+										json_t *time_open_j = json_object_get(time_ctrl, "time_open");
 										
-										if(json_object_get(temp_time_ctrl_j, "max_temp") &&
-											json_object_get(temp_time_ctrl_j, "min_temp") &&
-											json_object_get(temp_time_ctrl_j, "startup_mode") &&
-											json_object_get(temp_time_ctrl_j, "temp_choose_flag") &&
-											json_object_get(temp_time_ctrl_j, "time_open") &&
-											json_object_get(temp_time_ctrl_j, "time_stop")
+										if(json_is_integer(max_temp_j) && json_is_integer(min_temp_j) && json_is_integer(temp_choose_flag_j) && json_is_integer(startup_mode_j) &&
+										    json_is_integer(time_stop_j) && json_is_integer(time_open_j)
 										){
-											relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_time_ctrl_j, "max_temp"));
-											relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_time_ctrl_j, "min_temp"));
-											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_time_ctrl_j, "startup_mode"));
-											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_time_ctrl_j, "temp_choose_flag"));
-											relay_structure[no].time_control.time_open = json_integer_value(json_object_get(temp_time_ctrl_j, "time_open"));
-											relay_structure[no].time_control.time_stop = json_integer_value(json_object_get(temp_time_ctrl_j, "time_stop"));
+											relay_structure[no].temp_control.max_temp = json_integer_value(max_temp_j);
+											relay_structure[no].temp_control.min_temp = json_integer_value(min_temp_j);
+											relay_structure[no].temp_control.startup_mode = json_integer_value(startup_mode_j);
+											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(temp_choose_flag_j);
+											relay_structure[no].time_control.time_open = json_integer_value(time_open_j);
+											relay_structure[no].time_control.time_stop = json_integer_value(time_stop_j);
+											relay_structure[no].relay_mode = 3;
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M3OK\"\r\n",imei_no);//发布消息
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+										}else{
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M3V Invalid data\"\r\n",imei_no);//发布消息
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 										}
-										json_decref(temp_time_ctrl_j);
+										
+									}else{
+										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M3 Invalid data\"\r\n",imei_no);//发布消息
+										delay_ms(30);
+										UART3_RxCounter = 0; //重新等待接收下一个推送消息
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 									}
+//									temp_time_ctrl = json_object_get(root, "temp_time_ctrl");
+//									const char *temp_time_ctrl_text = json_string_value(temp_time_ctrl);
+//									json_t *temp_time_ctrl_j  = json_loads(temp_time_ctrl_text, 0, &error);
+//									if(json_is_object(temp_time_ctrl_j)){
+//										
+//										if(json_object_get(temp_time_ctrl_j, "max_temp") &&
+//											json_object_get(temp_time_ctrl_j, "min_temp") &&
+//											json_object_get(temp_time_ctrl_j, "startup_mode") &&
+//											json_object_get(temp_time_ctrl_j, "temp_choose_flag") &&
+//											json_object_get(temp_time_ctrl_j, "time_open") &&
+//											json_object_get(temp_time_ctrl_j, "time_stop")
+//										){
+//											relay_structure[no].temp_control.max_temp = json_integer_value(json_object_get(temp_time_ctrl_j, "max_temp"));
+//											relay_structure[no].temp_control.min_temp = json_integer_value(json_object_get(temp_time_ctrl_j, "min_temp"));
+//											relay_structure[no].temp_control.startup_mode = json_integer_value(json_object_get(temp_time_ctrl_j, "startup_mode"));
+//											relay_structure[no].temp_control.temp_choose_flag = json_integer_value(json_object_get(temp_time_ctrl_j, "temp_choose_flag"));
+//											relay_structure[no].time_control.time_open = json_integer_value(json_object_get(temp_time_ctrl_j, "time_open"));
+//											relay_structure[no].time_control.time_stop = json_integer_value(json_object_get(temp_time_ctrl_j, "time_stop"));
+//											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M3OK\"\r\n",imei_no);//发布消息
+//											delay_ms(30);
+//											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+//										}
+//										json_decref(temp_time_ctrl_j);
+//									}
 									break;
 								case 4:
-									time_seg_ctrl = json_object_get(root,"time_seg_ctrl");
+									json_t *time_seg_ctrl = json_object_get(root,"time_seg_ctrl");
 									if(json_is_object(time_seg_ctrl)){
 										//timer1
-										timer1 = json_object_get(time_seg_ctrl,"timer1");
-										if(json_is_object(timer1)){
-											hh = json_object_get(timer1,"h");
-											mm = json_object_get(timer1,"m");
-											ss = json_object_get(timer1,"s");
-											on_off = json_object_get(timer1,"on-off");
-											if(json_is_integer(hh) && json_is_integer(mm) && json_is_integer(ss) && json_is_integer(on_off)){
-												relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(hh);
-												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(mm);
-												relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(ss);
-												relay_structure[no].time_schedule.relay_time_seg.Time1.on_off = json_integer_value(on_off);
-												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,6,\"M4T1OK\"\r\n",imei_no);//timer1配置正确
+										json_t *timer1 = json_object_get(time_seg_ctrl,"timer1");
+										json_t *timer2 = json_object_get(time_seg_ctrl,"timer2");
+										if(json_is_object(timer1) && json_is_object(timer2)){
+											json_t *h1 = json_object_get(timer1,"h");
+											json_t *m1 = json_object_get(timer1,"m");
+											json_t *s1 = json_object_get(timer1,"s");
+											json_t *on_off_1 = json_object_get(timer1,"on-off");
+											json_t *h2 = json_object_get(timer2,"h");
+											json_t *m2 = json_object_get(timer2,"m");
+											json_t *s2 = json_object_get(timer2,"s");
+											json_t *on_off_2 = json_object_get(timer2,"on-off");
+											if(json_is_integer(h1) && json_is_integer(m1) && json_is_integer(s1) && json_is_integer(on_off_1) &&
+												json_is_integer(h2) && json_is_integer(m2) && json_is_integer(s2) && json_is_integer(on_off_2)){
+												relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(h1);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(m1);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(s1);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.on_off = json_integer_value(on_off_1);
+													
+												relay_structure[no].time_schedule.relay_time_seg.Time2.hour = json_integer_value(h2);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.minutes = json_integer_value(m2);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.seconds = json_integer_value(s2);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.on_off = json_integer_value(on_off_2);
+												relay_structure[no].relay_mode = 4;
+												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M4OK\"\r\n",imei_no);//timer1配置正确
 												delay_ms(30);
 												UART3_RxCounter = 0; 
 												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 											}else{
-												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"hms1 Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,18,\"M4hms Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
 												delay_ms(30);
 												UART3_RxCounter = 0;
 												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
 											}
 										}else{
-											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"T1 Invalid data\"\r\n",imei_no);//发布消息
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M4T Invalid data\"\r\n",imei_no);//发布消息
 											delay_ms(30);
 											UART3_RxCounter = 0;
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
 										}
-//										//timer2
+										//timer2
 //										timer2 = json_object_get(time_seg_ctrl,"timer2");
 //										if(json_is_object(timer2)){
 //											hh = json_object_get(timer2,"h");
@@ -680,9 +785,8 @@ int main(void)
 							
 					
 						}
-						
-						
-						//json_decref(root);
+						// 释放 JSON 对象
+						json_decref(root);
 		
 					}else{
 						UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"Invalid root data\"\r\n",imei_no);//发布消息
@@ -691,7 +795,7 @@ int main(void)
 						UART3_RxCounter = 0; //重新等待接收下一个推送消息
                         memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
-					json_decref(root);
+					//json_decref(root);
 					
 				    	
 					
