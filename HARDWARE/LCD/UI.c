@@ -389,7 +389,7 @@ void LCD_ShowChar(u16 x,u16 y,u16 fc, u16 bc, u8 num,u8 size,u8 mode)
 	{		
 		for(pos=0;pos<size;pos++)
 		{
-			if(size==12)temp=asc2_1608[num][pos];//调用1206字体
+			if(size==12)temp=asc2_1206[num][pos];//调用1206字体
 			else temp=asc2_1608[num][pos];		 //调用1608字体
 			for(t=0;t<size/2;t++)
 		    {                 
@@ -405,7 +405,7 @@ void LCD_ShowChar(u16 x,u16 y,u16 fc, u16 bc, u8 num,u8 size,u8 mode)
 	{
 		for(pos=0;pos<size;pos++)
 		{
-			if(size==12)temp=asc2_1608[num][pos];//调用1206字体
+			if(size==12)temp=asc2_1206[num][pos];//调用1206字体
 			else temp=asc2_1608[num][pos];		 //调用1608字体
 			for(t=0;t<size/2;t++)
 		    {   
@@ -436,7 +436,7 @@ void LCD_ShowString(u16 x,u16 y,u8 size,u8 *p,u8 mode)
     {   
 		if(x>(lcddev.width-1)||y>(lcddev.height-1)) 
 		return;     
-        LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,*p,size,mode);
+        LCD_ShowChar(x,y,WHITE,HOME_BACK,*p,size,mode);
         x+=size/2;
         p++;
     }  

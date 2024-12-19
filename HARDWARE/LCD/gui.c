@@ -482,45 +482,11 @@ void Main_UI(u8 page_index,u8 key_val)
 //		showdigit_color(368,132,14,UNDET,BLACK);
 //	}
 	
-//	if(send_NH3>500 || send_NH3<0){
-//        showhanzi_color(336,204,95,RED,BLACK);
-//		showhanzi_color(368,204,70,RED,BLACK);
-//		LCD_Fill(400,204,468,236,BLACK);
-//	}else if(send_NH3>=100 && send_NH3<=500){
-//		uint8_t show_nh3_1 = send_NH3 / 100;
-//		uint8_t show_nh3_2 = (send_NH3 / 10) % 10;
-//		uint8_t show_nh3_3 = send_NH3 % 10;
-//		showdigit_color(336,204,show_nh3_1,UNDET,BLACK);
-//		showdigit_color(352,204,show_nh3_2,UNDET,BLACK);
-//		showdigit_color(368,204,10,UNDET,BLACK);
-//		showdigit_color(384,204,show_nh3_3,UNDET,BLACK);
-//		LCD_Fill(400,204,405,236,BLACK);
-//		showdigit_color(406,204,16,UNDET,BLACK);
-//		showdigit_color(422,204,16,UNDET,BLACK);
-//		showdigit_color(438,204,17,UNDET,BLACK);
-//	}else if(send_NH3>=10&& send_NH3<100){
-//		LCD_Fill(336,204,351,236,BLACK);
-//		showdigit_color(352,204,send_NH3 / 10,UNDET,BLACK);
-//		showdigit_color(368,204,10,UNDET,BLACK);
-//		showdigit_color(384,204,send_NH3 % 10,UNDET,BLACK);
-//		LCD_Fill(400,204,405,236,BLACK);
-//		showdigit_color(406,204,16,UNDET,BLACK);
-//		showdigit_color(422,204,16,UNDET,BLACK);
-//		showdigit_color(438,204,17,UNDET,BLACK);
-//	}else if(send_NH3>=0&& send_NH3<10){
-//		LCD_Fill(336,204,351,236,BLACK);
-//		showdigit_color(352,204,0,UNDET,BLACK);
-//		showdigit_color(368,204,10,UNDET,BLACK);
-//		showdigit_color(384,204,send_NH3,UNDET,BLACK);
-//		LCD_Fill(400,204,405,236,BLACK);
-//		showdigit_color(406,204,16,UNDET,BLACK);
-//		showdigit_color(422,204,16,UNDET,BLACK);
-//		showdigit_color(438,204,17,UNDET,BLACK);
-//	}
+
 	
 
 	if(send_NH3>100 || send_NH3<0){
-        showhanzi_color(336,204,95,FONT_MID,HOME_BACK);
+       showhanzi_color(336,204,95,FONT_MID,HOME_BACK);
 		showhanzi_color(368,204,108,FONT_MID,HOME_BACK);
 		LCD_Fill(400,204,468,236,HOME_BACK);
 	}else if(send_NH3>=10&& send_NH3<100){

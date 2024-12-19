@@ -25,15 +25,17 @@ uint8_t network_flag=0;
 uint8_t register_flag=0;
 uint8_t mqtt_flag=0;
 
-u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
-u8 relay1_Control_1[2] = {0x00, 0x00};
+volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
+volatile u8 relay1_Control_1[2] = {0x00, 0x00};
 
 char flash_data[9]={0x00};
 //static char send_data_config[350]="";
 //uint8_t send_index_t;
 
-uint8_t addr;
-uint8_t addr_flag;
+volatile uint8_t addr;
+volatile uint8_t addr_flag;
+
+volatile char userData[150];
 
 int main(void)
 {	
@@ -221,12 +223,11 @@ int main(void)
 				if(strstr(UART3_RxBuff,"publish")!=NULL){
 	//			   PAout(8)=0;
 	//			   delay_ms(1000);
-				   	char *str1 = NULL;							//AT commnd string pointer
-					char *str2 = NULL;
-					char userData[250];				//定义数组
+				   	char *str1 = NULL;							
+					char *str2 = NULL;			
 					char *pcBegin = NULL;
 					char *pcEnd = NULL;
-					
+					memset(userData, 0, sizeof(userData));//清空userData,不然会出现字符串叠加;或者设置成局部变量char userData[150]={0};
 					str1=(char *)UART3_RxBuff;
 					str2=strstr(str1,"data=");
 					if(str2!=NULL){
@@ -290,7 +291,8 @@ int main(void)
 			  // const char *text = "{\"success\":2}";
 			  //char text[100]="{\"no\":5,\"mode\":2}";
 			 // char *text = "{\"no\":5,\"mode\":2}";
-			  //LCD_ShowString(0,216,16,(char*)userData,0);
+//			        LCD_Fill(0,204,480,217,HOME_BACK);
+//			        LCD_ShowString(0,204,12,(char*)userData,0);
 					json_t *root = json_loads((const char*)userData, 0, &error); 
 					if(json_is_object(root)){
 						json_t *no_j = json_object_get(root, "no");
