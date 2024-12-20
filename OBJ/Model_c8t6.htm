@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Model_c8t6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Model_c8t6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Dec 20 09:47:47 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Dec 20 16:51:56 2024
 <BR><P>
 <H3>Maximum Stack Usage =       1104 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1856,6 +1856,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_IRQHandler
+<LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_hook_timesErr
 </UL>
 
 <P><STRONG><a name="[19d]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
@@ -2337,7 +2338,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Temperature
 </UL>
 
-<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 7256 bytes, Stack size 368 bytes, main.o(i.main))
+<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 7372 bytes, Stack size 368 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1104<LI>Call Chain = main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
@@ -2389,7 +2390,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> memory.o(.data)
 </UL>
-<P><STRONG><a name="[178]"></a>mb_crc16</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, mb_crc.o(i.mb_crc16))
+<P><STRONG><a name="[179]"></a>mb_crc16</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, mb_crc.o(i.mb_crc16))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mb_crc16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
@@ -2501,7 +2502,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
 </UL>
 
-<P><STRONG><a name="[172]"></a>mbh_hook_rec03</STRONG> (Thumb, 76 bytes, Stack size 12 bytes, mb_hook.o(i.mbh_hook_rec03))
+<P><STRONG><a name="[172]"></a>mbh_hook_rec03</STRONG> (Thumb, 162 bytes, Stack size 12 bytes, mb_hook.o(i.mbh_hook_rec03))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = mbh_hook_rec03
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
@@ -2527,8 +2528,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
 </UL>
 
-<P><STRONG><a name="[179]"></a>mbh_hook_timesErr</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mb_hook.o(i.mbh_hook_timesErr))
-<BR><BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
+<P><STRONG><a name="[178]"></a>mbh_hook_timesErr</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, mb_hook.o(i.mbh_hook_timesErr))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = mbh_hook_timesErr &rArr; __2printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
 </UL>
 
 <P><STRONG><a name="[15e]"></a>mbh_init</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, mb_host.o(i.mbh_init))
@@ -2540,13 +2545,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[161]"></a>mbh_poll</STRONG> (Thumb, 210 bytes, Stack size 8 bytes, mb_host.o(i.mbh_poll))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = mbh_poll &rArr; mb_port_uartEnable &rArr; USART_ITConfig
+<P><STRONG><a name="[161]"></a>mbh_poll</STRONG> (Thumb, 200 bytes, Stack size 8 bytes, mb_host.o(i.mbh_poll))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = mbh_poll &rArr; mbh_hook_timesErr &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_port_uartEnable
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
-<LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_hook_timesErr
-<LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_crc16
+<LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_hook_timesErr
+<LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_crc16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2555,7 +2560,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = mbh_send &rArr; mb_port_uartEnable &rArr; USART_ITConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_port_uartEnable
-<LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_crc16
+<LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_crc16
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main

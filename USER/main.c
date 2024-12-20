@@ -184,21 +184,18 @@ int main(void)
 		//485ДњТы
 		addr_flag++;
 		if(addr_flag==1){
-//			uint8_t cc[4] = {0x00,0x02,0x00,0x01};
-//			mbh_send(1,0x03,cc,4);
-			//mbh_poll();
+			uint8_t c1[4] = {0x00,0x00,0x00,0x03};
+			mbh_send(5,0x03,c1,4);
 		}
-		if(addr_flag == 201){
-//			uint8_t cc[4] = {0x00,0x00,0x00,0x02};
-//			mbh_send(2,0x03,cc,4);
-			//mbh_poll();
+		if(addr_flag == 31){
+			uint8_t c2[4] = {0x00,0x00,0x00,0x02};
+			mbh_send(1,0x03,c2,4);
 		}
-		if(addr_flag == 301){
-			uint8_t cc[4] = {0x00,0x00,0x00,0x03};
-			mbh_send(3,0x03,cc,4);
-			//mbh_poll();
-			addr_flag = 0;
+		if(addr_flag == 61){
+			uint8_t c3[4] = {0x00,0x00,0x00,0x02};
+			mbh_send(2,0x03,c3,4);
 		}
+		if(addr_flag == 80)addr_flag = 0;
 
 		mbh_poll();
 		//printf("pframe[4]:%x\n",temp1);

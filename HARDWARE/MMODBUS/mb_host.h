@@ -17,7 +17,7 @@
 #define MBH_RTU_MIN_SIZE	4
 #define MBH_RTU_MAX_SIZE	255	//最大不超过255
 #define MBH_ERR_MAX_TIMES	3
-#define MBH_REC_TIMEOUT		100  //单位3.5T
+#define MBH_REC_TIMEOUT		10  //单位3.5T 原值是100,时间太长,定时器中断8.02ms,8.02*10=80.2ms
 
 typedef enum
 {
@@ -76,7 +76,7 @@ uint8_t mbh_getState(void);
  * 	@note	该函数必须不断轮询，用来底层核心状态进行切换
  *			可在操作系统任务中运行，但应该尽可能短的延时间隔
  */
-uint8_t mbh_poll(void);
+void mbh_poll(void);
 
 /**
 * 	@brief  modbus主机定时器中断处理

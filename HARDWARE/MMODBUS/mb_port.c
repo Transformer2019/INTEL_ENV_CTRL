@@ -218,11 +218,11 @@ void mb_port_timerInit(uint32_t baud)
 		*			=(11*1000000*3.5)/baud
 		*			=38500000/baud
 		*/
-		Tim1Timerout50us = (uint32_t)38500000/baud;
+		Tim1Timerout50us = (uint32_t)38500000/baud;//8020
 	
 	}
 	
-	TIM_TimeBaseInitStructure.TIM_Period=Tim1Timerout50us;   //自动装载值
+	TIM_TimeBaseInitStructure.TIM_Period=Tim1Timerout50us;   //自动装载值,8.02ms
 	TIM_TimeBaseInitStructure.TIM_Prescaler=71; //分频系数
 	TIM_TimeBaseInitStructure.TIM_ClockDivision=TIM_CKD_DIV1;
 	TIM_TimeBaseInitStructure.TIM_CounterMode=TIM_CounterMode_Up; //设置向上计数模式

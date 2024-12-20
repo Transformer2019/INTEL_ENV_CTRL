@@ -92,7 +92,7 @@ void mbh_exec(uint8_t *pframe,uint8_t len)
 			break;
 	}
 }
-uint8_t mbh_poll()
+void mbh_poll()
 {
 	switch(mbHost.state)
 	{
@@ -126,12 +126,12 @@ uint8_t mbh_poll()
 			break;
 		/*超过最大错误传输次数*/
 		case MBH_STATE_TIMES_ERR:
+			mbHost.state=MBH_STATE_IDLE;
 			mbh_hook_timesErr(mbHost.txBuf[0],mbHost.txBuf[1]);
 			mbHost.txCounter=0;
 			mbHost.rxCounter=0;
 			//add code1 start
-			mbHost.state=MBH_STATE_TX;
-			mb_port_uartEnable(1,0);  //enable tx,disable rx
+			//mb_port_uartEnable(1,0);  //enable tx,disable rx
 			//add code1 end
 			break;
 		/*确定接收正确执行回调*/
@@ -141,7 +141,6 @@ uint8_t mbh_poll()
 			break;
 		
 	}
-	return mbHost.rxBuf[4];
 }
 
 
