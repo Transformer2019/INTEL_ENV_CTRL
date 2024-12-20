@@ -81,9 +81,9 @@ static u8 cur_pos2=1;
 static u8 cur_pos3=1;
 static u8 cur_pos4=1;
 
-
-
 uint8_t send_MQTT_Flag=0;
+
+uint8_t send_warn_Flag=0;
 
 
 void fresh_page(){
@@ -816,6 +816,13 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 }
 void Alarm_Child(u8 page_index,u8 key_val){
 	
+	u8 w1_buff = warn_temp1_flag;
+	u8 w2_buff = warn_temp2_flag;
+	u8 w3_buff = warn_temp3_flag;
+	u8 limit_max_buff = limit_temp_maxvalue;
+	u8 limit_min_buff = limit_temp_minvalue;
+	u8 NH3_warn_buff = NH3_warn_flag;
+	u8 NH3_buff = NH3_max;
 	static u8 cur_pos=1;
 	//温度一参与报警
 	showhanzi(0,42,39);showhanzi(32,42,66);showhanzi(64,42,63);showhanzi(96,42,14);showhanzi(128,42,89);showhanzi(160,42,12);showhanzi(192,42,13);showhanzi(224,42,44);
@@ -949,6 +956,15 @@ void Alarm_Child(u8 page_index,u8 key_val){
 			break;
 		default:break;
 	}
+	if(w1_buff != warn_temp1_flag ||
+		w2_buff != warn_temp2_flag ||
+		w3_buff != warn_temp3_flag ||
+		limit_max_buff != limit_temp_maxvalue ||
+		limit_min_buff != limit_temp_minvalue ||
+		NH3_warn_buff != NH3_warn_flag ||
+		NH3_buff != NH3_max){
+			send_warn_Flag=1;
+		}
 	
 
 }

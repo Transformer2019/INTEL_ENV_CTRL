@@ -1009,7 +1009,7 @@ int main(void)
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 			send_MQTT_Flag=0;
 		}	
-		//发布报警
+		//发布报警信息
 		if(warn_flag && mqtt_flag){
 			char send_data_warn[20]="";
 			sprintf(send_data_warn,"%0.1f,%0.1f,%d,%d,%d",temperature1,temperature2,(warn_flag2<<1)|warn_flag1,send_NH3,warn_NH3);//sprintf
@@ -1019,6 +1019,17 @@ int main(void)
 			UART3_RxCounter = 0;
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 		}
+		//发布报警配置信息
+		if(send_warn_Flag && mqtt_flag){
+			send_warn_Flag = 0;
+			char send_warn_config[30]="";
+			sprintf(send_warn_config,"%d,%d,%d,%d,%d,%d,%d",warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,limit_temp_maxvalue,limit_temp_minvalue,NH3_warn_flag,NH3_max);//sprintf
+			u16 warn_config_len = strlen(send_warn_config);
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARNCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_config_len,send_warn_config);//发布消息
+			delay_ms(10);
+			UART3_RxCounter = 0;
+			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+		}	
 		//发布心跳
 		if(Heartbeat_flag && mqtt_flag){
 			Heartbeat_Counter_1s=0;
@@ -1028,6 +1039,8 @@ int main(void)
 //			u8 Heartbeat_len = strlen(send_data_Heartbeat);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HAERTBEAT\",0,0,0,2,\"on\"\r\n",imei_no);//发布心跳
 		}
+		
+		
 		
 		GUI_Refresh();//刷新显示
 

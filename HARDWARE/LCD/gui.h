@@ -39,8 +39,11 @@ extern Relay_Structure relay_structure[10];
 extern u8 out_voltage;
 
 
-//MQTT发送标志
+//MQTT配置数据发送标志
 extern uint8_t send_MQTT_Flag;
+
+//MQTT报警数据发送标志
+extern uint8_t send_warn_Flag;
 
 typedef struct
 {
