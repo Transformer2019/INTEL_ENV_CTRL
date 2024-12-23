@@ -124,7 +124,7 @@ void mbh_hook_rec16(uint8_t add,uint8_t *data,uint8_t datalen)
 
 void mbh_hook_timesErr(uint8_t add,uint8_t cmd)
 {
-	printf("mbh_hook_timesErr\n");
+	//printf("mbh_hook_timesErr\n");
 	send_NH3 = 999;
 }
 

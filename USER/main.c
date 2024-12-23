@@ -981,12 +981,13 @@ int main(void)
 			
 		}//TIM4_flag
 		
-		//发送配置信息
-		if(send_MQTT_Flag && TIM5_flag && mqtt_flag){
-			TIM5_flag = 0;
-			TIM5_Counter_10s = 0;
+		//发送风机配置信息
+		//if(send_MQTT_Flag && TIM5_flag && mqtt_flag){
+		if(send_CONFIG_FLAG && mqtt_flag){
+//			TIM5_flag = 0;
+//			TIM5_Counter_10s = 0;
 			//printf("%d\n",send_MQTT_Flag);
-			u8 send_index = send_MQTT_Flag-12;
+			u8 send_index = send_CONFIG_INDEX-12;
 			char send_data_config[50]="";
 			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d",
 			relay_structure[send_index].relayNo,relay_structure[send_index].relay_mode,relay_structure[send_index].on_off,
@@ -1004,7 +1005,8 @@ int main(void)
 			delay_ms(10);
 			UART3_RxCounter = 0;
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-			send_MQTT_Flag=0;
+			send_CONFIG_FLAG=0;
+			//send_CONFIG_INDEX=0;
 		}	
 		//发布报警信息
 		if(warn_flag && mqtt_flag){

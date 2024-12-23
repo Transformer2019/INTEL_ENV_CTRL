@@ -81,7 +81,10 @@ static u8 cur_pos2=1;
 static u8 cur_pos3=1;
 static u8 cur_pos4=1;
 
-uint8_t send_MQTT_Flag=0;
+uint8_t send_CONFIG_INDEX=0;
+
+uint8_t send_CONFIG_FLAG=0;
+
 
 uint8_t send_warn_Flag=0;
 
@@ -1365,6 +1368,11 @@ void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
 
 
 void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
+	
+	// 保存原始的结构体,用于判断用户是否操作
+    Relay_Structure original_relay_structure[10];
+    memcpy(original_relay_structure, relay_structure, sizeof(relay_structure));
+	
 	static u8 last_index_save=0;
 	
 	//static Time_C time_c_v1[5]={0};
@@ -2172,7 +2180,13 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 			default:break;
 		}
 	}
-	send_MQTT_Flag = last_index_save;
+	send_CONFIG_INDEX = last_index_save;
+	// 检查是否发生了变化
+    for (int i = 0; i < 10; i++) {
+        if (memcmp(&relay_structure[i], &original_relay_structure[i], sizeof(Relay_Structure)) != 0) {
+            send_CONFIG_FLAG=1;
+        }
+    }
 	
 	
 }

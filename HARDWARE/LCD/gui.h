@@ -40,7 +40,9 @@ extern u8 out_voltage;
 
 
 //MQTT配置数据发送标志
-extern uint8_t send_MQTT_Flag;
+extern uint8_t send_CONFIG_INDEX;
+extern uint8_t send_CONFIG_FLAG;
+
 
 //MQTT报警数据发送标志
 extern uint8_t send_warn_Flag;
@@ -119,8 +121,6 @@ void Iot_Child(u8 page_index,u8 key_val);
 //void RS485_Child(u8 page_index,u8 key_val);
 
 void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val);
-
-
 
 void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val);
 	
