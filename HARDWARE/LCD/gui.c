@@ -350,7 +350,6 @@ uint8_t GUI_Refresh(void)
 */
 void Main_UI(u8 page_index,u8 key_val)
 {
-	
 	u8 y1=calendar.w_year/1000; u8 y2=(calendar.w_year/100)%10; u8 y3=(calendar.w_year/10)%10; u8 y4=calendar.w_year%10;
 	u8 mh1=calendar.w_month/10; u8 mh2=calendar.w_month%10;
 	u8 d1=calendar.w_date/10; u8 d2=calendar.w_date%10;

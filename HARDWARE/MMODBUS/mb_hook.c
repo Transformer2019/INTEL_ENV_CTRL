@@ -15,7 +15,7 @@
 
 uint16_t send_NH3 = 999;
 int16_t send_TEMP = 999;
-uint16_t send_RH = 999;
+uint16_t send_RH = 9999;
 uint32_t send_CO2 = 99999;
 
 
@@ -53,38 +53,49 @@ void mbh_hook_rec03(uint8_t add,uint8_t *data,uint8_t datalen)
 //	}
 	
 	
-	if(add == 1){
-		send_RH_1 = *(data+1)*0x100 + *(data+2);
-		uint16_t send_TEMP_buf_1 = *(data+3)*0x100 + *(data+4);
-		if(send_TEMP_buf_1 > 0x7FFF){
-			send_TEMP_1 = (int16_t)(send_TEMP_buf_1 - 0x10000);
-		}else{
-			send_TEMP_1 = (int16_t)send_TEMP_buf_1;
-		}
+//	if(add == 1){
+//		send_RH_1 = *(data+1)*0x100 + *(data+2);
+//		uint16_t send_TEMP_buf_1 = *(data+3)*0x100 + *(data+4);
+//		if(send_TEMP_buf_1 > 0x7FFF){
+//			send_TEMP_1 = (int16_t)(send_TEMP_buf_1 - 0x10000);
+//		}else{
+//			send_TEMP_1 = (int16_t)send_TEMP_buf_1;
+//		}
+//	}
+//	if(add == 2){
+//		send_RH_2 = *(data+1)*0x100 + *(data+2);
+//		uint16_t send_TEMP_buf_2 = *(data+3)*0x100 + *(data+4);
+//		if(send_TEMP_buf_2 > 0x7FFF){
+//			send_TEMP_2 = (int16_t)(send_TEMP_buf_2 - 0x10000);
+//		}else{
+//			send_TEMP_2 = (int16_t)send_TEMP_buf_2;
+//		}
+//	}
+//	if(add == 5){
+//		send_RH = *(data+1)*0x100 + *(data+2);
+//		uint16_t send_TEMP_buf = *(data+3)*0x100 + *(data+4);
+//		if(send_TEMP_buf > 0x7FFF){
+//			send_TEMP = (int16_t)(send_TEMP_buf - 0x10000);
+//		}else{
+//			send_TEMP = (int16_t)send_TEMP_buf;
+//		}
+//		
+//		send_CO2 = *(data+5)*0x100 + *(data+6);
+//	}
+
+	send_RH = *(data+1)*0x100 + *(data+2);
+	uint16_t send_TEMP_buf = *(data+3)*0x100 + *(data+4);
+	if(send_TEMP_buf > 0x7FFF){
+		send_TEMP = (int16_t)(send_TEMP_buf - 0x10000);
+	}else{
+		send_TEMP = (int16_t)send_TEMP_buf;
 	}
-	if(add == 2){
-		send_RH_2 = *(data+1)*0x100 + *(data+2);
-		uint16_t send_TEMP_buf_2 = *(data+3)*0x100 + *(data+4);
-		if(send_TEMP_buf_2 > 0x7FFF){
-			send_TEMP_2 = (int16_t)(send_TEMP_buf_2 - 0x10000);
-		}else{
-			send_TEMP_2 = (int16_t)send_TEMP_buf_2;
-		}
-	}
-	if(add == 5){
-		send_RH = *(data+1)*0x100 + *(data+2);
-		uint16_t send_TEMP_buf = *(data+3)*0x100 + *(data+4);
-		if(send_TEMP_buf > 0x7FFF){
-			send_TEMP = (int16_t)(send_TEMP_buf - 0x10000);
-		}else{
-			send_TEMP = (int16_t)send_TEMP_buf;
-		}
-		
-		send_CO2 = *(data+5)*0x100 + *(data+6);
-	}
+	send_NH3 = *(data+5)*0x100 + *(data+6);
+
+
 	
-//	printf("湿度:%d\n",send_RH);
-//	printf("温度:%d\n",send_TEMP);
+	//printf("湿度:%d\n",send_RH);
+	//printf("温度:%d\n",send_TEMP);
 //	printf("CO2浓度:%d\n\n",send_CO2);
 //	
 //	printf("湿度一:%d\n",send_RH_1);
@@ -126,5 +137,7 @@ void mbh_hook_timesErr(uint8_t add,uint8_t cmd)
 {
 	//printf("mbh_hook_timesErr\n");
 	send_NH3 = 999;
+	send_TEMP = 999;
+	send_RH = 9999;
 }
 

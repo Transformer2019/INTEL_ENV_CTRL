@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\OBJ\Model_c8t6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Model_c8t6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 23 11:37:03 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 30 10:55:17 2024
 <BR><P>
-<H3>Maximum Stack Usage =       1104 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1112 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
 <P>
@@ -2255,7 +2255,6 @@ Global Symbols
 
 <P><STRONG><a name="[123]"></a>jsonp_free</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, memory.o(i.jsonp_free))
 <BR><BR>[Called By]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_delete
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_create
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_array_grow
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strbuffer_close
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_object
@@ -2266,11 +2265,11 @@ Global Symbols
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hashtable_do_rehash
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hashtable_do_clear
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hashtable_close
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_create
 </UL>
 
 <P><STRONG><a name="[126]"></a>jsonp_malloc</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, memory.o(i.jsonp_malloc))
-<BR><BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_create
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_array_grow
+<BR><BR>[Called By]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_array_grow
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strbuffer_init
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_real
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;json_object
@@ -2282,6 +2281,7 @@ Global Symbols
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jsonp_strndup
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hashtable_set
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hashtable_init
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_create
 </UL>
 
 <P><STRONG><a name="[146]"></a>jsonp_stringn_nocheck_own</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, value.o(i.jsonp_stringn_nocheck_own))
@@ -2346,8 +2346,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Temperature
 </UL>
 
-<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 7380 bytes, Stack size 368 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1104<LI>Call Chain = main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
+<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 7324 bytes, Stack size 376 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1112<LI>Call Chain = main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
@@ -2510,7 +2510,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
 </UL>
 
-<P><STRONG><a name="[173]"></a>mbh_hook_rec03</STRONG> (Thumb, 162 bytes, Stack size 12 bytes, mb_hook.o(i.mbh_hook_rec03))
+<P><STRONG><a name="[173]"></a>mbh_hook_rec03</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, mb_hook.o(i.mbh_hook_rec03))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = mbh_hook_rec03
 </UL>
 <BR>[Called By]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
@@ -2536,7 +2536,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_exec
 </UL>
 
-<P><STRONG><a name="[17a]"></a>mbh_hook_timesErr</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mb_hook.o(i.mbh_hook_timesErr))
+<P><STRONG><a name="[17a]"></a>mbh_hook_timesErr</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, mb_hook.o(i.mbh_hook_timesErr))
 <BR><BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
 </UL>
 

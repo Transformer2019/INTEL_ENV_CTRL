@@ -193,12 +193,14 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		  TIM4_flag=1;
 		}
 		TIM4_Counter_10s++;
-		//发送配置命令
-		if(TIM5_Counter_10s>1)
+		
+		//将配置参数写入flash频率
+		if(TIM5_Counter_10s>6)
 		{
 		  TIM5_flag=1;
 		}
 		TIM5_Counter_10s++;
+		
 		//发送心跳频率
 		if(Heartbeat_Counter_1s>10)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
 		{

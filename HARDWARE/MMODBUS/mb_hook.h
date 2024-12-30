@@ -13,6 +13,8 @@
 #define __MB_HOOK_H
 
 extern uint16_t send_NH3;
+extern int16_t send_TEMP;
+extern uint16_t send_RH;
 extern uint8_t mqtt_flag;
 
 /**

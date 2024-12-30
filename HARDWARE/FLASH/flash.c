@@ -33,7 +33,7 @@ void WriteFlashOneWord(uint32_t WriteAddress, uint32_t WriteData)
  *             data[]：      写入的数据首地址
  *             num：         写入数据的个数
  */
-void WriteFlashData(uint32_t WriteAddress, uint8_t data[], uint32_t num)
+void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num)
 {
     uint32_t i = 0;
     uint16_t temp = 0;

@@ -21,6 +21,8 @@
 #include "mb_hook.h"
 
 
+#define SIZE_OF_RELAY_STRUCTURE (10 * sizeof(Relay_Structure)) // 计算数组大小
+
 uint8_t network_flag=0;
 uint8_t register_flag=0;
 uint8_t mqtt_flag=0;
@@ -36,6 +38,16 @@ volatile uint8_t addr;
 volatile uint8_t addr_flag;
 
 volatile char userData[150];
+
+
+u8 is_all_ff(uint8_t *buffer, uint16_t length) {
+    for (uint32_t i = 0; i < length; i++) {
+        if (buffer[i] != 0xFF) {
+            return 0;  // 发现一个不是 0xFF 的元素，返回 false
+        }
+    }
+    return 1;  // 如果所有元素都是 0xFF，返回 true
+}
 
 int main(void)
 {	
@@ -81,34 +93,20 @@ int main(void)
 		
 		/* 485初始化 */
 		mbh_init(4800,0);
+		uint8_t relay_structure_buffer[SIZE_OF_RELAY_STRUCTURE];
 		
 		//读取flash固定位置的数据
-		
-		
-        //ReadFlashData(0, flash_data, 8);
-		//printf("%s\n", flash_data);
-
-//		printf("%s\n", flash_data[1]);
-//		printf("%d\n", flash_data[2]);
-//		printf("%d\n", flash_data[3]);
-//		printf("%x\n", flash_data[4]);
-//		printf("%x\n", flash_data[5]);
-//		printf("%x\n", flash_data[6]);
-//		printf("%x\n", flash_data[7]);
-//		printf("%x\n", flash_data[8]);
-//		printf("%x\n", flash_data[9]);
-
-//		if(relay_structure[1].relayNo == 0){
-//			Relay_Structure relay_structure[10] = {{0}};
-//			relay_structure[0].relayNo = 1;
-//		    printf("%d\n", relay_structure[0].relayNo);
+//		ReadFlashData(0, relay_structure_buffer, SIZE_OF_RELAY_STRUCTURE);
+//		if(is_all_ff(relay_structure_buffer, sizeof(relay_structure_buffer))) {
+//			// 如果数组中的所有元素都是 0xFF
+//			printf("is all 0Xff\n");
+//		}else{
+//			// 如果数组中有元素不是 0xFF
+//			Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
+//			memcpy(relay_structure, relay_structure_buffer, SIZE_OF_RELAY_STRUCTURE);
 //		}
 
-//		if(relay_structure[1].relayNo == 255){
-//			//relay_structure[9] = {{0}};
-//			relay_structure[0].relayNo = 1;
-//		    printf("%d+\n", relay_structure[0].relayNo);
-//		}
+
 		
 	while(1) 
 	{	
@@ -182,21 +180,22 @@ int main(void)
 
 	next:	
 		//485代码
-		addr_flag++;
-		if(addr_flag==1){
-			uint8_t c1[4] = {0x00,0x00,0x00,0x03};
-			mbh_send(5,0x03,c1,4);
-		}
-		if(addr_flag == 31){
-			uint8_t c2[4] = {0x00,0x00,0x00,0x02};
-			mbh_send(1,0x03,c2,4);
-		}
-		if(addr_flag == 61){
-			uint8_t c3[4] = {0x00,0x00,0x00,0x02};
-			mbh_send(2,0x03,c3,4);
-		}
-		if(addr_flag == 80)addr_flag = 0;
-
+//		addr_flag++;
+//		if(addr_flag==1){
+//			uint8_t c1[4] = {0x00,0x00,0x00,0x03};
+//			mbh_send(5,0x03,c1,4);
+//		}
+//		if(addr_flag == 31){
+//			uint8_t c2[4] = {0x00,0x00,0x00,0x02};
+//			mbh_send(1,0x03,c2,4);
+//		}
+//		if(addr_flag == 61){
+//			uint8_t c3[4] = {0x00,0x00,0x00,0x02};
+//			mbh_send(2,0x03,c3,4);
+//		}
+//		if(addr_flag == 80)addr_flag = 0;
+		uint8_t c[4] = {0x00,0x00,0x00,0x03};
+		mbh_send(5,0x03,c,4);
 		mbh_poll();
 		//printf("pframe[4]:%x\n",temp1);
 		
@@ -970,9 +969,9 @@ int main(void)
 			TIM4_Counter_10s=0;
 			//实时发送采集数据
 			char send_data_collect[20] ="";
-			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d",
+			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,relay_structure[8].on_off,relay_structure[9].on_off,
-			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3);
+			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",0,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
 			delay_ms(10);
@@ -1042,9 +1041,19 @@ int main(void)
 		
 		
 		GUI_Refresh();//刷新显示
-
+		
 		ctrl_ui++;
 		if(ctrl_ui>3)ctrl_ui=0;
+		
+		//将配置参数写入flash
+		if(TIM5_flag)
+		{
+			TIM5_flag=0;
+			TIM5_Counter_10s=0;
+			// 将结构体转换为字节数据
+//			uint16_t *data = (uint16_t *)&relay_structure;
+//			WriteFlashData(0,data,sizeof(SIZE_OF_RELAY_STRUCTURE));//只写进去一个字节
+		}
 		
 
 	}//while 
