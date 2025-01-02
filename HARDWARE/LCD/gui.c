@@ -972,12 +972,12 @@ void Alarm_Child(u8 page_index,u8 key_val){
 }
 void Time_Child(u8 page_index,u8 key_val){
 	static u8 cur_pos=1;
-	static int temp_year=2024;
-	static u8 temp_mouth=1;
-	static u8 temp_day=1;
-	static u8 temp_h=0;
-	static u8 temp_m=0;
-	static u8 temp_s=0;
+	static u16 temp_year=2024;
+	static u8 temp_mouth=8;
+	static u8 temp_day=15;
+	static u8 temp_h=12;
+	static u8 temp_m=30;
+	static u8 temp_s=30;
 
 	showhanzi(0,42,93);showhanzi(32,42,94);showhanzi(64,42,18);showhanzi(96,42,19);showhanzi(128,42,44);
 	u8 y1=calendar.w_year/1000; u8 y2=(calendar.w_year/100)%10; u8 y3=(calendar.w_year/10)%10; u8 y4=calendar.w_year%10;
@@ -1016,13 +1016,12 @@ void Time_Child(u8 page_index,u8 key_val){
 				if(cur_pos == 6) temp_s += 1;
 			
 				if(temp_year > 2099) temp_year=2099;
-				if(temp_mouth > 12) temp_mouth=12;	
-				if(temp_day > 31) temp_day=31;	
-			    if(temp_h > 23) temp_h=23;
-				if(temp_m > 60) temp_m=60;
-			    if(temp_s > 60) temp_s=60;
+				if(temp_mouth >= 12) temp_mouth=12;	
+				if(temp_day >= 31) temp_day=31;	
+			    if(temp_h >= 23) temp_h=23;
+				if(temp_m >= 59) temp_m=59;
+			    if(temp_s >= 59) temp_s=59;
 				RTC_Set(temp_year,temp_mouth,temp_day,temp_h,temp_m,temp_s);
-				
 					break;
 			case KEY_ENTER://确定(设置)按键
 				cur_pos++;

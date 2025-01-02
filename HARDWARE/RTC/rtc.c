@@ -160,14 +160,19 @@ void RTC_IRQHandler(void)
 //输出:该年份是不是闰年.1,是.0,不是
 u8 Is_Leap_Year(u16 year)
 {
-    if(year%4==0) //必须能被4整除
-    {
-        if(year%100==0)
-        {
-            if(year%400==0)return 1;//如果以00结尾,还要能被400整除
-            else return 0;
-        } else return 1;
-    } else return 0;
+//    if(year%4==0) //必须能被4整除
+//    {
+//        if(year%100==0)
+//        {
+//            if(year%400==0)return 1;//如果以00结尾,还要能被400整除
+//            else return 0;
+//        } else return 1;
+//    } else return 0;
+	if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 //设置时钟
 //把输入的时钟转换为秒钟
@@ -198,6 +203,8 @@ u8 RTC_Set(u16 syear,u8 smon,u8 sday,u8 hour,u8 min,u8 sec)
     seccount+=(u32)hour*3600;//小时秒钟数
     seccount+=(u32)min*60;	 //分钟秒钟数
     seccount+=sec;//最后的秒钟加上去
+	
+	//seccount-=20;
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR | RCC_APB1Periph_BKP, ENABLE);	//使能PWR和BKP外设时钟
     PWR_BackupAccessCmd(ENABLE);	//使能RTC和后备寄存器访问
@@ -249,53 +256,113 @@ u8 RTC_Alarm_Set(u16 syear,u8 smon,u8 sday,u8 hour,u8 min,u8 sec)
 //返回值:0,成功;其他:错误代码.
 u8 RTC_Get(void)
 {
-    static u16 daycnt=0;
-    u32 timecount=0;
-    u32 temp=0;
-    u16 temp1=0;
-    timecount=RTC_GetCounter();
-    temp=timecount/86400;   //得到天数(秒钟数对应的)
-    if(daycnt!=temp)//超过一天了
+//    //static u16 daycnt=0;
+//    u32 timecount=0;
+//    u32 temp=0;
+//    u16 temp1=0;
+//    timecount=RTC_GetCounter();
+//    temp=timecount/86400;   //得到天数(秒钟数对应的)
+//    if(temp>0)//超过一天了
+//    {
+//        //daycnt=temp;
+//        temp1=1970;	//从1970年开始
+//        while(temp>=365)
+//        {
+//            if(Is_Leap_Year(temp1))//是闰年
+//            {
+//                if(temp>=366)temp-=366;//闰年的秒钟数
+//                else { 
+//                    //temp1++;                   //此处代码应该被注释
+//                    break;
+//                }
+//            }
+//            else 
+//					temp-=365;	  //平年
+//           temp1++;
+//		    
+//        }
+//        calendar.w_year=temp1;//得到年份
+//        temp1=0;
+//        while(temp>=28)//超过了一个月
+//        {
+//            if(Is_Leap_Year(calendar.w_year)&&temp1==1)//当年是不是闰年/2月份
+//            {
+//                if(temp>=29)temp-=29;//闰年的秒钟数
+//                else break;
+//            }
+//            else
+//            {
+//                if(temp>=mon_table[temp1])temp-=mon_table[temp1];//平年
+//                else break;
+//            }
+//            temp1++;
+//        }
+//        calendar.w_month=temp1+1;	//得到月份
+//        calendar.w_date=temp+1;  	//得到日期
+//    }
+//    temp=timecount%86400;     		//得到秒钟数
+//    calendar.hour=temp/3600;     	//小时
+//    calendar.min=(temp%3600)/60; 	//分钟
+//    calendar.sec=(temp%3600)%60; 	//秒钟
+//    calendar.week=RTC_Get_Week(calendar.w_year,calendar.w_month,calendar.w_date);//获取星期
+
+//--------------------------------------------------------------------------------------------
+
+    u32 secs,days,temp,years = 1970,months = 0;
+
+    secs = RTC->CNTH;     //读取RTC的当前时间值（距1970年的总秒数）
+    secs <<= 16;
+    secs += RTC->CNTL;
+
+    //printf(“\nRtc_Get  Sec = %x\n”,secs);
+
+    days = secs/86400;
+    if(days > 0)            //超过一天
     {
-        daycnt=temp;
-        temp1=1970;	//从1970年开始
-        while(temp>=365)
+        temp = days;
+        while(temp >= 365)
         {
-            if(Is_Leap_Year(temp1))//是闰年
+            if(Is_Leap_Year(years))                //是闰年
             {
-                if(temp>=366)temp-=366;//闰年的秒钟数
-                else {
-                    temp1++;
+                if(temp >= 366)
+                    temp -= 366;    //闰年的天数
+                else
                     break;
-                }
+            }else{
+                 temp -= 365;
             }
-            else temp-=365;	  //平年
-            temp1++;
+            years++;
         }
-        calendar.w_year=temp1;//得到年份
-        temp1=0;
-        while(temp>=28)//超过了一个月
+
+        calendar.w_year = years;              //得到年份
+
+        while(days >= 28)
         {
-            if(Is_Leap_Year(calendar.w_year)&&temp1==1)//当年是不是闰年/2月份
+            if(Is_Leap_Year(years) && months ==1)       //判断是否为闰年的第二月
             {
-                if(temp>=29)temp-=29;//闰年的秒钟数
-                else break;
+                if(temp >= 29)
+                    temp -= 29;
+                else
+                    break;
+            }else{
+                if(temp >= mon_table[months])
+                    temp -= mon_table[months];
+                else
+                    break;
             }
-            else
-            {
-                if(temp>=mon_table[temp1])temp-=mon_table[temp1];//平年
-                else break;
-            }
-            temp1++;
+
+            months++;
         }
-        calendar.w_month=temp1+1;	//得到月份
-        calendar.w_date=temp+1;  	//得到日期
+
+        calendar.w_month = months+1;                //得到月数
+        calendar.w_date  = temp+1;                //得到日期
     }
-    temp=timecount%86400;     		//得到秒钟数
-    calendar.hour=temp/3600;     	//小时
-    calendar.min=(temp%3600)/60; 	//分钟
-    calendar.sec=(temp%3600)%60; 	//秒钟
-    calendar.week=RTC_Get_Week(calendar.w_year,calendar.w_month,calendar.w_date);//获取星期
+
+    temp = secs % 86400;                    //得到剩余秒数
+    calendar.hour = temp/3600;                    //得到小时
+    calendar.min = (temp%3600)/60;
+    calendar.sec = (temp%3600)%60;
+    calendar.week = RTC_Get_Week(calendar.w_year,calendar.w_month,calendar.w_date);
     return 0;
 }
 //获得现在是星期几
