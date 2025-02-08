@@ -202,7 +202,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		TIM5_Counter_10s++;
 		
 		//发送心跳频率
-		if(Heartbeat_Counter_1s>10)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
+		if(Heartbeat_Counter_1s>5)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
 		{
 		  Heartbeat_flag=1;
 		}
@@ -344,7 +344,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			uint8_t  relay_No[11] = {0};
 			//uint8_t  change_flag[] = {0};
 			
-			if(TIM3_Counter_10s>3)//一秒进一次中断，累计8秒后标志置1，再中断处理
+			if(TIM3_Counter_10s>2)//一秒进一次中断，累计8秒后标志置1，再中断处理
 			{
 			  TIM3_flag=1;
 			}

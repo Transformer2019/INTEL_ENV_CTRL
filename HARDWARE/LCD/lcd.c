@@ -256,7 +256,7 @@ void LCD_GPIOInit(void)
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
  	GPIO_Init(GPIOB, &GPIO_InitStructure);	 
- 	GPIO_SetBits(GPIOB,GPIO_Pin_6|GPIO_Pin_7);	
+ 	GPIO_SetBits(GPIOB,GPIO_Pin_3|GPIO_Pin_4);	
 
 }
 
@@ -495,12 +495,20 @@ void LCD_SetWindows(u16 xStar, u16 yStar,u16 xEnd,u16 yEnd)
 	LCD_WR_DATA(0x00FF&xStar);		
 	LCD_WR_DATA(xEnd>>8);
 	LCD_WR_DATA(0x00FF&xEnd);
+	
+//	Lcd_WriteData_16Bit(xStar);
+//	Lcd_WriteData_16Bit(xEnd);
 
 	LCD_WR_REG(lcddev.setycmd);	
 	LCD_WR_DATA(yStar>>8);
 	LCD_WR_DATA(0x00FF&yStar);		
 	LCD_WR_DATA(yEnd>>8);
 	LCD_WR_DATA(0x00FF&yEnd);
+	
+//	Lcd_WriteData_16Bit(yStar);
+//	Lcd_WriteData_16Bit(yEnd);
+	
+	
 
 	LCD_WriteRAM_Prepare();	//开始写入GRAM			
 }   

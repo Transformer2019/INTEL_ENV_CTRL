@@ -40,6 +40,9 @@ volatile uint8_t addr_flag;
 volatile char userData[150];
 
 
+//报警间隔发送给服务器的计数器
+uint32_t warn_timer_count=0;
+
 u8 is_all_ff(uint8_t *buffer, uint16_t length) {
     for (uint32_t i = 0; i < length; i++) {
         if (buffer[i] != 0xFF) {
@@ -178,7 +181,7 @@ int main(void)
 		temp = relay_Control[0] & 0Xdf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
 		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
 
-	next:	
+	//next:	
 		//485代码
 //		addr_flag++;
 //		if(addr_flag==1){
@@ -195,7 +198,7 @@ int main(void)
 //		}
 //		if(addr_flag == 80)addr_flag = 0;
 		uint8_t c[4] = {0x00,0x00,0x00,0x03};
-		mbh_send(5,0x03,c,4);
+		mbh_send(1,0x03,c,4);
 		mbh_poll();
 		//printf("pframe[4]:%x\n",temp1);
 		
@@ -875,8 +878,10 @@ int main(void)
 				delay_ms(10);
 				UART3_RxCounter = 0; //重新等待接收下一个推送消息
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-				UART3_Puts("AT+MQTTCONN=0,\"8.130.168.245\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
-				delay_ms(500);
+				//UART3_Puts("AT+MQTTCONN=0,\"8.130.168.245\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
+				UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
+				//UART3_Puts("AT+MQTTCONN=0,\"39.105.15.166\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
+				delay_ms(300);
 				
 
 //					char im[10];
@@ -926,7 +931,7 @@ int main(void)
 			if(network_flag==1){
 				//判断是否连接mqtt服务器
 				UART3_Puts("AT+MQTTSTATE=0\r\n");
-				delay_ms(50);
+				delay_ms(10);
 
 //				if(UART3_RxCounter != 0){
 //					if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
@@ -1001,22 +1006,54 @@ int main(void)
 			);//sprintf
 			u16 config_len = strlen(send_data_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/CONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,config_len,send_data_config);//发布消息
-			delay_ms(10);
+			//delay_ms(10);
 			UART3_RxCounter = 0;
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 			send_CONFIG_FLAG=0;
 			//send_CONFIG_INDEX=0;
 		}	
 		//发布报警信息
+		
 		if(warn_flag && mqtt_flag){
-			char send_data_warn[20]="";
-			sprintf(send_data_warn,"%0.1f,%0.1f,%d,%d,%d",temperature1,temperature2,(warn_flag2<<1)|warn_flag1,send_NH3,warn_NH3);//sprintf
-			u16 warn_len = strlen(send_data_warn);
-			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_len,send_data_warn);//发布消息
-			delay_ms(10);
-			UART3_RxCounter = 0;
-			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+			
+			char *t1_warn_str = "{\"b1\" \"NO1 High-temperature alarm\"}";
+			char *t2_warn_str = "{\"b2\" \"NO2 High-temperature alarm\"}";
+			char *n1_warn_str = "{\"n1\" \"High-NH3 alarm\"}";
+
+			if(warn_flag1 && (warn_timer_count%8==0)){
+				u16 t1_warn_len = strlen(t1_warn_str);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len,t1_warn_str);//发布消息
+				delay_ms(10);
+				UART3_RxCounter = 0;
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+			}
+			if(warn_flag2 && (warn_timer_count%8==0)){
+				u16 t2_warn_len = strlen(t2_warn_str);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len,t2_warn_str);//发布消息
+				delay_ms(10);
+				UART3_RxCounter = 0;
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+			}
+			if(warn_NH3 && (warn_timer_count%8==0)){
+				u16 n1_warn_len = strlen(n1_warn_str);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,n1_warn_len,n1_warn_str);//发布消息
+				delay_ms(10);
+				UART3_RxCounter = 0;
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+			}
+			warn_timer_count++;
+
 		}
+		if(warn_flag==0)warn_timer_count=0;
+//		if(warn_flag && mqtt_flag){
+//			char send_data_warn[20]="";
+//			sprintf(send_data_warn,"%0.1f,%0.1f,%d,%d,%d",temperature1,temperature2,(warn_flag2<<1)|warn_flag1,send_NH3,warn_NH3);//sprintf
+//			u16 warn_len = strlen(send_data_warn);
+//			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_len,send_data_warn);//发布消息
+//			delay_ms(10);
+//			UART3_RxCounter = 0;
+//			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+//		}
 		//发布报警配置信息
 		if(send_warn_Flag && mqtt_flag){
 			send_warn_Flag = 0;
@@ -1036,8 +1073,8 @@ int main(void)
 //			sprintf(send_data_warn,"%0.1f,%0.1f,%d,%d,%d,%d",);
 //			u8 Heartbeat_len = strlen(send_data_Heartbeat);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HAERTBEAT\",0,0,0,2,\"on\"\r\n",imei_no);//发布心跳
+
 		}
-		
 		
 		
 		GUI_Refresh();//刷新显示
@@ -1054,7 +1091,7 @@ int main(void)
 //			uint16_t *data = (uint16_t *)&relay_structure;
 //			WriteFlashData(0,data,sizeof(SIZE_OF_RELAY_STRUCTURE));//只写进去一个字节
 		}
-		
+next:
 
 	}//while 
 	

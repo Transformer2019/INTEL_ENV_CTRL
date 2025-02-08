@@ -2083,35 +2083,35 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		showhanzi(160,35,40);showhanzi(192,35,18);showhanzi(224,35,10);
 		
 		showhanzi(0,67,78);showhanzi(108,67,18);showhanzi(180,67,40);showhanzi(252,67,69);//1 时分秒
-		showdigit_color(72,67,time_c_v[0].time_h/10,WHITE,BLACK);showdigit_color(88,67,time_c_v[0].time_h%10,WHITE,BLACK);
-		showdigit_color(144,67,time_c_v[0].time_m/10,WHITE,BLACK);showdigit_color(160,67,time_c_v[0].time_m%10,WHITE,BLACK);
-		showdigit_color(216,67,time_c_v[0].time_s/10,WHITE,BLACK);showdigit_color(232,67,time_c_v[0].time_s%10,WHITE,BLACK);
-		relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off ? showhanzi(315,67,70) : showhanzi(315,67,71);//开 /关
+		if(cur_pos4!=1){showdigit_color(72,67,time_c_v[0].time_h/10,WHITE,BLACK);showdigit_color(88,67,time_c_v[0].time_h%10,WHITE,BLACK);}
+		if(cur_pos4!=2){showdigit_color(144,67,time_c_v[0].time_m/10,WHITE,BLACK);showdigit_color(160,67,time_c_v[0].time_m%10,WHITE,BLACK);}
+		if(cur_pos4!=3){showdigit_color(216,67,time_c_v[0].time_s/10,WHITE,BLACK);showdigit_color(232,67,time_c_v[0].time_s%10,WHITE,BLACK);}
+		if(cur_pos4!=4){relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off ? showhanzi(315,67,70) : showhanzi(315,67,71);}//开 /关
 		
 		
 		showhanzi(0,103,79);showhanzi(108,103,18);showhanzi(180,103,40);showhanzi(252,103,69);//2 时分秒
-		showdigit_color(72,103,time_c_v[1].time_h/10,WHITE,BLACK);showdigit_color(88,103,time_c_v[1].time_h%10,WHITE,BLACK);
-		showdigit_color(144,103,time_c_v[1].time_m/10,WHITE,BLACK);showdigit_color(160,103,time_c_v[1].time_m%10,WHITE,BLACK);
-		showdigit_color(216,103,time_c_v[1].time_s/10,WHITE,BLACK);showdigit_color(232,103,time_c_v[1].time_s%10,WHITE,BLACK);
-		relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off ? showhanzi(315,103,70) : showhanzi(315,103,71);
+		if(cur_pos4!=5){showdigit_color(72,103,time_c_v[1].time_h/10,WHITE,BLACK);showdigit_color(88,103,time_c_v[1].time_h%10,WHITE,BLACK);}
+		if(cur_pos4!=6){showdigit_color(144,103,time_c_v[1].time_m/10,WHITE,BLACK);showdigit_color(160,103,time_c_v[1].time_m%10,WHITE,BLACK);}
+		if(cur_pos4!=7){showdigit_color(216,103,time_c_v[1].time_s/10,WHITE,BLACK);showdigit_color(232,103,time_c_v[1].time_s%10,WHITE,BLACK);}
+		if(cur_pos4!=8){relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off ? showhanzi(315,103,70) : showhanzi(315,103,71);}
 		
 		showhanzi(0,139,80);showhanzi(108,139,18);showhanzi(180,139,40);showhanzi(252,139,69);//1 时分秒
-		showdigit_color(72,139,time_c_v[2].time_h/10,WHITE,BLACK);showdigit_color(88,139,time_c_v[2].time_h%10,WHITE,BLACK);
-		showdigit_color(144,139,time_c_v[2].time_m/10,WHITE,BLACK);showdigit_color(160,139,time_c_v[2].time_m%10,WHITE,BLACK);
-		showdigit_color(216,139,time_c_v[2].time_s/10,WHITE,BLACK);showdigit_color(232,139,time_c_v[2].time_s%10,WHITE,BLACK);
-		relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off ? showhanzi(315,139,70) : showhanzi(315,139,71);
+		if(cur_pos4!=9){showdigit_color(72,139,time_c_v[2].time_h/10,WHITE,BLACK);showdigit_color(88,139,time_c_v[2].time_h%10,WHITE,BLACK);}
+		if(cur_pos4!=10){showdigit_color(144,139,time_c_v[2].time_m/10,WHITE,BLACK);showdigit_color(160,139,time_c_v[2].time_m%10,WHITE,BLACK);}
+		if(cur_pos4!=11){showdigit_color(216,139,time_c_v[2].time_s/10,WHITE,BLACK);showdigit_color(232,139,time_c_v[2].time_s%10,WHITE,BLACK);}
+		if(cur_pos4!=12){relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off ? showhanzi(315,139,70) : showhanzi(315,139,71);}
 		
 		showhanzi(0,175,81);showhanzi(108,175,18);showhanzi(180,175,40);showhanzi(252,175,69);//1 时分秒
-		showdigit_color(72,175,time_c_v[3].time_h/10,WHITE,BLACK);showdigit_color(88,175,time_c_v[3].time_h%10,WHITE,BLACK);
-		showdigit_color(144,175,time_c_v[3].time_m/10,WHITE,BLACK);showdigit_color(160,175,time_c_v[3].time_m%10,WHITE,BLACK);
-		showdigit_color(216,175,time_c_v[3].time_s/10,WHITE,BLACK);showdigit_color(232,175,time_c_v[3].time_s%10,WHITE,BLACK);
-		relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off ? showhanzi(315,175,70) : showhanzi(315,175,71);
+		if(cur_pos4!=13){showdigit_color(72,175,time_c_v[3].time_h/10,WHITE,BLACK);showdigit_color(88,175,time_c_v[3].time_h%10,WHITE,BLACK);}
+		if(cur_pos4!=14){showdigit_color(144,175,time_c_v[3].time_m/10,WHITE,BLACK);showdigit_color(160,175,time_c_v[3].time_m%10,WHITE,BLACK);}
+		if(cur_pos4!=15){showdigit_color(216,175,time_c_v[3].time_s/10,WHITE,BLACK);showdigit_color(232,175,time_c_v[3].time_s%10,WHITE,BLACK);}
+		if(cur_pos4!=16){relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off ? showhanzi(315,175,70) : showhanzi(315,175,71);}
 		
 		showhanzi(0,211,82);showhanzi(108,211,18);showhanzi(180,211,40);showhanzi(252,211,69);//1 时分秒
-		showdigit_color(72,211,time_c_v[4].time_h/10,WHITE,BLACK);showdigit_color(88,211,time_c_v[4].time_h%10,WHITE,BLACK);
-		showdigit_color(144,211,time_c_v[4].time_m/10,WHITE,BLACK);showdigit_color(160,211,time_c_v[4].time_m%10,WHITE,BLACK);
-		showdigit_color(216,211,time_c_v[4].time_s/10,WHITE,BLACK);showdigit_color(232,211,time_c_v[4].time_s%10,WHITE,BLACK);
-		relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off ? showhanzi(315,211,70) : showhanzi(315,211,71);
+		if(cur_pos4!=17){showdigit_color(72,211,time_c_v[4].time_h/10,WHITE,BLACK);showdigit_color(88,211,time_c_v[4].time_h%10,WHITE,BLACK);}
+		if(cur_pos4!=18){showdigit_color(144,211,time_c_v[4].time_m/10,WHITE,BLACK);showdigit_color(160,211,time_c_v[4].time_m%10,WHITE,BLACK);}
+		if(cur_pos4!=19){showdigit_color(216,211,time_c_v[4].time_s/10,WHITE,BLACK);showdigit_color(232,211,time_c_v[4].time_s%10,WHITE,BLACK);}
+		if(cur_pos4!=20){relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off ? showhanzi(315,211,70) : showhanzi(315,211,71);}
 		
 		switch(cur_pos4){
 			case 1:
