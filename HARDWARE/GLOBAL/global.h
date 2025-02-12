@@ -7,10 +7,21 @@
 //extern float average_temp;
 
 //分段控制结构体
+//typedef struct {
+//	uint8_t hour;
+//	uint8_t minutes;
+//	uint8_t seconds;
+//	uint8_t on_off;
+//} relay_Time;
+
+//分段控制结构体
 typedef struct {
-	uint8_t hour;
-	uint8_t minutes;
-	uint8_t seconds;
+	uint8_t hour_start;
+	uint8_t minutes_start;
+	//uint8_t seconds_start;
+	uint8_t hour_stop;
+	uint8_t minutes_stop;
+	//uint8_t seconds_stop;
 	uint8_t on_off;
 } relay_Time;
 

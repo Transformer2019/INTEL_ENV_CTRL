@@ -116,15 +116,27 @@ int main(void)
 		u8 warn_flag1=0;
 		u8 warn_flag2=0;
 		u8 warn_flag3=0;
+		u8 warn_flag1_high = 0;
+		u8 warn_flag1_low = 0;
+		u8 warn_flag2_high = 0;
+		u8 warn_flag2_low = 0;
+		u8 warn_flag3_high = 0;
+		u8 warn_flag3_low = 0;
 		u8 warn_NH3=0;
 		if(warn_temp1_flag && (temperature1>0.0) && (temperature1<90.0)){
 			if(temperature1>limit_temp_maxvalue || temperature1<limit_temp_minvalue)warn_flag1=1;else warn_flag1=0;
+			if(temperature1>limit_temp_maxvalue)warn_flag1_high=1;
+			if(temperature1<limit_temp_minvalue)warn_flag1_low=1;
 		}
 		if(warn_temp2_flag && (temperature2>0.0) && (temperature2<90.0)){
 			if(temperature2>limit_temp_maxvalue || temperature2<limit_temp_minvalue)warn_flag2=1;else warn_flag2=0;
+			if(temperature2>limit_temp_maxvalue)warn_flag2_high=1;
+			if(temperature2<limit_temp_minvalue)warn_flag2_low=1;
 		}
 		if(warn_temp3_flag && (temperature3>0.0) && (temperature3<90.0)){
 			if(temperature3>limit_temp_maxvalue || temperature3<limit_temp_minvalue)warn_flag3=1;else warn_flag3=0;
+			if(temperature3>limit_temp_maxvalue)warn_flag3_high=1;
+			if(temperature3<limit_temp_minvalue)warn_flag3_low=1;
 		}
 		if(NH3_warn_flag){
 			if(send_NH3!=999 && send_NH3>=NH3_max && send_NH3<100)warn_NH3=1;
@@ -529,26 +541,75 @@ int main(void)
 										//timer1
 										json_t *timer1 = json_object_get(time_seg_ctrl,"timer1");
 										json_t *timer2 = json_object_get(time_seg_ctrl,"timer2");
-										if(json_is_object(timer1) && json_is_object(timer2)){
-											json_t *h1 = json_object_get(timer1,"h");
-											json_t *m1 = json_object_get(timer1,"m");
-											json_t *s1 = json_object_get(timer1,"s");
+										json_t *timer3 = json_object_get(time_seg_ctrl,"timer3");
+										json_t *timer4 = json_object_get(time_seg_ctrl,"timer4");
+										json_t *timer5 = json_object_get(time_seg_ctrl,"timer5");
+										if(json_is_object(timer1) && json_is_object(timer2) && json_is_object(timer3) && json_is_object(timer4) && json_is_object(timer5)){
+											json_t *h1_start = json_object_get(timer1,"h_s");
+											json_t *m1_start = json_object_get(timer1,"m_s");
+											json_t *h1_stop = json_object_get(timer1,"h_e");
+											json_t *m1_stop = json_object_get(timer1,"m_e");
 											json_t *on_off_1 = json_object_get(timer1,"on-off");
-											json_t *h2 = json_object_get(timer2,"h");
-											json_t *m2 = json_object_get(timer2,"m");
-											json_t *s2 = json_object_get(timer2,"s");
+											
+											json_t *h2_start = json_object_get(timer2,"h_s");
+											json_t *m2_start = json_object_get(timer2,"m_s");
+											json_t *h2_stop = json_object_get(timer2,"h_e");
+											json_t *m2_stop = json_object_get(timer2,"m_e");
 											json_t *on_off_2 = json_object_get(timer2,"on-off");
-											if(json_is_integer(h1) && json_is_integer(m1) && json_is_integer(s1) && json_is_integer(on_off_1) &&
-												json_is_integer(h2) && json_is_integer(m2) && json_is_integer(s2) && json_is_integer(on_off_2)){
-												relay_structure[no].time_schedule.relay_time_seg.Time1.hour = json_integer_value(h1);
-												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes = json_integer_value(m1);
-												relay_structure[no].time_schedule.relay_time_seg.Time1.seconds = json_integer_value(s1);
+											
+											json_t *h3_start = json_object_get(timer3,"h_s");
+											json_t *m3_start = json_object_get(timer3,"m_s");
+											json_t *h3_stop = json_object_get(timer3,"h_e");
+											json_t *m3_stop = json_object_get(timer3,"m_e");
+											json_t *on_off_3 = json_object_get(timer3,"on-off");
+											
+											json_t *h4_start = json_object_get(timer4,"h_s");
+											json_t *m4_start = json_object_get(timer4,"m_s");
+											json_t *h4_stop = json_object_get(timer4,"h_e");
+											json_t *m4_stop = json_object_get(timer4,"m_e");
+											json_t *on_off_4 = json_object_get(timer4,"on-off");
+											
+											json_t *h5_start = json_object_get(timer5,"h_s");
+											json_t *m5_start = json_object_get(timer5,"m_s");
+											json_t *h5_stop = json_object_get(timer5,"h_e");
+											json_t *m5_stop = json_object_get(timer5,"m_e");
+											json_t *on_off_5 = json_object_get(timer5,"on-off");
+											
+											if(json_is_integer(h1_start) && json_is_integer(m1_start) && json_is_integer(h1_stop) && json_is_integer(m1_stop) && json_is_integer(on_off_1) &&
+												json_is_integer(h2_start) && json_is_integer(m2_start) && json_is_integer(h2_stop) && json_is_integer(m2_stop) && json_is_integer(on_off_2) &&
+												json_is_integer(h3_start) && json_is_integer(m3_start) && json_is_integer(h3_stop) && json_is_integer(m3_stop) && json_is_integer(on_off_3) &&
+												json_is_integer(h4_start) && json_is_integer(m4_start) && json_is_integer(h4_stop) && json_is_integer(m4_stop) && json_is_integer(on_off_4) &&
+												json_is_integer(h5_start) && json_is_integer(m5_start) && json_is_integer(h5_stop) && json_is_integer(m5_stop) && json_is_integer(on_off_5)
+											){
+												relay_structure[no].time_schedule.relay_time_seg.Time1.hour_start = json_integer_value(h1_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes_start = json_integer_value(m1_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.hour_stop = json_integer_value(h1_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time1.minutes_stop = json_integer_value(m1_stop);
 												relay_structure[no].time_schedule.relay_time_seg.Time1.on_off = json_integer_value(on_off_1);
 													
-												relay_structure[no].time_schedule.relay_time_seg.Time2.hour = json_integer_value(h2);
-												relay_structure[no].time_schedule.relay_time_seg.Time2.minutes = json_integer_value(m2);
-												relay_structure[no].time_schedule.relay_time_seg.Time2.seconds = json_integer_value(s2);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.hour_start = json_integer_value(h2_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.minutes_start = json_integer_value(m2_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.hour_stop = json_integer_value(h2_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time2.minutes_stop = json_integer_value(m2_stop);
 												relay_structure[no].time_schedule.relay_time_seg.Time2.on_off = json_integer_value(on_off_2);
+												
+												relay_structure[no].time_schedule.relay_time_seg.Time3.hour_start = json_integer_value(h3_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time3.minutes_start = json_integer_value(m3_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time3.hour_stop = json_integer_value(h3_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time3.minutes_stop = json_integer_value(m3_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time3.on_off = json_integer_value(on_off_3);
+												
+												relay_structure[no].time_schedule.relay_time_seg.Time4.hour_start = json_integer_value(h4_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time4.minutes_start = json_integer_value(m4_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time4.hour_stop = json_integer_value(h4_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time4.minutes_stop = json_integer_value(m4_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time4.on_off = json_integer_value(on_off_4);
+												
+												relay_structure[no].time_schedule.relay_time_seg.Time5.hour_start = json_integer_value(h5_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time5.minutes_start = json_integer_value(m5_start);
+												relay_structure[no].time_schedule.relay_time_seg.Time5.hour_stop = json_integer_value(h5_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time5.minutes_stop = json_integer_value(m5_stop);
+												relay_structure[no].time_schedule.relay_time_seg.Time5.on_off = json_integer_value(on_off_5);
 												relay_structure[no].relay_mode = 4;
 												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M4OK\"\r\n",imei_no);//timer1配置正确
 												delay_ms(30);
@@ -993,16 +1054,16 @@ int main(void)
 			//printf("%d\n",send_MQTT_Flag);
 			u8 send_index = send_CONFIG_INDEX-12;
 			char send_data_config[50]="";
-			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d;%d,%d,%d,%d",
+			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d",
 			relay_structure[send_index].relayNo,relay_structure[send_index].relay_mode,relay_structure[send_index].on_off,
 			relay_structure[send_index].temp_control.max_temp,relay_structure[send_index].temp_control.min_temp,relay_structure[send_index].temp_control.temp_choose_flag,relay_structure[send_index].temp_control.startup_mode,
 			relay_structure[send_index].temp_control.max_nh3,relay_structure[send_index].temp_control.min_nh3,
 			relay_structure[send_index].time_control.time_stop,relay_structure[send_index].time_control.time_open,
-			relay_structure[send_index].time_schedule.relay_time_seg.Time1.hour,relay_structure[send_index].time_schedule.relay_time_seg.Time1.minutes,relay_structure[send_index].time_schedule.relay_time_seg.Time1.seconds,relay_structure[send_index].time_schedule.relay_time_seg.Time1.on_off,
-			relay_structure[send_index].time_schedule.relay_time_seg.Time2.hour,relay_structure[send_index].time_schedule.relay_time_seg.Time2.minutes,relay_structure[send_index].time_schedule.relay_time_seg.Time2.seconds,relay_structure[send_index].time_schedule.relay_time_seg.Time2.on_off,
-			relay_structure[send_index].time_schedule.relay_time_seg.Time3.hour,relay_structure[send_index].time_schedule.relay_time_seg.Time3.minutes,relay_structure[send_index].time_schedule.relay_time_seg.Time3.seconds,relay_structure[send_index].time_schedule.relay_time_seg.Time3.on_off,
-			relay_structure[send_index].time_schedule.relay_time_seg.Time4.hour,relay_structure[send_index].time_schedule.relay_time_seg.Time4.minutes,relay_structure[send_index].time_schedule.relay_time_seg.Time4.seconds,relay_structure[send_index].time_schedule.relay_time_seg.Time4.on_off,
-			relay_structure[send_index].time_schedule.relay_time_seg.Time5.hour,relay_structure[send_index].time_schedule.relay_time_seg.Time5.minutes,relay_structure[send_index].time_schedule.relay_time_seg.Time5.seconds,relay_structure[send_index].time_schedule.relay_time_seg.Time5.on_off
+			relay_structure[send_index].time_schedule.relay_time_seg.Time1.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time1.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time1.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time1.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time1.on_off,
+			relay_structure[send_index].time_schedule.relay_time_seg.Time2.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time2.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time2.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time2.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time2.on_off,
+			relay_structure[send_index].time_schedule.relay_time_seg.Time3.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time3.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time3.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time3.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time3.on_off,
+			relay_structure[send_index].time_schedule.relay_time_seg.Time4.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time4.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time4.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time4.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time4.on_off,
+			relay_structure[send_index].time_schedule.relay_time_seg.Time5.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time5.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time5.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time5.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time5.on_off
 			);//sprintf
 			u16 config_len = strlen(send_data_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/CONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,config_len,send_data_config);//发布消息
@@ -1016,25 +1077,41 @@ int main(void)
 		
 		if(warn_flag && mqtt_flag){
 			
-			char *t1_warn_str = "{\"b1\" \"NO1 High-temperature alarm\"}";
-			char *t2_warn_str = "{\"b2\" \"NO2 High-temperature alarm\"}";
+			char *t1_warn_str_h = "{\"b1\" \"NO1 High-temperature alarm\"}";
+			char *t2_warn_str_h = "{\"b2\" \"NO2 High-temperature alarm\"}";
+			char *t1_warn_str_l = "{\"w1\" \"NO1 Low-temperature alarm\"}";
+			char *t2_warn_str_l = "{\"w2\" \"NO2 Low-temperature alarm\"}";
 			char *n1_warn_str = "{\"n1\" \"High-NH3 alarm\"}";
 
-			if(warn_flag1 && (warn_timer_count%8==0)){
-				u16 t1_warn_len = strlen(t1_warn_str);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len,t1_warn_str);//发布消息
+			if(warn_flag1_high && (warn_timer_count%15==0)){
+				u16 t1_warn_len_h = strlen(t1_warn_str_h);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_h,t1_warn_str_h);//发布消息
 				delay_ms(10);
 				UART3_RxCounter = 0;
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
-			if(warn_flag2 && (warn_timer_count%8==0)){
-				u16 t2_warn_len = strlen(t2_warn_str);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len,t2_warn_str);//发布消息
+			if(warn_flag2_high && (warn_timer_count%15==0)){
+				u16 t2_warn_len_h = strlen(t2_warn_str_h);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_h,t2_warn_str_h);//发布消息
 				delay_ms(10);
 				UART3_RxCounter = 0;
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
-			if(warn_NH3 && (warn_timer_count%8==0)){
+			if(warn_flag1_low && (warn_timer_count%15==0)){
+				u16 t1_warn_len_l = strlen(t1_warn_str_l);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_l,t1_warn_str_l);//发布消息
+				delay_ms(10);
+				UART3_RxCounter = 0;
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+			}
+			if(warn_flag2_low && (warn_timer_count%15==0)){
+				u16 t2_warn_len_l = strlen(t2_warn_str_l);
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_l,t2_warn_str_l);//发布消息
+				delay_ms(10);
+				UART3_RxCounter = 0;
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+			}
+			if(warn_NH3 && (warn_timer_count%15==0)){
 				u16 n1_warn_len = strlen(n1_warn_str);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,n1_warn_len,n1_warn_str);//发布消息
 				delay_ms(10);

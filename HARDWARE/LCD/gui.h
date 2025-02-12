@@ -59,9 +59,10 @@ typedef struct
 
 
 typedef struct {
-uint8_t time_h;
-uint8_t time_m;
-uint8_t time_s;
+uint8_t time_h_start;
+uint8_t time_m_start;
+uint8_t time_h_stop;
+uint8_t time_m_stop;
 } Time_C;
 
 //各界面的索引值

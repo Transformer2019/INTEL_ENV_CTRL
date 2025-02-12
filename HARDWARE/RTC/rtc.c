@@ -95,50 +95,116 @@ void RTC_IRQHandler(void)
 				//分时控参数
 				relay_No_tt[t] = relay_structure[i].relayNo;
                 //relay_time_seg[t] = &(relay_structure[i].time_schedule.relay_time_seg);
-				relay_time_segm[t].Time1.hour = relay_structure[i].time_schedule.relay_time_seg.Time1.hour;
-				relay_time_segm[t].Time1.minutes = relay_structure[i].time_schedule.relay_time_seg.Time1.minutes;
-				relay_time_segm[t].Time1.seconds = relay_structure[i].time_schedule.relay_time_seg.Time1.seconds;
+//				relay_time_segm[t].Time1.hour = relay_structure[i].time_schedule.relay_time_seg.Time1.hour;
+//				relay_time_segm[t].Time1.minutes = relay_structure[i].time_schedule.relay_time_seg.Time1.minutes;
+//				relay_time_segm[t].Time1.seconds = relay_structure[i].time_schedule.relay_time_seg.Time1.seconds;
+//				relay_time_segm[t].Time1.on_off = relay_structure[i].time_schedule.relay_time_seg.Time1.on_off;
+//				
+//				relay_time_segm[t].Time2.hour = relay_structure[i].time_schedule.relay_time_seg.Time2.hour;
+//				relay_time_segm[t].Time2.minutes = relay_structure[i].time_schedule.relay_time_seg.Time2.minutes;
+//				relay_time_segm[t].Time2.seconds = relay_structure[i].time_schedule.relay_time_seg.Time2.seconds;
+//				relay_time_segm[t].Time2.on_off = relay_structure[i].time_schedule.relay_time_seg.Time2.on_off;
+//				
+//				relay_time_segm[t].Time3.hour = relay_structure[i].time_schedule.relay_time_seg.Time3.hour;
+//				relay_time_segm[t].Time3.minutes = relay_structure[i].time_schedule.relay_time_seg.Time3.minutes;
+//				relay_time_segm[t].Time3.seconds = relay_structure[i].time_schedule.relay_time_seg.Time3.seconds;
+//				relay_time_segm[t].Time3.on_off = relay_structure[i].time_schedule.relay_time_seg.Time3.on_off;
+//				
+//				relay_time_segm[t].Time4.hour = relay_structure[i].time_schedule.relay_time_seg.Time4.hour;
+//				relay_time_segm[t].Time4.minutes = relay_structure[i].time_schedule.relay_time_seg.Time4.minutes;
+//				relay_time_segm[t].Time4.seconds = relay_structure[i].time_schedule.relay_time_seg.Time4.seconds;
+//				relay_time_segm[t].Time4.on_off = relay_structure[i].time_schedule.relay_time_seg.Time4.on_off;
+//				
+//				relay_time_segm[t].Time5.hour = relay_structure[i].time_schedule.relay_time_seg.Time5.hour;
+//				relay_time_segm[t].Time5.minutes = relay_structure[i].time_schedule.relay_time_seg.Time5.minutes;
+//				relay_time_segm[t].Time5.seconds = relay_structure[i].time_schedule.relay_time_seg.Time5.seconds;
+//				relay_time_segm[t].Time5.on_off = relay_structure[i].time_schedule.relay_time_seg.Time5.on_off;
+
+				relay_time_segm[t].Time1.hour_start = relay_structure[i].time_schedule.relay_time_seg.Time1.hour_start;
+				relay_time_segm[t].Time1.minutes_start = relay_structure[i].time_schedule.relay_time_seg.Time1.minutes_start;
+				relay_time_segm[t].Time1.hour_stop = relay_structure[i].time_schedule.relay_time_seg.Time1.hour_stop;
+				relay_time_segm[t].Time1.minutes_stop = relay_structure[i].time_schedule.relay_time_seg.Time1.minutes_stop;
 				relay_time_segm[t].Time1.on_off = relay_structure[i].time_schedule.relay_time_seg.Time1.on_off;
 				
-				relay_time_segm[t].Time2.hour = relay_structure[i].time_schedule.relay_time_seg.Time2.hour;
-				relay_time_segm[t].Time2.minutes = relay_structure[i].time_schedule.relay_time_seg.Time2.minutes;
-				relay_time_segm[t].Time2.seconds = relay_structure[i].time_schedule.relay_time_seg.Time2.seconds;
+				relay_time_segm[t].Time2.hour_start = relay_structure[i].time_schedule.relay_time_seg.Time2.hour_start;
+				relay_time_segm[t].Time2.minutes_start = relay_structure[i].time_schedule.relay_time_seg.Time2.minutes_start;
+				relay_time_segm[t].Time2.hour_stop = relay_structure[i].time_schedule.relay_time_seg.Time2.hour_stop;
+				relay_time_segm[t].Time2.minutes_stop = relay_structure[i].time_schedule.relay_time_seg.Time2.minutes_stop;
 				relay_time_segm[t].Time2.on_off = relay_structure[i].time_schedule.relay_time_seg.Time2.on_off;
 				
-				relay_time_segm[t].Time3.hour = relay_structure[i].time_schedule.relay_time_seg.Time3.hour;
-				relay_time_segm[t].Time3.minutes = relay_structure[i].time_schedule.relay_time_seg.Time3.minutes;
-				relay_time_segm[t].Time3.seconds = relay_structure[i].time_schedule.relay_time_seg.Time3.seconds;
+				relay_time_segm[t].Time3.hour_start = relay_structure[i].time_schedule.relay_time_seg.Time3.hour_start;
+				relay_time_segm[t].Time3.minutes_start = relay_structure[i].time_schedule.relay_time_seg.Time3.minutes_start;
+				relay_time_segm[t].Time3.hour_stop = relay_structure[i].time_schedule.relay_time_seg.Time3.hour_stop;
+				relay_time_segm[t].Time3.minutes_stop = relay_structure[i].time_schedule.relay_time_seg.Time3.minutes_stop;
 				relay_time_segm[t].Time3.on_off = relay_structure[i].time_schedule.relay_time_seg.Time3.on_off;
 				
-				relay_time_segm[t].Time4.hour = relay_structure[i].time_schedule.relay_time_seg.Time4.hour;
-				relay_time_segm[t].Time4.minutes = relay_structure[i].time_schedule.relay_time_seg.Time4.minutes;
-				relay_time_segm[t].Time4.seconds = relay_structure[i].time_schedule.relay_time_seg.Time4.seconds;
-				relay_time_segm[t].Time4.on_off = relay_structure[i].time_schedule.relay_time_seg.Time4.on_off;
+				relay_time_segm[t].Time4.hour_start = relay_structure[i].time_schedule.relay_time_seg.Time4.hour_start;
+				relay_time_segm[t].Time4.minutes_start = relay_structure[i].time_schedule.relay_time_seg.Time4.minutes_start;
+				relay_time_segm[t].Time4.hour_stop = relay_structure[i].time_schedule.relay_time_seg.Time4.hour_stop;
+				relay_time_segm[t].Time4.minutes_stop = relay_structure[i].time_schedule.relay_time_seg.Time4.minutes_stop;
+				relay_time_segm[t].Time4.on_off = relay_structure[i].time_schedule.relay_time_seg.Time1.on_off;
 				
-				relay_time_segm[t].Time5.hour = relay_structure[i].time_schedule.relay_time_seg.Time5.hour;
-				relay_time_segm[t].Time5.minutes = relay_structure[i].time_schedule.relay_time_seg.Time5.minutes;
-				relay_time_segm[t].Time5.seconds = relay_structure[i].time_schedule.relay_time_seg.Time5.seconds;
+				relay_time_segm[t].Time5.hour_start = relay_structure[i].time_schedule.relay_time_seg.Time5.hour_start;
+				relay_time_segm[t].Time5.minutes_start = relay_structure[i].time_schedule.relay_time_seg.Time5.minutes_start;
+				relay_time_segm[t].Time5.hour_stop = relay_structure[i].time_schedule.relay_time_seg.Time5.hour_stop;
+				relay_time_segm[t].Time5.minutes_stop = relay_structure[i].time_schedule.relay_time_seg.Time5.minutes_stop;
 				relay_time_segm[t].Time5.on_off = relay_structure[i].time_schedule.relay_time_seg.Time5.on_off;
-				
+
 				t++;
 			}
 		}
 		for (int i = 0; i < t; i++){
-			if(relay_time_segm[i].Time1.hour == calendar.hour && relay_time_segm[i].Time1.minutes == calendar.min && relay_time_segm[i].Time1.seconds == calendar.sec){
-				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time1.on_off;
+			if(relay_time_segm[i].Time1.on_off==0){
+				//relay_structure[relay_No_tt[i] - 1].on_off = 0;
+			}else if(relay_time_segm[i].Time1.on_off==1){
+				if(relay_time_segm[i].Time1.hour_start == calendar.hour && relay_time_segm[i].Time1.minutes_start == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 1;
+				if(relay_time_segm[i].Time1.hour_stop == calendar.hour && relay_time_segm[i].Time1.minutes_stop == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 0;
 			}
-			if(relay_time_segm[i].Time2.hour == calendar.hour && relay_time_segm[i].Time2.minutes == calendar.min && relay_time_segm[i].Time2.seconds == calendar.sec){
-				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time2.on_off;
+			
+			if(relay_time_segm[i].Time2.on_off==0){
+				//relay_structure[relay_No_tt[i] - 1].on_off = 0;
+			}else if(relay_time_segm[i].Time2.on_off==1){
+				if(relay_time_segm[i].Time2.hour_start == calendar.hour && relay_time_segm[i].Time2.minutes_start == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 1;
+				if(relay_time_segm[i].Time2.hour_stop == calendar.hour && relay_time_segm[i].Time2.minutes_stop == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 0;
 			}
-			if(relay_time_segm[i].Time3.hour == calendar.hour && relay_time_segm[i].Time3.minutes == calendar.min && relay_time_segm[i].Time3.seconds == calendar.sec){
-				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time3.on_off;
+			
+			if(relay_time_segm[i].Time3.on_off==0){
+				//relay_structure[relay_No_tt[i] - 1].on_off = 0;
+			}else if(relay_time_segm[i].Time3.on_off==1){
+				if(relay_time_segm[i].Time3.hour_start == calendar.hour && relay_time_segm[i].Time3.minutes_start == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 1;
+				if(relay_time_segm[i].Time3.hour_stop == calendar.hour && relay_time_segm[i].Time3.minutes_stop == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 0;
 			}
-			if(relay_time_segm[i].Time4.hour == calendar.hour && relay_time_segm[i].Time4.minutes == calendar.min && relay_time_segm[i].Time4.seconds == calendar.sec){
-				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time4.on_off;
+			
+			if(relay_time_segm[i].Time4.on_off==0){
+				//relay_structure[relay_No_tt[i] - 1].on_off = 0;
+			}else if(relay_time_segm[i].Time4.on_off==1){
+				if(relay_time_segm[i].Time4.hour_start == calendar.hour && relay_time_segm[i].Time4.minutes_start == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 1;
+				if(relay_time_segm[i].Time4.hour_stop == calendar.hour && relay_time_segm[i].Time4.minutes_stop == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 0;
 			}
-			if(relay_time_segm[i].Time5.hour == calendar.hour && relay_time_segm[i].Time5.minutes == calendar.min && relay_time_segm[i].Time5.seconds == calendar.sec){
-				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time5.on_off;
+			
+			if(relay_time_segm[i].Time5.on_off==0){
+				//relay_structure[relay_No_tt[i] - 1].on_off = 0;
+			}else if(relay_time_segm[i].Time5.on_off==1){
+				if(relay_time_segm[i].Time5.hour_start == calendar.hour && relay_time_segm[i].Time5.minutes_start == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 1;
+				if(relay_time_segm[i].Time5.hour_stop == calendar.hour && relay_time_segm[i].Time5.minutes_stop == calendar.min)relay_structure[relay_No_tt[i] - 1].on_off = 0;
 			}
+			
+//			if(relay_time_segm[i].Time1.hour == calendar.hour && relay_time_segm[i].Time1.minutes == calendar.min && relay_time_segm[i].Time1.seconds == calendar.sec){
+//				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time1.on_off;
+//			}
+//			if(relay_time_segm[i].Time2.hour == calendar.hour && relay_time_segm[i].Time2.minutes == calendar.min && relay_time_segm[i].Time2.seconds == calendar.sec){
+//				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time2.on_off;
+//			}
+//			if(relay_time_segm[i].Time3.hour == calendar.hour && relay_time_segm[i].Time3.minutes == calendar.min && relay_time_segm[i].Time3.seconds == calendar.sec){
+//				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time3.on_off;
+//			}
+//			if(relay_time_segm[i].Time4.hour == calendar.hour && relay_time_segm[i].Time4.minutes == calendar.min && relay_time_segm[i].Time4.seconds == calendar.sec){
+//				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time4.on_off;
+//			}
+//			if(relay_time_segm[i].Time5.hour == calendar.hour && relay_time_segm[i].Time5.minutes == calendar.min && relay_time_segm[i].Time5.seconds == calendar.sec){
+//				relay_structure[relay_No_tt[i] - 1].on_off = relay_time_segm[i].Time5.on_off;
+//			}
+
 		}
 		
     }
