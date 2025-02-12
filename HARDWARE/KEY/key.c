@@ -1,7 +1,9 @@
 #include "key.h"
 #include "sys.h" 
 #include "delay.h"
-								    
+			
+uint16_t cont_key_count=0;
+
 //按键初始化函数
 void KEY_Init(void) //IO初始化
 { 
@@ -80,7 +82,17 @@ u8 Get_KEY_Value(void)
 		if(KEY_RIGHT==0)return 3; // 返回
 		
 	}
-	if((KEY_UP&&KEY_DOWN&&KEY_LEFT&&KEY_RIGHT)&&Flag==1)Flag=0;//检测是否松开
+
+	if((KEY_UP&&KEY_DOWN&&KEY_LEFT&&KEY_RIGHT)&&Flag==1){Flag=0;cont_key_count=0;}//检测是否松开
+	
+	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&Flag==1)
+	{
+		if(KEY_UP==0)return 6; //快加
+		//if(KEY_LEFT==0)return 5; //设置
+		if(KEY_DOWN==0)return 7; //快减
+		//if(KEY_RIGHT==0)return 3; // 返回
+		cont_key_count++;
+	}
 	return 0;
 }
 

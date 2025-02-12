@@ -1495,6 +1495,99 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				
 				if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
 					break;
+///* 快加		
+			case KEY_ADD:
+				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
+					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
+				){
+					if(cont_key_count%10==0)relay_structure[last_index_save-12].relay_mode +=1;
+					if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
+				}else{
+					if(cont_key_count%5==0){
+						if(relay_structure[last_index_save-12].relay_mode == 1){
+							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
+							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
+							if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
+							if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
+							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
+							if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3+=1;
+							if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3+=1;
+							if(relay_structure[last_index_save-12].temp_control.max_nh3>=50)relay_structure[last_index_save-12].temp_control.max_nh3=50;
+							if(relay_structure[last_index_save-12].temp_control.min_nh3>=50)relay_structure[last_index_save-12].temp_control.min_nh3=50;
+							if(relay_structure[last_index_save-12].temp_control.max_temp>90)relay_structure[last_index_save-12].temp_control.max_temp=90;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 2){
+							if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open += 1;
+							if(cur_pos2 == 2) relay_structure[last_index_save-12].time_control.time_stop += 1;
+							if(relay_structure[last_index_save-12].time_control.time_open==10000)relay_structure[last_index_save-12].time_control.time_open=0;
+							if(relay_structure[last_index_save-12].time_control.time_stop==10000)relay_structure[last_index_save-12].time_control.time_stop=0;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 3){
+							if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
+							if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
+							if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
+							if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
+							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
+							if(cur_pos3 == 5) relay_structure[last_index_save-12].time_control.time_open += 1;
+							if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop += 1;
+							if(relay_structure[last_index_save-12].time_control.time_open==10000)relay_structure[last_index_save-12].time_control.time_open=0;
+							if(relay_structure[last_index_save-12].time_control.time_stop==10000)relay_structure[last_index_save-12].time_control.time_stop=0;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 4){
+							if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start+=1;
+							if(cur_pos4 == 2)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start+=1;
+							if(cur_pos4 == 3)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop+=1;
+							if(cur_pos4 == 4)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop+=1;					
+							if(cur_pos4 == 5)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off;
+							if(cur_pos4 == 6)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start+=1;
+							if(cur_pos4 == 7)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start+=1;
+							if(cur_pos4 == 8)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop+=1;
+							if(cur_pos4 == 9)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop+=1;
+							if(cur_pos4 == 10)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off;
+							if(cur_pos4 == 11)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start+=1;
+							if(cur_pos4 == 12)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start+=1;
+							if(cur_pos4 == 13)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop+=1;
+							if(cur_pos4 == 14)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop+=1;
+							if(cur_pos4 == 15)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off;
+							if(cur_pos4 == 16)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start+=1;
+							if(cur_pos4 == 17)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start+=1;
+							if(cur_pos4 == 18)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop+=1;
+							if(cur_pos4 == 19)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop+=1;
+							if(cur_pos4 == 20)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off;
+							if(cur_pos4 == 21)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start+=1;
+							if(cur_pos4 == 22)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start+=1;
+							if(cur_pos4 == 23)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop+=1;
+							if(cur_pos4 == 24)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop+=1;
+							if(cur_pos4 == 25)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off;
+							
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start = 0;
+
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 0;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 0;
+						}
+					}
+					
+				}	
+					break;
+			
+//*/				
 			case KEY_ENTER://确定(设置)按键
 				
 				if(last_index_save-12==0)enter_config_flag_1 += 1;
@@ -1644,7 +1737,100 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				}
 				if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
 					break;
-				
+///* 快减		
+			case KEY_SUB:
+				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
+					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
+				){
+					if(cont_key_count%10==0)relay_structure[last_index_save-12].relay_mode -=1;
+					if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
+				}else{
+					if(cont_key_count%5==0){
+						if(relay_structure[last_index_save-12].relay_mode == 1){
+							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
+							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
+							if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
+							if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
+							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
+							if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3-=1;
+							if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3-=1;
+							if(relay_structure[last_index_save-12].temp_control.max_nh3<=1)relay_structure[last_index_save-12].temp_control.max_nh3=1;
+							if(relay_structure[last_index_save-12].temp_control.min_nh3<=1)relay_structure[last_index_save-12].temp_control.min_nh3=1;
+							if(relay_structure[last_index_save-12].temp_control.min_temp<0)relay_structure[last_index_save-12].temp_control.min_temp=0;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 2){
+							if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open -= 1;
+							if(cur_pos2 == 2) relay_structure[last_index_save-12].time_control.time_stop -= 1;
+							if(relay_structure[last_index_save-12].time_control.time_open==65535)relay_structure[last_index_save-12].time_control.time_open=9999;
+							if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 3){
+							if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
+							if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
+							if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
+							if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
+							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
+							
+							if(cur_pos3 == 5) relay_structure[last_index_save-12].time_control.time_open -= 1;
+							if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop -= 1;
+							if(relay_structure[last_index_save-12].time_control.time_open==65535)relay_structure[last_index_save-12].time_control.time_open=9999;
+							if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
+						}
+						if(relay_structure[last_index_save-12].relay_mode == 4){
+							if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start-=1;
+							if(cur_pos4 == 2)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start-=1;
+							if(cur_pos4 == 3)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop-=1;
+							if(cur_pos4 == 4)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop-=1;					
+							if(cur_pos4 == 5)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off;
+							if(cur_pos4 == 6)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start-=1;
+							if(cur_pos4 == 7)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start-=1;
+							if(cur_pos4 == 8)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop-=1;
+							if(cur_pos4 == 9)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop-=1;
+							if(cur_pos4 == 10)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off;
+							if(cur_pos4 == 11)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start-=1;
+							if(cur_pos4 == 12)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start-=1;
+							if(cur_pos4 == 13)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop-=1;
+							if(cur_pos4 == 14)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop-=1;
+							if(cur_pos4 == 15)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off;
+							if(cur_pos4 == 16)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start-=1;
+							if(cur_pos4 == 17)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start-=1;
+							if(cur_pos4 == 18)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop-=1;
+							if(cur_pos4 == 19)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop-=1;
+							if(cur_pos4 == 20)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off;
+							if(cur_pos4 == 21)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start-=1;
+							if(cur_pos4 == 22)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start-=1;
+							if(cur_pos4 == 23)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop-=1;
+							if(cur_pos4 == 24)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop-=1;
+							if(cur_pos4 == 25)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off;
+							
+							
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start = 60;
+
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop = 60;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 23;
+							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 60;
+						}	
+					}
+					
+				}
+					break;
+//*/			
 //			case KEY_BACK:
 //				enter_config_flag_1=0;
 //				last_index_save=0;//为下一次进入页面判断是哪个风机；

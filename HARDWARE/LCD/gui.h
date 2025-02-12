@@ -107,6 +107,8 @@ enum
 	KEY_BACK,
 	KEY_PREVIOUS,
 	KEY_ENTER,
+	KEY_ADD,
+	KEY_SUB,
 };
 
 void Main_UI(u8 page_index,u8 key_val);

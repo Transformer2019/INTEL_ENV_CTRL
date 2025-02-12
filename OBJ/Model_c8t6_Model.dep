@@ -39,8 +39,8 @@ I (..\HARDWARE\NTC\ntc.h)(0x66DBFAF5)
 I (..\HARDWARE\TIMER\timer.h)(0x675F98F8)
 I (..\HARDWARE\LCD\lcd.h)(0x6788ECD4)
 I (D:\develop\keil\app\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
-I (..\HARDWARE\LCD\gui.h)(0x67AB1661)
-I (..\HARDWARE\LCD\UI.h)(0x67491269)
+I (..\HARDWARE\LCD\gui.h)(0x67AC5DBA)
+I (..\HARDWARE\LCD\UI.h)(0x67AC6483)
 I (..\HARDWARE\FLASH\flash.h)(0x6769307B)
 I (D:\develop\keil\app\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (..\HARDWARE\GP8201S\GP8201S.h)(0x66DD5753)
@@ -182,64 +182,6 @@ I (..\USER\stm32f10x_conf.h)(0x66B05001)
 I (..\FWLib\inc\stm32f10x_adc.h)(0x66B0504B)
 I (..\FWLib\inc\stm32f10x_can.h)(0x66B0504A)
 I (..\FWLib\inc\stm32f10x_cec.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_crc.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dac.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dbgmcu.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dma.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_exti.h)(0x66B05048)
-I (..\FWLib\inc\stm32f10x_flash.h)(0x66B05048)
-I (..\FWLib\inc\stm32f10x_fsmc.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_gpio.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_i2c.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_iwdg.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_pwr.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_rcc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_rtc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_sdio.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_spi.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_tim.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
-I (..\FWLib\inc\misc.h)(0x66B0504B)
-F (..\FWLib\src\stm32f10x_can.c)(0x66B05041)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_can.o --omf_browse ..\obj\stm32f10x_can.crf --depend ..\obj\stm32f10x_can.d)
-I (..\FWLib\inc\stm32f10x_can.h)(0x66B0504A)
-I (..\USER\stm32f10x.h)(0x66B0B33F)
-I (..\CORE\core_cm3.h)(0x66B05031)
-I (D:\develop\keil\app\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
-I (..\USER\system_stm32f10x.h)(0x66B05000)
-I (..\USER\stm32f10x_conf.h)(0x66B05001)
-I (..\FWLib\inc\stm32f10x_adc.h)(0x66B0504B)
-I (..\FWLib\inc\stm32f10x_bkp.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_cec.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_crc.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dac.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dbgmcu.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dma.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_exti.h)(0x66B05048)
-I (..\FWLib\inc\stm32f10x_flash.h)(0x66B05048)
-I (..\FWLib\inc\stm32f10x_fsmc.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_gpio.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_i2c.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_iwdg.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_pwr.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_rcc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_rtc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_sdio.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_spi.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_tim.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
-I (..\FWLib\inc\misc.h)(0x66B0504B)
-F (..\FWLib\src\stm32f10x_cec.c)(0x66B05041)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_cec.o --omf_browse ..\obj\stm32f10x_cec.crf --depend ..\obj\stm32f10x_cec.d)
-I (..\FWLib\inc\stm32f10x_cec.h)(0x66B0504A)
-I (..\USER\stm32f10x.h)(0x66B0B33F)
-I (..\CORE\core_cm3.h)(0x66B05031)
-I (D:\develop\keil\app\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
-I (..\USER\system_stm32f10x.h)(0x66B05000)
-I (..\USER\stm32f10x_conf.h)(0x66B05001)
-I (..\FWLib\inc\stm32f10x_adc.h)(0x66B0504B)
-I (..\FWLib\inc\stm32f10x_bkp.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_can.h)(0x66B0504A)
 I (..\FWLib\inc\stm32f10x_crc.h)(0x66B05049)
 I (..\FWLib\inc\stm32f10x_dac.h)(0x66B05049)
 I (..\FWLib\inc\stm32f10x_dbgmcu.h)(0x66B05049)
@@ -421,35 +363,6 @@ I (..\FWLib\inc\stm32f10x_dbgmcu.h)(0x66B05049)
 I (..\FWLib\inc\stm32f10x_dma.h)(0x66B05049)
 I (..\FWLib\inc\stm32f10x_exti.h)(0x66B05048)
 I (..\FWLib\inc\stm32f10x_fsmc.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_gpio.h)(0x66B05047)
-I (..\FWLib\inc\stm32f10x_i2c.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_iwdg.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_pwr.h)(0x66B05046)
-I (..\FWLib\inc\stm32f10x_rcc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_rtc.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_sdio.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_spi.h)(0x66B05045)
-I (..\FWLib\inc\stm32f10x_tim.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
-I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
-I (..\FWLib\inc\misc.h)(0x66B0504B)
-F (..\FWLib\src\stm32f10x_fsmc.c)(0x66B0503F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_fsmc.o --omf_browse ..\obj\stm32f10x_fsmc.crf --depend ..\obj\stm32f10x_fsmc.d)
-I (..\FWLib\inc\stm32f10x_fsmc.h)(0x66B05047)
-I (..\USER\stm32f10x.h)(0x66B0B33F)
-I (..\CORE\core_cm3.h)(0x66B05031)
-I (D:\develop\keil\app\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
-I (..\USER\system_stm32f10x.h)(0x66B05000)
-I (..\USER\stm32f10x_conf.h)(0x66B05001)
-I (..\FWLib\inc\stm32f10x_adc.h)(0x66B0504B)
-I (..\FWLib\inc\stm32f10x_bkp.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_can.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_cec.h)(0x66B0504A)
-I (..\FWLib\inc\stm32f10x_crc.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dac.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dbgmcu.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_dma.h)(0x66B05049)
-I (..\FWLib\inc\stm32f10x_exti.h)(0x66B05048)
-I (..\FWLib\inc\stm32f10x_flash.h)(0x66B05048)
 I (..\FWLib\inc\stm32f10x_gpio.h)(0x66B05047)
 I (..\FWLib\inc\stm32f10x_i2c.h)(0x66B05046)
 I (..\FWLib\inc\stm32f10x_iwdg.h)(0x66B05046)
@@ -781,8 +694,8 @@ I (..\FWLib\inc\stm32f10x_spi.h)(0x66B05045)
 I (..\FWLib\inc\stm32f10x_tim.h)(0x66B05044)
 I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
-F (..\HARDWARE\KEY\key.c)(0x674911FB)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
-I (..\HARDWARE\KEY\key.h)(0x67491246)
+F (..\HARDWARE\KEY\key.c)(0x67AC5DB1)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
+I (..\HARDWARE\KEY\key.h)(0x67AC5DB6)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
 I (..\USER\stm32f10x.h)(0x66B0B33F)
 I (..\CORE\core_cm3.h)(0x66B05031)
@@ -845,7 +758,7 @@ I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
 I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 I (..\SYSTEM\usart\usart1.h)(0x66E4F3CF)
-I (..\HARDWARE\LCD\gui.h)(0x67AB1661)
+I (..\HARDWARE\LCD\gui.h)(0x67AC5DBA)
 I (..\HARDWARE\GLOBAL\global.h)(0x67AB0535)
 I (..\HARDWARE\NTC\ntc.h)(0x66DBFAF5)
 I (..\SYSTEM\delay\delay.h)(0x674912A6)
@@ -882,7 +795,7 @@ I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 I (..\SYSTEM\delay\delay.h)(0x674912A6)
 I (..\HARDWARE\RTC\rtc.h)(0x67484485)
-I (..\HARDWARE\LCD\gui.h)(0x67AB1661)
+I (..\HARDWARE\LCD\gui.h)(0x67AC5DBA)
 I (..\HARDWARE\GLOBAL\global.h)(0x67AB0535)
 F (..\HARDWARE\74HC595\74HC595.c)(0x66E53A00)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\74hc595.o --omf_browse ..\obj\74hc595.crf --depend ..\obj\74hc595.d)
 I (..\USER\stm32f10x.h)(0x66B0B33F)
@@ -983,9 +896,9 @@ I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
 I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
-F (..\HARDWARE\LCD\FONT.H)(0x677D1C4C)()
-F (..\HARDWARE\LCD\gui.c)(0x67AC0E19)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\gui.o --omf_browse ..\obj\gui.crf --depend ..\obj\gui.d)
-I (..\HARDWARE\LCD\gui.h)(0x67AB1661)
+F (..\HARDWARE\LCD\FONT.H)(0x67AC6365)()
+F (..\HARDWARE\LCD\gui.c)(0x67AC67B0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\gui.o --omf_browse ..\obj\gui.crf --depend ..\obj\gui.d)
+I (..\HARDWARE\LCD\gui.h)(0x67AC5DBA)
 I (..\USER\stm32f10x.h)(0x66B0B33F)
 I (..\CORE\core_cm3.h)(0x66B05031)
 I (D:\develop\keil\app\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
@@ -1015,8 +928,8 @@ I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
 I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 I (..\HARDWARE\GLOBAL\global.h)(0x67AB0535)
-I (..\HARDWARE\LCD\UI.h)(0x67491269)
-I (..\HARDWARE\KEY\key.h)(0x67491246)
+I (..\HARDWARE\LCD\UI.h)(0x67AC6483)
+I (..\HARDWARE\KEY\key.h)(0x67AC5DB6)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
 I (..\HARDWARE\LCD\lcd.h)(0x6788ECD4)
 I (D:\develop\keil\app\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
@@ -1024,9 +937,9 @@ I (..\SYSTEM\delay\delay.h)(0x674912A6)
 I (..\HARDWARE\TIMER\timer.h)(0x675F98F8)
 I (..\HARDWARE\RTC\rtc.h)(0x67484485)
 I (..\HARDWARE\GP8201S\GP8201S.h)(0x66DD5753)
-I (..\HARDWARE\LCD\pic.h)(0x675A9AA2)
+I (..\HARDWARE\LCD\pic.h)(0x67AC6927)
 I (..\HARDWARE\MMODBUS\mb_hook.h)(0x67720B35)
-F (..\HARDWARE\LCD\gui.h)(0x67AB1661)()
+F (..\HARDWARE\LCD\gui.h)(0x67AC5DBA)()
 F (..\HARDWARE\LCD\lcd.c)(0x6788CEDA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\lcd.o --omf_browse ..\obj\lcd.crf --depend ..\obj\lcd.d)
 I (..\HARDWARE\LCD\lcd.h)(0x6788ECD4)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
@@ -1095,7 +1008,7 @@ I (..\FWLib\inc\stm32f10x_usart.h)(0x66B05044)
 I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 F (..\HARDWARE\LCD\SPI.h)(0x6749125B)()
-F (..\HARDWARE\LCD\UI.c)(0x67637E75)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\ui.o --omf_browse ..\obj\ui.crf --depend ..\obj\ui.d)
+F (..\HARDWARE\LCD\UI.c)(0x67AC6483)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\ui.o --omf_browse ..\obj\ui.crf --depend ..\obj\ui.d)
 I (..\HARDWARE\LCD\lcd.h)(0x6788ECD4)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
 I (..\USER\stm32f10x.h)(0x66B0B33F)
@@ -1128,11 +1041,11 @@ I (..\FWLib\inc\stm32f10x_wwdg.h)(0x66B05043)
 I (..\FWLib\inc\misc.h)(0x66B0504B)
 I (D:\develop\keil\app\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\develop\keil\app\ARM\ARMCC\include\string.h)(0x5EC77604)
-I (..\HARDWARE\LCD\font.h)(0x677D1C4C)
+I (..\HARDWARE\LCD\font.h)(0x67AC6365)
 I (..\SYSTEM\delay\delay.h)(0x674912A6)
-I (..\HARDWARE\LCD\UI.h)(0x67491269)
+I (..\HARDWARE\LCD\UI.h)(0x67AC6483)
 I (..\HARDWARE\LCD\oledfont.h)(0x67AB0AE5)
-F (..\HARDWARE\LCD\UI.h)(0x67491269)()
+F (..\HARDWARE\LCD\UI.h)(0x67AC6483)()
 F (..\HARDWARE\GP8201S\GP8201S.c)(0x66E292AC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\gp8201s.o --omf_browse ..\obj\gp8201s.crf --depend ..\obj\gp8201s.d)
 I (..\HARDWARE\GP8201S\GP8201S.h)(0x66DD5753)
 I (..\SYSTEM\sys\sys.h)(0x67491283)
@@ -1295,7 +1208,7 @@ I (..\HARDWARE\MMODBUS\mb_host.h)(0x67652CCC)
 I (..\HARDWARE\MMODBUS\mb_port.h)(0x6704FE2A)
 I (..\HARDWARE\MMODBUS\mb_hook.h)(0x67720B35)
 F (..\HARDWARE\MMODBUS\mb_crc.h)(0x66F680E3)()
-F (..\HARDWARE\MMODBUS\mb_hook.c)(0x67720B94)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\mb_hook.o --omf_browse ..\obj\mb_hook.crf --depend ..\obj\mb_hook.d)
+F (..\HARDWARE\MMODBUS\mb_hook.c)(0x67AC6576)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ..\SYSTEM\delay -I ..\USER -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\KEY -I ..\HARDWARE\TIMER -I ..\FWLib\inc -I ..\CORE -I ..\HARDWARE\RTC -I ..\HARDWARE\GLOBAL -I ..\HARDWARE\74HC595 -I ..\HARDWARE\NTC -I ..\HARDWARE\FLASH -I ..\HARDWARE\LCD -I ..\HARDWARE\GP8201S -I ..\HARDWARE\MMODBUS-I.\RTE\_Model-ID:\develop\keil\Packs\GigaDevice\GD32F10x_DFP\2.0.3\Device\Include-ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src-ID:\develop\keil\app\ARM\CMSIS\Include-D__UVISION_VERSION="531" -D_RTE_ -DGD32F10X_MD -DUSE_STDPERIPH_DRIVER -D_RTE_ -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o ..\obj\mb_hook.o --omf_browse ..\obj\mb_hook.crf --depend ..\obj\mb_hook.d)
 I (..\HARDWARE\MMODBUS\mb_include.h)(0x672B6032)
 I (D:\develop\keil\app\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
 I (..\USER\stm32f10x.h)(0x66B0B33F)

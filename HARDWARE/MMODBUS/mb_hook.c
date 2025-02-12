@@ -16,13 +16,13 @@
 uint16_t send_NH3 = 999;
 int16_t send_TEMP = 999;
 uint16_t send_RH = 9999;
-uint32_t send_CO2 = 99999;
+//uint32_t send_CO2 = 99999;
 
 
-int16_t send_TEMP_1 = 999;
-uint16_t send_RH_1 = 999;
-int16_t send_TEMP_2 = 999;
-uint16_t send_RH_2 = 999;
+//int16_t send_TEMP_1 = 999;
+//uint16_t send_RH_1 = 999;
+//int16_t send_TEMP_2 = 999;
+//uint16_t send_RH_2 = 999;
 
 void mbh_hook_rec01(uint8_t add,uint8_t *data,uint8_t datalen)
 {

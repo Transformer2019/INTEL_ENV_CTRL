@@ -32,6 +32,8 @@
 //返回
 #define KEY_RIGHT 	PBin(0)
 
+//连按按键
+extern uint16_t cont_key_count;
 
 void KEY_Init(void);
 u8 Get_KEY_Value(void);

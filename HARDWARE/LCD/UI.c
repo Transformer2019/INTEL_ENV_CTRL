@@ -138,106 +138,106 @@ void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2)
 								y2:the ending y coordinate of the rectangle
  * @retvalue   :None
 ******************************************************************************/
-void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
-{
-	LCD_DrawLine(x1,y1,x2,y1);
-	LCD_DrawLine(x1,y1,x1,y2);
-	LCD_DrawLine(x1,y2,x2,y2);
-	LCD_DrawLine(x2,y1,x2,y2);
-}  
+//void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
+//{
+//	LCD_DrawLine(x1,y1,x2,y1);
+//	LCD_DrawLine(x1,y1,x1,y2);
+//	LCD_DrawLine(x1,y2,x2,y2);
+//	LCD_DrawLine(x2,y1,x2,y2);
+//}  
 
-/*****************************************************************************
- * @name       :void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
- * @date       :2018-08-09 
- * @function   :Filled a rectangle
- * @parameters :x1:the bebinning x coordinate of the filled rectangle
-                y1:the bebinning y coordinate of the filled rectangle
-								x2:the ending x coordinate of the filled rectangle
-								y2:the ending y coordinate of the filled rectangle
- * @retvalue   :None
-******************************************************************************/  
-void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
-{
-	LCD_Fill(x1,y1,x2,y2,POINT_COLOR);
-}
- 
-/*****************************************************************************
- * @name       :void _draw_circle_8(int xc, int yc, int x, int y, u16 c)
- * @date       :2018-08-09 
- * @function   :8 symmetry circle drawing algorithm (internal call)
- * @parameters :xc:the x coordinate of the Circular center 
-                yc:the y coordinate of the Circular center 
-								x:the x coordinate relative to the Circular center 
-								y:the y coordinate relative to the Circular center 
-								c:the color value of the circle
- * @retvalue   :None
-******************************************************************************/  
-void _draw_circle_8(int xc, int yc, int x, int y, u16 c)
-{
-	GUI_DrawPoint(xc + x, yc + y, c);
+///*****************************************************************************
+// * @name       :void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
+// * @date       :2018-08-09 
+// * @function   :Filled a rectangle
+// * @parameters :x1:the bebinning x coordinate of the filled rectangle
+//                y1:the bebinning y coordinate of the filled rectangle
+//								x2:the ending x coordinate of the filled rectangle
+//								y2:the ending y coordinate of the filled rectangle
+// * @retvalue   :None
+//******************************************************************************/  
+//void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
+//{
+//	LCD_Fill(x1,y1,x2,y2,POINT_COLOR);
+//}
+// 
+///*****************************************************************************
+// * @name       :void _draw_circle_8(int xc, int yc, int x, int y, u16 c)
+// * @date       :2018-08-09 
+// * @function   :8 symmetry circle drawing algorithm (internal call)
+// * @parameters :xc:the x coordinate of the Circular center 
+//                yc:the y coordinate of the Circular center 
+//								x:the x coordinate relative to the Circular center 
+//								y:the y coordinate relative to the Circular center 
+//								c:the color value of the circle
+// * @retvalue   :None
+//******************************************************************************/  
+//void _draw_circle_8(int xc, int yc, int x, int y, u16 c)
+//{
+//	GUI_DrawPoint(xc + x, yc + y, c);
 
-	GUI_DrawPoint(xc - x, yc + y, c);
+//	GUI_DrawPoint(xc - x, yc + y, c);
 
-	GUI_DrawPoint(xc + x, yc - y, c);
+//	GUI_DrawPoint(xc + x, yc - y, c);
 
-	GUI_DrawPoint(xc - x, yc - y, c);
+//	GUI_DrawPoint(xc - x, yc - y, c);
 
-	GUI_DrawPoint(xc + y, yc + x, c);
+//	GUI_DrawPoint(xc + y, yc + x, c);
 
-	GUI_DrawPoint(xc - y, yc + x, c);
+//	GUI_DrawPoint(xc - y, yc + x, c);
 
-	GUI_DrawPoint(xc + y, yc - x, c);
+//	GUI_DrawPoint(xc + y, yc - x, c);
 
-	GUI_DrawPoint(xc - y, yc - x, c);
-}
+//	GUI_DrawPoint(xc - y, yc - x, c);
+//}
 
-/*****************************************************************************
- * @name       :void gui_circle(int xc, int yc,u16 c,int r, int fill)
- * @date       :2018-08-09 
- * @function   :Draw a circle of specified size at a specified location
- * @parameters :xc:the x coordinate of the Circular center 
-                yc:the y coordinate of the Circular center 
-								r:Circular radius
-								fill:1-filling,0-no filling
- * @retvalue   :None
-******************************************************************************/  
-void gui_circle(int xc, int yc,u16 c,int r, int fill)
-{
-	int x = 0, y = r, yi, d;
+///*****************************************************************************
+// * @name       :void gui_circle(int xc, int yc,u16 c,int r, int fill)
+// * @date       :2018-08-09 
+// * @function   :Draw a circle of specified size at a specified location
+// * @parameters :xc:the x coordinate of the Circular center 
+//                yc:the y coordinate of the Circular center 
+//								r:Circular radius
+//								fill:1-filling,0-no filling
+// * @retvalue   :None
+//******************************************************************************/  
+//void gui_circle(int xc, int yc,u16 c,int r, int fill)
+//{
+//	int x = 0, y = r, yi, d;
 
-	d = 3 - 2 * r;
+//	d = 3 - 2 * r;
 
 
-	if (fill) 
-	{
-		// 如果填充（画实心圆）
-		while (x <= y) {
-			for (yi = x; yi <= y; yi++)
-				_draw_circle_8(xc, yc, x, yi, c);
+//	if (fill) 
+//	{
+//		// 如果填充（画实心圆）
+//		while (x <= y) {
+//			for (yi = x; yi <= y; yi++)
+//				_draw_circle_8(xc, yc, x, yi, c);
 
-			if (d < 0) {
-				d = d + 4 * x + 6;
-			} else {
-				d = d + 4 * (x - y) + 10;
-				y--;
-			}
-			x++;
-		}
-	} else 
-	{
-		// 如果不填充（画空心圆）
-		while (x <= y) {
-			_draw_circle_8(xc, yc, x, y, c);
-			if (d < 0) {
-				d = d + 4 * x + 6;
-			} else {
-				d = d + 4 * (x - y) + 10;
-				y--;
-			}
-			x++;
-		}
-	}
-}
+//			if (d < 0) {
+//				d = d + 4 * x + 6;
+//			} else {
+//				d = d + 4 * (x - y) + 10;
+//				y--;
+//			}
+//			x++;
+//		}
+//	} else 
+//	{
+//		// 如果不填充（画空心圆）
+//		while (x <= y) {
+//			_draw_circle_8(xc, yc, x, y, c);
+//			if (d < 0) {
+//				d = d + 4 * x + 6;
+//			} else {
+//				d = d + 4 * (x - y) + 10;
+//				y--;
+//			}
+//			x++;
+//		}
+//	}
+//}
 
 /*****************************************************************************
  * @name       :void Draw_Triangel(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2)
@@ -251,20 +251,20 @@ void gui_circle(int xc, int yc,u16 c,int r, int fill)
 								y2:the ending y coordinate of the triangular edge 
  * @retvalue   :None
 ******************************************************************************/ 
-void Draw_Triangel(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2)
-{
-	LCD_DrawLine(x0,y0,x1,y1);
-	LCD_DrawLine(x1,y1,x2,y2);
-	LCD_DrawLine(x2,y2,x0,y0);
-}
+//void Draw_Triangel(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2)
+//{
+//	LCD_DrawLine(x0,y0,x1,y1);
+//	LCD_DrawLine(x1,y1,x2,y2);
+//	LCD_DrawLine(x2,y2,x0,y0);
+//}
 
-static void _swap(u16 *a, u16 *b)
-{
-	u16 tmp;
-  tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
+//static void _swap(u16 *a, u16 *b)
+//{
+//	u16 tmp;
+//  tmp = *a;
+//	*a = *b;
+//	*b = tmp;
+//}
 
 /*****************************************************************************
  * @name       :void Fill_Triangel(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2)
@@ -389,7 +389,7 @@ void LCD_ShowChar(u16 x,u16 y,u16 fc, u16 bc, u8 num,u8 size,u8 mode)
 	{		
 		for(pos=0;pos<size;pos++)
 		{
-			if(size==12)temp=asc2_1206[num][pos];//调用1206字体
+			if(size==12)temp=asc2_1608[num][pos];//调用1206字体
 			else temp=asc2_1608[num][pos];		 //调用1608字体
 			for(t=0;t<size/2;t++)
 		    {                 
@@ -405,7 +405,7 @@ void LCD_ShowChar(u16 x,u16 y,u16 fc, u16 bc, u8 num,u8 size,u8 mode)
 	{
 		for(pos=0;pos<size;pos++)
 		{
-			if(size==12)temp=asc2_1206[num][pos];//调用1206字体
+			if(size==12)temp=asc2_1608[num][pos];//调用1206字体
 			else temp=asc2_1608[num][pos];		 //调用1608字体
 			for(t=0;t<size/2;t++)
 		    {   
@@ -749,12 +749,12 @@ void LCD_ShowString(u16 x,u16 y,u8 size,u8 *p,u8 mode)
 								mode:0-no overlying,1-overlying
  * @retvalue   :None
 ******************************************************************************/ 
-void Gui_StrCenter(u16 x, u16 y, u16 fc, u16 bc, u8 *str,u8 size,u8 mode)
-{
-	u16 len=strlen((const char *)str);
-	u16 x1=(lcddev.width-len*8)/2;
-//	Show_Str(x1,y,fc,bc,str,size,mode);
-} 
+//void Gui_StrCenter(u16 x, u16 y, u16 fc, u16 bc, u8 *str,u8 size,u8 mode)
+//{
+//	u16 len=strlen((const char *)str);
+//	u16 x1=(lcddev.width-len*8)/2;
+////	Show_Str(x1,y,fc,bc,str,size,mode);
+//} 
  
 /*****************************************************************************
  * @name       :void Gui_Drawbmp16(u16 x,u16 y,const unsigned char *p)
@@ -788,20 +788,20 @@ void Gui_Drawbmp16(u16 x,u16 y,const unsigned char *p) //显示40*40 QQ图片
 }
 
 
-void Gui_Drawbmp_logo(u16 x,u16 y,const unsigned char *p) //显示40*40 QQ图片
-{
-  	int i; 
-	unsigned char picH,picL; 
+//void Gui_Drawbmp_logo(u16 x,u16 y,const unsigned char *p) //显示40*40 QQ图片
+//{
+//  	int i; 
+//	unsigned char picH,picL; 
 
-	LCD_SetWindows(x,y,x+128-1,y+32-1);//窗口设置
-    for(i=0;i<32*128;i++)
-	{	
-	 	picL=*(p+i*2);	//数据低位在前
-		picH=*(p+i*2+1);				
-		Lcd_WriteData_16Bit(picH<<8|picL);  						
-	}	
-	LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);//恢复显示窗口为全屏	
-}
+//	LCD_SetWindows(x,y,x+128-1,y+32-1);//窗口设置
+//    for(i=0;i<32*128;i++)
+//	{	
+//	 	picL=*(p+i*2);	//数据低位在前
+//		picH=*(p+i*2+1);				
+//		Lcd_WriteData_16Bit(picH<<8|picL);  						
+//	}	
+//	LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);//恢复显示窗口为全屏	
+//}
 
 
 //在指定位置显示一个汉字(32*33大小)
