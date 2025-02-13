@@ -18,6 +18,9 @@ extern volatile u8 Heartbeat_flag;
 extern volatile u8 TIM1_Counter;
 extern volatile u8 TIM1_flag;
 
+extern volatile uint16_t MQTT_CON_Counter;
+extern volatile u8 MQTT_CON_flag;
+
 //快加键使用的计数器
 //extern volatile uint16_t TIM3_Add_Counter;
 

@@ -973,7 +973,7 @@ void Alarm_Child(u8 page_index,u8 key_val){
 void Time_Child(u8 page_index,u8 key_val){
 	static u8 cur_pos=1;
 	static u16 temp_year=2024;
-	static u8 temp_mouth=8;
+	static u8 temp_month=8;
 	static u8 temp_day=15;
 	static u8 temp_h=12;
 	static u8 temp_m=30;
@@ -1009,19 +1009,19 @@ void Time_Child(u8 page_index,u8 key_val){
 		{
 			case KEY_PREVIOUS:
 				if(cur_pos == 1) temp_year += 1;
-				if(cur_pos == 2) temp_mouth += 1;
+				if(cur_pos == 2) temp_month += 1;
 			    if(cur_pos == 3) temp_day += 1;
 				if(cur_pos == 4) temp_h += 1;
 				if(cur_pos == 5) temp_m += 1;
 				if(cur_pos == 6) temp_s += 1;
 			
 				if(temp_year > 2099) temp_year=2099;
-				if(temp_mouth >= 12) temp_mouth=12;	
+				if(temp_month >= 12) temp_month=12;	
 				if(temp_day >= 31) temp_day=31;	
 			    if(temp_h >= 23) temp_h=23;
 				if(temp_m >= 59) temp_m=59;
 			    if(temp_s >= 59) temp_s=59;
-				RTC_Set(temp_year,temp_mouth,temp_day,temp_h,temp_m,temp_s);
+				RTC_Set(temp_year,temp_month,temp_day,temp_h,temp_m,temp_s);
 					break;
 			case KEY_ENTER://确定(设置)按键
 				cur_pos++;
@@ -1031,19 +1031,19 @@ void Time_Child(u8 page_index,u8 key_val){
 					break;
 			case KEY_NEXT:
 				if(cur_pos == 1) temp_year -= 1;
-				if(cur_pos == 2) temp_mouth -= 1;
+				if(cur_pos == 2) temp_month -= 1;
 			    if(cur_pos == 3) temp_day -= 1;
 				if(cur_pos == 4) temp_h -= 1;
 				if(cur_pos == 5) temp_m -= 1;
 				if(cur_pos == 6) temp_s -= 1;
 			
 				if(temp_year < 1970) temp_year=1970;
-				if(temp_mouth == 0) temp_mouth=1;	
+				if(temp_month == 0) temp_month=1;	
 				if(temp_day == 0) temp_day=1;	
 			    if(temp_h == 255) temp_h=0;
 				if(temp_m == 255) temp_m=0;
 			    if(temp_s == 255) temp_s=0;
-			    RTC_Set(temp_year,temp_mouth,temp_day,temp_h,temp_m,temp_s);
+			    RTC_Set(temp_year,temp_month,temp_day,temp_h,temp_m,temp_s);
 					break;
 			default:break;
 		}
@@ -1055,7 +1055,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 1:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLUE);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLUE);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLUE);showdigit_color(48,170,temp_year%10,WHITE,BLUE);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLACK);showdigit_color(96,170,temp_mouth%10,WHITE,BLACK);
+			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
@@ -1067,7 +1067,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 2:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLUE);showdigit_color(96,170,temp_mouth%10,WHITE,BLUE);
+			showdigit_color(80,170,temp_month/10,WHITE,BLUE);showdigit_color(96,170,temp_month%10,WHITE,BLUE);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
@@ -1079,7 +1079,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 3:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLACK);showdigit_color(96,170,temp_mouth%10,WHITE,BLACK);
+			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLUE);showdigit_color(144,170,temp_day%10,WHITE,BLUE);
 			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
@@ -1092,7 +1092,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 4:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLACK);showdigit_color(96,170,temp_mouth%10,WHITE,BLACK);
+			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLUE);showdigit_color(208,170,temp_h%10,WHITE,BLUE);
@@ -1104,7 +1104,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 5:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLACK);showdigit_color(96,170,temp_mouth%10,WHITE,BLACK);
+			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
@@ -1116,7 +1116,7 @@ void Time_Child(u8 page_index,u8 key_val){
 		case 6:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
 			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_mouth/10,WHITE,BLACK);showdigit_color(96,170,temp_mouth%10,WHITE,BLACK);
+			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
 			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);

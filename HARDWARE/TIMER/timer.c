@@ -30,6 +30,10 @@ volatile u8 Heartbeat_flag=0;
 //快加键使用的计数器
 //volatile uint16_t TIM3_Add_Counter=0;
 
+//判断是否连接服务器
+volatile uint16_t MQTT_CON_Counter=0;
+volatile u8 MQTT_CON_flag=0;
+
 
 //温度数组
 //volatile float temp1_list[11]={0};
@@ -198,7 +202,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		TIM4_Counter_10s++;
 		
 		//将配置参数写入flash频率
-		if(TIM5_Counter_10s>6)
+		if(TIM5_Counter_10s>600)
 		{
 		  TIM5_flag=1;
 		}
@@ -357,6 +361,15 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			  TIM3_flag=1;
 			}
 			TIM3_Counter_10s++;
+			
+			//mqtt连接判断计数器，一小时判断一次是否连接服务器
+			if(MQTT_CON_Counter>3600)
+			{
+			  MQTT_CON_flag=1;
+			}
+			MQTT_CON_Counter++;
+			
+			
 			//printf("TIM3-------\r\n");
 			uint8_t j = 0;
 			
