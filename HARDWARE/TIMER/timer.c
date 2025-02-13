@@ -27,6 +27,9 @@ volatile u8 TIM1_flag=0;
 volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
+//快加键使用的计数器
+//volatile uint16_t TIM3_Add_Counter=0;
+
 
 //温度数组
 //volatile float temp1_list[11]={0};
@@ -329,6 +332,11 @@ void TIM3_IRQHandler(void)   //TIM3中断
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
 		{   
 			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx的中断待处理位:TIM 中断源 
+			
+			//快加键使用的计数器
+//			TIM3_Add_Counter++;
+//			if(TIM3_Add_Counter>255)TIM3_Add_Counter=0;
+			
 			
 			// 定时计数器
 			static uint32_t led_counters[11] = {0};

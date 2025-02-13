@@ -1500,10 +1500,11 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
 					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
 				){
-					if(cont_key_count%10==0)relay_structure[last_index_save-12].relay_mode +=1;
+					if(cont_key_count%2==0)relay_structure[last_index_save-12].relay_mode +=1;
 					if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
 				}else{
-					if(cont_key_count%5==0){
+					if(cont_key_count%1==0){
+						//printf("gui:%d\n",cont_key_count);
 						if(relay_structure[last_index_save-12].relay_mode == 1){
 							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
 							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
@@ -1742,10 +1743,10 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
 					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
 				){
-					if(cont_key_count%10==0)relay_structure[last_index_save-12].relay_mode -=1;
+					if(cont_key_count%2==0)relay_structure[last_index_save-12].relay_mode -=1;
 					if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
 				}else{
-					if(cont_key_count%5==0){
+					if(cont_key_count%1==0){
 						if(relay_structure[last_index_save-12].relay_mode == 1){
 							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
 							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
@@ -2362,8 +2363,8 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 
 		//分时控
 		showhanzi(160,35,40);showhanzi(192,35,18);showhanzi(224,35,10);
-		showhanzi(80,67,115);showhanzi(112,67,116);showhanzi(144,67,18);showhanzi(176,67,19);//起始时间
-		showhanzi(272,67,117);showhanzi(304,67,118);showhanzi(336,67,18);showhanzi(368,67,19);//终止时间
+		showhanzi_color(80,67,115,GREEN,BLACK);showhanzi_color(112,67,116,GREEN,BLACK);showhanzi_color(144,67,18,GREEN,BLACK);showhanzi_color(176,67,19,GREEN,BLACK);//起始时间
+		showhanzi_color(272,67,117,RED,BLACK);showhanzi_color(304,67,118,RED,BLACK);showhanzi_color(336,67,18,RED,BLACK);showhanzi_color(368,67,19,RED,BLACK);//终止时间
 		
 		showhanzi(0,99,78);showhanzi(96,99,18);showhanzi(160,99,40);showhanzi(288,99,18);showhanzi(352,99,40);//1 时分秒
 		if(cur_pos4!=1){showdigit_color(64,99,time_c_v[0].time_h_start/10,WHITE,BLACK);showdigit_color(80,99,time_c_v[0].time_h_start%10,WHITE,BLACK);}

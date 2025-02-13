@@ -18,6 +18,9 @@ extern volatile u8 Heartbeat_flag;
 extern volatile u8 TIM1_Counter;
 extern volatile u8 TIM1_flag;
 
+//快加键使用的计数器
+//extern volatile uint16_t TIM3_Add_Counter;
+
 //温度数组
 //extern volatile float temp1_list[11];
 //extern volatile float temp2_list[11];

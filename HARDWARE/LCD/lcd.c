@@ -272,9 +272,9 @@ void LCD_RESET(void)
 {
 
 	LCD_RST_CLR;
-	delay_ms(100);	
+	delay_ms(20);	
 	LCD_RST_SET;
-	delay_ms(50);
+	delay_ms(10);
 	
 //	LCD_RST_SET;
 //	delay_ms(10);
@@ -300,7 +300,7 @@ void LCD_Init(void)
 								 
  	LCD_RESET(); //LCD ∏¥Œª
 	
-	delay_ms(100);
+	delay_ms(20);
 //************* ILI9488≥ı ºªØ**********//	
 
 //	LCD_WR_REG(0xE0);
@@ -471,7 +471,7 @@ void LCD_Init(void)
 	LCD_WR_DATA(0x82);
 	
 	LCD_WR_REG(0x11); 
-	delay_ms(120); 
+	delay_ms(10); 
 	LCD_WR_REG(0x29); 
 
 
