@@ -37,7 +37,7 @@ char flash_data[9]={0x00};
 volatile uint8_t addr;
 volatile uint8_t addr_flag;
 
-volatile char userData[150];
+//volatile char userData[330];
 
 char time_str[20]="";
 
@@ -235,16 +235,19 @@ int main(void)
 				if(strstr(UART3_RxBuff,"publish")!=NULL){
 	//			   PAout(8)=0;
 	//			   delay_ms(1000);
+					delay_ms(10);
 				   	char *str1 = NULL;							
 					char *str2 = NULL;			
 					char *pcBegin = NULL;
 					char *pcEnd = NULL;
+					char userData[350]={0};
 					memset(userData, 0, sizeof(userData));//清空userData,不然会出现字符串叠加;或者设置成局部变量char userData[150]={0};
 					str1=(char *)UART3_RxBuff;
 					str2=strstr(str1,"data=");
 					if(str2!=NULL){
 						pcBegin=strstr(str2,"data=");
 						pcEnd=strstr(str2,"end");
+						//LCD_ShowString(0,42,16,pcBegin+336,0);
 						pcBegin+=5;
 						if((pcBegin != NULL) && (pcEnd != NULL))		//开始和结束都有对应的字符
 						{
@@ -885,7 +888,7 @@ int main(void)
 
 			if(network_flag==0){
 				UART3_Puts("AT+CEREG?\r\n"); 
-				delay_ms(5);
+				delay_ms(10);
 				//判断是否联网
 				if(UART3_RxCounter != 0){
 					if(strstr(UART3_RxBuff,"+CEREG: 0,1")){//判断是否联网
@@ -1235,18 +1238,18 @@ int main(void)
 //			uint16_t *data = (uint16_t *)&relay_structure;
 //			WriteFlashData(0,data,sizeof(SIZE_OF_RELAY_STRUCTURE));//只写进去一个字节
 			
-			//获取网络时间
+			//获取网络时间 一小时一次
 			UART3_Puts("AT+CCLK?\r\n"); 
 			delay_ms(25);
 			if(UART3_RxCounter != 0){
-				//char time_str[20]="";
+				char time_str_test[20]="";
 				if(strstr(UART3_RxBuff,"+CCLK:")){
 					char *clock_str = strstr(UART3_RxBuff, "+CCLK: ");
 					if (clock_str != NULL) {
 						clock_str += 8; // 跳过 "+CGSN: " 部分
-						strncpy(time_str, clock_str, 20);
-						time_str[20] = '\0'; // 确保字符串以 '\0' 结束
-						//LCD_ShowString(0,40,16,time_str,0);
+						strncpy(time_str_test, clock_str, 20);
+						time_str_test[20] = '\0'; // 确保字符串以 '\0' 结束
+						//LCD_ShowString(0,50,16,time_str_test,0);
 						uint16_t year_t = 0;
 						uint8_t month_t = 0;
 						uint8_t day_t = 0;
@@ -1254,7 +1257,7 @@ int main(void)
 						uint8_t minute_t = 0;
 						uint8_t second_t = 0;
 						uint8_t tz_offset = 0;
-						int result = sscanf(time_str, "%d/%d/%d,%d:%d:%d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
+						int result = sscanf(time_str_test, "%d/%d/%d,%d:%d:%d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
 						if(result==7){
 							year_t+=2000;
 							if((hour_t+(tz_offset/4))>23){

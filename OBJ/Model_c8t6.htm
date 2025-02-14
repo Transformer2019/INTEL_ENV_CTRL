@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\OBJ\Model_c8t6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Model_c8t6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Feb 13 17:06:31 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Feb 14 18:54:35 2025
 <BR><P>
-<H3>Maximum Stack Usage =       1216 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1568 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
 <P>
@@ -605,9 +605,9 @@ Global Symbols
 <P><STRONG><a name="[58]"></a>__strtoll</STRONG> (Thumb, 144 bytes, Stack size 32 bytes, __strtoll.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = __strtoll &rArr; _strtoull
 </UL>
-<BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoull
+<BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoull
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoll
 </UL>
@@ -727,8 +727,8 @@ Global Symbols
 <P><STRONG><a name="[72]"></a>_strtoull</STRONG> (Thumb, 194 bytes, Stack size 48 bytes, _strtoull.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _strtoull
 </UL>
-<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__strtoll
 </UL>
@@ -2347,8 +2347,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = jsonp_strtod &rArr; strtod &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtod
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_value
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lex_scan_number
@@ -2388,8 +2388,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Temperature
 </UL>
 
-<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 10394 bytes, Stack size 480 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1216<LI>Call Chain = main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
+<P><STRONG><a name="[43]"></a>main</STRONG> (Thumb, 10412 bytes, Stack size 832 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1568<LI>Call Chain = main &rArr; json_loads &rArr; parse_json &rArr; parse_value &rArr; parse_object &rArr;  parse_value (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
@@ -2949,8 +2949,8 @@ Local Symbols
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lex_get_save
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lex_get
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_set
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoll
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoll
 </UL>
 <BR>[Called By]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lex_scan
 </UL>

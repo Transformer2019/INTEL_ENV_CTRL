@@ -451,19 +451,3 @@ u8 RTC_Get_Week(u16 year,u8 month,u8 day)
     if (yearL%4==0&&month<3)temp2--;
     return(temp2%7);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
