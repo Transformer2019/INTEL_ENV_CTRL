@@ -2295,79 +2295,79 @@ Image Symbol Table
     list_insert                              0x08015201   Thumb Code    14  hashtable.o(i.list_insert)
     i.log                                    0x08015210   Section        0  log.o(i.log)
     i.main                                   0x0801556c   Section        0  main.o(i.main)
-    i.malloc                                 0x08017e20   Section        0  malloc.o(i.malloc)
-    i.mb_crc16                               0x08017e8c   Section        0  mb_crc.o(i.mb_crc16)
-    i.mb_port_getchar                        0x08017ec4   Section        0  mb_port.o(i.mb_port_getchar)
-    i.mb_port_putchar                        0x08017ed8   Section        0  mb_port.o(i.mb_port_putchar)
-    i.mb_port_timerDisable                   0x08017ef8   Section        0  mb_port.o(i.mb_port_timerDisable)
-    i.mb_port_timerEnable                    0x08017f24   Section        0  mb_port.o(i.mb_port_timerEnable)
-    i.mb_port_timerInit                      0x08017f50   Section        0  mb_port.o(i.mb_port_timerInit)
-    i.mb_port_uartEnable                     0x08017fec   Section        0  mb_port.o(i.mb_port_uartEnable)
-    i.mb_port_uartInit                       0x08018048   Section        0  mb_port.o(i.mb_port_uartInit)
-    i.mbh_exec                               0x08018160   Section        0  mb_host.o(i.mbh_exec)
-    i.mbh_hook_rec01                         0x080181f6   Section        0  mb_hook.o(i.mbh_hook_rec01)
-    i.mbh_hook_rec02                         0x080181f8   Section        0  mb_hook.o(i.mbh_hook_rec02)
-    i.mbh_hook_rec03                         0x080181fc   Section        0  mb_hook.o(i.mbh_hook_rec03)
-    i.mbh_hook_rec04                         0x08018244   Section        0  mb_hook.o(i.mbh_hook_rec04)
-    i.mbh_hook_rec05                         0x08018246   Section        0  mb_hook.o(i.mbh_hook_rec05)
-    i.mbh_hook_rec06                         0x08018248   Section        0  mb_hook.o(i.mbh_hook_rec06)
-    i.mbh_hook_rec15                         0x0801824a   Section        0  mb_hook.o(i.mbh_hook_rec15)
-    i.mbh_hook_rec16                         0x0801824c   Section        0  mb_hook.o(i.mbh_hook_rec16)
-    i.mbh_hook_timesErr                      0x08018250   Section        0  mb_hook.o(i.mbh_hook_timesErr)
-    i.mbh_init                               0x08018274   Section        0  mb_host.o(i.mbh_init)
-    i.mbh_poll                               0x0801828c   Section        0  mb_host.o(i.mbh_poll)
-    i.mbh_send                               0x08018358   Section        0  mb_host.o(i.mbh_send)
-    i.mbh_timer3T5Isr                        0x080183d4   Section        0  mb_host.o(i.mbh_timer3T5Isr)
-    i.mbh_uartRxIsr                          0x08018430   Section        0  mb_host.o(i.mbh_uartRxIsr)
-    i.mbh_uartTxIsr                          0x080184b0   Section        0  mb_host.o(i.mbh_uartTxIsr)
-    i.middleValueFilter                      0x08018510   Section        0  timer.o(i.middleValueFilter)
-    i.parse_array                            0x080185ac   Section        0  load.o(i.parse_array)
-    parse_array                              0x080185ad   Thumb Code   130  load.o(i.parse_array)
-    i.parse_json                             0x08018640   Section        0  load.o(i.parse_json)
-    parse_json                               0x08018641   Thumb Code   104  load.o(i.parse_json)
-    i.parse_object                           0x080186d4   Section        0  load.o(i.parse_object)
-    parse_object                             0x080186d5   Thumb Code   264  load.o(i.parse_object)
-    i.parse_value                            0x08018854   Section        0  load.o(i.parse_value)
-    parse_value                              0x08018855   Thumb Code   210  load.o(i.parse_value)
-    i.seed_from_timestamp_and_pid            0x08018994   Section        0  jansson_config.o(i.seed_from_timestamp_and_pid)
-    i.show_4g                                0x0801899c   Section        0  ui.o(i.show_4g)
-    i.showdigit_color                        0x08018a10   Section        0  ui.o(i.showdigit_color)
-    i.showhanzi                              0x08018a88   Section        0  ui.o(i.showhanzi)
-    i.showhanzi_1                            0x08018afc   Section        0  ui.o(i.showhanzi_1)
-    i.showhanzi_color                        0x08018b70   Section        0  ui.o(i.showhanzi_color)
-    i.strbuffer_append_byte                  0x08018be8   Section        0  strbuffer.o(i.strbuffer_append_byte)
-    i.strbuffer_append_bytes                 0x08018bf4   Section        0  strbuffer.o(i.strbuffer_append_bytes)
-    i.strbuffer_clear                        0x08018c64   Section        0  strbuffer.o(i.strbuffer_clear)
-    i.strbuffer_close                        0x08018c6e   Section        0  strbuffer.o(i.strbuffer_close)
-    i.strbuffer_init                         0x08018c86   Section        0  strbuffer.o(i.strbuffer_init)
-    i.strbuffer_pop                          0x08018ca8   Section        0  strbuffer.o(i.strbuffer_pop)
-    i.strbuffer_value                        0x08018cc0   Section        0  strbuffer.o(i.strbuffer_value)
-    i.stream_get                             0x08018cc4   Section        0  load.o(i.stream_get)
-    stream_get                               0x08018cc5   Thumb Code   200  load.o(i.stream_get)
-    i.stream_unget                           0x08018da8   Section        0  load.o(i.stream_unget)
-    stream_unget                             0x08018da9   Thumb Code    74  load.o(i.stream_unget)
-    i.string_create                          0x08018df2   Section        0  value.o(i.string_create)
-    string_create                            0x08018df3   Thumb Code    62  value.o(i.string_create)
-    i.string_get                             0x08018e30   Section        0  load.o(i.string_get)
-    string_get                               0x08018e31   Thumb Code    24  load.o(i.string_get)
-    i.strtod                                 0x08018e48   Section        0  strtod.o(i.strtod)
-    i.utf8_check_first                       0x08018e64   Section        0  utf.o(i.utf8_check_first)
-    i.utf8_check_full                        0x08018ea0   Section        0  utf.o(i.utf8_check_full)
-    i.utf8_encode                            0x08018f28   Section        0  utf.o(i.utf8_encode)
-    .constdata                               0x08018fa4   Section       24  rtc.o(.constdata)
-    .constdata                               0x08018fbc   Section     8192  gui.o(.constdata)
-    .constdata                               0x0801afbc   Section    16752  ui.o(.constdata)
-    .constdata                               0x0801f12c   Section      512  mb_crc.o(.constdata)
-    aucCRCHi                                 0x0801f12c   Data         256  mb_crc.o(.constdata)
-    aucCRCLo                                 0x0801f22c   Data         256  mb_crc.o(.constdata)
-    .constdata                               0x0801f330   Section       56  log.o(.constdata)
-    Lg2                                      0x0801f330   Data          24  log.o(.constdata)
-    Lg                                       0x0801f348   Data          32  log.o(.constdata)
-    .constdata                               0x0801f368   Section        8  qnan.o(.constdata)
-    .constdata                               0x0801f370   Section      129  ctype_o.o(.constdata)
-    .constdata                               0x0801f3f4   Section        4  ctype_o.o(.constdata)
-    table                                    0x0801f3f4   Data           4  ctype_o.o(.constdata)
-    .conststring                             0x0801f3f8   Section      108  main.o(.conststring)
+    i.malloc                                 0x08017ed4   Section        0  malloc.o(i.malloc)
+    i.mb_crc16                               0x08017f40   Section        0  mb_crc.o(i.mb_crc16)
+    i.mb_port_getchar                        0x08017f78   Section        0  mb_port.o(i.mb_port_getchar)
+    i.mb_port_putchar                        0x08017f8c   Section        0  mb_port.o(i.mb_port_putchar)
+    i.mb_port_timerDisable                   0x08017fac   Section        0  mb_port.o(i.mb_port_timerDisable)
+    i.mb_port_timerEnable                    0x08017fd8   Section        0  mb_port.o(i.mb_port_timerEnable)
+    i.mb_port_timerInit                      0x08018004   Section        0  mb_port.o(i.mb_port_timerInit)
+    i.mb_port_uartEnable                     0x080180a0   Section        0  mb_port.o(i.mb_port_uartEnable)
+    i.mb_port_uartInit                       0x080180fc   Section        0  mb_port.o(i.mb_port_uartInit)
+    i.mbh_exec                               0x08018214   Section        0  mb_host.o(i.mbh_exec)
+    i.mbh_hook_rec01                         0x080182aa   Section        0  mb_hook.o(i.mbh_hook_rec01)
+    i.mbh_hook_rec02                         0x080182ac   Section        0  mb_hook.o(i.mbh_hook_rec02)
+    i.mbh_hook_rec03                         0x080182b0   Section        0  mb_hook.o(i.mbh_hook_rec03)
+    i.mbh_hook_rec04                         0x080182f8   Section        0  mb_hook.o(i.mbh_hook_rec04)
+    i.mbh_hook_rec05                         0x080182fa   Section        0  mb_hook.o(i.mbh_hook_rec05)
+    i.mbh_hook_rec06                         0x080182fc   Section        0  mb_hook.o(i.mbh_hook_rec06)
+    i.mbh_hook_rec15                         0x080182fe   Section        0  mb_hook.o(i.mbh_hook_rec15)
+    i.mbh_hook_rec16                         0x08018300   Section        0  mb_hook.o(i.mbh_hook_rec16)
+    i.mbh_hook_timesErr                      0x08018304   Section        0  mb_hook.o(i.mbh_hook_timesErr)
+    i.mbh_init                               0x08018328   Section        0  mb_host.o(i.mbh_init)
+    i.mbh_poll                               0x08018340   Section        0  mb_host.o(i.mbh_poll)
+    i.mbh_send                               0x0801840c   Section        0  mb_host.o(i.mbh_send)
+    i.mbh_timer3T5Isr                        0x08018488   Section        0  mb_host.o(i.mbh_timer3T5Isr)
+    i.mbh_uartRxIsr                          0x080184e4   Section        0  mb_host.o(i.mbh_uartRxIsr)
+    i.mbh_uartTxIsr                          0x08018564   Section        0  mb_host.o(i.mbh_uartTxIsr)
+    i.middleValueFilter                      0x080185c4   Section        0  timer.o(i.middleValueFilter)
+    i.parse_array                            0x08018660   Section        0  load.o(i.parse_array)
+    parse_array                              0x08018661   Thumb Code   130  load.o(i.parse_array)
+    i.parse_json                             0x080186f4   Section        0  load.o(i.parse_json)
+    parse_json                               0x080186f5   Thumb Code   104  load.o(i.parse_json)
+    i.parse_object                           0x08018788   Section        0  load.o(i.parse_object)
+    parse_object                             0x08018789   Thumb Code   264  load.o(i.parse_object)
+    i.parse_value                            0x08018908   Section        0  load.o(i.parse_value)
+    parse_value                              0x08018909   Thumb Code   210  load.o(i.parse_value)
+    i.seed_from_timestamp_and_pid            0x08018a48   Section        0  jansson_config.o(i.seed_from_timestamp_and_pid)
+    i.show_4g                                0x08018a50   Section        0  ui.o(i.show_4g)
+    i.showdigit_color                        0x08018ac4   Section        0  ui.o(i.showdigit_color)
+    i.showhanzi                              0x08018b3c   Section        0  ui.o(i.showhanzi)
+    i.showhanzi_1                            0x08018bb0   Section        0  ui.o(i.showhanzi_1)
+    i.showhanzi_color                        0x08018c24   Section        0  ui.o(i.showhanzi_color)
+    i.strbuffer_append_byte                  0x08018c9c   Section        0  strbuffer.o(i.strbuffer_append_byte)
+    i.strbuffer_append_bytes                 0x08018ca8   Section        0  strbuffer.o(i.strbuffer_append_bytes)
+    i.strbuffer_clear                        0x08018d18   Section        0  strbuffer.o(i.strbuffer_clear)
+    i.strbuffer_close                        0x08018d22   Section        0  strbuffer.o(i.strbuffer_close)
+    i.strbuffer_init                         0x08018d3a   Section        0  strbuffer.o(i.strbuffer_init)
+    i.strbuffer_pop                          0x08018d5c   Section        0  strbuffer.o(i.strbuffer_pop)
+    i.strbuffer_value                        0x08018d74   Section        0  strbuffer.o(i.strbuffer_value)
+    i.stream_get                             0x08018d78   Section        0  load.o(i.stream_get)
+    stream_get                               0x08018d79   Thumb Code   200  load.o(i.stream_get)
+    i.stream_unget                           0x08018e5c   Section        0  load.o(i.stream_unget)
+    stream_unget                             0x08018e5d   Thumb Code    74  load.o(i.stream_unget)
+    i.string_create                          0x08018ea6   Section        0  value.o(i.string_create)
+    string_create                            0x08018ea7   Thumb Code    62  value.o(i.string_create)
+    i.string_get                             0x08018ee4   Section        0  load.o(i.string_get)
+    string_get                               0x08018ee5   Thumb Code    24  load.o(i.string_get)
+    i.strtod                                 0x08018efc   Section        0  strtod.o(i.strtod)
+    i.utf8_check_first                       0x08018f18   Section        0  utf.o(i.utf8_check_first)
+    i.utf8_check_full                        0x08018f54   Section        0  utf.o(i.utf8_check_full)
+    i.utf8_encode                            0x08018fdc   Section        0  utf.o(i.utf8_encode)
+    .constdata                               0x08019058   Section       24  rtc.o(.constdata)
+    .constdata                               0x08019070   Section     8192  gui.o(.constdata)
+    .constdata                               0x0801b070   Section    16752  ui.o(.constdata)
+    .constdata                               0x0801f1e0   Section      512  mb_crc.o(.constdata)
+    aucCRCHi                                 0x0801f1e0   Data         256  mb_crc.o(.constdata)
+    aucCRCLo                                 0x0801f2e0   Data         256  mb_crc.o(.constdata)
+    .constdata                               0x0801f3e0   Section       56  log.o(.constdata)
+    Lg2                                      0x0801f3e0   Data          24  log.o(.constdata)
+    Lg                                       0x0801f3f8   Data          32  log.o(.constdata)
+    .constdata                               0x0801f418   Section        8  qnan.o(.constdata)
+    .constdata                               0x0801f420   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x0801f4a4   Section        4  ctype_o.o(.constdata)
+    table                                    0x0801f4a4   Data           4  ctype_o.o(.constdata)
+    .conststring                             0x0801f4a8   Section      108  main.o(.conststring)
     .data                                    0x20000000   Section       16  main.o(.data)
     .data                                    0x20000010   Section       20  system_stm32f10x.o(.data)
     .data                                    0x20000024   Section       20  stm32f10x_rcc.o(.data)
@@ -2863,62 +2863,62 @@ Image Symbol Table
     list_change                              0x080151b3   Thumb Code    46  timer.o(i.list_change)
     list_change_end                          0x080151e1   Thumb Code    32  timer.o(i.list_change_end)
     log                                      0x08015211   Thumb Code   808  log.o(i.log)
-    main                                     0x0801556d   Thumb Code 10412  main.o(i.main)
-    malloc                                   0x08017e21   Thumb Code    92  malloc.o(i.malloc)
-    mb_crc16                                 0x08017e8d   Thumb Code    48  mb_crc.o(i.mb_crc16)
-    mb_port_getchar                          0x08017ec5   Thumb Code    14  mb_port.o(i.mb_port_getchar)
-    mb_port_putchar                          0x08017ed9   Thumb Code    28  mb_port.o(i.mb_port_putchar)
-    mb_port_timerDisable                     0x08017ef9   Thumb Code    38  mb_port.o(i.mb_port_timerDisable)
-    mb_port_timerEnable                      0x08017f25   Thumb Code    38  mb_port.o(i.mb_port_timerEnable)
-    mb_port_timerInit                        0x08017f51   Thumb Code   144  mb_port.o(i.mb_port_timerInit)
-    mb_port_uartEnable                       0x08017fed   Thumb Code    84  mb_port.o(i.mb_port_uartEnable)
-    mb_port_uartInit                         0x08018049   Thumb Code   270  mb_port.o(i.mb_port_uartInit)
-    mbh_exec                                 0x08018161   Thumb Code   150  mb_host.o(i.mbh_exec)
-    mbh_hook_rec01                           0x080181f7   Thumb Code     2  mb_hook.o(i.mbh_hook_rec01)
-    mbh_hook_rec02                           0x080181f9   Thumb Code     2  mb_hook.o(i.mbh_hook_rec02)
-    mbh_hook_rec03                           0x080181fd   Thumb Code    60  mb_hook.o(i.mbh_hook_rec03)
-    mbh_hook_rec04                           0x08018245   Thumb Code     2  mb_hook.o(i.mbh_hook_rec04)
-    mbh_hook_rec05                           0x08018247   Thumb Code     2  mb_hook.o(i.mbh_hook_rec05)
-    mbh_hook_rec06                           0x08018249   Thumb Code     2  mb_hook.o(i.mbh_hook_rec06)
-    mbh_hook_rec15                           0x0801824b   Thumb Code     2  mb_hook.o(i.mbh_hook_rec15)
-    mbh_hook_rec16                           0x0801824d   Thumb Code     2  mb_hook.o(i.mbh_hook_rec16)
-    mbh_hook_timesErr                        0x08018251   Thumb Code    22  mb_hook.o(i.mbh_hook_timesErr)
-    mbh_init                                 0x08018275   Thumb Code    22  mb_host.o(i.mbh_init)
-    mbh_poll                                 0x0801828d   Thumb Code   200  mb_host.o(i.mbh_poll)
-    mbh_send                                 0x08018359   Thumb Code   118  mb_host.o(i.mbh_send)
-    mbh_timer3T5Isr                          0x080183d5   Thumb Code    88  mb_host.o(i.mbh_timer3T5Isr)
-    mbh_uartRxIsr                            0x08018431   Thumb Code   124  mb_host.o(i.mbh_uartRxIsr)
-    mbh_uartTxIsr                            0x080184b1   Thumb Code    92  mb_host.o(i.mbh_uartTxIsr)
-    middleValueFilter                        0x08018511   Thumb Code   154  timer.o(i.middleValueFilter)
-    seed_from_timestamp_and_pid              0x08018995   Thumb Code     6  jansson_config.o(i.seed_from_timestamp_and_pid)
-    show_4g                                  0x0801899d   Thumb Code   112  ui.o(i.show_4g)
-    showdigit_color                          0x08018a11   Thumb Code   114  ui.o(i.showdigit_color)
-    showhanzi                                0x08018a89   Thumb Code   110  ui.o(i.showhanzi)
-    showhanzi_1                              0x08018afd   Thumb Code   112  ui.o(i.showhanzi_1)
-    showhanzi_color                          0x08018b71   Thumb Code   114  ui.o(i.showhanzi_color)
-    strbuffer_append_byte                    0x08018be9   Thumb Code    12  strbuffer.o(i.strbuffer_append_byte)
-    strbuffer_append_bytes                   0x08018bf5   Thumb Code   108  strbuffer.o(i.strbuffer_append_bytes)
-    strbuffer_clear                          0x08018c65   Thumb Code    10  strbuffer.o(i.strbuffer_clear)
-    strbuffer_close                          0x08018c6f   Thumb Code    24  strbuffer.o(i.strbuffer_close)
-    strbuffer_init                           0x08018c87   Thumb Code    34  strbuffer.o(i.strbuffer_init)
-    strbuffer_pop                            0x08018ca9   Thumb Code    24  strbuffer.o(i.strbuffer_pop)
-    strbuffer_value                          0x08018cc1   Thumb Code     4  strbuffer.o(i.strbuffer_value)
-    strtod                                   0x08018e49   Thumb Code    28  strtod.o(i.strtod)
-    utf8_check_first                         0x08018e65   Thumb Code    60  utf.o(i.utf8_check_first)
-    utf8_check_full                          0x08018ea1   Thumb Code   126  utf.o(i.utf8_check_full)
-    utf8_encode                              0x08018f29   Thumb Code   120  utf.o(i.utf8_encode)
-    table_week                               0x08018fa4   Data          12  rtc.o(.constdata)
-    mon_table                                0x08018fb0   Data          12  rtc.o(.constdata)
-    gImage_1                                 0x08018fbc   Data        2048  gui.o(.constdata)
-    gImage_2                                 0x080197bc   Data        2048  gui.o(.constdata)
-    gImage_3                                 0x08019fbc   Data        2048  gui.o(.constdata)
-    gImage_4                                 0x0801a7bc   Data        2048  gui.o(.constdata)
-    asc2_1608                                0x0801afbc   Data        1520  ui.o(.constdata)
-    hanzi                                    0x0801b5ac   Data       15232  ui.o(.constdata)
-    __mathlib_zero                           0x0801f368   Data           8  qnan.o(.constdata)
-    __ctype_table                            0x0801f370   Data         129  ctype_o.o(.constdata)
-    Region$$Table$$Base                      0x0801f464   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0801f484   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x0801556d   Thumb Code 10590  main.o(i.main)
+    malloc                                   0x08017ed5   Thumb Code    92  malloc.o(i.malloc)
+    mb_crc16                                 0x08017f41   Thumb Code    48  mb_crc.o(i.mb_crc16)
+    mb_port_getchar                          0x08017f79   Thumb Code    14  mb_port.o(i.mb_port_getchar)
+    mb_port_putchar                          0x08017f8d   Thumb Code    28  mb_port.o(i.mb_port_putchar)
+    mb_port_timerDisable                     0x08017fad   Thumb Code    38  mb_port.o(i.mb_port_timerDisable)
+    mb_port_timerEnable                      0x08017fd9   Thumb Code    38  mb_port.o(i.mb_port_timerEnable)
+    mb_port_timerInit                        0x08018005   Thumb Code   144  mb_port.o(i.mb_port_timerInit)
+    mb_port_uartEnable                       0x080180a1   Thumb Code    84  mb_port.o(i.mb_port_uartEnable)
+    mb_port_uartInit                         0x080180fd   Thumb Code   270  mb_port.o(i.mb_port_uartInit)
+    mbh_exec                                 0x08018215   Thumb Code   150  mb_host.o(i.mbh_exec)
+    mbh_hook_rec01                           0x080182ab   Thumb Code     2  mb_hook.o(i.mbh_hook_rec01)
+    mbh_hook_rec02                           0x080182ad   Thumb Code     2  mb_hook.o(i.mbh_hook_rec02)
+    mbh_hook_rec03                           0x080182b1   Thumb Code    60  mb_hook.o(i.mbh_hook_rec03)
+    mbh_hook_rec04                           0x080182f9   Thumb Code     2  mb_hook.o(i.mbh_hook_rec04)
+    mbh_hook_rec05                           0x080182fb   Thumb Code     2  mb_hook.o(i.mbh_hook_rec05)
+    mbh_hook_rec06                           0x080182fd   Thumb Code     2  mb_hook.o(i.mbh_hook_rec06)
+    mbh_hook_rec15                           0x080182ff   Thumb Code     2  mb_hook.o(i.mbh_hook_rec15)
+    mbh_hook_rec16                           0x08018301   Thumb Code     2  mb_hook.o(i.mbh_hook_rec16)
+    mbh_hook_timesErr                        0x08018305   Thumb Code    22  mb_hook.o(i.mbh_hook_timesErr)
+    mbh_init                                 0x08018329   Thumb Code    22  mb_host.o(i.mbh_init)
+    mbh_poll                                 0x08018341   Thumb Code   200  mb_host.o(i.mbh_poll)
+    mbh_send                                 0x0801840d   Thumb Code   118  mb_host.o(i.mbh_send)
+    mbh_timer3T5Isr                          0x08018489   Thumb Code    88  mb_host.o(i.mbh_timer3T5Isr)
+    mbh_uartRxIsr                            0x080184e5   Thumb Code   124  mb_host.o(i.mbh_uartRxIsr)
+    mbh_uartTxIsr                            0x08018565   Thumb Code    92  mb_host.o(i.mbh_uartTxIsr)
+    middleValueFilter                        0x080185c5   Thumb Code   154  timer.o(i.middleValueFilter)
+    seed_from_timestamp_and_pid              0x08018a49   Thumb Code     6  jansson_config.o(i.seed_from_timestamp_and_pid)
+    show_4g                                  0x08018a51   Thumb Code   112  ui.o(i.show_4g)
+    showdigit_color                          0x08018ac5   Thumb Code   114  ui.o(i.showdigit_color)
+    showhanzi                                0x08018b3d   Thumb Code   110  ui.o(i.showhanzi)
+    showhanzi_1                              0x08018bb1   Thumb Code   112  ui.o(i.showhanzi_1)
+    showhanzi_color                          0x08018c25   Thumb Code   114  ui.o(i.showhanzi_color)
+    strbuffer_append_byte                    0x08018c9d   Thumb Code    12  strbuffer.o(i.strbuffer_append_byte)
+    strbuffer_append_bytes                   0x08018ca9   Thumb Code   108  strbuffer.o(i.strbuffer_append_bytes)
+    strbuffer_clear                          0x08018d19   Thumb Code    10  strbuffer.o(i.strbuffer_clear)
+    strbuffer_close                          0x08018d23   Thumb Code    24  strbuffer.o(i.strbuffer_close)
+    strbuffer_init                           0x08018d3b   Thumb Code    34  strbuffer.o(i.strbuffer_init)
+    strbuffer_pop                            0x08018d5d   Thumb Code    24  strbuffer.o(i.strbuffer_pop)
+    strbuffer_value                          0x08018d75   Thumb Code     4  strbuffer.o(i.strbuffer_value)
+    strtod                                   0x08018efd   Thumb Code    28  strtod.o(i.strtod)
+    utf8_check_first                         0x08018f19   Thumb Code    60  utf.o(i.utf8_check_first)
+    utf8_check_full                          0x08018f55   Thumb Code   126  utf.o(i.utf8_check_full)
+    utf8_encode                              0x08018fdd   Thumb Code   120  utf.o(i.utf8_encode)
+    table_week                               0x08019058   Data          12  rtc.o(.constdata)
+    mon_table                                0x08019064   Data          12  rtc.o(.constdata)
+    gImage_1                                 0x08019070   Data        2048  gui.o(.constdata)
+    gImage_2                                 0x08019870   Data        2048  gui.o(.constdata)
+    gImage_3                                 0x0801a070   Data        2048  gui.o(.constdata)
+    gImage_4                                 0x0801a870   Data        2048  gui.o(.constdata)
+    asc2_1608                                0x0801b070   Data        1520  ui.o(.constdata)
+    hanzi                                    0x0801b660   Data       15232  ui.o(.constdata)
+    __mathlib_zero                           0x0801f418   Data           8  qnan.o(.constdata)
+    __ctype_table                            0x0801f420   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x0801f514   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0801f534   Number         0  anon$$obj.o(Region$$Table)
     network_flag                             0x20000000   Data           1  main.o(.data)
     register_flag                            0x20000001   Data           1  main.o(.data)
     mqtt_flag                                0x20000002   Data           1  main.o(.data)
@@ -2998,9 +2998,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0001fdfc, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x0001f7c4])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0001feac, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x0001f874])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0001f484, Max: 0x00020000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0001f534, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3322,78 +3322,77 @@ Memory Map of the image
     0x08015200   0x08015200   0x0000000e   Code   RO         4574    i.list_insert       jansson_CM3LE.lib(hashtable.o)
     0x0801520e   0x0801520e   0x00000002   PAD
     0x08015210   0x08015210   0x0000035c   Code   RO         4910    i.log               m_ws.l(log.o)
-    0x0801556c   0x0801556c   0x000028b4   Code   RO            2    i.main              main.o
-    0x08017e20   0x08017e20   0x0000006c   Code   RO         5236    i.malloc            mc_w.l(malloc.o)
-    0x08017e8c   0x08017e8c   0x00000038   Code   RO         3676    i.mb_crc16          mb_crc.o
-    0x08017ec4   0x08017ec4   0x00000014   Code   RO         3832    i.mb_port_getchar   mb_port.o
-    0x08017ed8   0x08017ed8   0x00000020   Code   RO         3833    i.mb_port_putchar   mb_port.o
-    0x08017ef8   0x08017ef8   0x0000002c   Code   RO         3834    i.mb_port_timerDisable  mb_port.o
-    0x08017f24   0x08017f24   0x0000002c   Code   RO         3835    i.mb_port_timerEnable  mb_port.o
-    0x08017f50   0x08017f50   0x0000009c   Code   RO         3836    i.mb_port_timerInit  mb_port.o
-    0x08017fec   0x08017fec   0x0000005c   Code   RO         3837    i.mb_port_uartEnable  mb_port.o
-    0x08018048   0x08018048   0x00000118   Code   RO         3838    i.mb_port_uartInit  mb_port.o
-    0x08018160   0x08018160   0x00000096   Code   RO         3770    i.mbh_exec          mb_host.o
-    0x080181f6   0x080181f6   0x00000002   Code   RO         3703    i.mbh_hook_rec01    mb_hook.o
-    0x080181f8   0x080181f8   0x00000002   Code   RO         3704    i.mbh_hook_rec02    mb_hook.o
-    0x080181fa   0x080181fa   0x00000002   PAD
-    0x080181fc   0x080181fc   0x00000048   Code   RO         3705    i.mbh_hook_rec03    mb_hook.o
-    0x08018244   0x08018244   0x00000002   Code   RO         3706    i.mbh_hook_rec04    mb_hook.o
-    0x08018246   0x08018246   0x00000002   Code   RO         3707    i.mbh_hook_rec05    mb_hook.o
-    0x08018248   0x08018248   0x00000002   Code   RO         3708    i.mbh_hook_rec06    mb_hook.o
-    0x0801824a   0x0801824a   0x00000002   Code   RO         3709    i.mbh_hook_rec15    mb_hook.o
-    0x0801824c   0x0801824c   0x00000002   Code   RO         3710    i.mbh_hook_rec16    mb_hook.o
-    0x0801824e   0x0801824e   0x00000002   PAD
-    0x08018250   0x08018250   0x00000024   Code   RO         3711    i.mbh_hook_timesErr  mb_hook.o
-    0x08018274   0x08018274   0x00000016   Code   RO         3772    i.mbh_init          mb_host.o
-    0x0801828a   0x0801828a   0x00000002   PAD
-    0x0801828c   0x0801828c   0x000000cc   Code   RO         3773    i.mbh_poll          mb_host.o
-    0x08018358   0x08018358   0x0000007c   Code   RO         3774    i.mbh_send          mb_host.o
-    0x080183d4   0x080183d4   0x0000005c   Code   RO         3775    i.mbh_timer3T5Isr   mb_host.o
-    0x08018430   0x08018430   0x00000080   Code   RO         3776    i.mbh_uartRxIsr     mb_host.o
-    0x080184b0   0x080184b0   0x00000060   Code   RO         3777    i.mbh_uartTxIsr     mb_host.o
-    0x08018510   0x08018510   0x0000009a   Code   RO         2959    i.middleValueFilter  timer.o
-    0x080185aa   0x080185aa   0x00000002   PAD
-    0x080185ac   0x080185ac   0x00000094   Code   RO         3927    i.parse_array       jansson_CM3LE.lib(load.o)
-    0x08018640   0x08018640   0x00000094   Code   RO         3928    i.parse_json        jansson_CM3LE.lib(load.o)
-    0x080186d4   0x080186d4   0x00000180   Code   RO         3929    i.parse_object      jansson_CM3LE.lib(load.o)
-    0x08018854   0x08018854   0x00000140   Code   RO         3930    i.parse_value       jansson_CM3LE.lib(load.o)
-    0x08018994   0x08018994   0x00000006   Code   RO         3894    i.seed_from_timestamp_and_pid  jansson_config.o
-    0x0801899a   0x0801899a   0x00000002   PAD
-    0x0801899c   0x0801899c   0x00000074   Code   RO         3412    i.show_4g           ui.o
-    0x08018a10   0x08018a10   0x00000078   Code   RO         3413    i.showdigit_color   ui.o
-    0x08018a88   0x08018a88   0x00000074   Code   RO         3414    i.showhanzi         ui.o
-    0x08018afc   0x08018afc   0x00000074   Code   RO         3415    i.showhanzi_1       ui.o
-    0x08018b70   0x08018b70   0x00000078   Code   RO         3416    i.showhanzi_color   ui.o
-    0x08018be8   0x08018be8   0x0000000c   Code   RO         4759    i.strbuffer_append_byte  jansson_CM3LE.lib(strbuffer.o)
-    0x08018bf4   0x08018bf4   0x00000070   Code   RO         4760    i.strbuffer_append_bytes  jansson_CM3LE.lib(strbuffer.o)
-    0x08018c64   0x08018c64   0x0000000a   Code   RO         4761    i.strbuffer_clear   jansson_CM3LE.lib(strbuffer.o)
-    0x08018c6e   0x08018c6e   0x00000018   Code   RO         4762    i.strbuffer_close   jansson_CM3LE.lib(strbuffer.o)
-    0x08018c86   0x08018c86   0x00000022   Code   RO         4763    i.strbuffer_init    jansson_CM3LE.lib(strbuffer.o)
-    0x08018ca8   0x08018ca8   0x00000018   Code   RO         4764    i.strbuffer_pop     jansson_CM3LE.lib(strbuffer.o)
-    0x08018cc0   0x08018cc0   0x00000004   Code   RO         4766    i.strbuffer_value   jansson_CM3LE.lib(strbuffer.o)
-    0x08018cc4   0x08018cc4   0x000000e4   Code   RO         3931    i.stream_get        jansson_CM3LE.lib(load.o)
-    0x08018da8   0x08018da8   0x0000004a   Code   RO         3932    i.stream_unget      jansson_CM3LE.lib(load.o)
-    0x08018df2   0x08018df2   0x0000003e   Code   RO         4163    i.string_create     jansson_CM3LE.lib(value.o)
-    0x08018e30   0x08018e30   0x00000018   Code   RO         3933    i.string_get        jansson_CM3LE.lib(load.o)
-    0x08018e48   0x08018e48   0x0000001c   Code   RO         4920    i.strtod            m_ws.l(strtod.o)
-    0x08018e64   0x08018e64   0x0000003c   Code   RO         4855    i.utf8_check_first  jansson_CM3LE.lib(utf.o)
-    0x08018ea0   0x08018ea0   0x00000088   Code   RO         4856    i.utf8_check_full   jansson_CM3LE.lib(utf.o)
-    0x08018f28   0x08018f28   0x0000007c   Code   RO         4858    i.utf8_encode       jansson_CM3LE.lib(utf.o)
-    0x08018fa4   0x08018fa4   0x00000018   Data   RO         3036    .constdata          rtc.o
-    0x08018fbc   0x08018fbc   0x00002000   Data   RO         3199    .constdata          gui.o
-    0x0801afbc   0x0801afbc   0x00004170   Data   RO         3417    .constdata          ui.o
-    0x0801f12c   0x0801f12c   0x00000200   Data   RO         3677    .constdata          mb_crc.o
-    0x0801f32c   0x0801f32c   0x00000004   PAD
-    0x0801f330   0x0801f330   0x00000038   Data   RO         4911    .constdata          m_ws.l(log.o)
-    0x0801f368   0x0801f368   0x00000008   Data   RO         5326    .constdata          m_ws.l(qnan.o)
-    0x0801f370   0x0801f370   0x00000081   Data   RO         5380    .constdata          mc_w.l(ctype_o.o)
-    0x0801f3f1   0x0801f3f1   0x00000003   PAD
-    0x0801f3f4   0x0801f3f4   0x00000004   Data   RO         5381    .constdata          mc_w.l(ctype_o.o)
-    0x0801f3f8   0x0801f3f8   0x0000006c   Data   RO            4    .conststring        main.o
-    0x0801f464   0x0801f464   0x00000020   Data   RO         5420    Region$$Table       anon$$obj.o
+    0x0801556c   0x0801556c   0x00002968   Code   RO            2    i.main              main.o
+    0x08017ed4   0x08017ed4   0x0000006c   Code   RO         5236    i.malloc            mc_w.l(malloc.o)
+    0x08017f40   0x08017f40   0x00000038   Code   RO         3676    i.mb_crc16          mb_crc.o
+    0x08017f78   0x08017f78   0x00000014   Code   RO         3832    i.mb_port_getchar   mb_port.o
+    0x08017f8c   0x08017f8c   0x00000020   Code   RO         3833    i.mb_port_putchar   mb_port.o
+    0x08017fac   0x08017fac   0x0000002c   Code   RO         3834    i.mb_port_timerDisable  mb_port.o
+    0x08017fd8   0x08017fd8   0x0000002c   Code   RO         3835    i.mb_port_timerEnable  mb_port.o
+    0x08018004   0x08018004   0x0000009c   Code   RO         3836    i.mb_port_timerInit  mb_port.o
+    0x080180a0   0x080180a0   0x0000005c   Code   RO         3837    i.mb_port_uartEnable  mb_port.o
+    0x080180fc   0x080180fc   0x00000118   Code   RO         3838    i.mb_port_uartInit  mb_port.o
+    0x08018214   0x08018214   0x00000096   Code   RO         3770    i.mbh_exec          mb_host.o
+    0x080182aa   0x080182aa   0x00000002   Code   RO         3703    i.mbh_hook_rec01    mb_hook.o
+    0x080182ac   0x080182ac   0x00000002   Code   RO         3704    i.mbh_hook_rec02    mb_hook.o
+    0x080182ae   0x080182ae   0x00000002   PAD
+    0x080182b0   0x080182b0   0x00000048   Code   RO         3705    i.mbh_hook_rec03    mb_hook.o
+    0x080182f8   0x080182f8   0x00000002   Code   RO         3706    i.mbh_hook_rec04    mb_hook.o
+    0x080182fa   0x080182fa   0x00000002   Code   RO         3707    i.mbh_hook_rec05    mb_hook.o
+    0x080182fc   0x080182fc   0x00000002   Code   RO         3708    i.mbh_hook_rec06    mb_hook.o
+    0x080182fe   0x080182fe   0x00000002   Code   RO         3709    i.mbh_hook_rec15    mb_hook.o
+    0x08018300   0x08018300   0x00000002   Code   RO         3710    i.mbh_hook_rec16    mb_hook.o
+    0x08018302   0x08018302   0x00000002   PAD
+    0x08018304   0x08018304   0x00000024   Code   RO         3711    i.mbh_hook_timesErr  mb_hook.o
+    0x08018328   0x08018328   0x00000016   Code   RO         3772    i.mbh_init          mb_host.o
+    0x0801833e   0x0801833e   0x00000002   PAD
+    0x08018340   0x08018340   0x000000cc   Code   RO         3773    i.mbh_poll          mb_host.o
+    0x0801840c   0x0801840c   0x0000007c   Code   RO         3774    i.mbh_send          mb_host.o
+    0x08018488   0x08018488   0x0000005c   Code   RO         3775    i.mbh_timer3T5Isr   mb_host.o
+    0x080184e4   0x080184e4   0x00000080   Code   RO         3776    i.mbh_uartRxIsr     mb_host.o
+    0x08018564   0x08018564   0x00000060   Code   RO         3777    i.mbh_uartTxIsr     mb_host.o
+    0x080185c4   0x080185c4   0x0000009a   Code   RO         2959    i.middleValueFilter  timer.o
+    0x0801865e   0x0801865e   0x00000002   PAD
+    0x08018660   0x08018660   0x00000094   Code   RO         3927    i.parse_array       jansson_CM3LE.lib(load.o)
+    0x080186f4   0x080186f4   0x00000094   Code   RO         3928    i.parse_json        jansson_CM3LE.lib(load.o)
+    0x08018788   0x08018788   0x00000180   Code   RO         3929    i.parse_object      jansson_CM3LE.lib(load.o)
+    0x08018908   0x08018908   0x00000140   Code   RO         3930    i.parse_value       jansson_CM3LE.lib(load.o)
+    0x08018a48   0x08018a48   0x00000006   Code   RO         3894    i.seed_from_timestamp_and_pid  jansson_config.o
+    0x08018a4e   0x08018a4e   0x00000002   PAD
+    0x08018a50   0x08018a50   0x00000074   Code   RO         3412    i.show_4g           ui.o
+    0x08018ac4   0x08018ac4   0x00000078   Code   RO         3413    i.showdigit_color   ui.o
+    0x08018b3c   0x08018b3c   0x00000074   Code   RO         3414    i.showhanzi         ui.o
+    0x08018bb0   0x08018bb0   0x00000074   Code   RO         3415    i.showhanzi_1       ui.o
+    0x08018c24   0x08018c24   0x00000078   Code   RO         3416    i.showhanzi_color   ui.o
+    0x08018c9c   0x08018c9c   0x0000000c   Code   RO         4759    i.strbuffer_append_byte  jansson_CM3LE.lib(strbuffer.o)
+    0x08018ca8   0x08018ca8   0x00000070   Code   RO         4760    i.strbuffer_append_bytes  jansson_CM3LE.lib(strbuffer.o)
+    0x08018d18   0x08018d18   0x0000000a   Code   RO         4761    i.strbuffer_clear   jansson_CM3LE.lib(strbuffer.o)
+    0x08018d22   0x08018d22   0x00000018   Code   RO         4762    i.strbuffer_close   jansson_CM3LE.lib(strbuffer.o)
+    0x08018d3a   0x08018d3a   0x00000022   Code   RO         4763    i.strbuffer_init    jansson_CM3LE.lib(strbuffer.o)
+    0x08018d5c   0x08018d5c   0x00000018   Code   RO         4764    i.strbuffer_pop     jansson_CM3LE.lib(strbuffer.o)
+    0x08018d74   0x08018d74   0x00000004   Code   RO         4766    i.strbuffer_value   jansson_CM3LE.lib(strbuffer.o)
+    0x08018d78   0x08018d78   0x000000e4   Code   RO         3931    i.stream_get        jansson_CM3LE.lib(load.o)
+    0x08018e5c   0x08018e5c   0x0000004a   Code   RO         3932    i.stream_unget      jansson_CM3LE.lib(load.o)
+    0x08018ea6   0x08018ea6   0x0000003e   Code   RO         4163    i.string_create     jansson_CM3LE.lib(value.o)
+    0x08018ee4   0x08018ee4   0x00000018   Code   RO         3933    i.string_get        jansson_CM3LE.lib(load.o)
+    0x08018efc   0x08018efc   0x0000001c   Code   RO         4920    i.strtod            m_ws.l(strtod.o)
+    0x08018f18   0x08018f18   0x0000003c   Code   RO         4855    i.utf8_check_first  jansson_CM3LE.lib(utf.o)
+    0x08018f54   0x08018f54   0x00000088   Code   RO         4856    i.utf8_check_full   jansson_CM3LE.lib(utf.o)
+    0x08018fdc   0x08018fdc   0x0000007c   Code   RO         4858    i.utf8_encode       jansson_CM3LE.lib(utf.o)
+    0x08019058   0x08019058   0x00000018   Data   RO         3036    .constdata          rtc.o
+    0x08019070   0x08019070   0x00002000   Data   RO         3199    .constdata          gui.o
+    0x0801b070   0x0801b070   0x00004170   Data   RO         3417    .constdata          ui.o
+    0x0801f1e0   0x0801f1e0   0x00000200   Data   RO         3677    .constdata          mb_crc.o
+    0x0801f3e0   0x0801f3e0   0x00000038   Data   RO         4911    .constdata          m_ws.l(log.o)
+    0x0801f418   0x0801f418   0x00000008   Data   RO         5326    .constdata          m_ws.l(qnan.o)
+    0x0801f420   0x0801f420   0x00000081   Data   RO         5380    .constdata          mc_w.l(ctype_o.o)
+    0x0801f4a1   0x0801f4a1   0x00000003   PAD
+    0x0801f4a4   0x0801f4a4   0x00000004   Data   RO         5381    .constdata          mc_w.l(ctype_o.o)
+    0x0801f4a8   0x0801f4a8   0x0000006c   Data   RO            4    .conststring        main.o
+    0x0801f514   0x0801f514   0x00000020   Data   RO         5420    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0801f484, Size: 0x000031c0, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x00000340])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0801f534, Size: 0x000031c0, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x00000340])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3446,7 +3445,7 @@ Image component sizes
          6          0          0          0          0        882   jansson_config.o
        236         18          0          3          0        925   key.o
       1274         84          0          6         14       9292   lcd.o
-     10420       2508        108         16         29     294277   main.o
+     10600       2520        108         16         29     294401   main.o
         56          8        512          0          0       1203   mb_crc.o
        122         26          0          6          0       5577   mb_hook.o
        816         22          0          0        516       4771   mb_host.o
@@ -3473,9 +3472,9 @@ Image component sizes
        624         66          0          4       3072       5444   usart1.o
 
     ----------------------------------------------------------------------
-     86982       5174      25860       2372      10312     469615   Object Totals
+     87162       5186      25856       2372      10312     469739   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        42          0          4          6          3          0   (incl. Padding)
+        42          0          0          6          3          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -3585,15 +3584,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-    102072       6224      26060       2424      10312     541743   Grand Totals
-    102072       6224      26060        832      10312     541743   ELF Image Totals (compressed)
-    102072       6224      26060        832          0          0   ROM Totals
+    102252       6236      26056       2424      10312     541867   Grand Totals
+    102252       6236      26056        832      10312     541867   ELF Image Totals (compressed)
+    102252       6236      26056        832          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)               128132 ( 125.13kB)
+    Total RO  Size (Code + RO Data)               128308 ( 125.30kB)
     Total RW  Size (RW Data + ZI Data)             12736 (  12.44kB)
-    Total ROM Size (Code + RO Data + RW Data)     128964 ( 125.94kB)
+    Total ROM Size (Code + RO Data + RW Data)     129140 ( 126.11kB)
 
 ==============================================================================
 
