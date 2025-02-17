@@ -97,6 +97,9 @@ enum
 	_Air_Blower_Child_10,
 	
 	_Air_Blower_Child_Ctrl_1,
+	
+	//主界面返回
+	_Main_Back_UI,
 
 };
 
@@ -107,11 +110,12 @@ enum
 	KEY_BACK,
 	KEY_PREVIOUS,
 	KEY_ENTER,
-	KEY_ADD,
-	KEY_SUB,
 };
 
 void Main_UI(u8 page_index,u8 key_val);
+
+void Main_Back_UI(u8 page_index,u8 key_val);
+
 void Main_Menu_Func(u8 page_index,u8 key_val);
 
 uint8_t GUI_Refresh(void);

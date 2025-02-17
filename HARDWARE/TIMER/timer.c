@@ -209,7 +209,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		TIM5_Counter_10s++;
 		
 		//发送心跳频率
-		if(Heartbeat_Counter_1s>5)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
+		if(Heartbeat_Counter_1s>4)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
 		{
 		  Heartbeat_flag=1;
 		}

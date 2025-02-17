@@ -98,7 +98,8 @@ Main_Menu table[25]=
 {
 	//Cur_Index,   previous,   next,   enter,   back,   (*current_operation)(u8,u8)
 	//主界面
-	{_Main_UI,_Main_UI,_Main_UI,_Air_Blower_Option,_Main_UI,Main_UI},
+	{_Main_UI,_Main_UI,_Main_UI,_Air_Blower_Option,_Main_Back_UI,Main_UI},
+	
 	//主菜单
     {_Air_Blower_Option,_Iot_Option,_Hz_Ctrl_Option,_Air_Blower_Child_1,_Main_UI,Main_Menu_Func},//普通风机
 	{_Hz_Ctrl_Option,_Air_Blower_Option,_Alarm_Option,_Hz_Ctrl_Child,_Main_UI,Main_Menu_Func},//变频控制
@@ -129,7 +130,10 @@ Main_Menu table[25]=
 	{_Air_Blower_Child_9,_Air_Blower_Child_8,_Air_Blower_Child_10,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
 	{_Air_Blower_Child_10,_Air_Blower_Child_9,_Air_Blower_Child_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},//21
 	
-	{_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_1,Air_Blower_Child_Ctrl_1_Fun}//22
+	{_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_1,Air_Blower_Child_Ctrl_1_Fun},//22
+	
+	//主界面返回
+	{_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_UI,Main_Back_UI}//23
 	
 };
 
@@ -175,6 +179,9 @@ uint8_t GUI_Refresh(void)
 		if(func_index == 0 && (last_index == 1 || last_index == 2 || last_index == 3 || last_index == 4 || last_index == 5 || last_index == 6)){LCD_Fill(0,0,480,320,HOME_BACK);}//从主菜单返回主页
 		if(func_index == 1 && last_index == 0){LCD_Clear(BLACK);}//从主页进入主菜单
 		if(func_index == 12 && last_index == 1){LCD_Clear_upper_tail(BLACK);}//从主菜单进入风机一
+		
+		if(func_index == 23 && last_index == 0){LCD_Fill(0,0,480,320,HOME_BACK);}
+		if(func_index == 0 && last_index == 23){LCD_Fill(0,0,480,320,HOME_BACK);}
 		
 		if(func_index == 7 && last_index == 2){LCD_Clear_upper_tail(BLACK);}//从主菜单进入变频控制
 		if(func_index == 2 && last_index == 7){LCD_Clear_upper_tail(BLACK);}//从变频控制返回主菜单
@@ -562,12 +569,20 @@ void Main_UI(u8 page_index,u8 key_val)
 	if(relay_structure[9].on_off){
 		if(ctrl_ui==0)Gui_Drawbmp16(435,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,253,gImage_4);
 	}else Gui_Drawbmp16(435,253,gImage_1);
-	
-	
-	
+
 	
 }
 
+/*
+函数功能：主菜单按返回键显示函数
+参数：u8 page_index,u8 key_val
+返回值：无
+*/
+void Main_Back_UI(u8 page_index,u8 key_val){
+	LCD_Fill(0,38,480,40,LINE);
+	LCD_Fill(0,246,480,248,LINE);
+	
+}
 
 /*
 函数功能：主菜单显示函数
@@ -1495,7 +1510,8 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				
 				if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
 					break;
-///* 快加		
+/* 快加
+			
 			case KEY_ADD:
 				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
 					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
@@ -1588,7 +1604,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				}	
 					break;
 			
-//*/				
+*/				
 			case KEY_ENTER://确定(设置)按键
 				
 				if(last_index_save-12==0)enter_config_flag_1 += 1;
@@ -1738,7 +1754,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				}
 				if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
 					break;
-///* 快减		
+/* 快减		
 			case KEY_SUB:
 				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
 					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
@@ -1831,7 +1847,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					
 				}
 					break;
-//*/			
+*/			
 //			case KEY_BACK:
 //				enter_config_flag_1=0;
 //				last_index_save=0;//为下一次进入页面判断是哪个风机；

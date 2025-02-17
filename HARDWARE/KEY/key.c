@@ -99,10 +99,9 @@ u8 Get_KEY_Value(void)
 		//在此处的快加快减功能，每秒加减的数不超过每秒屏幕刷新次数，因为加减是在GUI_Refresh函数中进行的，如果想更快加减，需要用定时器实现
 		cont_key_count++;
 		if(cont_key_count>8){
-			if(KEY_UP==0)return 6; //快加
-			if(KEY_DOWN==0)return 7; //快减
+			if(KEY_UP==0)return 4; //快加
+			if(KEY_DOWN==0)return 2; //快减
 		}
-
 	}
 	return 0;
 }
