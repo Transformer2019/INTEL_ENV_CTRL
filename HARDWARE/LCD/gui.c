@@ -26,8 +26,8 @@ Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.ma
 
 //变频控制结构体
 Hz_Control hz_control={
-	.max_temp=20,
-	.min_temp=10,
+	.max_temp=25,
+	.min_temp=15,
 	.voltage_high=10,
 	.voltage_low=0,
 	.temp_choose=1
@@ -637,7 +637,7 @@ void Main_UI(u8 page_index,u8 key_val)
 	LCD_Fill(0,38,480,40,LINE);
 	LCD_Fill(0,246,480,248,LINE);
 	LCD_Fill(238,40,240,202,LINE);
-	LCD_Fill(240,200,272,202,LINE);
+	LCD_Fill(240,200,480,202,LINE);
 	LCD_Fill(272,200,274,246,LINE);
 	
     //显示NTC温度
@@ -940,9 +940,9 @@ void Main_Back_UI(u8 page_index,u8 key_val){
 	showhanzi_color(192,288,120,WHITE,HOME_BACK);  
 	showdigit_color(224,288,18,WHITE,HOME_BACK);  
 	showhanzi_color(256,288,129,WHITE,HOME_BACK);  
-	showhanzi_color(288,288,130,WHITE,HOME_BACK);
-	showhanzi_color(320,288,131,WHITE,HOME_BACK);
-	showhanzi_color(352,288,132,WHITE,HOME_BACK);
+	showhanzi_color(288,288,74,WHITE,HOME_BACK);
+	showhanzi_color(320,288,130,WHITE,HOME_BACK);
+	showhanzi_color(352,288,131,WHITE,HOME_BACK);
 	
 	switch(key_val)
 	{
@@ -1225,15 +1225,17 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	showhanzi_color(266,288,20,BLACK,WHITE);showhanzi_color(298,288,120,BLACK,WHITE);
 	
 	//中间部分
-	showhanzi(0,48,39);showhanzi(32,48,66);showhanzi(64,48,42);showhanzi(96,48,45);showhanzi(128,48,88);showdigit_color(160,48,12,WHITE,BLACK);
-	showhanzi(0,80,39);showhanzi(32,80,66);showhanzi(64,80,43);showhanzi(96,80,45);showhanzi(128,80,88);showdigit_color(160,80,12,WHITE,BLACK);
+	showhanzi(0,48,39);showhanzi(32,48,66);showhanzi(64,48,42);showhanzi(96,48,45);showhanzi(128,48,88);showdigit_color(160,48,12,WHITE,BLACK);showhanzi(250,48,66);
+	showhanzi(0,80,39);showhanzi(32,80,66);showhanzi(64,80,43);showhanzi(96,80,45);showhanzi(128,80,88);showdigit_color(160,80,12,WHITE,BLACK);showhanzi(250,80,66);
 	
 	showhanzi(0,112,39);showhanzi(32,112,66);showhanzi(64,112,42);showhanzi(96,112,45);showhanzi(128,112,50);showhanzi(160,112,51);showhanzi(192,112,141);
 	showhanzi(224,112,142);showhanzi(256,112,143);showhanzi(288,112,144);showhanzi(320,112,145);showdigit_color(352,112,12,WHITE,BLACK);
-	showdigit_color(432,144,14,WHITE,BLACK);
+	showdigit_color(442,144,14,WHITE,BLACK);
+	
 	showhanzi(0,176,39);showhanzi(32,176,66);showhanzi(64,176,43);showhanzi(96,176,45);showhanzi(128,176,50);showhanzi(160,176,51);showhanzi(192,176,141);
 	showhanzi(224,176,142);showhanzi(256,176,143);showhanzi(288,176,144);showhanzi(320,176,145);showdigit_color(352,176,12,WHITE,BLACK);
-	showdigit_color(432,208,14,WHITE,BLACK);
+	showdigit_color(442,208,14,WHITE,BLACK);
+	
 	showhanzi(0,240,50);showhanzi(32,240,51);showhanzi(64,240,141);showhanzi(96,240,52);showhanzi(128,240,53);showhanzi(160,240,54);showdigit_color(192,240,12,WHITE,BLACK);
 	
 	if(last_index!=_Hz_Ctrl_Option)//判断是否是s第一次进入此界面
@@ -1284,11 +1286,12 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 		showdigit_color(208,80,10,WHITE,BLACK);showdigit_color(224,80,(uint16_t)(hz_control.min_temp*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=3){
-		showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,WHITE,BLACK);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,WHITE,BLACK);
+		if((uint8_t)hz_control.voltage_high == 10) showdigit_color(368,144,1,WHITE,BLACK); else showdigit_color(368,144,13,BLACK,BLACK);
+		showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,WHITE,BLACK);
 		showdigit_color(400,144,10,WHITE,BLACK);showdigit_color(416,144,(uint16_t)(hz_control.voltage_high*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=4){
-		showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,WHITE,BLACK);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,WHITE,BLACK);
+		showdigit_color(384,208,(uint8_t)hz_control.voltage_low,WHITE,BLACK);
 		showdigit_color(400,208,10,WHITE,BLACK);showdigit_color(416,208,(uint16_t)(hz_control.voltage_low*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=5){
@@ -1310,11 +1313,12 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 
 			break;
 		case 3:
-			showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,BLACK,WHITE);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,BLACK,WHITE);
+			if((uint8_t)hz_control.voltage_high == 10) showdigit_color(368,144,1,BLACK,WHITE); else showdigit_color(368,144,13,BLACK,BLACK);
+			showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,BLACK,WHITE);
 			showdigit_color(400,144,10,BLACK,WHITE);showdigit_color(416,144,(uint16_t)(hz_control.voltage_high*10)%10,BLACK,WHITE);
 			break;
 		case 4:
-			showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,BLACK,WHITE);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,BLACK,WHITE);
+			showdigit_color(384,208,(uint8_t)hz_control.voltage_low,BLACK,WHITE);
 			showdigit_color(400,208,10,BLACK,WHITE);showdigit_color(416,208,(uint16_t)(hz_control.voltage_low*10)%10,BLACK,WHITE);
 			break;
 		case 5:
