@@ -28,8 +28,8 @@ Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.ma
 Hz_Control hz_control={
 	.max_temp=20,
 	.min_temp=10,
-	.voltage_high=10.0,
-	.voltage_low=0.0,
+	.voltage_high=10,
+	.voltage_low=0,
 	.temp_choose=1
 };
 //±äÆµÊä³ö
@@ -957,6 +957,8 @@ void Main_Back_UI(u8 page_index,u8 key_val){
 						if(relay_structure[i].relay_mode==1 || relay_structure[i].relay_mode==3){
 							relay_structure[i].temp_control.max_temp -= sub_data;
 							relay_structure[i].temp_control.min_temp -= sub_data;
+							if(relay_structure[i].temp_control.max_temp<=0)relay_structure[i].temp_control.max_temp=0;
+							if(relay_structure[i].temp_control.min_temp<=0)relay_structure[i].temp_control.min_temp=0;
 						}
 					}
 				}
@@ -966,6 +968,8 @@ void Main_Back_UI(u8 page_index,u8 key_val){
 						if(relay_structure[i].relay_mode==1 || relay_structure[i].relay_mode==3){
 							relay_structure[i].temp_control.max_temp += sub_data;
 							relay_structure[i].temp_control.min_temp += sub_data;
+							if(relay_structure[i].temp_control.max_temp>90)relay_structure[i].temp_control.max_temp=90;
+							if(relay_structure[i].temp_control.min_temp>90)relay_structure[i].temp_control.min_temp=90;
 						}
 					}
 				}
@@ -1273,19 +1277,19 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 
 	if(cur_pos!=1){
 		showdigit_color(176,48,(uint8_t)hz_control.max_temp/10,WHITE,BLACK);showdigit_color(192,48,(uint8_t)hz_control.max_temp%10,WHITE,BLACK);
-		showdigit_color(208,48,10,WHITE,BLACK);showdigit_color(224,48,(uint8_t)(hz_control.max_temp*10)%10,WHITE,BLACK);
+		showdigit_color(208,48,10,WHITE,BLACK);showdigit_color(224,48,(uint16_t)(hz_control.max_temp*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=2){
 		showdigit_color(176,80,(uint8_t)hz_control.min_temp/10,WHITE,BLACK);showdigit_color(192,80,(uint8_t)hz_control.min_temp%10,WHITE,BLACK);
-		showdigit_color(208,80,10,WHITE,BLACK);showdigit_color(224,80,(uint8_t)(hz_control.min_temp*10)%10,WHITE,BLACK);
+		showdigit_color(208,80,10,WHITE,BLACK);showdigit_color(224,80,(uint16_t)(hz_control.min_temp*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=3){
 		showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,WHITE,BLACK);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,WHITE,BLACK);
-		showdigit_color(400,144,10,WHITE,BLACK);showdigit_color(416,144,(uint8_t)(hz_control.voltage_high*10)%10,WHITE,BLACK);
+		showdigit_color(400,144,10,WHITE,BLACK);showdigit_color(416,144,(uint16_t)(hz_control.voltage_high*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=4){
 		showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,WHITE,BLACK);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,WHITE,BLACK);
-		showdigit_color(400,208,10,WHITE,BLACK);showdigit_color(416,208,(uint8_t)(hz_control.voltage_low*10)%10,WHITE,BLACK);
+		showdigit_color(400,208,10,WHITE,BLACK);showdigit_color(416,208,(uint16_t)(hz_control.voltage_low*10)%10,WHITE,BLACK);
 	}
 	if(cur_pos!=5){
 		if(hz_control.temp_choose == 1) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,63);showhanzi(304,240,38);}
@@ -1298,20 +1302,20 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	switch(cur_pos){
 		case 1:
 			showdigit_color(176,48,(uint8_t)hz_control.max_temp/10,BLACK,WHITE);showdigit_color(192,48,(uint8_t)hz_control.max_temp%10,BLACK,WHITE);
-			showdigit_color(208,48,10,BLACK,WHITE);showdigit_color(224,48,(uint8_t)(hz_control.max_temp*10)%10,BLACK,WHITE);
+			showdigit_color(208,48,10,BLACK,WHITE);showdigit_color(224,48,(uint16_t)(hz_control.max_temp*10)%10,BLACK,WHITE);
 			break;
 		case 2:
 			showdigit_color(176,80,(uint8_t)hz_control.min_temp/10,BLACK,WHITE);showdigit_color(192,80,(uint8_t)hz_control.min_temp%10,BLACK,WHITE);
-			showdigit_color(208,80,10,BLACK,WHITE);showdigit_color(224,80,(uint8_t)(hz_control.min_temp*10)%10,BLACK,WHITE);
+			showdigit_color(208,80,10,BLACK,WHITE);showdigit_color(224,80,(uint16_t)(hz_control.min_temp*10)%10,BLACK,WHITE);
 
 			break;
 		case 3:
 			showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,BLACK,WHITE);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,BLACK,WHITE);
-			showdigit_color(400,144,10,BLACK,WHITE);showdigit_color(416,144,(uint8_t)(hz_control.voltage_high*10)%10,BLACK,WHITE);
+			showdigit_color(400,144,10,BLACK,WHITE);showdigit_color(416,144,(uint16_t)(hz_control.voltage_high*10)%10,BLACK,WHITE);
 			break;
 		case 4:
 			showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,BLACK,WHITE);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,BLACK,WHITE);
-			showdigit_color(400,208,10,BLACK,WHITE);showdigit_color(416,208,(uint8_t)(hz_control.voltage_low*10)%10,BLACK,WHITE);
+			showdigit_color(400,208,10,BLACK,WHITE);showdigit_color(416,208,(uint16_t)(hz_control.voltage_low*10)%10,BLACK,WHITE);
 			break;
 		case 5:
 			if(hz_control.temp_choose == 1) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,63,1);showhanzi_1(304,240,38,1);}
@@ -1337,7 +1341,7 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 			temp_choose = average_temp;
 			break;
 		case 5:
-			temp_choose = send_TEMP;
+			temp_choose = send_TEMP/10;
 			break;
 		default:break;
 	}
@@ -1356,6 +1360,7 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 		}
 	}else{
 		data_v=0;
+		out_voltage=data_v;
 	}
 
 //	v_low = data_v<<4 | 0x00;

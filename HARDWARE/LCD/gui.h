@@ -43,10 +43,10 @@ extern Relay_Structure relay_structure[10];
 extern u8 out_voltage;
 //变频控制
 typedef struct {
-	float  max_temp;
-    float  min_temp;
-	float voltage_high;
-	float voltage_low;
+	double  max_temp;
+    double  min_temp;
+	double voltage_high;
+	double voltage_low;
 	u8 temp_choose; // 1:温度一 2:温度二 3:温度三 4:平均温度 5:485温度
 } Hz_Control;
 
