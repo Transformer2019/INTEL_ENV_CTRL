@@ -1967,15 +1967,15 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				}else{
 					if(relay_structure[last_index_save-12].relay_mode == 1){
 						if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
-						if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
+						if(cur_pos1 == 2){if((relay_structure[last_index_save-12].temp_control.min_temp+1)<relay_structure[last_index_save-12].temp_control.max_temp)relay_structure[last_index_save-12].temp_control.min_temp+=1;}
 						if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
 						if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
 						if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
 						if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3+=1;
-						if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3+=1;
+						if(cur_pos1 == 6){if((relay_structure[last_index_save-12].temp_control.min_nh3+1)<relay_structure[last_index_save-12].temp_control.max_nh3)relay_structure[last_index_save-12].temp_control.min_nh3+=1;}
 						if(relay_structure[last_index_save-12].temp_control.max_nh3>=50)relay_structure[last_index_save-12].temp_control.max_nh3=50;
-						if(relay_structure[last_index_save-12].temp_control.min_nh3>=50)relay_structure[last_index_save-12].temp_control.min_nh3=50;
-						
+						//if(relay_structure[last_index_save-12].temp_control.min_nh3>=50)relay_structure[last_index_save-12].temp_control.min_nh3=50;
+						if(relay_structure[last_index_save-12].temp_control.max_temp>90)relay_structure[last_index_save-12].temp_control.max_temp=90;
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 2){
 						if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open += 1;
@@ -1985,7 +1985,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 3){
 						if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
-						if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
+						if(cur_pos3 == 2){if((relay_structure[last_index_save-12].temp_control.min_temp+1)<relay_structure[last_index_save-12].temp_control.max_temp)relay_structure[last_index_save-12].temp_control.min_temp+=1;}
 						if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
 						if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
 						if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
@@ -1993,6 +1993,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				        if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop += 1;
 						if(relay_structure[last_index_save-12].time_control.time_open==10000)relay_structure[last_index_save-12].time_control.time_open=0;
 						if(relay_structure[last_index_save-12].time_control.time_stop==10000)relay_structure[last_index_save-12].time_control.time_stop=0;
+						if(relay_structure[last_index_save-12].temp_control.max_temp>90)relay_structure[last_index_save-12].temp_control.max_temp=90;
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 4){
 						if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start+=1;
@@ -2045,7 +2046,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					}
 					
 					
-					if(relay_structure[last_index_save-12].temp_control.max_temp>99)relay_structure[last_index_save-12].temp_control.max_temp=99;
+					
 					
 				}
 				
@@ -2196,16 +2197,16 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					relay_structure[last_index_save-12].relay_mode -=1;
 				}else{
 					if(relay_structure[last_index_save-12].relay_mode == 1){
-						if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
+						if(cur_pos1 == 1){if((relay_structure[last_index_save-12].temp_control.max_temp-1)>relay_structure[last_index_save-12].temp_control.min_temp) relay_structure[last_index_save-12].temp_control.max_temp-=1;}
 						if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
 						if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
 						if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
 						if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
-						if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3-=1;
+						if(cur_pos1 == 5){if((relay_structure[last_index_save-12].temp_control.max_nh3-1)>relay_structure[last_index_save-12].temp_control.min_nh3)relay_structure[last_index_save-12].temp_control.max_nh3-=1;}
 						if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3-=1;
-						if(relay_structure[last_index_save-12].temp_control.max_nh3<=1)relay_structure[last_index_save-12].temp_control.max_nh3=1;
+						//if(relay_structure[last_index_save-12].temp_control.max_nh3<=1)relay_structure[last_index_save-12].temp_control.max_nh3=1;
 						if(relay_structure[last_index_save-12].temp_control.min_nh3<=1)relay_structure[last_index_save-12].temp_control.min_nh3=1;
-						
+						if(relay_structure[last_index_save-12].temp_control.min_temp==255)relay_structure[last_index_save-12].temp_control.min_temp=0;
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 2){
 						if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open -= 1;
@@ -2214,7 +2215,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 						if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 3){
-						if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
+						if(cur_pos3 == 1){if((relay_structure[last_index_save-12].temp_control.max_temp-1)>relay_structure[last_index_save-12].temp_control.min_temp) relay_structure[last_index_save-12].temp_control.max_temp-=1;}
 						if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
 						if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
 						if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
@@ -2224,6 +2225,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				        if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop -= 1;
 						if(relay_structure[last_index_save-12].time_control.time_open==65535)relay_structure[last_index_save-12].time_control.time_open=9999;
 						if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
+						if(relay_structure[last_index_save-12].temp_control.min_temp==255)relay_structure[last_index_save-12].temp_control.min_temp=0;
 					}
 					if(relay_structure[last_index_save-12].relay_mode == 4){
 						if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start-=1;
@@ -2291,7 +2293,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 //						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes = 60;
 
 					}
-					if(relay_structure[last_index_save-12].temp_control.min_temp<0)relay_structure[last_index_save-12].temp_control.min_temp=0;
+					
 				}
 				if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//·ÖÊ±¿Ø
 					break;
