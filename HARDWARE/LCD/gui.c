@@ -12,18 +12,28 @@
 
 //#pragma pack(4) 
 
-Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=2,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=3,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=4,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=5,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=6,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=7,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=8,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=9,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=10,.relay_mode=0,.temp_control.max_temp=50.0,.temp_control.max_nh3=30,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=2,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=3,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=4,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=5,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=6,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=7,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=8,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=9,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=10,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
 };
 
+//变频控制结构体
+Hz_Control hz_control={
+	.max_temp=20,
+	.min_temp=10,
+	.voltage_high=10.0,
+	.voltage_low=0.0,
+	.temp_choose=1
+};
+//变频输出
+u8 out_voltage=0;
 //#pragma pack()    //取消自定义字节对齐方式
 
 uint8_t warn_flag=0;
@@ -47,8 +57,7 @@ static u8 last_index=_Main_UI;//上一个界面索引值
 static void (*current_operation_func)(u8,u8);//定义一个函数指针
 
 uint8_t ctrl_ui=0;
-//变频控制
-u8 out_voltage=0;
+
 
 //设置个全局变量用于判断是否需要刷新页面（温控，温时控。。。）
 static u8 fresh_flag_1=0;//风机一
@@ -355,6 +364,8 @@ uint8_t GUI_Refresh(void)
 参数：u8 page_index,u8 key_val
 返回值：无
 */
+
+#if (HOME_Page==1)
 void Main_UI(u8 page_index,u8 key_val)
 {
 	u8 y1=calendar.w_year/1000; u8 y2=(calendar.w_year/100)%10; u8 y3=(calendar.w_year/10)%10; u8 y4=calendar.w_year%10;
@@ -572,6 +583,306 @@ void Main_UI(u8 page_index,u8 key_val)
 
 	
 }
+#endif
+
+#if (HOME_Page==2)
+void Main_UI(u8 page_index,u8 key_val)
+{
+	u8 y1=calendar.w_year/1000; u8 y2=(calendar.w_year/100)%10; u8 y3=(calendar.w_year/10)%10; u8 y4=calendar.w_year%10;
+	u8 mh1=calendar.w_month/10; u8 mh2=calendar.w_month%10;
+	u8 d1=calendar.w_date/10; u8 d2=calendar.w_date%10;
+	u8 h1=calendar.hour/10; u8 h2=calendar.hour%10;
+	u8 m1=calendar.min/10; u8 m2=calendar.min%10;
+	u8 s1=calendar.sec/10; u8 s2=calendar.sec%10;
+	
+	
+	
+	showdigit_color(0,0,y1,WHITE,HOME_BACK);showdigit_color(16,0,y2,WHITE,HOME_BACK);showdigit_color(32,0,y3,WHITE,HOME_BACK);showdigit_color(48,0,y4,WHITE,HOME_BACK);
+	showdigit_color(64,0,11,WHITE,HOME_BACK);
+	showdigit_color(80,0,mh1,WHITE,HOME_BACK);showdigit_color(96,0,mh2,WHITE,HOME_BACK);
+	showdigit_color(112,0,11,WHITE,HOME_BACK);
+	showdigit_color(128,0,d1,WHITE,HOME_BACK);showdigit_color(144,0,d2,WHITE,HOME_BACK);
+	
+	showdigit_color(200,0,h1,WHITE,HOME_BACK);showdigit_color(216,0,h2,WHITE,HOME_BACK);
+	showdigit_color(232,0,12,WHITE,HOME_BACK);
+	showdigit_color(248,0,m1,WHITE,HOME_BACK);showdigit_color(264,0,m2,WHITE,HOME_BACK);
+//	showdigit_color(96,150,12,GREEN,BLACK);
+//	showdigit_color(112,150,s1,GREEN,BLACK);showdigit_color(128,150,s2,GREEN,BLACK);
+
+	//根据network_flag判断是否联网
+	if(network_flag){
+		
+		LCD_Fill(280,0,436,31,HOME_BACK);
+		show_4g(437,0,0);
+		show_4g(453,0,1);
+		LCD_Fill(469,0,480,31,HOME_BACK);
+	}else{
+		//连接网络中
+//		showhanzi_1(0,0,73,1);   
+//		showhanzi_1(32,0,74,1);  
+//		showhanzi_1(64,0,75,1);  
+//		showhanzi_1(96,0,76,1); 
+//		showhanzi_1(128,0,77,1); 
+		
+		//Gui_Drawbmp_logo(0,0,gImage_88);
+		LCD_Fill(280,0,320,31,HOME_BACK);
+		showhanzi_color(320,0,73,FONT_TOP,HOME_BACK);   
+		showhanzi_color(352,0,74,FONT_TOP,HOME_BACK);  
+		showhanzi_color(384,0,75,FONT_TOP,HOME_BACK);  
+		showhanzi_color(416,0,76,FONT_TOP,HOME_BACK);  
+		showhanzi_color(448,0,77,FONT_TOP,HOME_BACK); 
+		
+	}
+
+	LCD_Fill(0,38,480,40,LINE);
+	LCD_Fill(0,246,480,248,LINE);
+	LCD_Fill(238,40,240,202,LINE);
+	LCD_Fill(240,200,272,202,LINE);
+	LCD_Fill(272,200,274,246,LINE);
+	
+    //显示NTC温度
+	showhanzi_color(5,53,111,WHITE,HOME_BACK);  
+	showhanzi_color(37,53,112,WHITE,HOME_BACK);  
+	showhanzi_color(69,53,113,WHITE,HOME_BACK); 
+	showdigit_color(101,53,12,WHITE,HOME_BACK);
+	
+	
+	showhanzi_color(5,107,111,WHITE,HOME_BACK);  
+	showhanzi_color(37,107,112,WHITE,HOME_BACK);  
+	showhanzi_color(69,107,114,WHITE,HOME_BACK); 
+	showdigit_color(101,107,12,WHITE,HOME_BACK);
+	
+	
+	showhanzi_color(5,160,111,WHITE,HOME_BACK);  
+	showhanzi_color(37,160,112,WHITE,HOME_BACK);  
+	showhanzi_color(69,160,65,WHITE,HOME_BACK); 
+	showdigit_color(101,160,12,WHITE,HOME_BACK);
+	//平均温度
+	showhanzi_color(5,208,135,WHITE,HOME_BACK);  
+	showhanzi_color(37,208,136,WHITE,HOME_BACK);  
+	showhanzi_color(69,208,111,WHITE,HOME_BACK); 
+	showhanzi_color(101,208,112,WHITE,HOME_BACK);
+	showdigit_color(133,208,12,WHITE,HOME_BACK);
+	
+	
+	
+	//482 氨气值 温度值 湿度值
+	showhanzi_color(255,53,111,WHITE,HOME_BACK);  
+	showhanzi_color(287,53,112,WHITE,HOME_BACK);  
+	showhanzi_color(319,53,107,WHITE,HOME_BACK); 
+	showdigit_color(351,53,12,WHITE,HOME_BACK);
+	
+	showhanzi_color(255,107,137,WHITE,HOME_BACK);  
+	showhanzi_color(287,107,112,WHITE,HOME_BACK);  
+	showhanzi_color(319,107,107,WHITE,HOME_BACK); 
+	showdigit_color(351,107,12,WHITE,HOME_BACK);
+	
+	showhanzi_color(255,160,109,WHITE,HOME_BACK);  
+	showhanzi_color(287,160,110,WHITE,HOME_BACK);  
+	showhanzi_color(319,160,107,WHITE,HOME_BACK); 
+	showdigit_color(351,160,12,WHITE,HOME_BACK);
+
+	//变频
+	showhanzi_color(288,208,133,WHITE,HOME_BACK);  
+	showhanzi_color(320,208,134,WHITE,HOME_BACK); 
+	showdigit_color(352,208,12,WHITE,HOME_BACK);
+	
+	//如果温度小于-5度，显示断开，表示温度传感器没连接
+	if(temperature1<0 || temperature1>90){
+		showhanzi_color(123,53,95,FONT_MID,HOME_BACK);showhanzi_color(155,53,108,FONT_MID,HOME_BACK);LCD_Fill(187,53,225,85,HOME_BACK);
+	}else{
+		
+		uint8_t t1_1 = (unsigned int)((temperature1+temp1_correct)/10) % 10;
+		uint8_t t1_2 = (unsigned int)(temperature1+temp1_correct) % 10;
+		uint8_t t1_3 = (unsigned int)((temperature1+temp1_correct)*10) % 10;
+		//LCD_Fill(336,60,352,92,HOME_BACK);
+		showdigit_color(123,53,t1_1,FONT_MID,HOME_BACK);
+		showdigit_color(139,53,t1_2,FONT_MID,HOME_BACK);
+		showdigit_color(155,53,10,FONT_MID,HOME_BACK);
+		showdigit_color(171,53,t1_3,FONT_MID,HOME_BACK);
+	}
+	
+	if(temperature2<0 || temperature2>90){
+		showhanzi_color(123,107,95,FONT_MID,HOME_BACK);showhanzi_color(155,107,108,FONT_MID,HOME_BACK);LCD_Fill(187,107,225,139,HOME_BACK);
+	}else{
+		uint8_t t2_1 = (unsigned int)((temperature2+temp2_correct)/10) % 10;
+		uint8_t t2_2 = (unsigned int)(temperature2+temp2_correct) % 10;
+		uint8_t t2_3 = (unsigned int)((temperature2+temp2_correct)*10) % 10;
+		//LCD_Fill(336,132,351,164,HOME_BACK);
+		showdigit_color(123,107,t2_1,FONT_MID,HOME_BACK);
+		showdigit_color(139,107,t2_2,FONT_MID,HOME_BACK);
+		showdigit_color(155,107,10,FONT_MID,HOME_BACK);
+		showdigit_color(171,107,t2_3,FONT_MID,HOME_BACK);
+	}
+	
+	if(temperature3<0 || temperature3>90){
+		showhanzi_color(123,160,95,FONT_MID,HOME_BACK);showhanzi_color(155,160,108,FONT_MID,HOME_BACK);LCD_Fill(187,160,225,192,HOME_BACK);
+	}else{
+		uint8_t t3_1 = (unsigned int)((temperature3+temp3_correct)/10) % 10;
+		uint8_t t3_2 = (unsigned int)(temperature3+temp3_correct) % 10;
+		uint8_t t3_3 = (unsigned int)((temperature3+temp3_correct)*10) % 10;
+		//LCD_Fill(336,132,351,164,HOME_BACK);
+		showdigit_color(123,160,t3_1,FONT_MID,HOME_BACK);
+		showdigit_color(139,160,t3_2,FONT_MID,HOME_BACK);
+		showdigit_color(155,160,10,FONT_MID,HOME_BACK);
+		showdigit_color(171,160,t3_3,FONT_MID,HOME_BACK);
+	}
+	
+	if(average_temp<0 || average_temp>90){
+		showhanzi_color(152,208,95,FONT_MID,HOME_BACK);showhanzi_color(184,208,108,FONT_MID,HOME_BACK);LCD_Fill(216,208,254,240,HOME_BACK);
+	}else{
+		uint8_t t4_1 = (unsigned int)(average_temp)/10;
+		uint8_t t4_2 = (unsigned int)(average_temp) % 10;
+		uint8_t t4_3 = (unsigned int)(average_temp*10) % 10;
+		//LCD_Fill(336,132,351,164,HOME_BACK);
+		showdigit_color(152,208,t4_1,FONT_MID,HOME_BACK);
+		showdigit_color(168,208,t4_2,FONT_MID,HOME_BACK);
+		showdigit_color(184,208,10,FONT_MID,HOME_BACK);
+		showdigit_color(200,208,t4_3,FONT_MID,HOME_BACK);
+	}
+	
+	// 10V -- 50Hz  5V -- 25Hz
+//	if(out_voltage==10){
+//		showdigit_color(373,208,1,FONT_MID,HOME_BACK);
+//		showdigit_color(389,208,0,FONT_MID,HOME_BACK);
+//		showdigit_color(405,208,0,FONT_MID,HOME_BACK);
+//		showdigit_color(427,208,20,UNDET,HOME_BACK);
+//		showdigit_color(443,208,21,UNDET,HOME_BACK);
+//	}else if(out_voltage<10 && out_voltage >0){
+//		LCD_Fill(373,208,389,240,HOME_BACK);
+//		showdigit_color(389,208,out_voltage,FONT_MID,HOME_BACK);
+//		showdigit_color(405,208,0,FONT_MID,HOME_BACK);
+//		showdigit_color(427,208,20,UNDET,HOME_BACK);
+//		showdigit_color(443,208,21,UNDET,HOME_BACK);
+//	}else if(out_voltage==0){
+//		LCD_Fill(373,208,405,240,HOME_BACK);
+//		showdigit_color(405,208,0,FONT_MID,HOME_BACK);
+//		showdigit_color(427,208,20,UNDET,HOME_BACK);
+//		showdigit_color(443,208,21,UNDET,HOME_BACK);
+//	}
+	
+	if(out_voltage>0){
+		LCD_Fill(373,208,389,240,HOME_BACK);
+		showdigit_color(389,208,out_voltage/10,FONT_MID,HOME_BACK);
+		showdigit_color(405,208,out_voltage%10,FONT_MID,HOME_BACK);
+		showdigit_color(427,208,20,UNDET,HOME_BACK);
+		showdigit_color(443,208,21,UNDET,HOME_BACK);
+	}else if(out_voltage==0){
+		LCD_Fill(373,208,405,240,HOME_BACK);
+		showdigit_color(405,208,0,FONT_MID,HOME_BACK);
+		showdigit_color(427,208,20,UNDET,HOME_BACK);
+		showdigit_color(443,208,21,UNDET,HOME_BACK);
+	}
+	
+
+	if(send_TEMP<0 || send_TEMP>800){
+		showhanzi_color(373,53,95,FONT_MID,HOME_BACK);showhanzi_color(405,53,108,FONT_MID,HOME_BACK);LCD_Fill(437,53,475,85,HOME_BACK);
+	}else{
+		uint8_t t5_1 = (unsigned int)(send_TEMP) / 100;
+		uint8_t t5_2 = (unsigned int)(send_TEMP/10) % 10;
+		uint8_t t5_3 = (unsigned int)(send_TEMP) % 10;
+		//LCD_Fill(336,132,351,164,HOME_BACK);
+		if(send_TEMP_buf > 0x7FFF){
+			showdigit_color(373,53,11,FONT_MID,HOME_BACK);
+			showdigit_color(389,53,t5_1,FONT_MID,HOME_BACK);
+			showdigit_color(405,53,t5_2,FONT_MID,HOME_BACK);
+			showdigit_color(421,53,10,FONT_MID,HOME_BACK);
+			showdigit_color(437,53,t5_3,FONT_MID,HOME_BACK);
+			LCD_Fill(453,53,475,85,HOME_BACK);
+		}else{
+			showdigit_color(373,53,t5_1,FONT_MID,HOME_BACK);
+			showdigit_color(389,53,t5_2,FONT_MID,HOME_BACK);
+			showdigit_color(405,53,10,FONT_MID,HOME_BACK);
+			showdigit_color(421,53,t5_3,FONT_MID,HOME_BACK);
+			LCD_Fill(437,53,475,85,HOME_BACK);
+		}
+
+	}
+
+	if(send_RH<0 || send_RH>999){
+		showhanzi_color(373,107,95,FONT_MID,HOME_BACK);showhanzi_color(405,107,108,FONT_MID,HOME_BACK);LCD_Fill(437,107,475,139,HOME_BACK);
+	}else{
+		uint8_t RH_1 = (unsigned int)(send_RH) / 100;
+		uint8_t RH_2 = (unsigned int)(send_RH/10) % 10;
+		uint8_t RH_3 = (unsigned int)(send_RH) % 10;
+		//LCD_Fill(336,132,351,164,HOME_BACK);
+		showdigit_color(373,107,RH_1,FONT_MID,HOME_BACK);
+		showdigit_color(389,107,RH_2,FONT_MID,HOME_BACK);
+		showdigit_color(405,107,10,FONT_MID,HOME_BACK);
+		showdigit_color(421,107,RH_3,FONT_MID,HOME_BACK);
+		showdigit_color(443,107,19,UNDET,HOME_BACK);
+		showdigit_color(459,107,20,UNDET,HOME_BACK);
+
+		//LCD_Fill(453,53,475,85,HOME_BACK);
+
+	}
+
+	if(send_NH3>100 || send_NH3<0){
+		showhanzi_color(373,160,95,FONT_MID,HOME_BACK);showhanzi_color(405,160,108,FONT_MID,HOME_BACK);LCD_Fill(437,160,475,192,HOME_BACK);
+	}else if(send_NH3>=10&& send_NH3<100){
+		LCD_Fill(373,160,389,236,HOME_BACK);
+		showdigit_color(389,160,send_NH3 / 10,FONT_MID,HOME_BACK);
+		showdigit_color(405,160,send_NH3 % 10,FONT_MID,HOME_BACK);
+		LCD_Fill(421,160,427,192,HOME_BACK);
+		showdigit_color(427,160,16,UNDET,HOME_BACK);
+		showdigit_color(443,160,16,UNDET,HOME_BACK);
+		showdigit_color(459,160,17,UNDET,HOME_BACK);
+	}else if(send_NH3>=0&& send_NH3<10){
+		LCD_Fill(373,160,405,192,HOME_BACK);
+		showdigit_color(405,160,send_NH3,FONT_MID,HOME_BACK);
+		LCD_Fill(421,160,427,192,HOME_BACK);
+		showdigit_color(427,160,16,UNDET,HOME_BACK);
+		showdigit_color(443,160,16,UNDET,HOME_BACK);
+		showdigit_color(459,160,17,UNDET,HOME_BACK);
+	}
+
+	//根据relay_structure[10]数组判断风机1-10的开关状态
+	showhanzi_color(12,288,78,WHITE,HOME_BACK);
+	showhanzi_color(59,288,79,WHITE,HOME_BACK);
+	showhanzi_color(106,288,80,WHITE,HOME_BACK);
+	showhanzi_color(153,288,81,WHITE,HOME_BACK);
+	showhanzi_color(200,288,82,WHITE,HOME_BACK);
+	showhanzi_color(247,288,83,WHITE,HOME_BACK);
+	showhanzi_color(294,288,84,WHITE,HOME_BACK);
+	showhanzi_color(341,288,85,WHITE,HOME_BACK);
+	showhanzi_color(388,288,86,WHITE,HOME_BACK);
+	showhanzi_color(435,288,87,WHITE,HOME_BACK);
+
+
+	if(relay_structure[0].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(12,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(12,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(12,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(12,253,gImage_4);
+	}else Gui_Drawbmp16(12,253,gImage_1);
+	if(relay_structure[1].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(59,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(59,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(59,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(59,253,gImage_4);
+	}else Gui_Drawbmp16(59,253,gImage_1);
+	if(relay_structure[2].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(106,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(106,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(106,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(106,253,gImage_4);
+	}else Gui_Drawbmp16(106,253,gImage_1);
+	if(relay_structure[3].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(153,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(153,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(153,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(153,253,gImage_4);
+	}else Gui_Drawbmp16(153,253,gImage_1);
+	if(relay_structure[4].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(200,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(200,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(200,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(200,253,gImage_4);
+	}else Gui_Drawbmp16(200,253,gImage_1);
+	if(relay_structure[5].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(247,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(247,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(247,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(247,253,gImage_4);
+	}else Gui_Drawbmp16(247,253,gImage_1);
+	if(relay_structure[6].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(294,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(294,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(294,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(294,253,gImage_4);
+	}else Gui_Drawbmp16(294,253,gImage_1);
+	if(relay_structure[7].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(341,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(341,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(341,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(341,253,gImage_4);
+	}else Gui_Drawbmp16(341,253,gImage_1);
+	if(relay_structure[8].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(388,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(388,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(388,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(388,253,gImage_4);
+	}else Gui_Drawbmp16(388,253,gImage_1);
+	if(relay_structure[9].on_off){
+		if(ctrl_ui==0)Gui_Drawbmp16(435,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,253,gImage_4);
+	}else Gui_Drawbmp16(435,253,gImage_1);
+
+	
+}
+#endif
 
 /*
 函数功能：主菜单按返回键显示函数
@@ -579,8 +890,113 @@ void Main_UI(u8 page_index,u8 key_val)
 返回值：无
 */
 void Main_Back_UI(u8 page_index,u8 key_val){
+	static u8 obj_value=25;
+	static u8 obj_value_temp=25;
 	LCD_Fill(0,38,480,40,LINE);
 	LCD_Fill(0,246,480,248,LINE);
+	//目标温度-快速同步设置
+	showhanzi_color(73,0,122,WHITE,HOME_BACK);  
+	showhanzi_color(105,0,123,WHITE,HOME_BACK);  
+	showhanzi_color(137,0,39,WHITE,HOME_BACK);  
+	showhanzi_color(169,0,66,WHITE,HOME_BACK);  
+	showdigit_color(201,0,11,WHITE,HOME_BACK);
+	showhanzi_color(217,0,124,WHITE,HOME_BACK);  
+	showhanzi_color(249,0,125,WHITE,HOME_BACK);  
+	showhanzi_color(281,0,126,WHITE,HOME_BACK);  
+	showhanzi_color(313,0,127,WHITE,HOME_BACK);  
+	showhanzi_color(345,0,16,WHITE,HOME_BACK);
+	showhanzi_color(377,0,17,WHITE,HOME_BACK);
+	//中间显示部分 目标值 修改为
+	showhanzi_color(130,87,122,WHITE,HOME_BACK);  
+	showhanzi_color(162,87,123,WHITE,HOME_BACK);  
+	showhanzi_color(194,87,88,WHITE,HOME_BACK);  
+	showdigit_color(226,87,12,WHITE,HOME_BACK); 
+	
+	showhanzi_color(130,169,20,WHITE,HOME_BACK);  
+	showhanzi_color(162,169,120,WHITE,HOME_BACK);  
+	showhanzi_color(194,169,121,WHITE,HOME_BACK);  
+	showdigit_color(226,169,12,WHITE,HOME_BACK); 
+	//底部说明
+	showhanzi_color(0,256,132,WHITE,HOME_BACK);  
+	showhanzi_color(32,256,138,GREEN,HOME_BACK);  
+	showhanzi_color(64,256,119,GREEN,HOME_BACK);  
+	showhanzi_color(96,256,128,WHITE,HOME_BACK);  
+	showhanzi_color(128,256,120,WHITE,HOME_BACK);
+	showhanzi_color(160,256,15,WHITE,HOME_BACK);  
+	showdigit_color(192,256,18,WHITE,HOME_BACK);  
+	showhanzi_color(224,256,132,WHITE,HOME_BACK);  
+	showhanzi_color(256,256,16,GREEN,HOME_BACK);  
+	showhanzi_color(288,256,17,GREEN,HOME_BACK);
+	showhanzi_color(320,256,128,WHITE,HOME_BACK);
+	showhanzi_color(352,256,20,WHITE,HOME_BACK);
+	showhanzi_color(384,256,120,WHITE,HOME_BACK);
+	
+	showhanzi_color(0,288,132,WHITE,HOME_BACK);  
+	showhanzi_color(32,288,139,GREEN,HOME_BACK);  
+	showhanzi_color(64,288,140,GREEN,HOME_BACK);  
+	showhanzi_color(96,288,128,WHITE,HOME_BACK);  
+	showhanzi_color(128,288,92,WHITE,HOME_BACK);
+	showhanzi_color(160,288,20,WHITE,HOME_BACK);  
+	showhanzi_color(192,288,120,WHITE,HOME_BACK);  
+	showdigit_color(224,288,18,WHITE,HOME_BACK);  
+	showhanzi_color(256,288,129,WHITE,HOME_BACK);  
+	showhanzi_color(288,288,130,WHITE,HOME_BACK);
+	showhanzi_color(320,288,131,WHITE,HOME_BACK);
+	showhanzi_color(352,288,132,WHITE,HOME_BACK);
+	
+	switch(key_val)
+	{
+		case KEY_PREVIOUS:
+				obj_value_temp +=1;
+				if(obj_value_temp>50){obj_value_temp=25;obj_value=25;}
+				break;
+		case KEY_ENTER:
+				if(obj_value>obj_value_temp){
+					u8 sub_data = obj_value - obj_value_temp;
+					for(int i=0; i<10; i++){
+						if(relay_structure[i].relay_mode==1 || relay_structure[i].relay_mode==3){
+							relay_structure[i].temp_control.max_temp -= sub_data;
+							relay_structure[i].temp_control.min_temp -= sub_data;
+						}
+					}
+				}
+				if(obj_value<obj_value_temp){
+					u8 sub_data = obj_value_temp - obj_value;
+					for(int i=0; i<10; i++){
+						if(relay_structure[i].relay_mode==1 || relay_structure[i].relay_mode==3){
+							relay_structure[i].temp_control.max_temp += sub_data;
+							relay_structure[i].temp_control.min_temp += sub_data;
+						}
+					}
+				}
+				obj_value = obj_value_temp;
+				break;
+		case KEY_NEXT:
+				obj_value_temp -=1;
+				if(obj_value_temp==255){obj_value_temp=25;obj_value=25;}
+				break;
+		case KEY_BACK:
+
+				break;
+		default:break;
+	}
+	u8 obj_value_temp_1 = obj_value_temp / 10;
+	u8 obj_value_temp_2 = obj_value_temp % 10;
+	if(obj_value>=10){
+		showdigit_color(252,87,obj_value/10,GREEN,HOME_BACK);
+		showdigit_color(268,87,obj_value%10,GREEN,HOME_BACK);
+	}else if(obj_value<10){
+		showdigit_color(252,87,13,HOME_BACK,HOME_BACK);
+		showdigit_color(268,87,obj_value%10,GREEN,HOME_BACK);
+	}
+	if(obj_value_temp>=10){
+		showdigit_color(252,169,obj_value_temp_1,WHITE,RED);
+		showdigit_color(268,169,obj_value_temp_2,WHITE,RED);
+	}else if(obj_value_temp<10){
+		showdigit_color(252,169,13,HOME_BACK,HOME_BACK);
+		showdigit_color(268,169,obj_value_temp,WHITE,RED);
+	}
+
 	
 }
 
@@ -795,41 +1211,157 @@ void Main_Menu_Func(u8 page_index,u8 key_val)
 
 
 void Hz_Ctrl_Child(u8 page_index,u8 key_val){
-	
-	
-	u8 temp_1;
-	u8 temp_2;
+	static u8 cur_pos=1;
+	float temp_choose=1;
 	u16 data_v;
-	u8 v_low;
-	u8 v_high;
+	u16 v_low;
+	u16 v_high;
+	showhanzi_color(0,288,16,RED,WHITE);showhanzi_color(32,288,17,RED,WHITE);showhanzi_color(64,288,128,BLACK,WHITE);showhanzi_color(96,288,146,BLACK,WHITE);
+	showhanzi_color(128,288,147,BLACK,WHITE);showhanzi_color(170,288,138,RED,WHITE);showhanzi_color(202,288,119,RED,WHITE);showhanzi_color(234,288,128,BLACK,WHITE);
+	showhanzi_color(266,288,20,BLACK,WHITE);showhanzi_color(298,288,120,BLACK,WHITE);
 	
-	showhanzi(48,132,16); showhanzi(82,132,17); showhanzi(116,132,14); showhanzi(150,132,15); showhanzi(184,132,44); 
-	switch(key_val)
-	{
-		case KEY_PREVIOUS:
-			out_voltage+=1;
-			if(out_voltage>10)out_voltage=0;
-			data_v = out_voltage*4095/10;
-			v_low = data_v<<4 | 0x00;
-		    v_high = data_v>>4 | 0x00;
-			GP8201S_Write(0,0,v_low,v_high);
-				break;
-		case KEY_ENTER:
-				break;
-		case KEY_NEXT:
-			out_voltage-=1;
-			if(out_voltage==255)out_voltage=10;
-			data_v = out_voltage*4095/10;
-			v_low = data_v<<4 | 0x00;
-			v_high = data_v>>4 | 0x00;
-			GP8201S_Write(0,0,v_low,v_high);
-				break;
+	//中间部分
+	showhanzi(0,48,39);showhanzi(32,48,66);showhanzi(64,48,42);showhanzi(96,48,45);showhanzi(128,48,88);showdigit_color(160,48,12,WHITE,BLACK);
+	showhanzi(0,80,39);showhanzi(32,80,66);showhanzi(64,80,43);showhanzi(96,80,45);showhanzi(128,80,88);showdigit_color(160,80,12,WHITE,BLACK);
+	
+	showhanzi(0,112,39);showhanzi(32,112,66);showhanzi(64,112,42);showhanzi(96,112,45);showhanzi(128,112,50);showhanzi(160,112,51);showhanzi(192,112,141);
+	showhanzi(224,112,142);showhanzi(256,112,143);showhanzi(288,112,144);showhanzi(320,112,145);showdigit_color(352,112,12,WHITE,BLACK);
+	showdigit_color(432,144,14,WHITE,BLACK);
+	showhanzi(0,176,39);showhanzi(32,176,66);showhanzi(64,176,43);showhanzi(96,176,45);showhanzi(128,176,50);showhanzi(160,176,51);showhanzi(192,176,141);
+	showhanzi(224,176,142);showhanzi(256,176,143);showhanzi(288,176,144);showhanzi(320,176,145);showdigit_color(352,176,12,WHITE,BLACK);
+	showdigit_color(432,208,14,WHITE,BLACK);
+	showhanzi(0,240,50);showhanzi(32,240,51);showhanzi(64,240,141);showhanzi(96,240,52);showhanzi(128,240,53);showhanzi(160,240,54);showdigit_color(192,240,12,WHITE,BLACK);
+	
+	if(last_index!=_Hz_Ctrl_Option)//判断是否是s第一次进入此界面
+	{	switch(key_val)
+		{
+			case KEY_PREVIOUS:
+				if(cur_pos == 1) hz_control.max_temp += 0.1;
+				if(cur_pos == 2) if((hz_control.min_temp+2)<hz_control.max_temp)hz_control.min_temp+=0.1;
+				if(cur_pos == 3) hz_control.voltage_high += 0.1;
+				if(cur_pos == 4) if((hz_control.voltage_low+2)<hz_control.voltage_high)hz_control.voltage_low += 0.1;
+				if(cur_pos == 5) hz_control.temp_choose += 1;
+				if(hz_control.max_temp>50)hz_control.max_temp=50;
+				if(hz_control.min_temp>45)hz_control.min_temp=45;
+				if(hz_control.voltage_high>10)hz_control.voltage_high=10;
+				if(hz_control.voltage_low>8)hz_control.voltage_low=8;
+				if(hz_control.temp_choose>5)hz_control.temp_choose=1;
+				
+					break;
+			case KEY_ENTER:
+				cur_pos++;
+				if(cur_pos == 6){
+					cur_pos = 1;
+				}
+					break;
+			case KEY_NEXT:
+				if(cur_pos == 1) if((hz_control.max_temp-2)>hz_control.min_temp)hz_control.max_temp -= 0.1;
+				if(cur_pos == 2) hz_control.min_temp -= 0.1;
+				if(cur_pos == 3) if((hz_control.voltage_high-2)>hz_control.voltage_low)hz_control.voltage_high -= 0.1;
+				if(cur_pos == 4) hz_control.voltage_low -= 0.1;
+				if(cur_pos == 5) hz_control.temp_choose -= 1;
+				if(hz_control.max_temp<5)hz_control.max_temp=5;
+				if(hz_control.min_temp<0)hz_control.min_temp=0;
+				if(hz_control.voltage_high<2)hz_control.voltage_high=2;
+				if(hz_control.voltage_low<0)hz_control.voltage_low=0;
+				if(hz_control.temp_choose==0)hz_control.temp_choose=5;
+
+					break;
+			default:break;
+		}
+	}else cur_pos=1;//第一次进入此界面,界面指针清零
+
+	if(cur_pos!=1){
+		showdigit_color(176,48,(uint8_t)hz_control.max_temp/10,WHITE,BLACK);showdigit_color(192,48,(uint8_t)hz_control.max_temp%10,WHITE,BLACK);
+		showdigit_color(208,48,10,WHITE,BLACK);showdigit_color(224,48,(uint8_t)(hz_control.max_temp*10)%10,WHITE,BLACK);
+	}
+	if(cur_pos!=2){
+		showdigit_color(176,80,(uint8_t)hz_control.min_temp/10,WHITE,BLACK);showdigit_color(192,80,(uint8_t)hz_control.min_temp%10,WHITE,BLACK);
+		showdigit_color(208,80,10,WHITE,BLACK);showdigit_color(224,80,(uint8_t)(hz_control.min_temp*10)%10,WHITE,BLACK);
+	}
+	if(cur_pos!=3){
+		showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,WHITE,BLACK);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,WHITE,BLACK);
+		showdigit_color(400,144,10,WHITE,BLACK);showdigit_color(416,144,(uint8_t)(hz_control.voltage_high*10)%10,WHITE,BLACK);
+	}
+	if(cur_pos!=4){
+		showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,WHITE,BLACK);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,WHITE,BLACK);
+		showdigit_color(400,208,10,WHITE,BLACK);showdigit_color(416,208,(uint8_t)(hz_control.voltage_low*10)%10,WHITE,BLACK);
+	}
+	if(cur_pos!=5){
+		if(hz_control.temp_choose == 1) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,63);showhanzi(304,240,38);}
+		if(hz_control.temp_choose == 2) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,64);showhanzi(304,240,38);}
+		if(hz_control.temp_choose == 3) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,65);showhanzi(304,240,38);}	
+		if(hz_control.temp_choose == 4) {showhanzi(208,240,67);showhanzi(240,240,68);showhanzi(272,240,39);showhanzi(304,240,66);}//平均温度
+		if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,WHITE,BLACK);showdigit_color(224,240,8,WHITE,BLACK);showdigit_color(240,240,5,WHITE,BLACK);showhanzi(256,240,39);showhanzi(288,240,66);showdigit_color(320,240,13,BLACK,BLACK);}
+	}
+		
+	switch(cur_pos){
+		case 1:
+			showdigit_color(176,48,(uint8_t)hz_control.max_temp/10,BLACK,WHITE);showdigit_color(192,48,(uint8_t)hz_control.max_temp%10,BLACK,WHITE);
+			showdigit_color(208,48,10,BLACK,WHITE);showdigit_color(224,48,(uint8_t)(hz_control.max_temp*10)%10,BLACK,WHITE);
+			break;
+		case 2:
+			showdigit_color(176,80,(uint8_t)hz_control.min_temp/10,BLACK,WHITE);showdigit_color(192,80,(uint8_t)hz_control.min_temp%10,BLACK,WHITE);
+			showdigit_color(208,80,10,BLACK,WHITE);showdigit_color(224,80,(uint8_t)(hz_control.min_temp*10)%10,BLACK,WHITE);
+
+			break;
+		case 3:
+			showdigit_color(368,144,(uint8_t)hz_control.voltage_high/10,BLACK,WHITE);showdigit_color(384,144,(uint8_t)hz_control.voltage_high%10,BLACK,WHITE);
+			showdigit_color(400,144,10,BLACK,WHITE);showdigit_color(416,144,(uint8_t)(hz_control.voltage_high*10)%10,BLACK,WHITE);
+			break;
+		case 4:
+			showdigit_color(368,208,(uint8_t)hz_control.voltage_low/10,BLACK,WHITE);showdigit_color(384,208,(uint8_t)hz_control.voltage_low%10,BLACK,WHITE);
+			showdigit_color(400,208,10,BLACK,WHITE);showdigit_color(416,208,(uint8_t)(hz_control.voltage_low*10)%10,BLACK,WHITE);
+			break;
+		case 5:
+			if(hz_control.temp_choose == 1) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,63,1);showhanzi_1(304,240,38,1);}
+			if(hz_control.temp_choose == 2) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,64,1);showhanzi_1(304,240,38,1);}
+			if(hz_control.temp_choose == 3) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,65,1);showhanzi_1(304,240,38,1);}	
+			if(hz_control.temp_choose == 4) {showhanzi_1(208,240,67,1);showhanzi_1(240,240,68,1);showhanzi_1(272,240,39,1);showhanzi_1(304,240,66,1);}//平均温度
+			if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,BLACK,WHITE);showdigit_color(224,240,8,BLACK,WHITE);showdigit_color(240,240,5,BLACK,WHITE);showhanzi_1(256,240,39,1);showhanzi_1(288,240,66,1);showdigit_color(320,240,13,WHITE,WHITE);}
+			break;
 		default:break;
 	}
-	temp_1 = out_voltage/10;
-	temp_2 = out_voltage%10;
-	if(!temp_1){showdigit_color(216,132,13,BLACK,BLACK);showdigit_color(232,132,temp_2,GREEN,BLACK);showdigit_color(264,132,14,GREEN,BLACK);}
-	else{showdigit_color(216,132,temp_1,GREEN,BLACK);showdigit_color(232,132,temp_2,GREEN,BLACK);showdigit_color(264,132,14,GREEN,BLACK);}
+	
+	switch(hz_control.temp_choose){
+		case 1:
+			temp_choose = temperature1;
+			break;
+		case 2:
+			temp_choose = temperature2;
+			break;
+		case 3:
+			temp_choose = temperature3;
+			break;
+		case 4:
+			temp_choose = average_temp;
+			break;
+		case 5:
+			temp_choose = send_TEMP;
+			break;
+		default:break;
+	}
+	
+	if(temp_choose<=90){
+		if(temp_choose<=hz_control.min_temp){
+			data_v = hz_control.voltage_low*4095/10;
+			out_voltage=hz_control.voltage_low*5;
+		}else if(temp_choose>=hz_control.max_temp){
+			data_v = hz_control.voltage_high*4095/10;
+			out_voltage=hz_control.voltage_high*5;
+		}else{
+			float data_v_t = ((temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
+			data_v = data_v_t*4095/10;
+			out_voltage=data_v_t;
+		}
+	}else{
+		data_v=0;
+	}
+
+//	v_low = data_v<<4 | 0x00;
+//	v_high = data_v>>4 | 0x00;
+//	GP8201S_Write(0,0,v_low,v_high);
+//	
 }
 void Alarm_Child(u8 page_index,u8 key_val){
 	

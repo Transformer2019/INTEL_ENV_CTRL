@@ -7,6 +7,10 @@
 #define ON 1
 #define OFF 0
 
+
+//主页显示哪个页面
+#define HOME_Page 2 // 1,2代表不同主页显示效果
+
 extern uint8_t ctrl_ui;
 
 extern uint8_t network_flag;
@@ -35,8 +39,18 @@ extern char imei_no[16];//
 
 extern Relay_Structure relay_structure[10];
 
-//变频控制
+//变频输出
 extern u8 out_voltage;
+//变频控制
+typedef struct {
+	float  max_temp;
+    float  min_temp;
+	float voltage_high;
+	float voltage_low;
+	u8 temp_choose; // 1:温度一 2:温度二 3:温度三 4:平均温度 5:485温度
+} Hz_Control;
+
+extern Hz_Control hz_control;
 
 
 //MQTT配置数据发送标志
@@ -111,6 +125,8 @@ enum
 	KEY_PREVIOUS,
 	KEY_ENTER,
 };
+
+
 
 void Main_UI(u8 page_index,u8 key_val);
 

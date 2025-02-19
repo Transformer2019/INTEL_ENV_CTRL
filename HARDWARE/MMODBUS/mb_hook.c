@@ -14,6 +14,7 @@
 #include "delay.h"
 
 uint16_t send_NH3 = 999;
+uint16_t send_TEMP_buf = 0;
 int16_t send_TEMP = 999;
 uint16_t send_RH = 9999;
 //uint32_t send_CO2 = 99999;

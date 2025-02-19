@@ -27,6 +27,7 @@ volatile u8 TIM1_flag=0;
 volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
+
 //快加键使用的计数器
 //volatile uint16_t TIM3_Add_Counter=0;
 
@@ -34,6 +35,8 @@ volatile u8 Heartbeat_flag=0;
 volatile uint16_t MQTT_CON_Counter=0;
 volatile u8 MQTT_CON_flag=0;
 
+//ui风机转速计数器
+volatile u8 relay_speed_ui_count=0;
 
 //温度数组
 //volatile float temp1_list[11]={0};
@@ -54,7 +57,7 @@ void TIM1_Int_Init(u16 arr,u16 psc)
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE); //时钟使能
 
-	TIM_TimeBaseStructure.TIM_Period = 499; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到2000为200ms
+	TIM_TimeBaseStructure.TIM_Period = 499; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到500为50ms
 	TIM_TimeBaseStructure.TIM_Prescaler = 7199; //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
@@ -558,6 +561,12 @@ void TIM1_UP_IRQHandler(void){
 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); //清除TIM4更新中断标志
 		
+		//控制显示的风机转的频率
+		if(relay_speed_ui_count>=8)
+		{
+		  relay_speed_ui_count=0;
+		}
+		relay_speed_ui_count++;
 		if(TIM1_Counter>100)
 		{
 		  //TIM1_flag=1;
@@ -682,7 +691,7 @@ void TIM1_UP_IRQHandler(void){
 //		printf("Temperature2: %.2f degrees Celsius\r\n", temperature2);	
 //		printf("Temperature3: %.2f degrees Celsius\r\n", temperature3);	
 		
-		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=0;}else{
+		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){}else{
 			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
 		}
 		
