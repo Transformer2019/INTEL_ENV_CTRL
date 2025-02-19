@@ -4,6 +4,7 @@
 #include "ntc.h"
 #include "delay.h"
 #include "mb_hook.h"
+#include "GP8201S.h"
    	  
 //通用定时器3中断初始化
 //这里时钟选择为APB1的2倍，而APB1为36M
@@ -27,6 +28,9 @@ volatile u8 TIM1_flag=0;
 volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
+
+//变频输出
+volatile u8 out_voltage=0;
 
 //快加键使用的计数器
 //volatile uint16_t TIM3_Add_Counter=0;
@@ -57,7 +61,7 @@ void TIM1_Int_Init(u16 arr,u16 psc)
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE); //时钟使能
 
-	TIM_TimeBaseStructure.TIM_Period = 499; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到500为50ms
+	TIM_TimeBaseStructure.TIM_Period = 199; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到500为50ms
 	TIM_TimeBaseStructure.TIM_Prescaler = 7199; //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
@@ -205,7 +209,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		TIM4_Counter_10s++;
 		
 		//将配置参数写入flash频率
-		if(TIM5_Counter_10s>600)
+		if(TIM5_Counter_10s>60)
 		{
 		  TIM5_flag=1;
 		}
@@ -249,6 +253,39 @@ void TIM2_IRQHandler(void)   //TIM2中断
 //			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
 //		}
 		
+		//变频控制开始
+		switch(hz_control.temp_choose){
+			case 1:Hz_temp_choose = temperature1;break;
+			case 2:Hz_temp_choose = temperature2;break;
+			case 3:Hz_temp_choose = temperature3;break;
+			case 4:Hz_temp_choose = average_temp;break;
+			case 5:Hz_temp_choose = send_TEMP/10;break;
+			default:break;
+		}
+		u16 data_v;
+		//printf("Hz_temp_choose:%.2f\n",Hz_temp_choose);
+		if(Hz_temp_choose<=90){
+			if(Hz_temp_choose<=hz_control.min_temp){
+				data_v = hz_control.voltage_low*4095/10;
+				out_voltage=hz_control.voltage_low*5.0;
+			}else if(Hz_temp_choose>=hz_control.max_temp){
+				data_v = hz_control.voltage_high*4095/10;
+				out_voltage=hz_control.voltage_high*5.0;
+			}else{
+				float data_v_t = ((Hz_temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
+				data_v = data_v_t*4095/10;
+				out_voltage=data_v_t*5.0;
+				printf("out_voltage:%d\n",out_voltage);
+			}
+		}else{
+			data_v=0;
+			out_voltage=data_v;
+		}
+		
+		u16 v_low = data_v<<4 | 0x00;
+		u16 v_high = data_v>>4 | 0x00;
+		GP8201S_Write(0,0,v_low,v_high);
+		//变频控制结束
 		
 		uint8_t j = 0;
 		//此处是否可以判断是否需要for循环
@@ -567,7 +604,7 @@ void TIM1_UP_IRQHandler(void){
 		  relay_speed_ui_count=0;
 		}
 		relay_speed_ui_count++;
-		if(TIM1_Counter>100)
+		if(TIM1_Counter>10)
 		{
 		  //TIM1_flag=1;
 		  TIM1_Counter=0;
@@ -590,7 +627,8 @@ void TIM1_UP_IRQHandler(void){
 		
 		float temperature1_buff = 0.0;
 		list_change(temp1_list_buff,ADC_Channel_2,10);
-		if(TIM1_Counter%10 == 0){
+		//if(TIM1_Counter%10 == 0){
+		if(1){
 			float temperature1_buff = middleValueFilter(temp1_list_buff,10);
 			list_change_end(temp1_list,temperature1_buff,10);
 			if((int)temp1_list[0]==99 || (int)temp1_list[1]==99 || (int)temp1_list[2]==99 || 
@@ -634,7 +672,8 @@ void TIM1_UP_IRQHandler(void){
 		
 		float temperature2_buff = 0.0;
 		list_change(temp2_list_buff,ADC_Channel_3,10);
-		if(TIM1_Counter%10 == 0){
+		//if(TIM1_Counter%1 == 0){
+		if(1){
 			float temperature2_buff = middleValueFilter(temp2_list_buff,10);
 			list_change_end(temp2_list,temperature2_buff,10);
 			if((int)temp2_list[0]==99 || (int)temp2_list[1]==99 || (int)temp2_list[2]==99 || 
@@ -661,7 +700,8 @@ void TIM1_UP_IRQHandler(void){
 		
 		float temperature3_buff = 0.0;
 		list_change(temp3_list_buff,ADC_Channel_4,10);
-		if(TIM1_Counter%10 == 0){
+		//if(TIM1_Counter%1 == 0){
+		if(1){
 			float temperature3_buff = middleValueFilter(temp3_list_buff,10);
 			list_change_end(temp3_list,temperature3_buff,10);
 			if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
@@ -691,7 +731,7 @@ void TIM1_UP_IRQHandler(void){
 //		printf("Temperature2: %.2f degrees Celsius\r\n", temperature2);	
 //		printf("Temperature3: %.2f degrees Celsius\r\n", temperature3);	
 		
-		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){}else{
+		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=99.0;}else{
 			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
 		}
 		

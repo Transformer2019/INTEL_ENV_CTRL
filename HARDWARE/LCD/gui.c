@@ -25,15 +25,17 @@ Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.ma
 };
 
 //变频控制结构体
-Hz_Control hz_control={
-	.max_temp=25,
+volatile Hz_Control hz_control={
+	.max_temp=30,
 	.min_temp=15,
 	.voltage_high=10,
 	.voltage_low=0,
 	.temp_choose=1
 };
-//变频输出
-u8 out_voltage=0;
+
+//变频器选择的温度
+volatile float Hz_temp_choose=99;
+
 //#pragma pack()    //取消自定义字节对齐方式
 
 uint8_t warn_flag=0;
@@ -1216,10 +1218,10 @@ void Main_Menu_Func(u8 page_index,u8 key_val)
 
 void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	static u8 cur_pos=1;
-	float temp_choose=1;
-	u16 data_v;
-	u16 v_low;
-	u16 v_high;
+	
+//	u16 data_v;
+//	u16 v_low;
+//	u16 v_high;
 	showhanzi_color(0,288,16,RED,WHITE);showhanzi_color(32,288,17,RED,WHITE);showhanzi_color(64,288,128,BLACK,WHITE);showhanzi_color(96,288,146,BLACK,WHITE);
 	showhanzi_color(128,288,147,BLACK,WHITE);showhanzi_color(170,288,138,RED,WHITE);showhanzi_color(202,288,119,RED,WHITE);showhanzi_color(234,288,128,BLACK,WHITE);
 	showhanzi_color(266,288,20,BLACK,WHITE);showhanzi_color(298,288,120,BLACK,WHITE);
@@ -1331,41 +1333,41 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 		default:break;
 	}
 	
-	switch(hz_control.temp_choose){
-		case 1:
-			temp_choose = temperature1;
-			break;
-		case 2:
-			temp_choose = temperature2;
-			break;
-		case 3:
-			temp_choose = temperature3;
-			break;
-		case 4:
-			temp_choose = average_temp;
-			break;
-		case 5:
-			temp_choose = send_TEMP/10;
-			break;
-		default:break;
-	}
+//	switch(hz_control.temp_choose){
+//		case 1:
+//			Hz_temp_choose = temperature1;
+//			break;
+//		case 2:
+//			Hz_temp_choose = temperature2;
+//			break;
+//		case 3:
+//			Hz_temp_choose = temperature3;
+//			break;
+//		case 4:
+//			Hz_temp_choose = average_temp;
+//			break;
+//		case 5:
+//			Hz_temp_choose = send_TEMP/10;
+//			break;
+//		default:break;
+//	}
 	
-	if(temp_choose<=90){
-		if(temp_choose<=hz_control.min_temp){
-			data_v = hz_control.voltage_low*4095/10;
-			out_voltage=hz_control.voltage_low*5;
-		}else if(temp_choose>=hz_control.max_temp){
-			data_v = hz_control.voltage_high*4095/10;
-			out_voltage=hz_control.voltage_high*5;
-		}else{
-			float data_v_t = ((temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
-			data_v = data_v_t*4095/10;
-			out_voltage=data_v_t;
-		}
-	}else{
-		data_v=0;
-		out_voltage=data_v;
-	}
+//	if(Hz_temp_choose<=90){
+//		if(Hz_temp_choose<=hz_control.min_temp){
+//			data_v = hz_control.voltage_low*4095/10;
+//			out_voltage=hz_control.voltage_low*5;
+//		}else if(Hz_temp_choose>=hz_control.max_temp){
+//			data_v = hz_control.voltage_high*4095/10;
+//			out_voltage=hz_control.voltage_high*5;
+//		}else{
+//			float data_v_t = ((Hz_temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
+//			data_v = data_v_t*4095/10;
+//			out_voltage=data_v_t;
+//		}
+//	}else{
+//		data_v=0;
+//		out_voltage=data_v;
+//	}
 
 //	v_low = data_v<<4 | 0x00;
 //	v_high = data_v>>4 | 0x00;

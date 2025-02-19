@@ -39,8 +39,7 @@ extern char imei_no[16];//
 
 extern Relay_Structure relay_structure[10];
 
-//变频输出
-extern u8 out_voltage;
+
 //变频控制
 typedef struct {
 	double  max_temp;
@@ -50,8 +49,10 @@ typedef struct {
 	u8 temp_choose; // 1:温度一 2:温度二 3:温度三 4:平均温度 5:485温度
 } Hz_Control;
 
-extern Hz_Control hz_control;
-
+extern volatile Hz_Control hz_control;
+//变频器选择的温度
+extern volatile float Hz_temp_choose;
+	
 
 //MQTT配置数据发送标志
 extern uint8_t send_CONFIG_INDEX;
