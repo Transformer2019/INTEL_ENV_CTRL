@@ -9,7 +9,7 @@
 
 
 //主页显示哪个页面
-#define HOME_Page 2 // 1,2代表不同主页显示效果
+#define HOME_Page 3 // 1,2代表不同主页显示效果，1简单显示；2显示全部传感器信息和变频器输出；3在2的基础上修改不显示温度三
 
 extern uint8_t ctrl_ui;
 

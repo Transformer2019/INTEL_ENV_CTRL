@@ -186,6 +186,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -711,7 +712,7 @@
       <file attr="config" category="source" name="src\jansson_config.c" version="2.7.0">
         <instance index="0">RTE\Data_Exchange\jansson_config.c</instance>
         <component Cclass="Data Exchange" Cgroup="JSON" Csub="Jansson" Cvendor="Keil" Cversion="2.7.0" condition="ARMCC"/>
-        <package license="doc\license.txt" name="Jansson" schemaVersion="1.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.0.0"/>
+        <package name="Jansson" schemaVersion="1.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.0.0"/>
         <targetInfos>
           <targetInfo name="Model"/>
         </targetInfos>
@@ -723,11 +724,6 @@
     <Layers>
       <Layer>
         <LayName>&lt;Project Info&gt;</LayName>
-        <LayDesc></LayDesc>
-        <LayUrl></LayUrl>
-        <LayKeys></LayKeys>
-        <LayCat></LayCat>
-        <LayLic></LayLic>
         <LayTarg>0</LayTarg>
         <LayPrjMark>1</LayPrjMark>
       </Layer>

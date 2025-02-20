@@ -16,7 +16,7 @@
  */
 #define CMSIS_device_header "gd32f10x.h"
 
-/*  Keil::Data Exchange:JSON:Jansson:2.7.0 */
+/* Keil::Data Exchange:JSON:Jansson:2.7.0 */
 #define JANSSON
 
 
