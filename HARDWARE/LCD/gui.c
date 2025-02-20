@@ -36,6 +36,10 @@ volatile Hz_Control hz_control={
 //变频器选择的温度
 volatile float Hz_temp_choose=99;
 
+//变频输出
+volatile u8 out_voltage=0;
+
+
 //#pragma pack()    //取消自定义字节对齐方式
 
 uint8_t warn_flag=0;
@@ -99,6 +103,8 @@ uint8_t send_CONFIG_FLAG=0;
 
 uint8_t send_warn_Flag=0;
 
+//发送变频器配置数据标志
+uint8_t send_HZ_Flag=0;
 
 void fresh_page(){
 	LCD_Fill(0,66,448,287,BLACK);
@@ -1518,10 +1524,9 @@ void Main_Menu_Func(u8 page_index,u8 key_val)
 
 void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	static u8 cur_pos=1;
-	
-//	u16 data_v;
-//	u16 v_low;
-//	u16 v_high;
+	Hz_Control hz_control_buf;
+	memcpy(&hz_control_buf,&hz_control,sizeof(Hz_Control));
+
 	showhanzi_color(0,288,16,RED,WHITE);showhanzi_color(32,288,17,RED,WHITE);showhanzi_color(64,288,128,BLACK,WHITE);showhanzi_color(96,288,146,BLACK,WHITE);
 	showhanzi_color(128,288,147,BLACK,WHITE);showhanzi_color(170,288,138,RED,WHITE);showhanzi_color(202,288,119,RED,WHITE);showhanzi_color(234,288,128,BLACK,WHITE);
 	showhanzi_color(266,288,20,BLACK,WHITE);showhanzi_color(298,288,120,BLACK,WHITE);
@@ -1631,6 +1636,11 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 			if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,BLACK,WHITE);showdigit_color(224,240,8,BLACK,WHITE);showdigit_color(240,240,5,BLACK,WHITE);showhanzi_1(256,240,39,1);showhanzi_1(288,240,66,1);showdigit_color(320,240,13,WHITE,WHITE);}
 			break;
 		default:break;
+	}
+	
+	//判断是否改变变频器控制参数
+	if (memcmp(&hz_control_buf, &hz_control, sizeof(Hz_Control)) != 0) {
+		send_HZ_Flag=1;
 	}
 	
 //	switch(hz_control.temp_choose){

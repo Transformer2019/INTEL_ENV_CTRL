@@ -29,8 +29,6 @@ volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
 
-//变频输出
-volatile u8 out_voltage=0;
 
 //快加键使用的计数器
 //volatile uint16_t TIM3_Add_Counter=0;

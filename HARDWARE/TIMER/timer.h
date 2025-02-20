@@ -24,8 +24,6 @@ extern volatile u8 MQTT_CON_flag;
 //ui风机转速计数器
 extern volatile u8 relay_speed_ui_count;
 
-//变频输出
-extern volatile u8 out_voltage;
 
 	
 //快加键使用的计数器

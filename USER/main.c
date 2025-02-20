@@ -42,7 +42,7 @@ volatile uint8_t addr_flag;
 char time_str[20]="";
 
 //报警间隔发送给服务器的计数器
-uint32_t warn_timer_count=0;
+uint64_t warn_timer_count=0;
 
 u8 is_all_ff(uint8_t *buffer, uint16_t length) {
     for (uint32_t i = 0; i < length; i++) {
@@ -834,6 +834,12 @@ int main(void)
 							json_t *NH3_max_data = json_object_get(root, "NH3_max");
 							json_t *NH3_flag_data = json_object_get(root, "NH3_flag");
 							
+							json_t *t_high = json_object_get(root, "t_high");
+							json_t *t_low = json_object_get(root, "t_low");
+							json_t *v_high = json_object_get(root, "v_high");
+							json_t *v_low = json_object_get(root, "v_low");
+							json_t *t_flag = json_object_get(root, "t_flag");
+							
 							if(t1_flag && t2_flag && t3_flag && t_max && t_min && NH3_max_data && NH3_flag_data){
 								warn_temp1_flag = json_integer_value(t1_flag);
 								warn_temp2_flag = json_integer_value(t2_flag);
@@ -846,11 +852,21 @@ int main(void)
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
-							}else{
-								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"TN Invalid data\"\r\n",imei_no);//发布消息
+							}else if(t_high && t_low && v_high && v_low && t_flag){
+								hz_control.max_temp = json_real_value(t_high);
+								hz_control.min_temp = json_real_value(t_low);
+								hz_control.voltage_high = json_real_value(v_high);
+								hz_control.voltage_low = json_real_value(v_low);
+								hz_control.temp_choose = json_integer_value(t_flag);
+								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"HZOK\"\r\n",imei_no);//发布消息
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+							}else{
+								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"TNHZ Invalid data\"\r\n",imei_no);//发布消息
+								delay_ms(30);
+								UART3_RxCounter = 0; 
+								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
 							}
 							
 					
@@ -993,7 +1009,7 @@ int main(void)
 						UART3_RxCounter = 0; //重新等待接收下一个推送消息
 						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 						
-						UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNCTRL/%s\",0\r\n",imei_no);
+						UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNHZCTRL/%s\",0\r\n",imei_no);
 						delay_ms(50);
 						
 						//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
@@ -1216,6 +1232,19 @@ int main(void)
 			UART3_RxCounter = 0;
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 		}	
+		
+		//发布变频器配置信息
+		if(send_HZ_Flag && mqtt_flag && network_flag){
+			send_HZ_Flag = 0;
+			char send_hz_config[30]="";
+			sprintf(send_hz_config,"%.1f,%.1f,%.1f,%.1f,%d",hz_control.max_temp,hz_control.min_temp,hz_control.voltage_high,hz_control.voltage_low,hz_control.temp_choose);//sprintf
+			u16 hz_config_len = strlen(send_hz_config);
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HZCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,hz_config_len,send_hz_config);//发布消息
+			delay_ms(10);
+			UART3_RxCounter = 0;
+			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+		}
+		
 		//发布心跳
 		if(Heartbeat_flag && mqtt_flag && network_flag){
 			Heartbeat_Counter_1s=0;
