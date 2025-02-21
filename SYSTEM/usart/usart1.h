@@ -6,7 +6,7 @@
 
 #define RXBUFF_SIZE		1024		//指定接收MQTT数据缓冲区的大小
 //存放从服务器发送来的报文数据,注意：缓冲区第一个字节存放数据的长度：数据长度+数据信息
-extern unsigned char MQTT_RxDataBuf[RXBUFF_SIZE];
+extern char MQTT_RxDataBuf[RXBUFF_SIZE];
 
 
 #define UART3_TXBUFF_SIZE		1024		//定义串口3发送缓冲区大小

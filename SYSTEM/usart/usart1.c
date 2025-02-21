@@ -8,7 +8,7 @@ u32 UART3_RxCounter = 0; //记录串口3接收数据的个数
 char UART3_RxBuff[UART3_RXBUFF_SIZE]; //分配接收缓冲区
 char UART3_TxBuff[UART3_TXBUFF_SIZE]; //分配发送缓冲区
 
-unsigned char MQTT_RxDataBuf[RXBUFF_SIZE];
+char MQTT_RxDataBuf[RXBUFF_SIZE];
 
 
 int fputc(int ch,FILE *p)  //函数默认的，在使用printf函数时自动调用
@@ -194,10 +194,15 @@ void USART1_IRQHandler(void) {
 		//清中断
 		USART1->SR;
 		USART1->DR; 
-		//计算此次串口3接收的数据个数
+		//计算此次串口接收的数据个数
 		UART3_RxCounter = UART3_RXBUFF_SIZE - DMA_GetCurrDataCounter(DMA1_Channel5);
-		//将串口3接收缓冲区中的数据拷贝到MQTT接收缓冲区中
-		memcpy(MQTT_RxDataBuf, UART3_RxBuff, UART3_RxCounter);
+		//如果是mqtt服务器发布过来的数据，将串口接收缓冲区中的数据拷贝到MQTT接收缓冲区中
+		if(strstr(UART3_RxBuff,"publish")!=NULL){
+			memcpy(MQTT_RxDataBuf, UART3_RxBuff, UART3_RxCounter);
+			UART3_RxCounter = 0; //重新等待接收下一个推送消息
+			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+		}
+		
 		//UART3_RxBuff[UART3_RxCounter - 2] = '\0';
 //		printf("Return message is :%s\n", UART3_RxBuff);	
 		//重新设置接收的数据长度

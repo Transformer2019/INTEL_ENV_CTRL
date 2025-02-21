@@ -29,6 +29,8 @@ uint8_t network_flag=0;
 uint8_t register_flag=0;
 uint8_t mqtt_flag=0;
 
+char MQTT_RxDataBuf_nochange[RXBUFF_SIZE];
+
 volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 volatile u8 relay1_Control_1[2] = {0x00, 0x00};
 
@@ -224,7 +226,7 @@ int main(void)
 			
 			//LCD_ShowString(100,200,16,"mq",0);
 			//判断是否注册，根据协议判断服务器发过来的消息和需要改变的变量
-			if(UART3_RxCounter != 0) {
+		//	if(UART3_RxCounter != 0) {
 //					char im1[40];
 //					char *start1 = strstr(UART3_RxBuff, "publish");
 //					if (start1 != NULL) {
@@ -234,17 +236,23 @@ int main(void)
 //					}
 				    //LCD_ShowString(120,200,16,im1,0);
 				//判断服务器发过来的信息
-				if(strstr(UART3_RxBuff,"publish")!=NULL){
-	//			   PAout(8)=0;
-	//			   delay_ms(1000);
-					delay_ms(10);
+				//char MQTT_RxDataBuf_nochange[RXBUFF_SIZE]; 
+			
+				memcpy(MQTT_RxDataBuf_nochange, MQTT_RxDataBuf, RXBUFF_SIZE);//此处复制肯定是一个没有错误且完整的能被正确解析的指令
+				memset(MQTT_RxDataBuf, 0, RXBUFF_SIZE); // 一级缓冲区是否清零？？？？？？？？？？？？？？？？必须清零，不行零的话会一直进入下边的if语句里边
+			
+				if(strstr(MQTT_RxDataBuf_nochange,"publish")!=NULL){
+//					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//				    memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0		//			   
+					//delay_ms(10);
 				   	char *str1 = NULL;							
 					char *str2 = NULL;			
 					char *pcBegin = NULL;
 					char *pcEnd = NULL;
 					char userData[350]={0};
 					memset(userData, 0, sizeof(userData));//清空userData,不然会出现字符串叠加;或者设置成局部变量char userData[150]={0};
-					str1=(char *)UART3_RxBuff;
+					//指针操作的对象最好不被别的程序同时操作
+					str1=(char *)MQTT_RxDataBuf_nochange;
 					str2=strstr(str1,"data=");
 					if(str2!=NULL){
 						pcBegin=strstr(str2,"data=");
@@ -920,16 +928,17 @@ int main(void)
 						#endif
 					}
 					//json_decref(root);
-					
-				    	
-					
-				//LCD_ShowString(60,180,16,(char *)error.text,0);
+//				delay_ms(30);
 //				UART3_RxCounter = 0; //重新等待接收下一个推送消息
 //				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-				   
+				    	
+//				memset(MQTT_RxDataBuf, 0, RXBUFF_SIZE); //将 MQTT_RxDataBuf 接收缓冲区清0	
+				   					
+				//LCD_ShowString(60,180,16,(char *)error.text,0);
+
 				}//if(strstr(UART3_RxBuff,"publish")!=NULL)
 
-			}//if(UART3_RxCounter != 0)
+		//	}//if(UART3_RxCounter != 0)
 		
 		}//if(mqtt_flag)
 		
@@ -1089,8 +1098,8 @@ int main(void)
 
 							}
 						}
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+//						UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1249,7 +1258,7 @@ int main(void)
 		
 		//将配置参数写入flash
 		
-		// 一小时一次:1获取网络时间 2判断是否连接网络
+		// 一分钟一次:1获取网络时间 2判断是否连接网络
 		if(TIM5_flag)
 		{
 			TIM5_flag=0;
@@ -1327,8 +1336,8 @@ int main(void)
 
 							}
 						}
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+//						UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
