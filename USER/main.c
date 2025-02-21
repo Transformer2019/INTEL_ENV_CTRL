@@ -22,6 +22,8 @@
 
 
 #define SIZE_OF_RELAY_STRUCTURE (10 * sizeof(Relay_Structure)) // 计算数组大小
+	
+#define REMOVE_memset 0  //去除发布消息后清零串口接收缓冲区
 
 uint8_t network_flag=0;
 uint8_t register_flag=0;
@@ -151,7 +153,7 @@ int main(void)
 		warn_flag = warn_flag1 || warn_flag2 || warn_flag3 || warn_NH3;
 		//printf("warn_flag:%d\n",warn_flag);
 		
-		
+		int a =1;
 		
 		//顺序开启继电器
 //		u8 temp;
@@ -347,9 +349,11 @@ int main(void)
 								case 0:
 									relay_structure[no].relay_mode = 0;
 									UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M0OK\"\r\n",imei_no);//发布消息
+									#if(REMOVE_memset)
 									delay_ms(30);
 									UART3_RxCounter = 0; //重新等待接收下一个推送消息
-									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+									#endif
 									break;
 								case 1:	
 									json_t *temp_ctrl = json_object_get(root, "temp_ctrl");
@@ -374,21 +378,27 @@ int main(void)
 											relay_structure[no].temp_control.min_nh3 = json_integer_value(min_nh3);
 											relay_structure[no].relay_mode = 1;
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M1OK\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
-											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+											#endif
 										}else{
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M1V Invalid data\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+											#endif
 										}
 
 									}else{
 										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M1 Invalid data\"\r\n",imei_no);//发布消息
+										#if(REMOVE_memset)
 										delay_ms(30);
 										UART3_RxCounter = 0; //重新等待接收下一个推送消息
-										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+										#endif
 									}
 									
 																		
@@ -433,21 +443,27 @@ int main(void)
 											relay_structure[no].time_control.time_stop = json_integer_value(time_stop);
 											relay_structure[no].relay_mode = 2;
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M2OK\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+											#endif
 										}else{
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M2V Invalid data\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+											#endif
 										}
 
 									}else{
 										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M2 Invalid data\"\r\n",imei_no);//发布消息
+										#if(REMOVE_memset)
 										delay_ms(30);
 										UART3_RxCounter = 0; //重新等待接收下一个推送消息
 										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										#endif
 									}
 									
 									//									time_ctrl = json_object_get(root, "time_ctrl");
@@ -501,21 +517,27 @@ int main(void)
 											relay_structure[no].time_control.time_stop = json_integer_value(time_stop_j);
 											relay_structure[no].relay_mode = 3;
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M3OK\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+											#endif
 										}else{
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M3V Invalid data\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0; //重新等待接收下一个推送消息
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+											#endif
 										}
 										
 									}else{
 										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M3 Invalid data\"\r\n",imei_no);//发布消息
+										#if(REMOVE_memset)
 										delay_ms(30);
 										UART3_RxCounter = 0; //重新等待接收下一个推送消息
 										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+										#endif
 									}
 //									temp_time_ctrl = json_object_get(root, "temp_time_ctrl");
 //									const char *temp_time_ctrl_text = json_string_value(temp_time_ctrl);
@@ -620,20 +642,26 @@ int main(void)
 												relay_structure[no].time_schedule.relay_time_seg.Time5.on_off = json_integer_value(on_off_5);
 												relay_structure[no].relay_mode = 4;
 												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M4OK\"\r\n",imei_no);//timer1配置正确
+												#if(REMOVE_memset)
 												delay_ms(30);
 												UART3_RxCounter = 0; 
 												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+												#endif
 											}else{
 												UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,18,\"M4hms Invalid data\"\r\n",imei_no);//h,m,s,on-off键值错误
+												#if(REMOVE_memset)
 												delay_ms(30);
 												UART3_RxCounter = 0;
 												memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+												#endif
 											}
 										}else{
 											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M4T Invalid data\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
 											delay_ms(30);
 											UART3_RxCounter = 0;
 											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+											#endif
 										}
 										//timer2
 //										timer2 = json_object_get(time_seg_ctrl,"timer2");
@@ -751,9 +779,11 @@ int main(void)
 										
 									}else{
 										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M4 Invalid data\"\r\n",imei_no);//发布消息
+										#if(REMOVE_memset)
 										delay_ms(30);
 										UART3_RxCounter = 0; //重新等待接收下一个推送消息
 										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										#endif
 									}
 								
 								
@@ -849,9 +879,11 @@ int main(void)
 								NH3_max = json_integer_value(NH3_max_data);
 								NH3_warn_flag = json_integer_value(NH3_flag_data);
 								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"TNOK\"\r\n",imei_no);//发布消息
+								#if(REMOVE_memset)
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+								#endif
 							}else if(t_high && t_low && v_high && v_low && t_flag){
 								hz_control.max_temp = json_real_value(t_high);
 								hz_control.min_temp = json_real_value(t_low);
@@ -859,14 +891,18 @@ int main(void)
 								hz_control.voltage_low = json_real_value(v_low);
 								hz_control.temp_choose = json_integer_value(t_flag);
 								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"HZOK\"\r\n",imei_no);//发布消息
+								#if(REMOVE_memset)
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
+								#endif
 							}else{
 								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"TNHZ Invalid data\"\r\n",imei_no);//发布消息
+								#if(REMOVE_memset)
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE);
+								#endif
 							}
 							
 					
@@ -876,10 +912,12 @@ int main(void)
 		
 					}else{
 						UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,17,\"Invalid root data\"\r\n",imei_no);//发布消息
+						#if(REMOVE_memset)
 						delay_ms(30);
 						
 						UART3_RxCounter = 0; //重新等待接收下一个推送消息
                         memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+						#endif
 					}
 					//json_decref(root);
 					
@@ -950,29 +988,6 @@ int main(void)
 
 			}
 			
-			if(0){
-				//读取IMEI
-				UART3_Puts("AT+CGSN=1\r\n");
-				delay_ms(10);
-				if(UART3_RxCounter != 0){
-					if(strstr(UART3_RxBuff,"+CGSN")!=NULL){
-						//读取IMEI号到imei_no——————————————————————————————————————————————————————————
-						//char imei_no[16];
-						// 查找 "+CGSN: " 的位置
-						
-						char *start = strstr(UART3_RxBuff, "+CGSN: ");
-						if (start != NULL) {
-							start += 7; // 跳过 "+CGSN: " 部分
-							strncpy(imei_no, start, 15);
-							imei_no[15] = '\0'; // 确保字符串以 '\0' 结束
-							//LCD_ShowString(0,220,16,imei_no,0);
-						}
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-					}
-				}
-
-			}
 
 			if(network_flag==1 && mqtt_flag==0){
 				//判断是否连接mqtt服务器
@@ -1131,10 +1146,6 @@ int main(void)
 			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",0,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
-			delay_ms(10);
-			UART3_RxCounter = 0;
-			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-			
 		}//TIM4_flag
 		
 		//发送风机配置信息
@@ -1142,7 +1153,7 @@ int main(void)
 		if(send_CONFIG_FLAG && mqtt_flag && network_flag){
 //			TIM5_flag = 0;
 //			TIM5_Counter_10s = 0;
-			//printf("%d\n",send_MQTT_Flag);
+			send_CONFIG_FLAG=0;
 			u8 send_index = send_CONFIG_INDEX-12;
 			char send_data_config[50]="";
 			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d",
@@ -1158,11 +1169,6 @@ int main(void)
 			);//sprintf
 			u16 config_len = strlen(send_data_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/CONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,config_len,send_data_config);//发布消息
-			//delay_ms(10);
-			UART3_RxCounter = 0;
-			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-			send_CONFIG_FLAG=0;
-			//send_CONFIG_INDEX=0;
 		}	
 		//发布报警信息	
 		if(warn_flag && mqtt_flag && network_flag){
@@ -1176,37 +1182,22 @@ int main(void)
 			if(warn_flag1_high && (warn_timer_count%15==0)){
 				u16 t1_warn_len_h = strlen(t1_warn_str_h);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_h,t1_warn_str_h);//发布消息
-				delay_ms(10);
-				UART3_RxCounter = 0;
-				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
 			if(warn_flag2_high && (warn_timer_count%15==0)){
 				u16 t2_warn_len_h = strlen(t2_warn_str_h);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_h,t2_warn_str_h);//发布消息
-				delay_ms(10);
-				UART3_RxCounter = 0;
-				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
 			if(warn_flag1_low && (warn_timer_count%15==0)){
 				u16 t1_warn_len_l = strlen(t1_warn_str_l);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_l,t1_warn_str_l);//发布消息
-				delay_ms(10);
-				UART3_RxCounter = 0;
-				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
 			if(warn_flag2_low && (warn_timer_count%15==0)){
 				u16 t2_warn_len_l = strlen(t2_warn_str_l);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_l,t2_warn_str_l);//发布消息
-				delay_ms(10);
-				UART3_RxCounter = 0;
-				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
 			if(warn_NH3 && (warn_timer_count%15==0)){
 				u16 n1_warn_len = strlen(n1_warn_str);
 				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,n1_warn_len,n1_warn_str);//发布消息
-				delay_ms(10);
-				UART3_RxCounter = 0;
-				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 			}
 			warn_timer_count++;
 
@@ -1228,9 +1219,6 @@ int main(void)
 			sprintf(send_warn_config,"%d,%d,%d,%d,%d,%d,%d",warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,limit_temp_maxvalue,limit_temp_minvalue,NH3_warn_flag,NH3_max);//sprintf
 			u16 warn_config_len = strlen(send_warn_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARNCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_config_len,send_warn_config);//发布消息
-			delay_ms(10);
-			UART3_RxCounter = 0;
-			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 		}	
 		
 		//发布变频器配置信息
@@ -1240,9 +1228,6 @@ int main(void)
 			sprintf(send_hz_config,"%.1f,%.1f,%.1f,%.1f,%d",hz_control.max_temp,hz_control.min_temp,hz_control.voltage_high,hz_control.voltage_low,hz_control.temp_choose);//sprintf
 			u16 hz_config_len = strlen(send_hz_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HZCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,hz_config_len,send_hz_config);//发布消息
-			delay_ms(10);
-			UART3_RxCounter = 0;
-			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 		}
 		
 		//发布心跳

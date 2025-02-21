@@ -619,6 +619,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\GP8201S\GP8201S.c</FilePath>
             </File>
+            <File>
+              <FileName>pic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HARDWARE\LCD\pic.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -723,7 +728,7 @@
   <LayerInfo>
     <Layers>
       <Layer>
-        <LayName>&lt;Project Info&gt;</LayName>
+        <LayName>Model_c8t6</LayName>
         <LayTarg>0</LayTarg>
         <LayPrjMark>1</LayPrjMark>
       </Layer>

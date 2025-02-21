@@ -603,8 +603,7 @@ void Main_UI(u8 page_index,u8 key_val)
 	u8 m1=calendar.min/10; u8 m2=calendar.min%10;
 	u8 s1=calendar.sec/10; u8 s2=calendar.sec%10;
 	
-	
-	
+#if(HOME_Page_time==1)	
 	showdigit_color(0,0,y1,WHITE,HOME_BACK);showdigit_color(16,0,y2,WHITE,HOME_BACK);showdigit_color(32,0,y3,WHITE,HOME_BACK);showdigit_color(48,0,y4,WHITE,HOME_BACK);
 	showdigit_color(64,0,11,WHITE,HOME_BACK);
 	showdigit_color(80,0,mh1,WHITE,HOME_BACK);showdigit_color(96,0,mh2,WHITE,HOME_BACK);
@@ -614,6 +613,20 @@ void Main_UI(u8 page_index,u8 key_val)
 	showdigit_color(200,0,h1,WHITE,HOME_BACK);showdigit_color(216,0,h2,WHITE,HOME_BACK);
 	showdigit_color(232,0,12,WHITE,HOME_BACK);
 	showdigit_color(248,0,m1,WHITE,HOME_BACK);showdigit_color(264,0,m2,WHITE,HOME_BACK);
+#endif
+
+#if(HOME_Page_time==2)		
+	showdigit_color(0,0,y1,FONT_MID,HOME_BACK);showdigit_color(16,0,y2,FONT_MID,HOME_BACK);showdigit_color(32,0,y3,FONT_MID,HOME_BACK);showdigit_color(48,0,y4,FONT_MID,HOME_BACK);
+	showdigit_color(64,0,11,FONT_MID,HOME_BACK);
+	showdigit_color(80,0,mh1,FONT_MID,HOME_BACK);showdigit_color(96,0,mh2,FONT_MID,HOME_BACK);
+	showdigit_color(112,0,11,FONT_MID,HOME_BACK);
+	showdigit_color(128,0,d1,FONT_MID,HOME_BACK);showdigit_color(144,0,d2,FONT_MID,HOME_BACK);
+	
+	showdigit_color(200,0,h1,FONT_MID,HOME_BACK);showdigit_color(216,0,h2,FONT_MID,HOME_BACK);
+	showdigit_color(232,0,12,FONT_MID,HOME_BACK);
+	showdigit_color(248,0,m1,FONT_MID,HOME_BACK);showdigit_color(264,0,m2,FONT_MID,HOME_BACK);
+#endif
+	
 //	showdigit_color(96,150,12,GREEN,BLACK);
 //	showdigit_color(112,150,s1,GREEN,BLACK);showdigit_color(128,150,s2,GREEN,BLACK);
 
@@ -900,8 +913,8 @@ void Main_UI(u8 page_index,u8 key_val)
 	u8 m1=calendar.min/10; u8 m2=calendar.min%10;
 	u8 s1=calendar.sec/10; u8 s2=calendar.sec%10;
 	
-	
-	
+
+#if(HOME_Page_time==1)	
 	showdigit_color(0,0,y1,WHITE,HOME_BACK);showdigit_color(16,0,y2,WHITE,HOME_BACK);showdigit_color(32,0,y3,WHITE,HOME_BACK);showdigit_color(48,0,y4,WHITE,HOME_BACK);
 	showdigit_color(64,0,11,WHITE,HOME_BACK);
 	showdigit_color(80,0,mh1,WHITE,HOME_BACK);showdigit_color(96,0,mh2,WHITE,HOME_BACK);
@@ -911,6 +924,20 @@ void Main_UI(u8 page_index,u8 key_val)
 	showdigit_color(200,0,h1,WHITE,HOME_BACK);showdigit_color(216,0,h2,WHITE,HOME_BACK);
 	showdigit_color(232,0,12,WHITE,HOME_BACK);
 	showdigit_color(248,0,m1,WHITE,HOME_BACK);showdigit_color(264,0,m2,WHITE,HOME_BACK);
+#endif
+
+#if(HOME_Page_time==2)		
+	showdigit_color(0,0,y1,FONT_MID,HOME_BACK);showdigit_color(16,0,y2,FONT_MID,HOME_BACK);showdigit_color(32,0,y3,FONT_MID,HOME_BACK);showdigit_color(48,0,y4,FONT_MID,HOME_BACK);
+	showdigit_color(64,0,11,FONT_MID,HOME_BACK);
+	showdigit_color(80,0,mh1,FONT_MID,HOME_BACK);showdigit_color(96,0,mh2,FONT_MID,HOME_BACK);
+	showdigit_color(112,0,11,FONT_MID,HOME_BACK);
+	showdigit_color(128,0,d1,FONT_MID,HOME_BACK);showdigit_color(144,0,d2,FONT_MID,HOME_BACK);
+	
+	showdigit_color(200,0,h1,FONT_MID,HOME_BACK);showdigit_color(216,0,h2,FONT_MID,HOME_BACK);
+	showdigit_color(232,0,12,FONT_MID,HOME_BACK);
+	showdigit_color(248,0,m1,FONT_MID,HOME_BACK);showdigit_color(264,0,m2,FONT_MID,HOME_BACK);
+#endif
+	
 //	showdigit_color(96,150,12,GREEN,BLACK);
 //	showdigit_color(112,150,s1,GREEN,BLACK);showdigit_color(128,150,s2,GREEN,BLACK);
 
@@ -1039,7 +1066,7 @@ void Main_UI(u8 page_index,u8 key_val)
 //	}
 	
 	if(average_temp<0 || average_temp>90){
-		showhanzi_color(155,160,95,FONT_MID,HOME_BACK);showhanzi_color(117,160,108,FONT_MID,HOME_BACK);
+		showhanzi_color(155,160,95,FONT_MID,HOME_BACK);showhanzi_color(187,160,108,FONT_MID,HOME_BACK);
 		//LCD_Fill(216,208,254,240,HOME_BACK);
 	}else{
 		uint8_t t4_1 = (unsigned int)(average_temp)/10;
