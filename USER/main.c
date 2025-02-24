@@ -937,6 +937,8 @@ int main(void)
 				//LCD_ShowString(60,180,16,(char *)error.text,0);
 
 				}//if(strstr(UART3_RxBuff,"publish")!=NULL)
+			UART3_RxCounter = 0; //重新等待接收下一个推送消息
+			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 
 		//	}//if(UART3_RxCounter != 0)
 		
@@ -960,18 +962,15 @@ int main(void)
 				if(UART3_RxCounter != 0){
 					if(strstr(UART3_RxBuff,"+CEREG: 0,1")){//判断是否联网
 						network_flag=1;
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-
 					}else if(strstr(UART3_RxBuff,"+CEREG: 0,0")){
 						network_flag=0;
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+						mqtt_flag=0;
 					}else if(strstr(UART3_RxBuff,"error")){
 						network_flag=0;
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+						mqtt_flag=0;
 					}
+					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				}
 				
 				//读取IMEI
@@ -990,9 +989,9 @@ int main(void)
 							imei_no[15] = '\0'; // 确保字符串以 '\0' 结束
 							//LCD_ShowString(0,220,16,imei_no,0);
 						}
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
+					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				}
 
 			}
@@ -1043,8 +1042,6 @@ int main(void)
 					}else{
 						//LCD_ShowString(0,220,16,"no sub",0);
 						mqtt_flag = 0;
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1131,13 +1128,13 @@ int main(void)
 				if(UART3_RxCounter != 0){
 					if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
 						mqtt_flag = 1;
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 					}else if(strstr(UART3_RxBuff,"+MQTTSTATE:3")!=NULL || strstr(UART3_RxBuff,"+MQTTSTATE:1")!=NULL){
-						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+
 						mqtt_flag = 0;
 					}
+					
+					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				}
 
 			}
@@ -1274,22 +1271,19 @@ int main(void)
 			if(UART3_RxCounter != 0){
 				if(strstr(UART3_RxBuff,"+CEREG: 0,1")){//判断是否联网
 					network_flag=1;
-					UART3_RxCounter = 0; //重新等待接收下一个推送消息
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-
 				}else if(strstr(UART3_RxBuff,"+CEREG: 0,0")){
 					network_flag=0;
-					UART3_RxCounter = 0; //重新等待接收下一个推送消息
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+					mqtt_flag=0;
 				}else if(strstr(UART3_RxBuff,"error")){
 					network_flag=0;
-					UART3_RxCounter = 0; //重新等待接收下一个推送消息
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+					mqtt_flag=0;
+
 				}
+				UART3_RxCounter = 0; //重新等待接收下一个推送消息
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 			}
 			
 			if(network_flag){
-				//获取网络时间 一小时一次
 				UART3_Puts("AT+CCLK?\r\n"); 
 				delay_ms(25);
 				if(UART3_RxCounter != 0){
