@@ -24,6 +24,7 @@
 #define SIZE_OF_RELAY_STRUCTURE (10 * sizeof(Relay_Structure)) // 计算数组大小
 	
 #define REMOVE_memset 0  //去除发布消息后清零串口接收缓冲区
+#define REMOVE_PUBLISH_memset 0  //去除发布消息后清零串口接收缓冲区
 
 uint8_t network_flag=0;
 uint8_t register_flag=0;

@@ -491,101 +491,163 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			
 		    for (int i = 0; i < t; i++)
 			{
-				if (led_counters_t[relay_No_t[i]-1] <= relay_off_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 0){
-					led_counters_t[relay_No_t[i]-1]++;
-					//printf("111\n");
-					
-				    if(startup_mode_t[relay_No_t[i]-1] == 0){
-						//冷启动
-//						if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
-//							relay_structure[relay_No_t[i]-1].on_off = 1;
-//						}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
+//				if (led_counters_t[relay_No_t[i]-1] <= relay_off_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 0){
+//					led_counters_t[relay_No_t[i]-1]++;
+//					//printf("111\n");
+//					
+//				    if(startup_mode_t[relay_No_t[i]-1] == 0){
+//						//冷启动
+////						if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
+////							relay_structure[relay_No_t[i]-1].on_off = 1;
+////						}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
+////							relay_structure[relay_No_t[i]-1].on_off = 0;
+////						}
+//						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
 //							relay_structure[relay_No_t[i]-1].on_off = 0;
-//						}
-						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
-							relay_structure[relay_No_t[i]-1].on_off = 0;
-							//printf("222\n");
-						}else{
-							if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
-								relay_structure[relay_No_t[i]-1].on_off = 1;
-							}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
-								relay_structure[relay_No_t[i]-1].on_off = 0;
-							}
-							//printf("333\n");
-						}	
-					}else{
-						//热启动.
-//						if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
-//							relay_structure[relay_No_t[i]-1].on_off = 1;
-//						}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
+//							//printf("222\n");
+//						}else{
+//							if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
+//								relay_structure[relay_No_t[i]-1].on_off = 1;
+//							}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
+//								relay_structure[relay_No_t[i]-1].on_off = 0;
+//							}
+//							//printf("333\n");
+//						}	
+//					}else{
+//						//热启动.
+////						if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
+////							relay_structure[relay_No_t[i]-1].on_off = 1;
+////						}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
+////							relay_structure[relay_No_t[i]-1].on_off = 0;
+////						}
+//						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
 //							relay_structure[relay_No_t[i]-1].on_off = 0;
-//						}
-						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
-							relay_structure[relay_No_t[i]-1].on_off = 0;
-						}else{
-							if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
-								relay_structure[relay_No_t[i]-1].on_off = 1;
-							}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
-								relay_structure[relay_No_t[i]-1].on_off = 0;
-							}
-						}					
+//						}else{
+//							if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
+//								relay_structure[relay_No_t[i]-1].on_off = 1;
+//							}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
+//								relay_structure[relay_No_t[i]-1].on_off = 0;
+//							}
+//						}					
 
-			        }
+//			        }
+//					
+//				}else if(led_counters_t[relay_No_t[i]-1] > relay_off_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 0){
+//					change_flag_t[relay_No_t[i]-1] = 1;
+//					led_counters_t[relay_No_t[i]-1] = 0;
+//					//printf("555\n");
+//				}
+				
+				
+				
+				//修改温室控逻辑----------开始
+				if(startup_mode_t[relay_No_t[i]-1] == 0){
+					//冷启动
+					if(temp_choose_t[relay_No_t[i]-1] >= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] <= max_temp_t[relay_No_t[i]-1]){
+						led_counters_t[relay_No_t[i]-1]++;
+						if (relay_structure[relay_No_t[i]-1].on_off == 0 && led_counters_t[relay_No_t[i]-1] >= relay_off_times_t[relay_No_t[i]-1])
+						{
+							relay_structure[relay_No_t[i]-1].on_off = 1;
+							led_counters_t[relay_No_t[i]-1] = 0;
+						}
+						else if (relay_structure[relay_No_t[i]-1].on_off == 1 && led_counters_t[relay_No_t[i]-1] >= relay_on_times_t[relay_No_t[i]-1])
+						{
+							relay_structure[relay_No_t[i]-1].on_off = 0;
+							led_counters_t[relay_No_t[i]-1] = 0;
+									
+						}
+					}else if((temp_choose_t[relay_No_t[i]-1] < min_temp_t[relay_No_t[i]-1]) && (temp_choose_t[relay_No_t[i]-1]>=0)){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 0;
+					}else if((temp_choose_t[relay_No_t[i]-1] > max_temp_t[relay_No_t[i]-1]) && (temp_choose_t[relay_No_t[i]-1]<=90)){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 1;
+					}else if(temp_choose_t[relay_No_t[i]-1]>91){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 0;
+					}
 					
-				}else if(led_counters_t[relay_No_t[i]-1] > relay_off_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 0){
-					change_flag_t[relay_No_t[i]-1] = 1;
-					led_counters_t[relay_No_t[i]-1] = 0;
-					//printf("555\n");
+				}else{
+					//热启动
+					if(temp_choose_t[relay_No_t[i]-1] >= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] <= max_temp_t[relay_No_t[i]-1]){
+						led_counters_t[relay_No_t[i]-1]++;
+						if (relay_structure[relay_No_t[i]-1].on_off == 0 && led_counters_t[relay_No_t[i]-1] >= relay_off_times_t[relay_No_t[i]-1])
+						{
+							relay_structure[relay_No_t[i]-1].on_off = 1;
+							led_counters_t[relay_No_t[i]-1] = 0;
+						}
+						else if (relay_structure[relay_No_t[i]-1].on_off == 1 && led_counters_t[relay_No_t[i]-1] >= relay_on_times_t[relay_No_t[i]-1])
+						{
+							relay_structure[relay_No_t[i]-1].on_off = 0;
+							led_counters_t[relay_No_t[i]-1] = 0;
+									
+						}
+					}else if((temp_choose_t[relay_No_t[i]-1] < min_temp_t[relay_No_t[i]-1]) && (temp_choose_t[relay_No_t[i]-1]>=0)){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 1;
+					}else if((temp_choose_t[relay_No_t[i]-1] > max_temp_t[relay_No_t[i]-1]) && (temp_choose_t[relay_No_t[i]-1]<=90)){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 0;
+					}else if(temp_choose_t[relay_No_t[i]-1]>91){
+						led_counters_t[relay_No_t[i]-1]=0;
+						relay_structure[relay_No_t[i]-1].on_off = 0;
+					}
 				}
 				
-				if (led_counters_t[relay_No_t[i]-1] <= relay_on_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 1){
-					led_counters_t[relay_No_t[i]-1]++;
-					
-					if(startup_mode_t[relay_No_t[i]-1] == 0){
-						//冷启动
-//						if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
+				//修改温室控逻辑----------结束
+				
+				
+//				if (led_counters_t[relay_No_t[i]-1] <= relay_on_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 1){
+//					led_counters_t[relay_No_t[i]-1]++;
+//					
+//					if(startup_mode_t[relay_No_t[i]-1] == 0){
+//						//冷启动
+////						if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
+////							relay_structure[relay_No_t[i]-1].on_off = 1;
+////						}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
+////							relay_structure[relay_No_t[i]-1].on_off = 0;
+////						}
+//						//printf("666\n");
+//						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
 //							relay_structure[relay_No_t[i]-1].on_off = 1;
-//						}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
-//							relay_structure[relay_No_t[i]-1].on_off = 0;
-//						}
-						//printf("666\n");
-						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
-							relay_structure[relay_No_t[i]-1].on_off = 1;
-							//printf("777\n");
-						}else{
-							if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
-								relay_structure[relay_No_t[i]-1].on_off = 1;
-							}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
-								relay_structure[relay_No_t[i]-1].on_off = 0;
-							}
-						}	
-					}else{
-						//热启动.
-//						if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
+//							//printf("777\n");
+//						}else{
+//							if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1] < 90){
+//								relay_structure[relay_No_t[i]-1].on_off = 1;
+//							}else if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[t]-1]){
+//								relay_structure[relay_No_t[i]-1].on_off = 0;
+//							}
+//						}	
+//					}else{
+//						//热启动.
+////						if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
+////							relay_structure[relay_No_t[i]-1].on_off = 1;
+////						}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
+////							relay_structure[relay_No_t[i]-1].on_off = 0;
+////						}
+//						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
 //							relay_structure[relay_No_t[i]-1].on_off = 1;
-//						}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
-//							relay_structure[relay_No_t[i]-1].on_off = 0;
-//						}
-						if((uint16_t)temp_choose_t[relay_No_t[i]-1] == 99){
-							relay_structure[relay_No_t[i]-1].on_off = 1;
-							//printf("888\n");
-						}else{
-							if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
-								relay_structure[relay_No_t[i]-1].on_off = 1;
-							}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
-								relay_structure[relay_No_t[i]-1].on_off = 0;
-							}
-						}	
-						
-			        }
-					
-				}else if(led_counters_t[relay_No_t[i]-1] > relay_on_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 1){
-					change_flag_t[relay_No_t[i]-1] = 0;
-					led_counters_t[relay_No_t[i]-1] = 0;
-					//printf("999\n");
-				}
+//							//printf("888\n");
+//						}else{
+//							if(temp_choose_t[relay_No_t[i]-1] <= min_temp_t[relay_No_t[i]-1] && temp_choose_t[relay_No_t[i]-1]>0){
+//								relay_structure[relay_No_t[i]-1].on_off = 1;
+//							}else if(temp_choose_t[relay_No_t[i]-1] >= max_temp_t[relay_No_t[t]-1]){
+//								relay_structure[relay_No_t[i]-1].on_off = 0;
+//							}
+//						}	
+//						
+//			        }
+//					
+//				}else if(led_counters_t[relay_No_t[i]-1] > relay_on_times_t[relay_No_t[i]-1] && change_flag_t[relay_No_t[i]-1] == 1){
+//					change_flag_t[relay_No_t[i]-1] = 0;
+//					led_counters_t[relay_No_t[i]-1] = 0;
+//					//printf("999\n");
+//				}
+				
 				
 			}
+			
+			
 		}
 			
 
