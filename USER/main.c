@@ -1003,13 +1003,13 @@ int main(void)
 				
 				UART3_Puts("AT+MQTTCFG=\"pingresp\",0,1\r\n"); 
 
-				delay_ms(10);
+				delay_ms(20);
 				UART3_RxCounter = 0; //重新等待接收下一个推送消息
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				//UART3_Puts("AT+MQTTCONN=0,\"8.130.168.245\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
 				UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
 				//UART3_Puts("AT+MQTTCONN=0,\"39.105.15.166\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
-				delay_ms(300);
+				delay_ms(500);
 				
 
 //					char im[10];
@@ -1026,14 +1026,14 @@ int main(void)
 	                    //LCD_ShowString(0,0,16,"sub",0);
 	                    
 						//订阅报文
-						UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",0\r\n",imei_no);
+						UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",2\r\n",imei_no);
 						delay_ms(50);
 						
 						//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
 						UART3_RxCounter = 0; //重新等待接收下一个推送消息
 						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 						
-						UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNHZCTRL/%s\",0\r\n",imei_no);
+						UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNHZCTRL/%s\",2\r\n",imei_no);
 						delay_ms(50);
 						
 						//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
@@ -1152,7 +1152,9 @@ int main(void)
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,relay_structure[8].on_off,relay_structure[9].on_off,
 			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
-			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",0,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",1,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
+			UART3_RxCounter = 0; //重新等待接收下一个推送消息
+			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 		}//TIM4_flag
 		
 		//发送风机配置信息
@@ -1175,7 +1177,7 @@ int main(void)
 			relay_structure[send_index].time_schedule.relay_time_seg.Time5.hour_start,relay_structure[send_index].time_schedule.relay_time_seg.Time5.minutes_start,relay_structure[send_index].time_schedule.relay_time_seg.Time5.hour_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time5.minutes_stop,relay_structure[send_index].time_schedule.relay_time_seg.Time5.on_off
 			);//sprintf
 			u16 config_len = strlen(send_data_config);
-			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/CONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,config_len,send_data_config);//发布消息
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/CONFIG\",2,0,0,%d,\"%s\"\r\n",imei_no,config_len,send_data_config);//发布消息
 		}	
 		//发布报警信息	
 		if(warn_flag && mqtt_flag && network_flag){
@@ -1188,23 +1190,23 @@ int main(void)
 
 			if(warn_flag1_high && (warn_timer_count%15==0)){
 				u16 t1_warn_len_h = strlen(t1_warn_str_h);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_h,t1_warn_str_h);//发布消息
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_h,t1_warn_str_h);//发布消息
 			}
 			if(warn_flag2_high && (warn_timer_count%15==0)){
 				u16 t2_warn_len_h = strlen(t2_warn_str_h);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_h,t2_warn_str_h);//发布消息
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_h,t2_warn_str_h);//发布消息
 			}
 			if(warn_flag1_low && (warn_timer_count%15==0)){
 				u16 t1_warn_len_l = strlen(t1_warn_str_l);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_l,t1_warn_str_l);//发布消息
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t1_warn_len_l,t1_warn_str_l);//发布消息
 			}
 			if(warn_flag2_low && (warn_timer_count%15==0)){
 				u16 t2_warn_len_l = strlen(t2_warn_str_l);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_l,t2_warn_str_l);//发布消息
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t2_warn_len_l,t2_warn_str_l);//发布消息
 			}
 			if(warn_NH3 && (warn_timer_count%15==0)){
 				u16 n1_warn_len = strlen(n1_warn_str);
-				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,n1_warn_len,n1_warn_str);//发布消息
+				UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,n1_warn_len,n1_warn_str);//发布消息
 			}
 			warn_timer_count++;
 
@@ -1225,7 +1227,7 @@ int main(void)
 			char send_warn_config[30]="";
 			sprintf(send_warn_config,"%d,%d,%d,%d,%d,%d,%d",warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,limit_temp_maxvalue,limit_temp_minvalue,NH3_warn_flag,NH3_max);//sprintf
 			u16 warn_config_len = strlen(send_warn_config);
-			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARNCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_config_len,send_warn_config);//发布消息
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARNCONFIG\",2,0,0,%d,\"%s\"\r\n",imei_no,warn_config_len,send_warn_config);//发布消息
 		}	
 		
 		//发布变频器配置信息
@@ -1234,7 +1236,7 @@ int main(void)
 			char send_hz_config[30]="";
 			sprintf(send_hz_config,"%.1f,%.1f,%.1f,%.1f,%d",hz_control.max_temp,hz_control.min_temp,hz_control.voltage_high,hz_control.voltage_low,hz_control.temp_choose);//sprintf
 			u16 hz_config_len = strlen(send_hz_config);
-			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HZCONFIG\",0,0,0,%d,\"%s\"\r\n",imei_no,hz_config_len,send_hz_config);//发布消息
+			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HZCONFIG\",2,0,0,%d,\"%s\"\r\n",imei_no,hz_config_len,send_hz_config);//发布消息
 		}
 		
 		//发布心跳
