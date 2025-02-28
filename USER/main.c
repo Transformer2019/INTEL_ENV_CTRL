@@ -89,8 +89,8 @@ int main(void)
 		
 		
 		LCD_Init();	   //液晶屏初始化
-		//LCD_Clear(BLACK);
-		LCD_Fill(0,0,lcddev.width,lcddev.height,HOME_BACK);
+		LCD_Clear(HOME_BACK);
+		//LCD_Fill(0,0,lcddev.width,lcddev.height,HOME_BACK);
 		
 		/* GP8201S初始化 */
 		IIC_Init();
@@ -1155,6 +1155,11 @@ int main(void)
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",1,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
 			UART3_RxCounter = 0; //重新等待接收下一个推送消息
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+			
+//			static uint8_t dd=0;
+//			showdigit_color(232,160,dd,GREEN,HOME_BACK);
+//			dd++;
+			
 		}//TIM4_flag
 		
 		//发送风机配置信息
@@ -1251,6 +1256,8 @@ int main(void)
 		}
 		
 		
+		
+
 		GUI_Refresh();//刷新显示
 		
 		ctrl_ui++;

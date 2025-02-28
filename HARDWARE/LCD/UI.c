@@ -77,6 +77,18 @@ void LCD_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u16 color)
 		for(j=0;j<width;j++)
 		Lcd_WriteData_16Bit(color);	//写入数据 	 
 	}
+	
+//	for(i=0; i<height*width; i++){
+//		Lcd_WriteData_16Bit(color);	//写入数据 	
+//		LCD_RS_SET;
+//		((SPI_TypeDef *)0x40003800)->DR=(color>>8)&0xF8;	 	//发送一个byte  
+//		while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));	//等待发送区空	  
+//		((SPI_TypeDef *)0x40003800)->DR=(color>>3)&0xFC;	 	//发送一个byte  
+//		while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));		//等待发送区空	  
+//		((SPI_TypeDef *)0x40003800)->DR=color<<3;	 	//发送一个byte  
+//	}
+	
+	
 	//LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);//恢复窗口设置为全屏
 }
 

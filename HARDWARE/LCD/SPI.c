@@ -48,9 +48,8 @@ u8 SPI_WriteByte(SPI_TypeDef* SPIx,u8 Byte)
 	
 //	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
 //    SPI_I2S_SendData(SPI2, Byte);
-	while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));	//等待发送区空	  
+	//while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));	//等待发送区空	  
 	((SPI_TypeDef *)0x40003800)->DR=Byte;	 	//发送一个byte   
-	
 	while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002)); // 等待 SPI 不再忙碌	 
 //	while((SPIx->SR&SPI_I2S_FLAG_RXNE)==RESET);//等待接收完一个byte  
 //	return SPIx->DR;          	     //返回收到的数据			

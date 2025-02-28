@@ -192,13 +192,14 @@ uint8_t GUI_Refresh(void)
 					break;
 			default:break;
 		}
-	    delay_ms(5);
-		if(func_index == 0 && (last_index == 1 || last_index == 2 || last_index == 3 || last_index == 4 || last_index == 5 || last_index == 6)){LCD_Fill(0,0,480,320,HOME_BACK);}//从主菜单返回主页
+	    //delay_ms(5);
+		
+		if(func_index == 0 && (last_index == 1 || last_index == 2 || last_index == 3 || last_index == 4 || last_index == 5 || last_index == 6)){LCD_Clear(HOME_BACK);}//从主菜单返回主页
 		if(func_index == 1 && last_index == 0){LCD_Clear(BLACK);}//从主页进入主菜单
 		if(func_index == 12 && last_index == 1){LCD_Clear_upper_tail(BLACK);}//从主菜单进入风机一
 		
-		if(func_index == 23 && last_index == 0){LCD_Fill(0,0,480,320,HOME_BACK);}
-		if(func_index == 0 && last_index == 23){LCD_Fill(0,0,480,320,HOME_BACK);}
+		if(func_index == 23 && last_index == 0){LCD_Clear(HOME_BACK);}
+		if(func_index == 0 && last_index == 23){LCD_Clear(HOME_BACK);}
 		
 		if(func_index == 7 && last_index == 2){LCD_Clear_upper_tail(BLACK);}//从主菜单进入变频控制
 		if(func_index == 2 && last_index == 7){LCD_Clear_upper_tail(BLACK);}//从变频控制返回主菜单
@@ -1346,202 +1347,52 @@ void Main_Back_UI(u8 page_index,u8 key_val){
 */
 void Main_Menu_Func(u8 page_index,u8 key_val)
 {
+	
+	if(page_index!=_Air_Blower_Option){showhanzi(177,34,4);showhanzi(209,34,5);showhanzi(241,34,6);showhanzi(273,34,7);}
+	if(page_index!=_Hz_Ctrl_Option){showhanzi(177,68,8);showhanzi(209,68,9);showhanzi(241,68,10);showhanzi(273,68,11);}
+	if(page_index!=_Alarm_Option){showhanzi(177,102,12);showhanzi(209,102,13);showhanzi(241,102,14);showhanzi(273,102,15);}
+	if(page_index!=_Time_Option){showhanzi(177,136,16);showhanzi(209,136,17);showhanzi(241,136,18);showhanzi(273,136,19);}
+	if(page_index!=_Data_Change_Option){showhanzi(177,170,20);showhanzi(209,170,21);showhanzi(241,170,14);showhanzi(273,170,15);}
+	if(page_index!=_Iot_Option){showhanzi(177,204,22);showhanzi(209,204,23);showhanzi(241,204,24);showhanzi(273,204,25);}
+	
 	switch(page_index)
 	{
-		case _Air_Blower_Option://显示Wifi图标
-			//LCD_Fill(96,34,192,204,BLACK);
-
+		case _Air_Blower_Option://显示普通风机
 			showhanzi_1(177,34,4,GBLUE);  
 			showhanzi_1(209,34,5,GBLUE);  
 			showhanzi_1(241,34,6,GBLUE);  
 			showhanzi_1(273,34,7,GBLUE); 
-
-			showhanzi(177,68,8);  
-			showhanzi(209,68,9);  
-			showhanzi(241,68,10);  
-			showhanzi(273,68,11);  
-
-			showhanzi(177,102,12);  
-			showhanzi(209,102,13);  
-			showhanzi(241,102,14);  
-			showhanzi(273,102,15);  
-			
-			showhanzi(177,136,16);  
-			showhanzi(209,136,17);  
-			showhanzi(241,136,18);  
-			showhanzi(273,136,19);  
-			
-			showhanzi(177,170,20);  
-			showhanzi(209,170,21);  
-			showhanzi(241,170,14);  
-			showhanzi(273,170,15);  
-			
-			showhanzi(177,204,22);  
-			showhanzi(209,204,23);  
-			showhanzi(241,204,24);  
-			showhanzi(273,204,25);  
-			
 			break;
-		case _Hz_Ctrl_Option://显示蓝牙图标
-			//LCD_Fill(96,34,192,204,BLACK);
-			showhanzi(177,34,4);  
-			showhanzi(209,34,5);  
-			showhanzi(241,34,6);  
-			showhanzi(273,34,7); 
-
+		case _Hz_Ctrl_Option://显示变频控制
 			showhanzi_1(177,68,8,GBLUE);  
 			showhanzi_1(209,68,9,GBLUE);  
 			showhanzi_1(241,68,10,GBLUE);  
 			showhanzi_1(273,68,11,GBLUE);  
-		
-			showhanzi(177,102,12);  
-			showhanzi(209,102,13);  
-			showhanzi(241,102,14);  
-			showhanzi(273,102,15);  
-			
-			showhanzi(177,136,16);  
-			showhanzi(209,136,17);  
-			showhanzi(241,136,18);  
-			showhanzi(273,136,19);  
-			
-			showhanzi(177,170,20);  
-			showhanzi(209,170,21);  
-			showhanzi(241,170,14);  
-			showhanzi(273,170,15);  
-			
-			showhanzi(177,204,22);  
-			showhanzi(209,204,23);  
-			showhanzi(241,204,24);  
-			showhanzi(273,204,25);  
-						 break;
-		case _Alarm_Option://显示设置图标
-			//LCD_Fill(96,34,192,204,BLACK);
-			showhanzi(177,34,4);  
-			showhanzi(209,34,5);  
-			showhanzi(241,34,6);  
-			showhanzi(273,34,7); 
-
-			showhanzi(177,68,8);  
-			showhanzi(209,68,9);  
-			showhanzi(241,68,10);  
-			showhanzi(273,68,11);  
-
+			break;
+		case _Alarm_Option:
 			showhanzi_1(177,102,12,GBLUE);  
 			showhanzi_1(209,102,13,GBLUE);  
 			showhanzi_1(241,102,14,GBLUE);  
 			showhanzi_1(273,102,15,GBLUE);  
-			
-			showhanzi(177,136,16);  
-			showhanzi(209,136,17);  
-			showhanzi(241,136,18);  
-			showhanzi(273,136,19);  
-			
-			showhanzi(177,170,20);  
-			showhanzi(209,170,21);  
-			showhanzi(241,170,14);  
-			showhanzi(273,170,15);  
-			
-			showhanzi(177,204,22);  
-			showhanzi(209,204,23);  
-			showhanzi(241,204,24);  
-			showhanzi(273,204,25);  
-						 break;
-		case _Time_Option://显示关于信息图标
-			//LCD_Fill(96,34,192,204,BLACK);
-			showhanzi(177,34,4);  
-			showhanzi(209,34,5);  
-			showhanzi(241,34,6);  
-			showhanzi(273,34,7); 
-
-			showhanzi(177,68,8);  
-			showhanzi(209,68,9);  
-			showhanzi(241,68,10);  
-			showhanzi(273,68,11); 
-		
-			showhanzi(177,102,12);  
-			showhanzi(209,102,13);  
-			showhanzi(241,102,14);  
-			showhanzi(273,102,15);   
-			
+			break;
+		case _Time_Option:
 			showhanzi_1(177,136,16,GBLUE);  
 			showhanzi_1(209,136,17,GBLUE);  
 			showhanzi_1(241,136,18,GBLUE);  
 			showhanzi_1(273,136,19,GBLUE);  
-			
-			showhanzi(177,170,20);  
-			showhanzi(209,170,21);  
-			showhanzi(241,170,14);  
-			showhanzi(273,170,15);  
-			
-			showhanzi(177,204,22);  
-			showhanzi(209,204,23);  
-			showhanzi(241,204,24);  
-			showhanzi(273,204,25);  
-						 break;
-		case _Data_Change_Option://显示关于信息图标
-			//LCD_Fill(96,34,192,204,BLACK);
-			showhanzi(177,34,4);  
-			showhanzi(209,34,5);  
-			showhanzi(241,34,6);  
-			showhanzi(273,34,7); 
-
-			showhanzi(177,68,8);  
-			showhanzi(209,68,9);  
-			showhanzi(241,68,10);  
-			showhanzi(273,68,11); 
-		
-			showhanzi(177,102,12);  
-			showhanzi(209,102,13);  
-			showhanzi(241,102,14);  
-			showhanzi(273,102,15);   
-			
-			showhanzi(177,136,16);  
-			showhanzi(209,136,17);  
-			showhanzi(241,136,18);  
-			showhanzi(273,136,19);  
-			
+			break;
+		case _Data_Change_Option:
 			showhanzi_1(177,170,20,GBLUE);  
 			showhanzi_1(209,170,21,GBLUE);  
 			showhanzi_1(241,170,14,GBLUE);  
 			showhanzi_1(273,170,15,GBLUE);  
-			
-			showhanzi(177,204,22);  
-			showhanzi(209,204,23);  
-			showhanzi(241,204,24);  
-			showhanzi(273,204,25);  
-				 break;
-		case _Iot_Option://显示关于信息图标
-			//LCD_Fill(96,34,192,204,BLACK);
-			showhanzi(177,34,4);  
-			showhanzi(209,34,5);  
-			showhanzi(241,34,6);  
-			showhanzi(273,34,7); 
-
-			showhanzi(177,68,8);  
-			showhanzi(209,68,9);  
-			showhanzi(241,68,10);  
-			showhanzi(273,68,11); 
-		
-			showhanzi(177,102,12);  
-			showhanzi(209,102,13);  
-			showhanzi(241,102,14);  
-			showhanzi(273,102,15);   
-			
-			showhanzi(177,136,16);  
-			showhanzi(209,136,17);  
-			showhanzi(241,136,18);  
-			showhanzi(273,136,19);  
-			
-			showhanzi(177,170,20);  
-			showhanzi(209,170,21);  
-			showhanzi(241,170,14);  
-			showhanzi(273,170,15);   
-			
+			break;
+		case _Iot_Option:
 			showhanzi_1(177,204,22,GBLUE);  
 			showhanzi_1(209,204,23,GBLUE);  
 			showhanzi_1(241,204,24,GBLUE);  
 			showhanzi_1(273,204,25,GBLUE); 
-				 break;
+			break;
 		default:break;
 	}
 }
@@ -1896,6 +1747,8 @@ void Time_Child(u8 page_index,u8 key_val){
 	
 	//设置时间
 	showhanzi(0,138,16);showhanzi(32,138,17);showhanzi(64,138,18);showhanzi(96,138,19);showhanzi(128,138,44);
+	//横杠
+	showdigit_color(64,170,11,WHITE,BLACK);showdigit_color(112,170,11,WHITE,BLACK);showdigit_color(224,170,11,WHITE,BLACK);showdigit_color(272,170,11,WHITE,BLACK);
 
 
 	if(last_index!=_Time_Option)//判断是否是s第一次进入此界面
@@ -1944,80 +1797,31 @@ void Time_Child(u8 page_index,u8 key_val){
 		}
 	}
 	else cur_pos=1;//第一次进入此界面,界面指针清零
-
+	
+	if(cur_pos!=1){showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);}
+	if(cur_pos!=2){showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);}
+	if(cur_pos!=3){showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);}
+	if(cur_pos!=4){showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);}
+	if(cur_pos!=5){showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);}
+	if(cur_pos!=6){showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);}
 	switch(cur_pos)
 	{
 		case 1:
 			showdigit_color(0,170,temp_year/1000,WHITE,BLUE);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLUE);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLUE);showdigit_color(48,170,temp_year%10,WHITE,BLUE);
-			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
-			showdigit_color(112,170,11,WHITE,BLACK);
-			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
-			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
-			showdigit_color(224,170,11,WHITE,BLACK);
-			showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);
-			showdigit_color(272,170,11,WHITE,BLACK);
-			showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);
 			break;
 		case 2:
-			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
-			showdigit_color(64,170,11,WHITE,BLACK);
 			showdigit_color(80,170,temp_month/10,WHITE,BLUE);showdigit_color(96,170,temp_month%10,WHITE,BLUE);
-			showdigit_color(112,170,11,WHITE,BLACK);
-			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
-			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
-			showdigit_color(224,170,11,WHITE,BLACK);
-			showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);
-			showdigit_color(272,170,11,WHITE,BLACK);
-			showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);
 			break;
 		case 3:
-			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
-			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
-			showdigit_color(112,170,11,WHITE,BLACK);
 			showdigit_color(128,170,temp_day/10,WHITE,BLUE);showdigit_color(144,170,temp_day%10,WHITE,BLUE);
-			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
-			showdigit_color(224,170,11,WHITE,BLACK);
-			showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);
-			showdigit_color(272,170,11,WHITE,BLACK);
-			showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);
-
 			break;
 		case 4:
-			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
-			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
-			showdigit_color(112,170,11,WHITE,BLACK);
-			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
 			showdigit_color(192,170,temp_h/10,WHITE,BLUE);showdigit_color(208,170,temp_h%10,WHITE,BLUE);
-			showdigit_color(224,170,11,WHITE,BLACK);
-			showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);
-			showdigit_color(272,170,11,WHITE,BLACK);
-			showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);
 			break;
 		case 5:
-			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
-			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
-			showdigit_color(112,170,11,WHITE,BLACK);
-			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
-			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
-			showdigit_color(224,170,11,WHITE,BLACK);
 			showdigit_color(240,170,temp_m/10,WHITE,BLUE);showdigit_color(256,170,temp_m%10,WHITE,BLUE);
-			showdigit_color(272,170,11,WHITE,BLACK);
-			showdigit_color(288,170,temp_s/10,WHITE,BLACK);showdigit_color(304,170,temp_s%10,WHITE,BLACK);
 			break;
 		case 6:
-			showdigit_color(0,170,temp_year/1000,WHITE,BLACK);showdigit_color(16,170,(temp_year/100)%10,WHITE,BLACK);showdigit_color(32,170,(temp_year/10)%10,WHITE,BLACK);showdigit_color(48,170,temp_year%10,WHITE,BLACK);
-			showdigit_color(64,170,11,WHITE,BLACK);
-			showdigit_color(80,170,temp_month/10,WHITE,BLACK);showdigit_color(96,170,temp_month%10,WHITE,BLACK);
-			showdigit_color(112,170,11,WHITE,BLACK);
-			showdigit_color(128,170,temp_day/10,WHITE,BLACK);showdigit_color(144,170,temp_day%10,WHITE,BLACK);
-			showdigit_color(192,170,temp_h/10,WHITE,BLACK);showdigit_color(208,170,temp_h%10,WHITE,BLACK);
-			showdigit_color(224,170,11,WHITE,BLACK);
-			showdigit_color(240,170,temp_m/10,WHITE,BLACK);showdigit_color(256,170,temp_m%10,WHITE,BLACK);
-			showdigit_color(272,170,11,WHITE,BLACK);
 			showdigit_color(288,170,temp_s/10,WHITE,BLUE);showdigit_color(304,170,temp_s%10,WHITE,BLUE);
 			break;
 		default:break;
@@ -2121,139 +1925,51 @@ void Iot_Child(u8 page_index,u8 key_val){
 
 
 void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
+	
+	if(page_index!=_Air_Blower_Child_1){showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); }
+	if(page_index!=_Air_Blower_Child_2){showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27); }
+	if(page_index!=_Air_Blower_Child_3){showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);}
+	if(page_index!=_Air_Blower_Child_4){showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27); }
+	if(page_index!=_Air_Blower_Child_5){showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); }
+	if(page_index!=_Air_Blower_Child_6){showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);}
+	if(page_index!=_Air_Blower_Child_7){showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  }
+	if(page_index!=_Air_Blower_Child_8){showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);}
+	if(page_index!=_Air_Blower_Child_9){showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  }
+	if(page_index!=_Air_Blower_Child_10){showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); }
+	
 
 	switch(page_index)
 	{
 		case _Air_Blower_Child_1://显示风机1
 			showhanzi_1(6,36,6,1);showhanzi_1(38,36,7,1);showhanzi_1(70,36,26,1);showhanzi_1(102,36,27,1); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_2://显示风机2
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
 			showhanzi_1(6,72,6,1);showhanzi_1(38,72,7,1);showhanzi_1(70,72,28,1);showhanzi_1(102,72,27,1);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_3://显示风机3
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
 			showhanzi_1(6,108,6,1);showhanzi_1(38,108,7,1);showhanzi_1(70,108,29,1);showhanzi_1(102,108,27,1);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_4://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
 			showhanzi_1(6,144,6,1);showhanzi_1(38,144,7,1);showhanzi_1(70,144,30,1);showhanzi_1(102,144,27,1);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_5://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
 			showhanzi_1(6,180,6,1);showhanzi_1(38,180,7,1);showhanzi_1(70,180,31,1);showhanzi_1(102,180,27,1); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_6://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
 			showhanzi_1(346,36,6,1);showhanzi_1(378,36,7,1);showhanzi_1(410,36,32,1);showhanzi_1(442,36,27,1);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_7://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
 			showhanzi_1(346,72,6,1);showhanzi_1(378,72,7,1);showhanzi_1(410,72,33,1);showhanzi_1(442,72,27,1);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_8://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27); 
 			showhanzi_1(346,108,6,1);showhanzi_1(378,108,7,1);showhanzi_1(410,108,34,1);showhanzi_1(442,108,27,1);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27);  
-				 break;
+			break;
 		case _Air_Blower_Child_9://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
 			showhanzi_1(346,144,6,1);showhanzi_1(378,144,7,1);showhanzi_1(410,144,35,1);showhanzi_1(442,144,27,1);  
-			showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); 
-				 break;
+			break;
 		case _Air_Blower_Child_10://显示风机
-			showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); 
-			showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27);  
-			showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);
-			showhanzi(6,144,6);showhanzi(38,144,7);showhanzi(70,144,30);showhanzi(102,144,27);  
-			showhanzi(6,180,6);showhanzi(38,180,7);showhanzi(70,180,31);showhanzi(102,180,27); 
-
-			showhanzi(346,36,6);showhanzi(378,36,7);showhanzi(410,36,32);showhanzi(442,36,27);  
-			showhanzi(346,72,6);showhanzi(378,72,7);showhanzi(410,72,33);showhanzi(442,72,27);  
-			showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);
-			showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  
 			showhanzi_1(346,180,6,1);showhanzi_1(378,180,7,1);showdigit_color(410,180,1,BLACK,WHITE);showdigit_color(426,180,0,BLACK,WHITE);showhanzi_1(442,180,27,1); 
-				 break;
+			break;
 		default:break;		
 	}
 }
@@ -2383,109 +2099,11 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 0;
 						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 0;
 					}
-					
-					
-					
-					
+
 				}
 				
 				if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
-					break;
-/* 快加
-			
-			case KEY_ADD:
-				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
-					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
-				){
-					if(cont_key_count%2==0)relay_structure[last_index_save-12].relay_mode +=1;
-					if(relay_structure[last_index_save-12].relay_mode==5)relay_structure[last_index_save-12].relay_mode=0;//不使用该风机
-				}else{
-					if(cont_key_count%1==0){
-						//printf("gui:%d\n",cont_key_count);
-						if(relay_structure[last_index_save-12].relay_mode == 1){
-							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
-							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
-							if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
-							if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
-							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
-							if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3+=1;
-							if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3+=1;
-							if(relay_structure[last_index_save-12].temp_control.max_nh3>=50)relay_structure[last_index_save-12].temp_control.max_nh3=50;
-							if(relay_structure[last_index_save-12].temp_control.min_nh3>=50)relay_structure[last_index_save-12].temp_control.min_nh3=50;
-							if(relay_structure[last_index_save-12].temp_control.max_temp>90)relay_structure[last_index_save-12].temp_control.max_temp=90;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 2){
-							if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open += 1;
-							if(cur_pos2 == 2) relay_structure[last_index_save-12].time_control.time_stop += 1;
-							if(relay_structure[last_index_save-12].time_control.time_open==10000)relay_structure[last_index_save-12].time_control.time_open=0;
-							if(relay_structure[last_index_save-12].time_control.time_stop==10000)relay_structure[last_index_save-12].time_control.time_stop=0;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 3){
-							if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp+=1;
-							if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp+=1;
-							if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
-							if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
-							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
-							if(cur_pos3 == 5) relay_structure[last_index_save-12].time_control.time_open += 1;
-							if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop += 1;
-							if(relay_structure[last_index_save-12].time_control.time_open==10000)relay_structure[last_index_save-12].time_control.time_open=0;
-							if(relay_structure[last_index_save-12].time_control.time_stop==10000)relay_structure[last_index_save-12].time_control.time_stop=0;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 4){
-							if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start+=1;
-							if(cur_pos4 == 2)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start+=1;
-							if(cur_pos4 == 3)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop+=1;
-							if(cur_pos4 == 4)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop+=1;					
-							if(cur_pos4 == 5)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off;
-							if(cur_pos4 == 6)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start+=1;
-							if(cur_pos4 == 7)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start+=1;
-							if(cur_pos4 == 8)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop+=1;
-							if(cur_pos4 == 9)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop+=1;
-							if(cur_pos4 == 10)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off;
-							if(cur_pos4 == 11)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start+=1;
-							if(cur_pos4 == 12)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start+=1;
-							if(cur_pos4 == 13)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop+=1;
-							if(cur_pos4 == 14)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop+=1;
-							if(cur_pos4 == 15)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off;
-							if(cur_pos4 == 16)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start+=1;
-							if(cur_pos4 == 17)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start+=1;
-							if(cur_pos4 == 18)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop+=1;
-							if(cur_pos4 == 19)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop+=1;
-							if(cur_pos4 == 20)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off;
-							if(cur_pos4 == 21)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start+=1;
-							if(cur_pos4 == 22)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start+=1;
-							if(cur_pos4 == 23)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop+=1;
-							if(cur_pos4 == 24)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop+=1;
-							if(cur_pos4 == 25)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off;
-							
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start = 0;
-
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 24) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 0;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 61) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 0;
-						}
-					}
-					
-				}	
-					break;
-			
-*/				
+					break;			
 			case KEY_ENTER://确定(设置)按键
 				
 				if(last_index_save-12==0)enter_config_flag_1 += 1;
@@ -2616,120 +2234,11 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 23;
 						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 60;
 					
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour = 23;
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes = 60;
-
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour = 23;
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes = 60;
-
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour = 23;
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes = 60;
-
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour = 23;
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes = 60;
-
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour = 23;
-//						if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes = 60;
-
 					}
 					
 				}
 				if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
-					break;
-/* 快减		
-			case KEY_SUB:
-				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
-					&& enter_config_flag_6 == 0 && enter_config_flag_7 == 0 && enter_config_flag_8 == 0  && enter_config_flag_9 == 0 && enter_config_flag_10 == 0
-				){
-					if(cont_key_count%2==0)relay_structure[last_index_save-12].relay_mode -=1;
-					if(relay_structure[last_index_save-12].relay_mode==255)relay_structure[last_index_save-12].relay_mode=4;//分时控
-				}else{
-					if(cont_key_count%1==0){
-						if(relay_structure[last_index_save-12].relay_mode == 1){
-							if(cur_pos1 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
-							if(cur_pos1 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
-							if(cur_pos1 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
-							if(cur_pos1 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
-							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
-							if(cur_pos1 == 5)relay_structure[last_index_save-12].temp_control.max_nh3-=1;
-							if(cur_pos1 == 6)relay_structure[last_index_save-12].temp_control.min_nh3-=1;
-							if(relay_structure[last_index_save-12].temp_control.max_nh3<=1)relay_structure[last_index_save-12].temp_control.max_nh3=1;
-							if(relay_structure[last_index_save-12].temp_control.min_nh3<=1)relay_structure[last_index_save-12].temp_control.min_nh3=1;
-							if(relay_structure[last_index_save-12].temp_control.min_temp<0)relay_structure[last_index_save-12].temp_control.min_temp=0;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 2){
-							if(cur_pos2 == 1) relay_structure[last_index_save-12].time_control.time_open -= 1;
-							if(cur_pos2 == 2) relay_structure[last_index_save-12].time_control.time_stop -= 1;
-							if(relay_structure[last_index_save-12].time_control.time_open==65535)relay_structure[last_index_save-12].time_control.time_open=9999;
-							if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 3){
-							if(cur_pos3 == 1)relay_structure[last_index_save-12].temp_control.max_temp-=1;
-							if(cur_pos3 == 2)relay_structure[last_index_save-12].temp_control.min_temp-=1;
-							if(cur_pos3 == 3)relay_structure[last_index_save-12].temp_control.temp_choose_flag+=1;
-							if(cur_pos3 == 4)relay_structure[last_index_save-12].temp_control.startup_mode = !(relay_structure[last_index_save-12].temp_control.startup_mode);
-							if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure[last_index_save-12].temp_control.temp_choose_flag = 0;
-							
-							if(cur_pos3 == 5) relay_structure[last_index_save-12].time_control.time_open -= 1;
-							if(cur_pos3 == 6) relay_structure[last_index_save-12].time_control.time_stop -= 1;
-							if(relay_structure[last_index_save-12].time_control.time_open==65535)relay_structure[last_index_save-12].time_control.time_open=9999;
-							if(relay_structure[last_index_save-12].time_control.time_stop==65535)relay_structure[last_index_save-12].time_control.time_stop=9999;
-						}
-						if(relay_structure[last_index_save-12].relay_mode == 4){
-							if(cur_pos4 == 1)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start-=1;
-							if(cur_pos4 == 2)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start-=1;
-							if(cur_pos4 == 3)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop-=1;
-							if(cur_pos4 == 4)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop-=1;					
-							if(cur_pos4 == 5)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.on_off;
-							if(cur_pos4 == 6)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start-=1;
-							if(cur_pos4 == 7)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start-=1;
-							if(cur_pos4 == 8)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop-=1;
-							if(cur_pos4 == 9)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop-=1;
-							if(cur_pos4 == 10)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.on_off;
-							if(cur_pos4 == 11)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start-=1;
-							if(cur_pos4 == 12)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start-=1;
-							if(cur_pos4 == 13)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop-=1;
-							if(cur_pos4 == 14)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop-=1;
-							if(cur_pos4 == 15)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.on_off;
-							if(cur_pos4 == 16)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start-=1;
-							if(cur_pos4 == 17)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start-=1;
-							if(cur_pos4 == 18)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop-=1;
-							if(cur_pos4 == 19)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop-=1;
-							if(cur_pos4 == 20)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.on_off;
-							if(cur_pos4 == 21)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start-=1;
-							if(cur_pos4 == 22)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start-=1;
-							if(cur_pos4 == 23)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop-=1;
-							if(cur_pos4 == 24)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop-=1;
-							if(cur_pos4 == 25)relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off=!relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.on_off;
-							
-							
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_start = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_start = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_start = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_start = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_start = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_start = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_start = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_start = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_start = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_start = 60;
-
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.hour_stop = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time1.minutes_stop = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.hour_stop = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time2.minutes_stop = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.hour_stop = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time3.minutes_stop = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.hour_stop = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time4.minutes_stop = 60;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.hour_stop = 23;
-							if(relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop == 255) relay_structure[last_index_save-12].time_schedule.relay_time_seg.Time5.minutes_stop = 60;
-						}	
-					}
-					
-				}
-					break;
-*/			
+					break;		
 //			case KEY_BACK:
 //				enter_config_flag_1=0;
 //				last_index_save=0;//为下一次进入页面判断是哪个风机；
@@ -2981,84 +2490,45 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		showhanzi(6,211,105);showhanzi(38,211,106);showhanzi(70,211,41); showhanzi(102,211,42);showhanzi(134,211,88);showhanzi(166,211,44);//氨气最高值
 		showhanzi(6,247,105);showhanzi(38,247,106);showhanzi(70,247,41); showhanzi(102,247,43);showhanzi(134,247,88);showhanzi(166,247,44);//氨气最低值
 		//显示参数信息
+		if(cur_pos1!=1){showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);}
+		if(cur_pos1!=2){showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);}
+		if(cur_pos1!=3){
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
+		}
+		if(cur_pos1!=4){				
+			if(relay_structure[last_index_save-12].temp_control.startup_mode){showhanzi(167,175,61);showhanzi(199,175,62);}else{showhanzi(167,175,59);showhanzi(199,175,60);} //加热//制冷
+		}
+		if(cur_pos1!=5){showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);}
+		if(cur_pos1!=6){showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);}
 		switch(cur_pos1)
 		{
 			case 1:
 			    showdigit_color(134,67,max_temp_v/10,BLACK,WHITE);showdigit_color(150,67,max_temp_v%10,BLACK,WHITE);
-			    showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);
-			    showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);
 				break;
 			case 2:
-			    showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);
 			    showdigit_color(134,103,min_temp_v/10,BLACK,WHITE);showdigit_color(150,103,min_temp_v%10,BLACK,WHITE);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);
-			    showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);
 				break;
 			case 3:
-			    showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,63,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,64,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,65,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi_1(199,139,67,1);showhanzi_1(231,139,68,1);showhanzi_1(263,139,39,1);showhanzi_1(295,139,66,1);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);
-			    showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);
 				break;
 			case 4:
-			    showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi_1(167,175,61,1);showhanzi_1(199,175,62,1);}
-				else{showhanzi_1(167,175,59,1);showhanzi_1(199,175,60,1);}
-				showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);
-			    showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);
+					showhanzi_1(167,175,61,1);showhanzi_1(199,175,62,1);
+				}
+				else{
+					showhanzi_1(167,175,59,1);showhanzi_1(199,175,60,1);
+				}
 				break;
 			case 5:
-			    showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
 				showdigit_color(200,211,max_nh3_v/100,BLACK,WHITE);showdigit_color(216,211,(max_nh3_v/10)%10,BLACK,WHITE);showdigit_color(232,211,max_nh3_v%10,BLACK,WHITE);
-			    showdigit_color(200,247,min_nh3_v/100,WHITE,BLACK);showdigit_color(216,247,(min_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,247,min_nh3_v%10,WHITE,BLACK);
 				break;
 			case 6:
-			    showdigit_color(134,67,max_temp_v/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				showdigit_color(200,211,max_nh3_v/100,WHITE,BLACK);showdigit_color(216,211,(max_nh3_v/10)%10,WHITE,BLACK);showdigit_color(232,211,max_nh3_v%10,WHITE,BLACK);
 			    showdigit_color(200,247,min_nh3_v/100,BLACK,WHITE);showdigit_color(216,247,(min_nh3_v/10)%10,BLACK,WHITE);showdigit_color(232,247,min_nh3_v%10,BLACK,WHITE);
 				break;
 			default:break;
@@ -3117,113 +2587,61 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		showhanzi(6,211,48);  showhanzi(38,211,49);  showhanzi(70,211,18);  showhanzi(102,211,19); showhanzi(134,211,44);//打开时间	
 		showhanzi(6,247,46);  showhanzi(38,247,47);  showhanzi(70,247,18); showhanzi(102,247,19);showhanzi(134,247,44);//关闭时间
 		
+		if(cur_pos3!=1){showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);}
+		if(cur_pos3!=2){showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);}
+		if(cur_pos3!=3){
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+			if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
+		}
+		if(cur_pos3!=4){
+			if(relay_structure[last_index_save-12].temp_control.startup_mode){
+				showhanzi(167,175,61);showhanzi(199,175,62);
+			}else{
+				showhanzi(167,175,59);showhanzi(199,175,60);
+			}//制冷
+		}
+		if(cur_pos3!=5){			    
+			showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
+			showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
+		}
+		if(cur_pos3!=6){
+			showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
+			showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);			
+		}
+		
 		switch(cur_pos3){
 			case 1:
 				showdigit_color(134,67,max_temp_v111/10,BLACK,WHITE);showdigit_color(150,67,max_temp_v111%10,BLACK,WHITE);
-			    showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				
-			    showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
-			
-				showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);
-				
 				break;
 			case 2:
-				showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);
 			    showdigit_color(134,103,min_temp_v111/10,BLACK,WHITE);showdigit_color(150,103,min_temp_v111%10,BLACK,WHITE);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				
-			    showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
-			
-				showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);
 				break;
 			case 3:
-				showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,63,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,64,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,65,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi_1(199,139,67,1);showhanzi_1(231,139,68,1);showhanzi_1(263,139,39,1);showhanzi_1(295,139,66,1);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				
-			    showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
-			
-				showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);
 				break;
 			case 4:
-				showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi_1(167,175,61,1);showhanzi_1(199,175,62,1);}//加热
-				else{showhanzi_1(167,175,59,1);showhanzi_1(199,175,60,1);}//制冷
-				showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
-			
-				showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);
-				
+					showhanzi_1(167,175,61,1);showhanzi_1(199,175,62,1);//加热
+				}else{
+					showhanzi_1(167,175,59,1);showhanzi_1(199,175,60,1);//制冷
+				}
 				break;
 			case 5:
-				showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
 				showdigit_color(166,211,time_open_v111/1000,BLACK,WHITE);showdigit_color(182,211,(time_open_v111/100)%10,BLACK,WHITE);
 			    showdigit_color(198,211,(time_open_v111/10)%10,BLACK,WHITE);showdigit_color(214,211,time_open_v111%10,BLACK,WHITE);
-			
-				showdigit_color(166,247,time_stop_v111/1000,WHITE,BLACK);showdigit_color(182,247,(time_stop_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,247,(time_stop_v111/10)%10,WHITE,BLACK);showdigit_color(214,247,time_stop_v111%10,WHITE,BLACK);
-				
 				break;
 			case 6:
-				showdigit_color(134,67,max_temp_v111/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v111%10,WHITE,BLACK);
-				showdigit_color(134,103,min_temp_v111/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v111%10,WHITE,BLACK);
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
-				if(relay_structure[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
-				if(relay_structure[last_index_save-12].temp_control.startup_mode){
-					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
-				else{showhanzi(167,175,59);showhanzi(199,175,60);}//制冷
-				showdigit_color(166,211,time_open_v111/1000,WHITE,BLACK);showdigit_color(182,211,(time_open_v111/100)%10,WHITE,BLACK);
-			    showdigit_color(198,211,(time_open_v111/10)%10,WHITE,BLACK);showdigit_color(214,211,time_open_v111%10,WHITE,BLACK);
-			
 				showdigit_color(166,247,time_stop_v111/1000,BLACK,WHITE);showdigit_color(182,247,(time_stop_v111/100)%10,BLACK,WHITE);
 			    showdigit_color(198,247,(time_stop_v111/10)%10,BLACK,WHITE);showdigit_color(214,247,time_stop_v111%10,BLACK,WHITE);
 				break;
 			default:break;
-		
 		}
-	
+
 	}
 	
 	

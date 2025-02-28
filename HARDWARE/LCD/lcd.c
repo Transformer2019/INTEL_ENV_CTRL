@@ -56,12 +56,12 @@ u16 DeviceCode;
 ******************************************************************************/
 void LCD_WR_REG(u8 data)
 { 
-   LCD_CS_CLR;    //注释后屏幕出现隔点画点现象，可能是spi写速度太快导致 
-	 LCD_RS_CLR;	  
-   SPI_WriteByte(SPI2,data);
-//	while((SPI2->SR&SPI_I2S_FLAG_TXE)==RESET);		//等待发送区空	  
-//	SPI2->DR=data;	 	//发送一个byte   
-     LCD_CS_SET;
+    //LCD_CS_CLR;    //注释后屏幕出现隔点画点现象，可能是spi写速度太快导致 
+	LCD_RS_CLR;	  
+	//SPI_WriteByte(SPI2,data);
+	((SPI_TypeDef *)0x40003800)->DR=data;	 	//发送一个byte   
+	while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002)); // 等待 SPI 不再忙碌	
+    //LCD_CS_SET;
 	
 }
 
@@ -74,22 +74,24 @@ void LCD_WR_REG(u8 data)
 ******************************************************************************/
 void LCD_WR_DATA(u8 data)
 {
-   LCD_CS_CLR; //注释后屏幕出现隔点画点现象，可能是spi写速度太快导致 
-	 LCD_RS_SET;
-   SPI_WriteByte(SPI2,data);
-//	while((SPI2->SR&SPI_I2S_FLAG_TXE)==RESET);		//等待发送区空	  
-//	SPI2->DR=data;	 	//发送一个byte   
-   LCD_CS_SET;
+	//LCD_CS_CLR; //注释后屏幕出现隔点画点现象，可能是spi写速度太快导致 
+	LCD_RS_SET;
+	//SPI_WriteByte(SPI2,data);
+	
+	((SPI_TypeDef *)0x40003800)->DR=data;	 	//发送一个byte   
+	while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002)); // 等待 SPI 不再忙碌	
+	
+	//LCD_CS_SET;
 
 }
 
 void LCD_WR_DATA16(u16 data)
 {
-   LCD_CS_CLR;
-	 LCD_RS_SET;
-   SPI_WriteByte(SPI2,data>>8);
-   SPI_WriteByte(SPI2,data);
-   LCD_CS_SET;
+    // LCD_CS_CLR;
+	LCD_RS_SET;
+    SPI_WriteByte(SPI2,data>>8);
+    SPI_WriteByte(SPI2,data);
+    // LCD_CS_SET;
 
 }
 
@@ -198,11 +200,11 @@ void LCD_Clear(u16 Color)
 	{
 //    for(m=0;m<lcddev.width;m++)
 //    {	
-			((SPI_TypeDef *)0x40003800)->DR=0x00;	 	//发送一个byte  
+			((SPI_TypeDef *)0x40003800)->DR=(Color>>8)&0xF8;	 	//发送一个byte  
 			while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));	//等待发送区空	  
-			((SPI_TypeDef *)0x40003800)->DR=0x00;	 	//发送一个byte  
+			((SPI_TypeDef *)0x40003800)->DR=(Color>>3)&0xFC;	 	//发送一个byte  
 			while(!((((SPI_TypeDef *)0x40003800)->SR)&0x0002));		//等待发送区空	  
-			((SPI_TypeDef *)0x40003800)->DR=0x00;	 	//发送一个byte  
+			((SPI_TypeDef *)0x40003800)->DR=Color<<3;	 	//发送一个byte  
 //		}
 	}
 	//LCD_CS_SET;
