@@ -25,11 +25,33 @@ extern uint8_t warn_flag;//是否报警
 extern uint8_t warn_temp1_flag;//温度一是否参与报警
 extern uint8_t warn_temp2_flag;
 extern uint8_t warn_temp3_flag;
-extern uint8_t limit_temp_maxvalue;//温度高限值
-extern uint8_t limit_temp_minvalue;
+//extern uint8_t limit_temp_maxvalue;//温度高限值
+//extern uint8_t limit_temp_minvalue;
 
 extern uint8_t NH3_warn_flag;
 extern uint8_t NH3_max;
+
+
+extern uint8_t warn_temp485_flag;
+
+extern uint8_t warn_rh_flag;
+
+extern uint8_t limit_temp1_maxvalue;//温度高限值
+extern uint8_t limit_temp1_minvalue;
+
+extern uint8_t limit_temp2_maxvalue;//温度高限值
+extern uint8_t limit_temp2_minvalue;
+
+extern uint8_t limit_temp3_maxvalue;//温度高限值
+extern uint8_t limit_temp3_minvalue;
+
+extern uint8_t limit_temp485_maxvalue;//485温度高限值
+extern uint8_t limit_temp485_minvalue;
+
+extern uint16_t limit_rh_maxvalue;//湿度高限值
+extern uint16_t limit_rh_minvalue;
+
+
 
 
 //温度修正参数

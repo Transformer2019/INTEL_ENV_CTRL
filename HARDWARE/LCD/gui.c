@@ -42,15 +42,39 @@ volatile u8 out_voltage=0;
 
 //#pragma pack()    //取消自定义字节对齐方式
 
+
+//报警参数
 uint8_t warn_flag=0;
 uint8_t warn_temp1_flag=0;
 uint8_t warn_temp2_flag=0;
 uint8_t warn_temp3_flag=0;
-uint8_t limit_temp_maxvalue=50;
-uint8_t limit_temp_minvalue=0;
+//uint8_t limit_temp_maxvalue=50;
+//uint8_t limit_temp_minvalue=0;
 
 uint8_t NH3_warn_flag=0;
 uint8_t NH3_max=13;
+
+
+uint8_t warn_temp485_flag=0;
+
+uint8_t warn_rh_flag=0;
+
+uint8_t limit_temp1_maxvalue=50;//温度高限值
+uint8_t limit_temp1_minvalue=0;
+uint8_t limit_temp2_maxvalue=50;//温度高限值
+uint8_t limit_temp2_minvalue=0;
+uint8_t limit_temp3_maxvalue=50;//温度高限值
+uint8_t limit_temp3_minvalue=0;
+
+uint8_t limit_temp485_maxvalue=50;//485温度高限值
+uint8_t limit_temp485_minvalue=0;
+
+uint16_t limit_rh_maxvalue=70;//湿度高限值
+uint16_t limit_rh_minvalue=50;
+
+
+
+
 
 float temp1_correct=0.0;// 
 float temp2_correct=0.0;// 
@@ -1567,24 +1591,45 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	u8 w1_buff = warn_temp1_flag;
 	u8 w2_buff = warn_temp2_flag;
 	u8 w3_buff = warn_temp3_flag;
-	u8 limit_max_buff = limit_temp_maxvalue;
-	u8 limit_min_buff = limit_temp_minvalue;
+	u8 w485_buff = warn_temp485_flag;
+	u8 w_rh_buff = warn_rh_flag;
+	
+	u8 limit_max_temp1_buff = limit_temp1_maxvalue;
+	u8 limit_min_temp1_buff = limit_temp1_minvalue;
+	u8 limit_max_temp2_buff = limit_temp2_maxvalue;
+	u8 limit_min_temp2_buff = limit_temp2_minvalue;
+	u8 limit_max_temp3_buff = limit_temp3_maxvalue;
+	u8 limit_min_temp3_buff = limit_temp3_minvalue;
+	u8 limit_max_temp485_buff = limit_temp485_maxvalue;
+	u8 limit_min_temp485_buff = limit_temp485_minvalue;
+	u8 limit_max_rh_buff = limit_rh_maxvalue;
+	u8 limit_min_rh_buff = limit_rh_minvalue;
+	
 	u8 NH3_warn_buff = NH3_warn_flag;
 	u8 NH3_buff = NH3_max;
 	static u8 cur_pos=1;
-	//温度一参与报警
-	showhanzi(0,42,39);showhanzi(32,42,66);showhanzi(64,42,63);showhanzi(96,42,14);showhanzi(128,42,89);showhanzi(160,42,12);showhanzi(192,42,13);showhanzi(224,42,44);
-	//温度二参与报警
-	showhanzi(0,74,39);showhanzi(32,74,66);showhanzi(64,74,64);showhanzi(96,74,14);showhanzi(128,74,89);showhanzi(160,74,12);showhanzi(192,74,13);showhanzi(224,74,44);
-	showhanzi(0,106,39);showhanzi(32,106,66);showhanzi(64,106,65);showhanzi(96,106,14);showhanzi(128,106,89);showhanzi(160,106,12);showhanzi(192,106,13);showhanzi(224,106,44);	
-	//报警最高限
-	showhanzi(0,138,12);showhanzi(32,138,13);showhanzi(64,138,41);showhanzi(96,138,42);showhanzi(128,138,45);showhanzi(160,138,44);
-	//报警最低限
-	showhanzi(0,170,12);showhanzi(32,170,13);showhanzi(64,170,41);showhanzi(96,170,43);showhanzi(128,170,45);showhanzi(160,170,44);
-	//氨气报警
-	showhanzi(0,202,105);showhanzi(32,202,106);showhanzi(64,202,12);showhanzi(96,202,13);showhanzi(128,202,44);
-	//氨气报警值
-	showhanzi(0,234,105);showhanzi(32,234,106);showhanzi(64,234,12);showhanzi(96,234,13);showhanzi(128,234,88);showhanzi(160,234,44);
+	
+	//参与报警
+	showhanzi(121,39,14);showhanzi(153,39,89);showhanzi(185,39,12);showhanzi(217,39,13);
+	//最高限
+	showhanzi(268,39,41);showhanzi(300,39,42);showhanzi(332,39,45);
+	//最低限
+	showhanzi(383,39,41);showhanzi(415,39,43);showhanzi(447,39,45);
+	
+	
+	//温度一
+	showhanzi(0,75,39);showhanzi(32,75,66);showhanzi(64,75,63);showhanzi(96,75,44);
+	//温度二
+	showhanzi(0,110,39);showhanzi(32,110,66);showhanzi(64,110,64);showhanzi(96,110,44);
+	//温度三
+	showhanzi(0,145,39);showhanzi(32,145,66);showhanzi(64,145,64);showhanzi(96,145,44);
+	//485温度
+	showdigit_color(0,180,4,WHITE,BLACK);showdigit_color(16,180,8,WHITE,BLACK);showdigit_color(32,180,5,WHITE,BLACK);showhanzi(48,180,39);showhanzi(80,180,66);showhanzi(112,180,44);
+	//485湿度
+	showdigit_color(0,215,4,WHITE,BLACK);showdigit_color(16,215,8,WHITE,BLACK);showdigit_color(32,215,5,WHITE,BLACK);showhanzi(48,215,148);showhanzi(80,215,66);showhanzi(112,215,44);
+	//485氨气
+	showdigit_color(0,250,4,WHITE,BLACK);showdigit_color(16,250,8,WHITE,BLACK);showdigit_color(32,250,5,WHITE,BLACK);showhanzi(48,250,105);showhanzi(80,250,106);showhanzi(112,250,44);
+	
 	
 	if(last_index!=_Alarm_Option)//判断是否是s第一次进入此界面
 	{
@@ -1592,32 +1637,58 @@ void Alarm_Child(u8 page_index,u8 key_val){
 		{
 			case KEY_PREVIOUS:
 				if(cur_pos == 1) warn_temp1_flag = !warn_temp1_flag;
-				if(cur_pos == 2) warn_temp2_flag = !warn_temp2_flag;
-			    if(cur_pos == 3) warn_temp3_flag = !warn_temp3_flag;
-				if(cur_pos == 4) limit_temp_maxvalue += 1;
-				if(cur_pos == 5) limit_temp_minvalue += 1;
-				if(cur_pos == 6) NH3_warn_flag = !NH3_warn_flag;
-				if(cur_pos == 7) NH3_max += 1;
-				if(limit_temp_maxvalue>=50)limit_temp_maxvalue=50;
-			    if(limit_temp_minvalue>=50)limit_temp_minvalue=50;
+				if(cur_pos == 2) limit_temp1_maxvalue += 1;
+				if(cur_pos == 3) if(limit_temp1_minvalue+2<limit_temp1_maxvalue){limit_temp1_minvalue += 1;}
+				if(cur_pos == 4) warn_temp2_flag = !warn_temp2_flag;
+				if(cur_pos == 5) limit_temp2_maxvalue += 1;
+				if(cur_pos == 6) if(limit_temp2_minvalue+2<limit_temp2_maxvalue){limit_temp2_minvalue += 1;}
+			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
+				if(cur_pos == 8) limit_temp3_maxvalue += 1;
+				if(cur_pos == 9) if(limit_temp3_minvalue+2<limit_temp3_maxvalue){limit_temp3_minvalue += 1;}
+				if(cur_pos == 10) warn_temp485_flag = !warn_temp485_flag;
+				if(cur_pos == 11) limit_temp485_maxvalue += 1;
+				if(cur_pos == 12) if(limit_temp485_minvalue+2<limit_temp485_maxvalue){limit_temp485_minvalue += 1;}
+				if(cur_pos == 13) warn_rh_flag = !warn_rh_flag;
+				if(cur_pos == 14) limit_rh_maxvalue += 1;
+				if(cur_pos == 15) if(limit_rh_minvalue+2<limit_rh_maxvalue){limit_rh_minvalue += 1;}
+				if(cur_pos == 16) NH3_warn_flag = !NH3_warn_flag;
+				if(cur_pos == 17) NH3_max += 1;
+				if(limit_temp1_maxvalue>=50)limit_temp1_maxvalue=50;
+				if(limit_temp2_maxvalue>=50)limit_temp2_maxvalue=50;
+				if(limit_temp3_maxvalue>=50)limit_temp3_maxvalue=50;
+				if(limit_temp485_maxvalue>=50)limit_temp485_maxvalue=50;
+				if(limit_rh_maxvalue>=80)limit_rh_maxvalue=80;
 				if(NH3_max>=30)NH3_max=30;
 					break;
 			case KEY_ENTER://确定(设置)按键
 				cur_pos++;
-				if(cur_pos == 8){
+				if(cur_pos == 18){
 					cur_pos = 1;
 				}
 					break;
 			case KEY_NEXT:
 				if(cur_pos == 1) warn_temp1_flag = !warn_temp1_flag;
-				if(cur_pos == 2) warn_temp2_flag = !warn_temp2_flag;
-			    if(cur_pos == 3) warn_temp3_flag = !warn_temp3_flag;
-				if(cur_pos == 4) limit_temp_maxvalue -= 1;
-				if(cur_pos == 5) limit_temp_minvalue -= 1;
-				if(cur_pos == 6) NH3_warn_flag = !NH3_warn_flag;
-				if(cur_pos == 7) NH3_max -= 1;		
-				if(limit_temp_maxvalue==255)limit_temp_maxvalue=0;
-			    if(limit_temp_minvalue==255)limit_temp_minvalue=0;
+				if(cur_pos == 2) if(limit_temp1_maxvalue-2>limit_temp1_minvalue){limit_temp1_maxvalue -= 1;}
+				if(cur_pos == 3) limit_temp1_minvalue -= 1;
+				if(cur_pos == 4) warn_temp2_flag = !warn_temp2_flag;
+				if(cur_pos == 5) if(limit_temp2_maxvalue-2>limit_temp2_minvalue){limit_temp2_maxvalue -= 1;}
+				if(cur_pos == 6) limit_temp2_minvalue -= 1;
+			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
+				if(cur_pos == 8) if(limit_temp3_maxvalue-2>limit_temp3_minvalue){limit_temp3_maxvalue -= 1;}
+				if(cur_pos == 9) limit_temp3_minvalue -= 1;
+				if(cur_pos == 10) warn_temp485_flag = !warn_temp485_flag;
+				if(cur_pos == 11) if(limit_temp485_maxvalue-2>limit_temp485_minvalue){limit_temp485_maxvalue -= 1;}
+				if(cur_pos == 12) limit_temp485_minvalue -= 1;
+				if(cur_pos == 13) warn_rh_flag = !warn_rh_flag;
+				if(cur_pos == 14) if(limit_rh_maxvalue-2>limit_rh_minvalue){limit_rh_maxvalue -= 1;}
+				if(cur_pos == 15) limit_rh_minvalue -= 1;
+				if(cur_pos == 16) NH3_warn_flag = !NH3_warn_flag;
+				if(cur_pos == 17) NH3_max -= 1;
+				if(limit_temp1_minvalue==255)limit_temp1_minvalue=0;
+				if(limit_temp2_minvalue==255)limit_temp2_minvalue=0;
+				if(limit_temp3_minvalue==255)limit_temp3_minvalue=0;
+				if(limit_temp485_minvalue==255)limit_temp485_minvalue=0;
+				if(limit_rh_minvalue==255)limit_rh_minvalue=0;
 				if(NH3_max==255)NH3_max=0;
 					break;
 			default:break;
@@ -1625,90 +1696,123 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	}
 	else cur_pos=1;//第一次进入此界面,界面指针清零
 	
-	uint8_t max_1 = limit_temp_maxvalue / 10;
-	uint8_t max_2 = limit_temp_maxvalue % 10;
-	
-	uint8_t min_1 = limit_temp_minvalue / 10;
-	uint8_t min_2 = limit_temp_minvalue % 10;
 	
 	uint8_t nh3_max_1 = NH3_max / 10;
 	uint8_t nh3_max_2 = NH3_max % 10;
-
-//	snprintf(str_max, sizeof(str_max), "%.1f", relay_structure[0].temp_control.max_temp);
-//	snprintf(str_min, sizeof(str_min), "%.1f", relay_structure[0].temp_control.min_temp);
-
+	
+	uint8_t temp1_max_1 = limit_temp1_maxvalue / 10;
+	uint8_t temp1_max_2 = limit_temp1_maxvalue % 10;
+	uint8_t temp1_min_1 = limit_temp1_minvalue / 10;
+	uint8_t temp1_min_2 = limit_temp1_minvalue % 10;
+	
+	uint8_t temp2_max_1 = limit_temp2_maxvalue / 10;
+	uint8_t temp2_max_2 = limit_temp2_maxvalue % 10;
+	uint8_t temp2_min_1 = limit_temp2_minvalue / 10;
+	uint8_t temp2_min_2 = limit_temp2_minvalue % 10;
+	
+	uint8_t temp3_max_1 = limit_temp3_maxvalue / 10;
+	uint8_t temp3_max_2 = limit_temp3_maxvalue % 10;
+	uint8_t temp3_min_1 = limit_temp3_minvalue / 10;
+	uint8_t temp3_min_2 = limit_temp3_minvalue % 10;
+		
+	uint8_t temp485_max_1 = limit_temp485_maxvalue / 10;
+	uint8_t temp485_max_2 = limit_temp485_maxvalue % 10;
+	uint8_t temp485_min_1 = limit_temp485_minvalue / 10;
+	uint8_t temp485_min_2 = limit_temp485_minvalue % 10;
+	
+	uint8_t rh_max_1 = limit_rh_maxvalue / 10;
+	uint8_t rh_max_2 = limit_rh_maxvalue % 10;
+	uint8_t rh_min_1 = limit_rh_minvalue / 10;
+	uint8_t rh_min_2 = limit_rh_minvalue % 10;
+	
+	if(cur_pos!=1){if(warn_temp1_flag){showhanzi(153,75,90);showhanzi(185,75,91);}else{showhanzi(153,75,92);showhanzi(185,75,91);}}
+	if(cur_pos!=2){showdigit_color(300,75,temp1_max_1,WHITE,BLACK);showdigit_color(316,75,temp1_max_2,WHITE,BLACK);}
+	if(cur_pos!=3){showdigit_color(415,75,temp1_min_1,WHITE,BLACK);showdigit_color(431,75,temp1_min_2,WHITE,BLACK);}
+	if(cur_pos!=4){if(warn_temp2_flag){showhanzi(153,110,90);showhanzi(185,110,91);}else{showhanzi(153,110,92);showhanzi(185,110,91);}}
+	if(cur_pos!=5){showdigit_color(300,110,temp2_max_1,WHITE,BLACK);showdigit_color(316,110,temp2_max_2,WHITE,BLACK);}
+	if(cur_pos!=6){showdigit_color(415,110,temp2_min_1,WHITE,BLACK);showdigit_color(431,110,temp2_min_2,WHITE,BLACK);}	
+	if(cur_pos!=7){if(warn_temp3_flag){showhanzi(153,145,90);showhanzi(185,145,91);}else{showhanzi(153,145,92);showhanzi(185,145,91);}}
+	if(cur_pos!=8){showdigit_color(300,145,temp3_max_1,WHITE,BLACK);showdigit_color(316,145,temp3_max_2,WHITE,BLACK);}
+	if(cur_pos!=9){showdigit_color(415,145,temp3_min_1,WHITE,BLACK);showdigit_color(431,145,temp3_min_2,WHITE,BLACK);}
+	if(cur_pos!=10){if(warn_temp485_flag){showhanzi(153,180,90);showhanzi(185,180,91);}else{showhanzi(153,180,92);showhanzi(185,180,91);}}
+	if(cur_pos!=11){showdigit_color(300,180,temp485_max_1,WHITE,BLACK);showdigit_color(316,180,temp485_max_2,WHITE,BLACK);}
+	if(cur_pos!=12){showdigit_color(415,180,temp485_min_1,WHITE,BLACK);showdigit_color(431,180,temp485_min_2,WHITE,BLACK);}	
+	if(cur_pos!=13){if(warn_rh_flag){showhanzi(153,215,90);showhanzi(185,215,91);}else{showhanzi(153,215,92);showhanzi(185,215,91);}}
+	if(cur_pos!=14){showdigit_color(300,215,rh_max_1,WHITE,BLACK);showdigit_color(316,215,rh_max_2,WHITE,BLACK);}
+	if(cur_pos!=15){showdigit_color(415,215,rh_min_1,WHITE,BLACK);showdigit_color(431,215,rh_min_2,WHITE,BLACK);}
+	if(cur_pos!=16){if(NH3_warn_flag){showhanzi(153,250,90);showhanzi(185,250,91);}else{showhanzi(153,250,92);showhanzi(185,250,91);}}
+	if(cur_pos!=17){showdigit_color(300,250,nh3_max_1,WHITE,BLACK);showdigit_color(316,250,nh3_max_2,WHITE,BLACK);}	
+	
 	switch(cur_pos)
 	{
 		case 1:
-			if(warn_temp1_flag){showhanzi_1(256,42,90,1);showhanzi_1(288,42,91,1);}else{showhanzi_1(256,42,92,1);showhanzi_1(288,42,91,1);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			if(warn_temp1_flag){showhanzi_1(153,75,90,1);showhanzi_1(185,75,91,1);}else{showhanzi_1(153,75,92,1);showhanzi_1(185,75,91,1);}
 			break;
 		case 2:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi_1(256,74,90,1);showhanzi_1(288,74,91,1);}else{showhanzi_1(256,74,92,1);showhanzi_1(288,74,91,1);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			showdigit_color(300,75,temp1_max_1,BLACK,WHITE);showdigit_color(316,75,temp1_max_2,BLACK,WHITE);
 			break;
 		case 3:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi_1(256,106,90,0);showhanzi_1(288,106,91,0);}else{showhanzi_1(256,106,92,0);showhanzi_1(288,106,91,0);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			showdigit_color(415,75,temp1_min_1,BLACK,WHITE);showdigit_color(431,75,temp1_min_2,BLACK,WHITE);
 			break;
 		case 4:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,BLACK,WHITE);showdigit_color(208,138,max_2,BLACK,WHITE);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			if(warn_temp2_flag){showhanzi_1(153,110,90,1);showhanzi_1(185,110,91,1);}else{showhanzi_1(153,110,92,1);showhanzi_1(185,110,91,1);}
 			break;
 		case 5:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,BLACK,WHITE);showdigit_color(208,170,min_2,BLACK,WHITE);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			showdigit_color(300,110,temp2_max_1,BLACK,WHITE);showdigit_color(316,110,temp2_max_2,BLACK,WHITE);
 			break;
 		case 6:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi_1(160,202,90,1);showhanzi_1(192,202,91,1);}else{showhanzi_1(160,202,92,1);showhanzi_1(192,202,91,1);}
-			showdigit_color(192,234,nh3_max_1,WHITE,BLACK);showdigit_color(208,234,nh3_max_2,WHITE,BLACK);
+			showdigit_color(415,110,temp2_min_1,BLACK,WHITE);showdigit_color(431,110,temp2_min_2,BLACK,WHITE);
 			break;
 		case 7:
-			if(warn_temp1_flag){showhanzi(256,42,90);showhanzi(288,42,91);}else{showhanzi(256,42,92);showhanzi(288,42,91);}
-			if(warn_temp2_flag){showhanzi(256,74,90);showhanzi(288,74,91);}else{showhanzi(256,74,92);showhanzi(288,74,91);}
-			if(warn_temp3_flag){showhanzi(256,106,90);showhanzi(288,106,91);}else{showhanzi(256,106,92);showhanzi(288,106,91);}
-			showdigit_color(192,138,max_1,WHITE,BLACK);showdigit_color(208,138,max_2,WHITE,BLACK);
-			showdigit_color(192,170,min_1,WHITE,BLACK);showdigit_color(208,170,min_2,WHITE,BLACK);
-			if(NH3_warn_flag){showhanzi(160,202,90);showhanzi(192,202,91);}else{showhanzi(160,202,92);showhanzi(192,202,91);}
-			showdigit_color(192,234,nh3_max_1,BLACK,WHITE);showdigit_color(208,234,nh3_max_2,BLACK,WHITE);
+			if(warn_temp3_flag){showhanzi_1(153,145,90,1);showhanzi_1(185,145,91,1);}else{showhanzi_1(153,145,92,1);showhanzi_1(185,145,91,1);}
+			break;
+		case 8:
+			showdigit_color(300,145,temp3_max_1,BLACK,WHITE);showdigit_color(316,145,temp3_max_2,BLACK,WHITE);
+			break;
+		case 9:
+			showdigit_color(415,145,temp3_min_1,BLACK,WHITE);showdigit_color(431,145,temp3_min_2,BLACK,WHITE);
+			break;
+		case 10:
+			if(warn_temp485_flag){showhanzi_1(153,180,90,1);showhanzi_1(185,180,91,1);}else{showhanzi_1(153,180,92,1);showhanzi_1(185,180,91,1);}
+			break;
+		case 11:
+			showdigit_color(300,180,temp485_max_1,BLACK,WHITE);showdigit_color(316,180,temp485_max_2,BLACK,WHITE);
+			break;
+		case 12:
+			showdigit_color(415,180,temp485_min_1,BLACK,WHITE);showdigit_color(431,180,temp485_min_2,BLACK,WHITE);
+			break;
+		case 13:
+			if(warn_rh_flag){showhanzi_1(153,215,90,1);showhanzi_1(185,215,91,1);}else{showhanzi_1(153,215,92,1);showhanzi_1(185,215,91,1);}
+			break;
+		case 14:
+			showdigit_color(300,215,rh_max_1,BLACK,WHITE);showdigit_color(316,215,rh_max_2,BLACK,WHITE);
+			break;
+		case 15:
+			showdigit_color(415,215,rh_min_1,BLACK,WHITE);showdigit_color(431,215,rh_min_2,BLACK,WHITE);
+			break;
+		case 16:
+			if(NH3_warn_flag){showhanzi_1(153,250,90,1);showhanzi_1(185,250,91,1);}else{showhanzi_1(153,250,92,1);showhanzi_1(185,250,91,1);}
+			break;
+		case 17:
+			showdigit_color(300,250,nh3_max_1,BLACK,WHITE);showdigit_color(316,250,nh3_max_2,BLACK,WHITE);
 			break;
 		default:break;
 	}
 	if(w1_buff != warn_temp1_flag ||
 		w2_buff != warn_temp2_flag ||
 		w3_buff != warn_temp3_flag ||
-		limit_max_buff != limit_temp_maxvalue ||
-		limit_min_buff != limit_temp_minvalue ||
+		w485_buff != warn_temp485_flag ||
+		w_rh_buff != warn_rh_flag ||
+		limit_max_temp1_buff != limit_temp1_maxvalue ||
+		limit_min_temp1_buff != limit_temp1_minvalue ||
+		limit_max_temp2_buff != limit_temp2_maxvalue ||
+		limit_min_temp2_buff != limit_temp2_minvalue ||
+		limit_max_temp3_buff != limit_temp3_maxvalue ||
+		limit_min_temp3_buff != limit_temp3_minvalue ||
+		limit_max_temp485_buff != limit_temp485_maxvalue ||
+		limit_min_temp485_buff != limit_temp485_minvalue ||
+		limit_max_rh_buff != limit_rh_maxvalue ||
+		limit_min_rh_buff != limit_rh_minvalue ||
 		NH3_warn_buff != NH3_warn_flag ||
 		NH3_buff != NH3_max){
 			send_warn_Flag=1;
