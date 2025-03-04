@@ -21,7 +21,7 @@ extern uint8_t register_flag;
 extern uint8_t mqtt_flag;
 
 //报警参数
-extern uint8_t warn_flag;//是否报警
+volatile extern uint8_t warn_flag;//是否报警
 extern uint8_t warn_temp1_flag;//温度一是否参与报警
 extern uint8_t warn_temp2_flag;
 extern uint8_t warn_temp3_flag;

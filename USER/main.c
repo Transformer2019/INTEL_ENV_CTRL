@@ -138,50 +138,105 @@ int main(void)
 		u8 warn_485rh_flag_low = 0;
 		
 		u8 warn_NH3=0;
+		
+//		if(warn_temp1_flag && (temperature1>0.0) && (temperature1<90.0)){
+//			if(temperature1>limit_temp1_maxvalue || temperature1<limit_temp1_minvalue)warn_flag1=1;else{warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
+//			if(temperature1>limit_temp1_maxvalue)warn_flag1_high=1;else warn_flag1_high=0;
+//			if(temperature1<limit_temp1_minvalue)warn_flag1_low=1;else warn_flag1_low=0;
+//		}
+//		if(warn_temp2_flag && (temperature2>0.0) && (temperature2<90.0)){
+//			if(temperature2>limit_temp2_maxvalue || temperature2<limit_temp2_minvalue)warn_flag2=1;else{warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
+//			if(temperature2>limit_temp2_maxvalue)warn_flag2_high=1;else warn_flag2_high=0;
+//			if(temperature2<limit_temp2_minvalue)warn_flag2_low=1;else warn_flag2_low=0;
+//		}
+//		if(warn_temp3_flag && (temperature3>0.0) && (temperature3<90.0)){
+//			if(temperature3>limit_temp3_maxvalue || temperature3<limit_temp3_minvalue)warn_flag3=1;else{warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
+//			if(temperature3>limit_temp3_maxvalue)warn_flag3_high=1;else warn_flag3_high=0;
+//			if(temperature3<limit_temp3_minvalue)warn_flag3_low=1;else warn_flag3_low=0;
+//		}
+//		if(warn_485temp_flag && (send_TEMP>0) && (send_TEMP<900)){
+//			if((send_TEMP/10)>limit_temp485_maxvalue || (send_TEMP/10)<limit_temp485_minvalue)warn_485temp_flag=1;else{warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
+//			if((send_TEMP/10)>limit_temp485_maxvalue)warn_485temp_flag_high=1;else warn_485temp_flag_high=0;
+//			if((send_TEMP/10)<limit_temp485_minvalue)warn_485temp_flag_low=1;else warn_485temp_flag_low=0;
+//		}
+//		if(warn_485rh_flag && (send_RH>0) && (send_RH<900)){
+//			if((send_RH/10)>limit_rh_maxvalue || (send_RH/10)<limit_rh_minvalue)warn_485rh_flag=1;else{warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
+//			if((send_RH/10)>limit_rh_maxvalue)warn_485rh_flag_high=1;else warn_485rh_flag_high=0;
+//			if((send_RH/10)<limit_rh_minvalue)warn_485rh_flag_low=1;else warn_485rh_flag_low=0;
+//		}
+//		
+//		if(warn_temp1_flag==0 || temperature1>90){warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
+//		if(warn_temp2_flag==0 || temperature2>90){warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
+//		if(warn_temp3_flag==0 || temperature3>90){warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
+//		if(warn_485temp_flag==0 || send_TEMP>900){warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
+//		if(warn_485rh_flag==0 || send_RH>999){warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
+//		
+//		if(NH3_warn_flag){
+//			if(send_NH3!=999 && send_NH3>=NH3_max && send_NH3<100)warn_NH3=1;
+//			if(send_NH3==999 || send_NH3<NH3_max)warn_NH3=0;
+//		}else{
+//			warn_NH3=0;
+//		}
+//		if(send_NH3>900)warn_NH3=0;
+//		//printf("warn_NH3:%d\n",warn_NH3);
+
+
+
+
+		
 		if(warn_temp1_flag && (temperature1>0.0) && (temperature1<90.0)){
-			if(temperature1>limit_temp1_maxvalue || temperature1<limit_temp1_minvalue)warn_flag1=1;else{warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
-			if(temperature1>limit_temp1_maxvalue)warn_flag1_high=1;else warn_flag1_high=0;
-			if(temperature1<limit_temp1_minvalue)warn_flag1_low=1;else warn_flag1_low=0;
+			if(temperature1>limit_temp1_maxvalue || temperature1<limit_temp1_minvalue){
+				warn_flag1=1;
+				if(temperature1>limit_temp1_maxvalue)warn_flag1_high=1;
+				if(temperature1<limit_temp1_minvalue)warn_flag1_low=1;
+			}else{warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
 		}
 		if(warn_temp2_flag && (temperature2>0.0) && (temperature2<90.0)){
-			if(temperature2>limit_temp2_maxvalue || temperature2<limit_temp2_minvalue)warn_flag2=1;else{warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
-			if(temperature2>limit_temp2_maxvalue)warn_flag2_high=1;else warn_flag2_high=0;
-			if(temperature2<limit_temp2_minvalue)warn_flag2_low=1;else warn_flag2_low=0;
+			if(temperature2>limit_temp2_maxvalue || temperature2<limit_temp2_minvalue){
+				warn_flag2=1;
+				if(temperature2>limit_temp2_maxvalue)warn_flag2_high=1;
+				if(temperature2<limit_temp2_minvalue)warn_flag2_low=1;
+			}else{warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
 		}
 		if(warn_temp3_flag && (temperature3>0.0) && (temperature3<90.0)){
-			if(temperature3>limit_temp3_maxvalue || temperature3<limit_temp3_minvalue)warn_flag3=1;else{warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
-			if(temperature3>limit_temp3_maxvalue)warn_flag3_high=1;else warn_flag3_high=0;
-			if(temperature3<limit_temp3_minvalue)warn_flag3_low=1;else warn_flag3_low=0;
+			if(temperature3>limit_temp3_maxvalue || temperature3<limit_temp3_minvalue){
+				warn_flag3=1;
+				if(temperature3>limit_temp3_maxvalue)warn_flag3_high=1;
+				if(temperature3<limit_temp3_minvalue)warn_flag3_low=1;
+			}else{warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
 		}
-		if(warn_485temp_flag && (send_TEMP>0.0) && (send_TEMP<90.0)){
-			if(send_TEMP>limit_temp485_maxvalue || send_TEMP<limit_temp485_minvalue)warn_485temp_flag=1;else{warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
-			if(send_TEMP>limit_temp485_maxvalue)warn_485temp_flag_high=1;else warn_485temp_flag_high=0;
-			if(send_TEMP<limit_temp485_minvalue)warn_485temp_flag_low=1;else warn_485temp_flag_low=0;
+		if(warn_temp485_flag && (send_TEMP>0) && (send_TEMP<900)){
+			if((send_TEMP/10)>limit_temp485_maxvalue || (send_TEMP/10)<limit_temp485_minvalue){
+				warn_485temp_flag=1;
+				if((send_TEMP/10)>limit_temp485_maxvalue)warn_485temp_flag_high=1;
+				if((send_TEMP/10)<limit_temp485_minvalue)warn_485temp_flag_low=1;
+			}else{warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
 		}
-		if(warn_485rh_flag && (send_RH>0.0) && (send_RH<90.0)){
-			if(send_RH>limit_rh_maxvalue || send_RH<limit_rh_minvalue)warn_485rh_flag=1;else{warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
-			if(send_RH>limit_rh_maxvalue)warn_485rh_flag_high=1;else warn_485rh_flag_high=0;
-			if(send_RH<limit_rh_minvalue)warn_485rh_flag_low=1;else warn_485rh_flag_low=0;
+		if(warn_rh_flag && (send_RH>0) && (send_RH<900)){
+			if((send_RH/10)>limit_rh_maxvalue || (send_RH/10)<limit_rh_minvalue){
+				warn_485rh_flag=1;
+				if((send_RH/10)>limit_rh_maxvalue)warn_485rh_flag_high=1;
+				if((send_RH/10)<limit_rh_minvalue)warn_485rh_flag_low=1;
+			}else{warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
 		}
-		
-		if(warn_temp1_flag==0){warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
-		if(warn_temp2_flag==0){warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
-		if(warn_temp3_flag==0){warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
-		if(warn_485temp_flag==0){warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
-		if(warn_485rh_flag==0){warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
-		
-		if(NH3_warn_flag){
-			if(send_NH3!=999 && send_NH3>=NH3_max && send_NH3<100)warn_NH3=1;
-			if(send_NH3==999 || send_NH3<NH3_max)warn_NH3=0;
+
+		if(NH3_warn_flag && send_NH3<900){
+			if(send_NH3>=NH3_max)warn_NH3=1;else warn_NH3=0;
 		}else{
 			warn_NH3=0;
 		}
-
-		//printf("warn_NH3:%d\n",warn_NH3);
+		
+		if(warn_temp1_flag==0 || temperature1>90){warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
+		if(warn_temp2_flag==0 || temperature2>90){warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
+		if(warn_temp3_flag==0 || temperature3>90){warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
+		if(warn_temp485_flag==0 || send_TEMP>900){warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
+		if(warn_rh_flag==0 || send_RH>999){warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
+		if(NH3_warn_flag==0 || send_NH3>900)warn_NH3=0;
+		
 		
 		warn_flag = warn_flag1 || warn_flag2 || warn_flag3 || warn_485temp_flag || warn_485rh_flag || warn_NH3;
 		//printf("warn_flag:%d\n",warn_flag);
-		
+		//showdigit_color(150,210,warn_flag,WHITE,HOME_BACK);
 		
 		//顺序开启继电器
 //		u8 temp;
@@ -204,7 +259,8 @@ int main(void)
 //		if(relay_Control[0]!=temp){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);delay_ms(50);}
 		
 		//2-3秒间隔顺序开启,问题有待解决（if判断语句里边是两个风机的开关状态）
-
+		
+		
 		u8 temp;
 		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
 		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
@@ -221,8 +277,10 @@ int main(void)
 		temp = relay_Control[0] & 0X3f | (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6);
 		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
 		
-		temp = relay_Control[0] & 0Xdf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
+		temp = relay_Control[0] & 0Xcf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
 		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+
+
 
 	//next:	
 		//485代码
@@ -1246,7 +1304,7 @@ int main(void)
 		//发布报警信息	
 		if(warn_flag && mqtt_flag && network_flag){
 			
-			if((warn_flag1_high || warn_flag1_low) && (warn_timer_count%15==0)){
+			if((warn_flag1_high || warn_flag1_low) && (warn_timer_count%20==0)){
 				char temp1_str[8];
 				sprintf(temp1_str, "%.1f", temperature1);
 				if(warn_flag1_high){
@@ -1269,7 +1327,7 @@ int main(void)
 				}
 
 			}
-			if((warn_flag2_high || warn_flag2_low) && (warn_timer_count%15==0)){
+			if((warn_flag2_high || warn_flag2_low) && (warn_timer_count%25==0)){
 				char temp2_str[8];
 				sprintf(temp2_str, "%.1f", temperature2);
 				if(warn_flag2_high){
@@ -1294,7 +1352,7 @@ int main(void)
 				}
 
 			}
-			if((warn_flag3_high || warn_flag3_low) && (warn_timer_count%15==0)){
+			if((warn_flag3_high || warn_flag3_low) && (warn_timer_count%20==0)){
 				char temp3_str[8];
 				sprintf(temp3_str, "%.1f", temperature3);
 				if(warn_flag3_high){
@@ -1319,7 +1377,7 @@ int main(void)
 				}
 
 			}
-			if((warn_485temp_flag_high ||  warn_485temp_flag_low) && (warn_timer_count%15==0)){
+			if((warn_485temp_flag_high ||  warn_485temp_flag_low) && (warn_timer_count%25==0)){
 				char temp485_str[8];
 				float send_TEMP_BUF=send_TEMP/10;
 				sprintf(temp485_str, "%.1f", send_TEMP_BUF);
@@ -1343,7 +1401,7 @@ int main(void)
 				}
 
 			}
-			if((warn_485rh_flag_high || warn_485rh_flag_low) && (warn_timer_count%15==0)){
+			if((warn_485rh_flag_high || warn_485rh_flag_low) && (warn_timer_count%20==0)){
 				char rh_str[8];
 				float send_RH_BUF = send_RH/10;
 				sprintf(rh_str, "%.1f", send_RH_BUF);
@@ -1367,7 +1425,7 @@ int main(void)
 				}
 			}
 			
-			if(warn_NH3 && (warn_timer_count%15==0)){
+			if(warn_NH3 && (warn_timer_count%28==0)){
 				char NH3_str[8];
 				sprintf(NH3_str, "%d", send_NH3);
 				char NH3_warn_str[40] = "{\"n1\" \"High-NH3 alarm\"}-";

@@ -44,7 +44,7 @@ volatile u8 out_voltage=0;
 
 
 //±¨¾¯²ÎÊı
-uint8_t warn_flag=0;
+volatile uint8_t warn_flag=0;
 uint8_t warn_temp1_flag=0;
 uint8_t warn_temp2_flag=0;
 uint8_t warn_temp3_flag=0;
