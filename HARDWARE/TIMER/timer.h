@@ -22,8 +22,10 @@ extern volatile uint16_t MQTT_CON_Counter;
 extern volatile u8 MQTT_CON_flag;
 
 //ui风机转速计数器
-extern volatile u8 relay_speed_ui_count;
+extern volatile uint32_t relay_speed_ui_count;
 
+//继电器输出
+//extern volatile u8 relay_Control[2]; //控制继电器
 
 	
 //快加键使用的计数器

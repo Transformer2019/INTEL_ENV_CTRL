@@ -5,7 +5,8 @@
 #include "delay.h"
 #include "mb_hook.h"
 #include "GP8201S.h"
-   	  
+
+	  
 //通用定时器3中断初始化
 //这里时钟选择为APB1的2倍，而APB1为36M
 //arr：自动重装值。
@@ -29,6 +30,7 @@ volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
 
+//volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 
 //快加键使用的计数器
 //volatile uint16_t TIM3_Add_Counter=0;
@@ -38,7 +40,7 @@ volatile uint16_t MQTT_CON_Counter=0;
 volatile u8 MQTT_CON_flag=0;
 
 //ui风机转速计数器
-volatile u8 relay_speed_ui_count=0;
+volatile uint32_t relay_speed_ui_count=0;
 
 //温度数组
 //volatile float temp1_list[11]={0};
@@ -250,6 +252,8 @@ void TIM2_IRQHandler(void)   //TIM2中断
 //		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=0;}else{
 //			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	
 //		}
+		
+
 		
 		//变频控制开始
 		switch(hz_control.temp_choose){
@@ -658,8 +662,32 @@ void TIM1_UP_IRQHandler(void){
 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); //清除TIM4更新中断标志
 		
-		//控制显示的风机转的频率
-		if(relay_speed_ui_count>=8)
+		//继电器输出
+//		u8 temp;
+//		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
+//		//if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+//		
+//		temp = relay_Control[1] & 0Xcf | (relay_structure[2].on_off << 5) | (relay_structure[3].on_off << 4);
+//		//if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+//		
+//		temp = relay_Control[1] & 0Xf3 | (relay_structure[4].on_off << 3) | (relay_structure[5].on_off << 2);
+//		//if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+//		
+//		temp = relay_Control[1] & 0Xfd | (relay_structure[6].on_off << 1);
+//		//if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+//		
+//		temp = relay_Control[0] & 0X3f | (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6);
+//		//if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+//		
+//		temp = relay_Control[0] & 0Xcf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
+//		//if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);}
+
+//		relay_Control[1] = (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6) | (relay_structure[2].on_off << 5) | (relay_structure[3].on_off << 4) | (relay_structure[4].on_off << 3) | (relay_structure[5].on_off << 2) | (relay_structure[6].on_off << 1);
+//		relay_Control[0] = (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6) | (relay_structure[9].on_off << 5) | (warn_flag << 4);
+//		HC595_Send_Multi_Byte(relay_Control, 2);
+		
+		//控制显示的风机转的频率（控制风机顺序输出）
+		if(relay_speed_ui_count>=99999)
 		{
 		  relay_speed_ui_count=0;
 		}

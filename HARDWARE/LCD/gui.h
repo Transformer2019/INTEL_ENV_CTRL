@@ -54,6 +54,10 @@ extern uint16_t limit_rh_minvalue;
 
 
 
+//继电器输出
+extern volatile u8 relay_Control[2]; //控制继电器
+
+
 //温度修正参数
 extern float temp1_correct;// 
 extern float temp2_correct;// 

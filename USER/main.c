@@ -32,7 +32,7 @@ uint8_t mqtt_flag=0;
 
 char MQTT_RxDataBuf_nochange[RXBUFF_SIZE];
 
-volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
+//volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 volatile u8 relay1_Control_1[2] = {0x00, 0x00};
 
 char flash_data[9]={0x00};
@@ -56,6 +56,52 @@ u8 is_all_ff(uint8_t *buffer, uint16_t length) {
         }
     }
     return 1;  // 如果所有元素都是 0xFF，返回 true
+}
+
+
+
+// 状态控制变量
+static uint8_t current_relay = 0;             // 当前操作的第几个继电器 (0-9)
+static uint32_t next_action_time = 0;         // 下次允许操作的时间戳
+const uint32_t interval = 50;                // 间隔时间 50*100ms
+
+//修改函数，参数包括第几个风机以及开还是关
+void update_relay_control(u8 index, u8 on_or_off){
+    // 更新 relay_Control[1] (控制继电器 0-6)
+	
+	switch(index){
+		case 0:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x80;}else{relay_Control[1] = relay_Control[1] & ~0x80;}
+			break;
+		case 1:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x40;}else{relay_Control[1] = relay_Control[1] & ~0x40;}
+			break;
+		case 2:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x20;}else{relay_Control[1] = relay_Control[1] & ~0x20;}
+			break;
+		case 3:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x10;}else{relay_Control[1] = relay_Control[1] & ~0x10;}
+			break;
+		case 4:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x08;}else{relay_Control[1] = relay_Control[1] & ~0x08;}
+			break;
+		case 5:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x04;}else{relay_Control[1] = relay_Control[1] & ~0x04;}
+			break;
+		case 6:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x02;}else{relay_Control[1] = relay_Control[1] & ~0x02;}
+			break;
+		case 7:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x80;}else{relay_Control[0] = relay_Control[0] & ~0x80;}
+			break;
+		case 8:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x40;}else{relay_Control[0] = relay_Control[0] & ~0x40;}
+			break;
+		case 9:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x20;}else{relay_Control[0] = relay_Control[0] & ~0x20;}
+			break;
+		default:break;
+	}
 }
 
 int main(void)
@@ -238,6 +284,51 @@ int main(void)
 		//printf("warn_flag:%d\n",warn_flag);
 		//showdigit_color(150,210,warn_flag,WHITE,HOME_BACK);
 		
+		
+		//relay_Control[1] = (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6) | (relay_structure[2].on_off << 5) | (relay_structure[3].on_off << 4) | (relay_structure[4].on_off << 3) | (relay_structure[5].on_off << 2) | (relay_structure[6].on_off << 1);
+		//relay_Control[0] = (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6) | (relay_structure[9].on_off << 5) | (warn_flag << 4);
+		
+		
+		// 获取当前时间（假设使用 HAL_GetTick() 或类似函数）
+		static uint32_t current_time = 0;
+
+        // 仅当未完成所有继电器操作时执行
+        if (current_relay < 10) {
+            // 检查是否到达操作时间
+            if (current_time >= next_action_time && relay_structure[current_relay].on_off) {
+				
+                // 更新控制寄存器---只发送一位
+				update_relay_control(current_relay, relay_structure[current_relay].on_off);
+                // 发送数据到硬件
+                HC595_Send_Multi_Byte(relay_Control, 2);
+
+                // 更新下一次操作时间
+                next_action_time = current_time + interval;
+
+                // 移动到下一个继电器
+                current_relay++;
+            }
+			if(relay_structure[current_relay].on_off==0)current_relay++;
+        }
+		//
+		if (current_relay >= 10){current_relay=0;current_time=0;next_action_time=0;}
+		//关闭风机时，不间隔时间
+		static u8 count_595 = 0;
+		if(count_595%8==0){
+			//风机
+			for(int i =0; i<10; i++){
+				if(relay_structure[i].on_off==0)update_relay_control(i,0);
+			}
+			//报警继电器
+			if(warn_flag){relay_Control[0] = relay_Control[0] | 0x10;}else{relay_Control[0] = relay_Control[0] & ~0x10;}
+			HC595_Send_Multi_Byte(relay_Control, 2);
+		}
+		if(++count_595>=32)count_595=0;
+		
+		current_time++;
+		if(current_time>99999)current_time=0;
+		
+		
 		//顺序开启继电器
 //		u8 temp;
 //		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
@@ -261,24 +352,24 @@ int main(void)
 		//2-3秒间隔顺序开启,问题有待解决（if判断语句里边是两个风机的开关状态）
 		
 		
-		u8 temp;
-		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
-		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
-		
-		temp = relay_Control[1] & 0Xcf | (relay_structure[2].on_off << 5) | (relay_structure[3].on_off << 4);
-		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
-		
-		temp = relay_Control[1] & 0Xf3 | (relay_structure[4].on_off << 3) | (relay_structure[5].on_off << 2);
-		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
-		
-		temp = relay_Control[1] & 0Xfd | (relay_structure[6].on_off << 1);
-		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
-		
-		temp = relay_Control[0] & 0X3f | (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6);
-		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
-		
-		temp = relay_Control[0] & 0Xcf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
-		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		u8 temp;
+//		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
+//		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		
+//		temp = relay_Control[1] & 0Xcf | (relay_structure[2].on_off << 5) | (relay_structure[3].on_off << 4);
+//		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		
+//		temp = relay_Control[1] & 0Xf3 | (relay_structure[4].on_off << 3) | (relay_structure[5].on_off << 2);
+//		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		
+//		temp = relay_Control[1] & 0Xfd | (relay_structure[6].on_off << 1);
+//		if(relay_Control[1]!=temp && TIM3_flag){relay_Control[1]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		
+//		temp = relay_Control[0] & 0X3f | (relay_structure[7].on_off << 7) | (relay_structure[8].on_off << 6);
+//		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
+//		
+//		temp = relay_Control[0] & 0Xcf | (relay_structure[9].on_off << 5) | (warn_flag << 4);
+//		if(relay_Control[0]!=temp && TIM3_flag){relay_Control[0]=temp;HC595_Send_Multi_Byte(relay_Control, 2);goto next;}
 
 
 
@@ -1518,7 +1609,7 @@ int main(void)
 			
 			if(network_flag){
 				UART3_Puts("AT+CCLK?\r\n"); 
-				delay_ms(25);
+				delay_ms(10);
 				if(UART3_RxCounter != 0){
 					char time_str_test[20]="";
 					if(strstr(UART3_RxBuff,"+CCLK:")){
