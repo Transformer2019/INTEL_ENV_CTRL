@@ -591,6 +591,16 @@ int main(void)
 									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
 									#endif
 									break;
+								
+								case 5:
+									relay_structure[no].relay_mode = 5;
+									UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M5OK\"\r\n",imei_no);//发布消息
+									#if(REMOVE_memset)
+									delay_ms(30);
+									UART3_RxCounter = 0; //重新等待接收下一个推送消息
+									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+									#endif
+									break;
 								case 1:	
 									json_t *temp_ctrl = json_object_get(root, "temp_ctrl");
 									if(json_is_object(temp_ctrl)){
@@ -1206,8 +1216,13 @@ int main(void)
 		
 		}//if(mqtt_flag)
 		
+		//关闭风机-常关
 		for(int i=0; i<10; i++){
 			if(relay_structure[i].relay_mode==0)relay_structure[i].on_off=0;
+		}
+		//开启风机-常开
+		for(int i=0; i<10; i++){
+			if(relay_structure[i].relay_mode==5)relay_structure[i].on_off=1;
 		}
 
 		if(TIM3_flag){
