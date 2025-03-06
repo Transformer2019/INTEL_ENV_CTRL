@@ -45,19 +45,18 @@ volatile u8 out_voltage=0;
 
 //报警参数
 volatile uint8_t warn_flag=0;
+uint8_t NH3_warn_flag=0;
 uint8_t warn_temp1_flag=0;
 uint8_t warn_temp2_flag=0;
 uint8_t warn_temp3_flag=0;
 //uint8_t limit_temp_maxvalue=50;
 //uint8_t limit_temp_minvalue=0;
-
-uint8_t NH3_warn_flag=0;
-uint8_t NH3_max=13;
-
-
 uint8_t warn_temp485_flag=0;
 
 uint8_t warn_rh_flag=0;
+
+
+uint8_t NH3_max=13;
 
 uint8_t limit_temp1_maxvalue=50;//温度高限值
 uint8_t limit_temp1_minvalue=0;

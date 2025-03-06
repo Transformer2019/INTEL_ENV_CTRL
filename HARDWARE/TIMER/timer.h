@@ -12,6 +12,11 @@ extern volatile u8 TIM4_flag;
 extern volatile uint16_t TIM5_Counter_10s;
 extern volatile u8 TIM5_flag;
 
+extern volatile uint16_t TIM6_Counter;
+extern volatile u8 TIM6_flag;
+
+extern volatile uint16_t TIM7_Counter;
+
 extern volatile uint8_t Heartbeat_Counter_1s;
 extern volatile u8 Heartbeat_flag;
 

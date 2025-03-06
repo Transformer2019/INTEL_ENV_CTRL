@@ -5,7 +5,7 @@
 #include "delay.h"
 #include "mb_hook.h"
 #include "GP8201S.h"
-
+#include "flash.h"
 	  
 //通用定时器3中断初始化
 //这里时钟选择为APB1的2倍，而APB1为36M
@@ -17,11 +17,14 @@
 volatile uint16_t TIM3_Counter_10s=0;
 volatile u8 TIM3_flag=0;
 
-volatile uint16_t TIM4_Counter_10s=0;
+volatile uint16_t TIM4_Counter_10s=1;
 volatile u8 TIM4_flag=0;
 
 volatile uint16_t TIM5_Counter_10s=0;
 volatile u8 TIM5_flag=0;
+
+volatile uint16_t TIM6_Counter=0;
+volatile u8 TIM6_flag=0;
 
 volatile u8 TIM1_Counter=0;
 volatile u8 TIM1_flag=0;
@@ -29,6 +32,8 @@ volatile u8 TIM1_flag=0;
 volatile uint8_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
+
+volatile uint16_t TIM7_Counter=0;
 
 //volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 
@@ -208,12 +213,59 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		}
 		TIM4_Counter_10s++;
 		
+		
+		
 		//将配置参数写入flash频率
-		if(TIM5_Counter_10s>60)
+		uint32_t address = STARTADDR;
+		uint32_t totalSize = 5*sizeof(Relay_Structure);
+		uint16_t halfWord;
+		//65500
+		if(TIM7_Counter>10){
+			TIM7_Counter=0;
+			//向flash里写入需要存储的数据
+			uint16_t *pData = (uint16_t *)relay_structure;
+			
+//			uint8_t warn_temp[20]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
+//				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
+//                limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
+//			};			
+//			uint16_t *pData_alarm = (uint16_t *)warn_temp;
+			
+			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10);
+			WriteFlashData(0, pData, 5*sizeof(Relay_Structure));
+//			for (int i = 0; i < totalSize; i += 2)
+//			{
+//				// 读取两个字节
+//				if (i + 1 < totalSize) {
+//					halfWord = pData[i] | (pData[i + 1] << 8);
+//				} else {
+//					halfWord = pData[i] | (0xFF << 8);  // 若是单字节，则高 8 位补 0xFF
+//				}
+
+//				// 写入 Flash
+//				if (FLASH_ProgramHalfWord(address, halfWord) != FLASH_COMPLETE) {
+//					//while (1); // 写入失败，死循环
+//				}
+//				address += 2;
+//			}
+		}
+		TIM7_Counter++;
+		
+		
+		//获取是否联网频率
+		if(TIM5_Counter_10s>600)
 		{
-		  TIM5_flag=1;
+			TIM5_flag=1;
 		}
 		TIM5_Counter_10s++;
+		
+		//获取网络时间频率
+		if(TIM6_Counter>3600)
+		{
+			TIM6_flag=1;
+		}
+		TIM6_Counter++;
+		
 		
 		//发送心跳频率
 		if(Heartbeat_Counter_1s>4)//一秒进一次中断，累计8秒后标志置1，再中断处理，发布消息
@@ -224,15 +276,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 
 		//printf("send_NH3:%d\n",send_NH3);
 		
-		uint8_t relay_No_temp[11] = {0};
-		float max_temp[11] = {0};
-		float min_temp[11] = {0};		
-		Temp_Choose_flag temp_choose_flag[11] = {temperature1_flag};
-		float  temp_choose[11] = {0};
-		uint8_t startup_mode[11] = {0};
-		
-		uint8_t max_nh3[11] = {0};
-		uint8_t min_nh3[11] = {0};	
+
 
 
 		
@@ -289,7 +333,17 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		GP8201S_Write(0,0,v_low,v_high);
 		//变频控制结束
 		
+		
 		uint8_t j = 0;
+		uint8_t relay_No_temp[11] = {0};
+		float max_temp[11] = {0};
+		float min_temp[11] = {0};		
+		Temp_Choose_flag temp_choose_flag[11] = {temperature1_flag};
+		float  temp_choose[11] = {0};
+		uint8_t startup_mode[11] = {0};
+		
+		uint8_t max_nh3[11] = {0};
+		uint8_t min_nh3[11] = {0};	
 		//此处是否可以判断是否需要for循环
 		//温控
 		for(int i=0; i<10; i++){
@@ -379,24 +433,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 		{   
 			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx的中断待处理位:TIM 中断源 
 			
-			//快加键使用的计数器
-//			TIM3_Add_Counter++;
-//			if(TIM3_Add_Counter>255)TIM3_Add_Counter=0;
-			
-			
-			// 定时计数器
-			static uint32_t led_counters[11] = {0};
-			static uint32_t led_counters_t[11] = {0};
 
-			
-			//时控局部变量，为什么设置成全局变量就赋值就乱了？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
-//			static uint8_t led_states[] = {0}; // 0: 关, 1: 开
-			
-			//以下变量需设置成静态局部变量，每个下标对应固定的一个风机，
-			static uint16_t relay_on_times[11] = {0};
-			static uint16_t relay_off_times[11] = {0};
-			uint8_t  relay_No[11] = {0};
-			//uint8_t  change_flag[] = {0};
 			
 			if(TIM3_Counter_10s>2)//一秒进一次中断，累计8秒后标志置1，再中断处理
 			{
@@ -412,6 +449,21 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			MQTT_CON_Counter++;
 			
 			
+			
+			// 定时计数器
+			static uint32_t led_counters[11] = {0};
+			static uint32_t led_counters_t[11] = {0};
+
+			
+			//时控局部变量，为什么设置成全局变量就赋值就乱了？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+//			static uint8_t led_states[] = {0}; // 0: 关, 1: 开
+			
+			//以下变量需设置成静态局部变量，每个下标对应固定的一个风机，
+			static uint16_t relay_on_times[11] = {0};
+			static uint16_t relay_off_times[11] = {0};
+			uint8_t  relay_No[11] = {0};
+			//uint8_t  change_flag[] = {0};
+
 			//printf("TIM3-------\r\n");
 			uint8_t j = 0;
 			
