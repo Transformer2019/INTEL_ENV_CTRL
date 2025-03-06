@@ -47,8 +47,8 @@ extern uint8_t limit_temp3_minvalue;
 extern uint8_t limit_temp485_maxvalue;//485温度高限值
 extern uint8_t limit_temp485_minvalue;
 
-extern uint16_t limit_rh_maxvalue;//湿度高限值
-extern uint16_t limit_rh_minvalue;
+extern uint8_t limit_rh_maxvalue;//湿度高限值
+extern uint8_t limit_rh_minvalue;
 
 
 

@@ -216,38 +216,28 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		
 		
 		//将配置参数写入flash频率
-		uint32_t address = STARTADDR;
-		uint32_t totalSize = 5*sizeof(Relay_Structure);
-		uint16_t halfWord;
 		//65500
+		//uint32_t address = STARTADDR;
+		//uint32_t totalSize = 5*sizeof(Relay_Structure);
+		//uint16_t halfWord;
 		if(TIM7_Counter>10){
 			TIM7_Counter=0;
 			//向flash里写入需要存储的数据
 			uint16_t *pData = (uint16_t *)relay_structure;
 			
-//			uint8_t warn_temp[20]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
-//				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
-//                limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
-//			};			
-//			uint16_t *pData_alarm = (uint16_t *)warn_temp;
+			uint8_t warn_temp[18]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
+				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
+                limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
+			};			
+			uint16_t *pData_alarm = (uint16_t *)warn_temp;
 			
-			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10);
-			WriteFlashData(0, pData, 5*sizeof(Relay_Structure));
-//			for (int i = 0; i < totalSize; i += 2)
-//			{
-//				// 读取两个字节
-//				if (i + 1 < totalSize) {
-//					halfWord = pData[i] | (pData[i + 1] << 8);
-//				} else {
-//					halfWord = pData[i] | (0xFF << 8);  // 若是单字节，则高 8 位补 0xFF
-//				}
+			//uint16_t *pData_hz = (uint16_t *)(&hz_control_cur);
+			Hz_Control *hz_control_cur=&hz_control;
+			uint16_t *pData_hz = (uint16_t *)hz_control_cur;
+			
+			WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10,pData_hz,(sizeof(hz_control)%2==0)?(sizeof(hz_control)/2):(sizeof(hz_control)/2+1));
+			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure));
 
-//				// 写入 Flash
-//				if (FLASH_ProgramHalfWord(address, halfWord) != FLASH_COMPLETE) {
-//					//while (1); // 写入失败，死循环
-//				}
-//				address += 2;
-//			}
 		}
 		TIM7_Counter++;
 		

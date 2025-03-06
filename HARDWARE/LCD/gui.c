@@ -68,8 +68,8 @@ uint8_t limit_temp3_minvalue=0;
 uint8_t limit_temp485_maxvalue=50;//485温度高限值
 uint8_t limit_temp485_minvalue=0;
 
-uint16_t limit_rh_maxvalue=70;//湿度高限值
-uint16_t limit_rh_minvalue=50;
+uint8_t limit_rh_maxvalue=70;//湿度高限值
+uint8_t limit_rh_minvalue=50;
 
 
 

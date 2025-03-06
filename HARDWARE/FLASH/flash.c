@@ -33,34 +33,7 @@ void WriteFlashOneWord(uint32_t WriteAddress, uint32_t WriteData)
  *             data[]：      写入的数据首地址
  *             num：         写入数据的个数
  */
-void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num)
-{
-    uint32_t i = 0;
-    uint16_t temp = 0;
-    
-	FLASH_UnlockBank1();    //解锁flash
-    FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR); 
-    
-    FLASHStatus = 1;        //清空状态指示标志位
-    FLASHStatus = FLASH_ErasePage(STARTADDR);//擦除整页
-	if(FLASHStatus == FLASH_COMPLETE)//flash操作完成
-	{
-        FLASHStatus = 1;    //清空状态指示标志位
-        for(i=0; i<num; i++)
-        {
-            temp = (uint16_t)data[i];
-            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR+WriteAddress+i*2, temp);//写入数据
-        }
-		
-	}
-    
-    FLASHStatus = 1;    //清空状态指示标志位
-    
-	FLASH_LockBank1();  //锁定flash
-} 
-
-
-//void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num, uint16_t alarm_data[], uint32_t alarm_num)
+//void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num)
 //{
 //    uint32_t i = 0;
 //    uint16_t temp = 0;
@@ -78,11 +51,6 @@ void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num)
 //            temp = (uint16_t)data[i];
 //            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR+WriteAddress+i*2, temp);//写入数据
 //        }
-//		for(i=0; i<alarm_num; i++)
-//        {
-//            temp = (uint16_t)alarm_data[i];
-//            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR_ALARM+WriteAddress+i*2, temp);//写入数据
-//        }
 //		
 //	}
 //    
@@ -90,6 +58,43 @@ void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num)
 //    
 //	FLASH_LockBank1();  //锁定flash
 //} 
+
+
+void WriteFlashData(uint32_t WriteAddress, uint16_t data[], uint32_t num, uint16_t alarm_data[], uint32_t alarm_num, uint16_t hz_data[], uint32_t hz_num)
+{
+    uint32_t i = 0;
+    uint16_t temp = 0;
+    
+	FLASH_UnlockBank1();    //解锁flash
+    FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR); 
+    
+    FLASHStatus = 1;        //清空状态指示标志位
+    FLASHStatus = FLASH_ErasePage(STARTADDR);//擦除整页
+	if(FLASHStatus == FLASH_COMPLETE)//flash操作完成
+	{
+        FLASHStatus = 1;    //清空状态指示标志位
+        for(i=0; i<num; i++)
+        {
+            temp = (uint16_t)data[i];
+            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR+WriteAddress+i*2, temp);//写入数据
+        }
+		for(i=0; i<alarm_num; i++)
+        {
+            temp = (uint16_t)alarm_data[i];
+            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR_ALARM+WriteAddress+i*2, temp);//写入数据
+        }
+		for(i=0; i<hz_num; i++)
+        {
+            temp = (uint16_t)hz_data[i];
+            FLASHStatus = FLASH_ProgramHalfWord(STARTADDR_HZ+WriteAddress+i*2, temp);//写入数据
+        }
+		
+	}
+    
+    FLASHStatus = 1;    //清空状态指示标志位
+    
+	FLASH_LockBank1();  //锁定flash
+} 
 
 /*
  * Name:	    ReadFlashNBtye
