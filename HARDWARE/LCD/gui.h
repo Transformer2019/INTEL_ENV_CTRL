@@ -67,6 +67,14 @@ extern char imei_no[16];//
 
 extern Relay_Structure relay_structure[10];
 
+//控制模式选择时不进入设置缓存控制模式数组
+extern volatile u8 relay_mode_buf[10];
+
+//风机结构体缓存
+extern Relay_Structure relay_structure_temp[10];
+
+//保存风机编号
+extern volatile u8 last_index_save;
 
 //变频控制
 typedef struct {

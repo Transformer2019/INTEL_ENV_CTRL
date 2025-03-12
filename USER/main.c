@@ -153,69 +153,69 @@ int main(void)
 		Relay_Structure relay_structure_buffer[10];
 		
 		//读取flash固定位置的数据
-		ReadFlashData(0, (uint8_t *)relay_structure_buffer, 10*sizeof(Relay_Structure));
-		if(is_all_ff((uint8_t *)relay_structure_buffer, sizeof(relay_structure_buffer))) {
-			// 如果数组中的所有元素都是 0xFF
-			//printf("is 1all 0Xff\n");
-		}else{
-			// 如果数组中有元素不是 0xFF
-			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
-			if(relay_structure_buffer[0].relayNo==1&&relay_structure_buffer[1].relayNo==2&&relay_structure_buffer[2].relayNo==3&&relay_structure_buffer[3].relayNo==4
-				&&relay_structure_buffer[4].relayNo==5&&relay_structure_buffer[5].relayNo==6&&relay_structure_buffer[6].relayNo==7&&relay_structure_buffer[7].relayNo==8
-				&&relay_structure_buffer[8].relayNo==9&&relay_structure_buffer[9].relayNo==10)
-			{
-				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));			
-		    }
+//		ReadFlashData(0, (uint8_t *)relay_structure_buffer, 10*sizeof(Relay_Structure));
+//		if(is_all_ff((uint8_t *)relay_structure_buffer, sizeof(relay_structure_buffer))) {
+//			// 如果数组中的所有元素都是 0xFF
+//			//printf("is 1all 0Xff\n");
+//		}else{
+//			// 如果数组中有元素不是 0xFF
+//			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
+//			if(relay_structure_buffer[0].relayNo==1&&relay_structure_buffer[1].relayNo==2&&relay_structure_buffer[2].relayNo==3&&relay_structure_buffer[3].relayNo==4
+//				&&relay_structure_buffer[4].relayNo==5&&relay_structure_buffer[5].relayNo==6&&relay_structure_buffer[6].relayNo==7&&relay_structure_buffer[7].relayNo==8
+//				&&relay_structure_buffer[8].relayNo==9&&relay_structure_buffer[9].relayNo==10)
+//			{
+//				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));			
+//		    }
 
-		}
-		
-		uint8_t warn_data_buffer[19];
-		ReadFlashData(480, warn_data_buffer, sizeof(warn_data_buffer));
-		if(is_all_ff(warn_data_buffer, sizeof(warn_data_buffer))) {
-			// 如果数组中的所有元素都是 0xFF
-			//printf("is 2all 0Xff\n");
-		}else{
-			// 如果数组中有元素不是 0xFF
-			//memcpy(relay_structure, warn_data_buffer, sizeof(warn_data_buffer));
-			
-			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<60 && warn_data_buffer[8]<60 && warn_data_buffer[13]<60 & warn_data_buffer[14]<60 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
-			{
-				NH3_warn_flag=warn_data_buffer[0];
-				warn_temp1_flag=warn_data_buffer[1];
-				warn_temp2_flag=warn_data_buffer[2];
-				warn_temp3_flag=warn_data_buffer[3];
-				warn_temp485_flag=warn_data_buffer[4];
-				warn_rh_flag=warn_data_buffer[5];
-				NH3_max=warn_data_buffer[6];
-				limit_temp1_maxvalue=warn_data_buffer[7];
-				limit_temp1_minvalue=warn_data_buffer[8];
-				limit_temp2_maxvalue=warn_data_buffer[9];
-				limit_temp2_minvalue=warn_data_buffer[10];
-				limit_temp3_maxvalue=warn_data_buffer[11];
-				limit_temp3_minvalue=warn_data_buffer[12];
-				limit_temp485_maxvalue=warn_data_buffer[13];
-				limit_temp485_minvalue=warn_data_buffer[14];
-				limit_rh_maxvalue=warn_data_buffer[15];
-				limit_rh_minvalue=warn_data_buffer[16];
-			}
-			
-		}
-		
-		Hz_Control HZctrl_buffer;
-		Hz_Control *HZctrl_data_buffer=&HZctrl_buffer;
-		
-		ReadFlashData(512, (uint8_t *)HZctrl_data_buffer, sizeof(Hz_Control));
-		if(is_all_ff((uint8_t *)HZctrl_data_buffer, sizeof(HZctrl_data_buffer))) {
-			// 如果数组中的所有元素都是 0xFF
-			//printf("is 3all 0Xff\n");
-		}else{
-			// 如果数组中有元素不是 0xFF
-			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
-			if(hz_control.max_temp<60 && hz_control.min_temp<50 && hz_control.voltage_high<11 && hz_control.voltage_low<10 && hz_control.temp_choose<6)
-			{
-				memcpy(&hz_control, HZctrl_data_buffer, sizeof(Hz_Control));
-			}
-		}
+//		}
+//		
+//		uint8_t warn_data_buffer[19];
+//		ReadFlashData(480, warn_data_buffer, sizeof(warn_data_buffer));
+//		if(is_all_ff(warn_data_buffer, sizeof(warn_data_buffer))) {
+//			// 如果数组中的所有元素都是 0xFF
+//			//printf("is 2all 0Xff\n");
+//		}else{
+//			// 如果数组中有元素不是 0xFF
+//			//memcpy(relay_structure, warn_data_buffer, sizeof(warn_data_buffer));
+//			
+//			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<60 && warn_data_buffer[8]<60 && warn_data_buffer[13]<60 & warn_data_buffer[14]<60 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
+//			{
+//				NH3_warn_flag=warn_data_buffer[0];
+//				warn_temp1_flag=warn_data_buffer[1];
+//				warn_temp2_flag=warn_data_buffer[2];
+//				warn_temp3_flag=warn_data_buffer[3];
+//				warn_temp485_flag=warn_data_buffer[4];
+//				warn_rh_flag=warn_data_buffer[5];
+//				NH3_max=warn_data_buffer[6];
+//				limit_temp1_maxvalue=warn_data_buffer[7];
+//				limit_temp1_minvalue=warn_data_buffer[8];
+//				limit_temp2_maxvalue=warn_data_buffer[9];
+//				limit_temp2_minvalue=warn_data_buffer[10];
+//				limit_temp3_maxvalue=warn_data_buffer[11];
+//				limit_temp3_minvalue=warn_data_buffer[12];
+//				limit_temp485_maxvalue=warn_data_buffer[13];
+//				limit_temp485_minvalue=warn_data_buffer[14];
+//				limit_rh_maxvalue=warn_data_buffer[15];
+//				limit_rh_minvalue=warn_data_buffer[16];
+//			}
+//			
+//		}
+//		
+//		Hz_Control HZctrl_buffer;
+//		Hz_Control *HZctrl_data_buffer=&HZctrl_buffer;
+//		
+//		ReadFlashData(512, (uint8_t *)HZctrl_data_buffer, sizeof(Hz_Control));
+//		if(is_all_ff((uint8_t *)HZctrl_data_buffer, sizeof(HZctrl_data_buffer))) {
+//			// 如果数组中的所有元素都是 0xFF
+//			//printf("is 3all 0Xff\n");
+//		}else{
+//			// 如果数组中有元素不是 0xFF
+//			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
+//			if(hz_control.max_temp<60 && hz_control.min_temp<50 && hz_control.voltage_high<11 && hz_control.voltage_low<10 && hz_control.temp_choose<6)
+//			{
+//				memcpy(&hz_control, HZctrl_data_buffer, sizeof(Hz_Control));
+//			}
+//		}
 
 
 		
@@ -1220,13 +1220,13 @@ int main(void)
 		}//if(mqtt_flag)
 		
 		//关闭风机-常关
-		for(int i=0; i<10; i++){
-			if(relay_structure[i].relay_mode==0)relay_structure[i].on_off=0;
-		}
-		//开启风机-常开
-		for(int i=0; i<10; i++){
-			if(relay_structure[i].relay_mode==5)relay_structure[i].on_off=1;
-		}
+//		for(int i=0; i<10; i++){
+//			if(relay_structure[i].relay_mode==0)relay_structure[i].on_off=0;
+//		}
+//		//开启风机-常开
+//		for(int i=0; i<10; i++){
+//			if(relay_structure[i].relay_mode==5)relay_structure[i].on_off=1;
+//		}
 
 		if(TIM3_flag){
 		    /*定时器标志归零*/

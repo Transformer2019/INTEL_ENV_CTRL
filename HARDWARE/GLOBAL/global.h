@@ -14,6 +14,15 @@
 //	uint8_t on_off;
 //} relay_Time;
 
+
+//不使用结构体 mode=0
+typedef struct {
+	uint8_t all_open_or_close;
+} No_Ctrl;
+
+
+
+
 //分段控制结构体
 typedef struct {
 	uint8_t hour_start;
@@ -103,6 +112,7 @@ typedef struct {
     Time_Control  time_control;
 	//Time_Temp_Control  time_temp_control;
 	RelaySchedule  time_schedule;
+	No_Ctrl no_Ctrl;
 } Relay_Structure;
 
 
