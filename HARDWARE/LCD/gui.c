@@ -169,6 +169,7 @@ Main_Menu table[25]=
 	{_Iot_Child,_Iot_Child,_Iot_Child,_Iot_Child,_Iot_Option,Iot_Child},//11
     //{_RS485_Child,_RS485_Child,_RS485_Child,_RS485_Child,_RS485_Option,RS485_Child},//11
 
+#if (ROAD_COUNT==10)
 	//风机1-10
 	{_Air_Blower_Child_1,_Air_Blower_Child_10,_Air_Blower_Child_2,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},//12
 	{_Air_Blower_Child_2,_Air_Blower_Child_1,_Air_Blower_Child_3,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
@@ -180,11 +181,33 @@ Main_Menu table[25]=
 	{_Air_Blower_Child_8,_Air_Blower_Child_7,_Air_Blower_Child_9,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
 	{_Air_Blower_Child_9,_Air_Blower_Child_8,_Air_Blower_Child_10,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
 	{_Air_Blower_Child_10,_Air_Blower_Child_9,_Air_Blower_Child_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},//21
+#endif 	
 	
-	{_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_1,Air_Blower_Child_Ctrl_1_Fun},//22
+#if (ROAD_COUNT==8)
+	//风机1-10
+	{_Air_Blower_Child_1,_Air_Blower_Child_8,_Air_Blower_Child_2,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},//12
+	{_Air_Blower_Child_2,_Air_Blower_Child_1,_Air_Blower_Child_3,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_3,_Air_Blower_Child_2,_Air_Blower_Child_4,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_4,_Air_Blower_Child_3,_Air_Blower_Child_5,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_5,_Air_Blower_Child_4,_Air_Blower_Child_6,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_6,_Air_Blower_Child_5,_Air_Blower_Child_7,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_7,_Air_Blower_Child_6,_Air_Blower_Child_8,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_8,_Air_Blower_Child_7,_Air_Blower_Child_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+#endif 	
+
+#if (ROAD_COUNT==4)
+	//风机1-10
+	{_Air_Blower_Child_1,_Air_Blower_Child_4,_Air_Blower_Child_2,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},//12
+	{_Air_Blower_Child_2,_Air_Blower_Child_1,_Air_Blower_Child_3,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_3,_Air_Blower_Child_2,_Air_Blower_Child_4,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+	{_Air_Blower_Child_4,_Air_Blower_Child_3,_Air_Blower_Child_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Option,Air_Blower_Child_Ctrl},
+#endif 
 	
+	
+	{_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_Ctrl_1,_Air_Blower_Child_1,Air_Blower_Child_Ctrl_1_Fun},//10-22 8-20 4-16
+	 
 	//主界面返回
-	{_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_UI,Main_Back_UI}//23
+	{_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_Back_UI,_Main_UI,Main_Back_UI}//10-23 8-21 4-17
 	
 };
 
@@ -246,9 +269,6 @@ uint8_t GUI_Refresh(void)
 		if(func_index == 1 && last_index == 0){LCD_Clear(BLACK);}//从主页进入主菜单
 		if(func_index == 12 && last_index == 1){LCD_Clear_upper_tail(BLACK);}//从主菜单进入风机一
 		
-		if(func_index == 23 && last_index == 0){LCD_Clear(HOME_BACK);}
-		if(func_index == 0 && last_index == 23){LCD_Clear(HOME_BACK);}
-		
 		if(func_index == 7 && last_index == 2){LCD_Clear_upper_tail(BLACK);}//从主菜单进入变频控制
 		if(func_index == 2 && last_index == 7){LCD_Clear_upper_tail(BLACK);}//从变频控制返回主菜单
 		
@@ -264,6 +284,7 @@ uint8_t GUI_Refresh(void)
 		if(func_index == 11 && last_index == 6){LCD_Clear_upper_tail(BLACK);}//从主菜单进入智能物联
 		if(func_index == 6 && last_index == 11){LCD_Clear_upper_tail(BLACK);}//从智能物联返回主菜单
 		
+		#if (ROAD_COUNT==10)
 		if(func_index == 1 && last_index == 12){LCD_Clear_upper_tail(BLACK);}
 		if(func_index == 1 && last_index == 13){LCD_Clear_upper_tail(BLACK);}
 		if(func_index == 1 && last_index == 14){LCD_Clear_upper_tail(BLACK);}
@@ -274,12 +295,34 @@ uint8_t GUI_Refresh(void)
 		if(func_index == 1 && last_index == 19){LCD_Clear_upper_tail(BLACK);}
 		if(func_index == 1 && last_index == 20){LCD_Clear_upper_tail(BLACK);}
 		if(func_index == 1 && last_index == 21){LCD_Clear_upper_tail(BLACK);}
+		#endif
 		
+		#if (ROAD_COUNT==8)
+		if(func_index == 1 && last_index == 12){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 13){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 14){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 15){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 16){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 17){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 18){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 19){LCD_Clear_upper_tail(BLACK);}
+		#endif
 		
+		#if (ROAD_COUNT==4)
+		if(func_index == 1 && last_index == 12){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 13){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 14){LCD_Clear_upper_tail(BLACK);}
+		if(func_index == 1 && last_index == 15){LCD_Clear_upper_tail(BLACK);}
+		#endif
 		
-        if(func_index == 22 && (last_index == 12||last_index == 13||last_index == 14||last_index == 15||last_index == 16||last_index == 17||last_index == 18||last_index == 19||last_index == 20||last_index == 21))
-		{LCD_Clear_upper_tail(BLACK);}//从风机一控制类型进入
-		if((func_index == 12||func_index == 13||func_index == 14||func_index == 15||func_index == 16||func_index == 17||func_index == 18||func_index == 19||func_index == 20||func_index == 21) && last_index == 22){LCD_Clear_upper_tail(BLACK);
+		if(func_index == (23-(10-ROAD_COUNT)) && last_index == 0){LCD_Clear(HOME_BACK);}
+		if(func_index == 0 && last_index == (23-(10-ROAD_COUNT))){LCD_Clear(HOME_BACK);}
+		
+		#if (ROAD_COUNT==10)
+        if(func_index == (22-(10-ROAD_COUNT)) && (last_index == 12||last_index == 13||last_index == 14||last_index == 15||last_index == 16||last_index == 17||last_index == 18||last_index == 19||last_index == 20||last_index == 21)){LCD_Clear_upper_tail(BLACK);}//从风机一控制类型进入
+		if((func_index == 12||func_index == 13||func_index == 14||func_index == 15||func_index == 16||func_index == 17||func_index == 18||func_index == 19||func_index == 20||func_index == 21) && last_index == (22-(10-ROAD_COUNT)))
+		{
+			LCD_Clear_upper_tail(BLACK);
 			enter_config_flag_1=0;fresh_flag_1=0;
 			enter_config_flag_2=0;fresh_flag_2=0;
 			enter_config_flag_3=0;fresh_flag_3=0;
@@ -290,8 +333,47 @@ uint8_t GUI_Refresh(void)
 			enter_config_flag_8=0;fresh_flag_8=0;
 			enter_config_flag_9=0;fresh_flag_9=0;
 			enter_config_flag_10=0;fresh_flag_10=0;
-		cur_pos1=1;cur_pos2=1;cur_pos3=1;cur_pos4=1;}//刷新带清除进入配置界面标志,清除刷新标志
-
+			cur_pos1=1;cur_pos2=1;cur_pos3=1;cur_pos4=1;
+		}//刷新带清除进入配置界面标志,清除刷新标志
+		#endif
+		
+		#if (ROAD_COUNT==8)
+        if(func_index == (22-(10-ROAD_COUNT)) && (last_index == 12||last_index == 13||last_index == 14||last_index == 15||last_index == 16||last_index == 17||last_index == 18||last_index == 19)){LCD_Clear_upper_tail(BLACK);}//从风机一控制类型进入
+		if((func_index == 12||func_index == 13||func_index == 14||func_index == 15||func_index == 16||func_index == 17||func_index == 18||func_index == 19) && last_index == (22-(10-ROAD_COUNT)))
+		{
+			LCD_Clear_upper_tail(BLACK);
+			enter_config_flag_1=0;fresh_flag_1=0;
+			enter_config_flag_2=0;fresh_flag_2=0;
+			enter_config_flag_3=0;fresh_flag_3=0;
+			enter_config_flag_4=0;fresh_flag_4=0;
+			enter_config_flag_5=0;fresh_flag_5=0;
+		    enter_config_flag_6=0;fresh_flag_6=0;
+			enter_config_flag_7=0;fresh_flag_7=0;
+			enter_config_flag_8=0;fresh_flag_8=0;
+			enter_config_flag_9=0;fresh_flag_9=0;
+			enter_config_flag_10=0;fresh_flag_10=0;
+			cur_pos1=1;cur_pos2=1;cur_pos3=1;cur_pos4=1;
+		}//刷新带清除进入配置界面标志,清除刷新标志
+		#endif
+		
+		#if (ROAD_COUNT==4)
+        if(func_index == (22-(10-ROAD_COUNT)) && (last_index == 12||last_index == 13||last_index == 14||last_index == 15)){LCD_Clear_upper_tail(BLACK);}//从风机一控制类型进入
+		if((func_index == 12||func_index == 13||func_index == 14||func_index == 15) && last_index == (22-(10-ROAD_COUNT)))
+		{
+			LCD_Clear_upper_tail(BLACK);
+			enter_config_flag_1=0;fresh_flag_1=0;
+			enter_config_flag_2=0;fresh_flag_2=0;
+			enter_config_flag_3=0;fresh_flag_3=0;
+			enter_config_flag_4=0;fresh_flag_4=0;
+			enter_config_flag_5=0;fresh_flag_5=0;
+		    enter_config_flag_6=0;fresh_flag_6=0;
+			enter_config_flag_7=0;fresh_flag_7=0;
+			enter_config_flag_8=0;fresh_flag_8=0;
+			enter_config_flag_9=0;fresh_flag_9=0;
+			enter_config_flag_10=0;fresh_flag_10=0;
+			cur_pos1=1;cur_pos2=1;cur_pos3=1;cur_pos4=1;
+		}//刷新带清除进入配置界面标志,清除刷新标志
+		#endif
 		
 //		if(1){
 
@@ -316,12 +398,13 @@ uint8_t GUI_Refresh(void)
 				LCD_Fill(0,lcddev.height-32,lcddev.width,lcddev.height,WHITE);
 			}
 
-			if(func_index == 22){
+			if(func_index == (22-(10-ROAD_COUNT))){
 				LCD_Fill(0,0,176,31,WHITE);
 				LCD_Fill(304,0,480,31,WHITE);
 				showhanzi(0,35,10);showhanzi(32,35,11);showhanzi(64,35,36);showhanzi(96,35,37);showhanzi(128,35,44);//控制类型：
 				LCD_Fill(0,lcddev.height-32,lcddev.width,lcddev.height,WHITE);
 				switch(last_index){
+					#if (ROAD_COUNT==10)
 					case 12://风机1号
 						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,26,1); showhanzi_1(273,0,27,1);
 						break;
@@ -356,6 +439,49 @@ uint8_t GUI_Refresh(void)
 						showdigit_color(257,0,0,BLACK,WHITE);
 						showhanzi_1(273,0,27,1);
 						break;
+					#endif
+					
+					#if (ROAD_COUNT==8)
+					case 12://风机1号
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,26,1); showhanzi_1(273,0,27,1);
+						break;
+					case 13:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,28,1); showhanzi_1(273,0,27,1);
+						break;
+					case 14:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,29,1); showhanzi_1(273,0,27,1);
+						break;
+					case 15:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,30,1); showhanzi_1(273,0,27,1);
+						break;
+					case 16:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,31,1); showhanzi_1(273,0,27,1);
+						break;
+					case 17:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,32,1); showhanzi_1(273,0,27,1);
+						break;
+					case 18:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,33,1); showhanzi_1(273,0,27,1);
+						break;
+					case 19:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,34,1); showhanzi_1(273,0,27,1);
+						break;
+					#endif
+					
+					#if (ROAD_COUNT==4)
+					case 12://风机1号
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,26,1); showhanzi_1(273,0,27,1);
+						break;
+					case 13:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,28,1); showhanzi_1(273,0,27,1);
+						break;
+					case 14:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,29,1); showhanzi_1(273,0,27,1);
+						break;
+					case 15:
+						showhanzi_1(177,0,6,1);  showhanzi_1(209,0,7,1); showhanzi_1(241,0,30,1); showhanzi_1(273,0,27,1);
+						break;
+					#endif
 					default:break;				
 				
 				}
@@ -1222,6 +1348,10 @@ void Main_UI(u8 page_index,u8 key_val)
 		showdigit_color(459,160,17,UNDET,HOME_BACK);
 	}
 
+
+	
+	#if (ROAD_COUNT==10)
+	
 	//根据relay_structure[10]数组判断风机1-10的开关状态
 	showhanzi_color(12,288,78,WHITE,HOME_BACK);
 	showhanzi_color(59,288,79,WHITE,HOME_BACK);
@@ -1233,8 +1363,6 @@ void Main_UI(u8 page_index,u8 key_val)
 	showhanzi_color(341,288,85,WHITE,HOME_BACK);
 	showhanzi_color(388,288,86,WHITE,HOME_BACK);
 	showhanzi_color(435,288,87,WHITE,HOME_BACK);
-
-	//relay_structure[0].on_off 
 	if(relay_Control[1] & 0x80){
 		if(ctrl_ui==0)Gui_Drawbmp16(12,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(12,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(12,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(12,253,gImage_4);
 	}else Gui_Drawbmp16(12,253,gImage_1);
@@ -1266,8 +1394,64 @@ void Main_UI(u8 page_index,u8 key_val)
 	if(relay_Control[0] & 0x20){
 		if(ctrl_ui==0)Gui_Drawbmp16(435,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(435,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(435,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(435,253,gImage_4);
 	}else Gui_Drawbmp16(435,253,gImage_1);
-
+	#endif
 	
+	#if (ROAD_COUNT==8)
+	//根据relay_structure[10]数组判断风机1-10的开关状态
+	showhanzi_color(21,288,78,WHITE,HOME_BACK);
+	showhanzi_color(79,288,79,WHITE,HOME_BACK);
+	showhanzi_color(137,288,80,WHITE,HOME_BACK);
+	showhanzi_color(195,288,81,WHITE,HOME_BACK);
+	showhanzi_color(253,288,82,WHITE,HOME_BACK);
+	showhanzi_color(311,288,83,WHITE,HOME_BACK);
+	showhanzi_color(369,288,84,WHITE,HOME_BACK);
+	showhanzi_color(427,288,85,WHITE,HOME_BACK);
+	if(relay_Control[1] & 0x80){
+		if(ctrl_ui==0)Gui_Drawbmp16(21,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(21,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(21,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(21,253,gImage_4);
+	}else Gui_Drawbmp16(21,253,gImage_1);
+	if(relay_Control[1] & 0x40){
+		if(ctrl_ui==0)Gui_Drawbmp16(79,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(79,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(79,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(79,253,gImage_4);
+	}else Gui_Drawbmp16(79,253,gImage_1);
+	if(relay_Control[1] & 0x20){
+		if(ctrl_ui==0)Gui_Drawbmp16(137,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(137,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(137,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(137,253,gImage_4);
+	}else Gui_Drawbmp16(137,253,gImage_1);
+	if(relay_Control[1] & 0x10){
+		if(ctrl_ui==0)Gui_Drawbmp16(195,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(195,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(195,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(195,253,gImage_4);
+	}else Gui_Drawbmp16(195,253,gImage_1);
+	if(relay_Control[1] & 0x08){
+		if(ctrl_ui==0)Gui_Drawbmp16(253,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(253,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(253,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(253,253,gImage_4);
+	}else Gui_Drawbmp16(253,253,gImage_1);
+	if(relay_Control[1] & 0x04){
+		if(ctrl_ui==0)Gui_Drawbmp16(311,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(311,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(311,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(311,253,gImage_4);
+	}else Gui_Drawbmp16(311,253,gImage_1);
+	if(relay_Control[1] & 0x02){
+		if(ctrl_ui==0)Gui_Drawbmp16(369,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(369,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(369,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(369,253,gImage_4);
+	}else Gui_Drawbmp16(369,253,gImage_1);
+	if(relay_Control[0] & 0x80){
+		if(ctrl_ui==0)Gui_Drawbmp16(427,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(427,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(427,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(427,253,gImage_4);
+	}else Gui_Drawbmp16(427,253,gImage_1);
+	#endif
+	
+	
+	#if (ROAD_COUNT==4)
+	//根据relay_structure[10]数组判断风机1-10的开关状态
+	showhanzi_color(18,288,78,WHITE,HOME_BACK);
+	showhanzi_color(155,288,79,WHITE,HOME_BACK);
+	showhanzi_color(292,288,80,WHITE,HOME_BACK);
+	showhanzi_color(429,288,81,WHITE,HOME_BACK);
+	if(relay_Control[1] & 0x80){
+		if(ctrl_ui==0)Gui_Drawbmp16(18,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(18,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(18,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(18,253,gImage_4);
+	}else Gui_Drawbmp16(18,253,gImage_1);
+	if(relay_Control[1] & 0x40){
+		if(ctrl_ui==0)Gui_Drawbmp16(155,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(155,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(155,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(155,253,gImage_4);
+	}else Gui_Drawbmp16(155,253,gImage_1);
+	if(relay_Control[1] & 0x20){
+		if(ctrl_ui==0)Gui_Drawbmp16(292,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(292,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(292,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(292,253,gImage_4);
+	}else Gui_Drawbmp16(292,253,gImage_1);
+	if(relay_Control[1] & 0x10){
+		if(ctrl_ui==0)Gui_Drawbmp16(429,253,gImage_1);if(ctrl_ui==1)Gui_Drawbmp16(429,253,gImage_2);if(ctrl_ui==2)Gui_Drawbmp16(429,253,gImage_3);if(ctrl_ui==3)Gui_Drawbmp16(429,253,gImage_4);
+	}else Gui_Drawbmp16(429,253,gImage_1);
+	#endif
 }
 #endif
 
@@ -2057,7 +2241,9 @@ void Iot_Child(u8 page_index,u8 key_val){
 
 
 void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
+
 	
+	#if (ROAD_COUNT==10)
 	if(page_index!=_Air_Blower_Child_1){showhanzi(6,36,6);showhanzi(38,36,7);showhanzi(70,36,26);showhanzi(102,36,27); }
 	if(page_index!=_Air_Blower_Child_2){showhanzi(6,72,6);showhanzi(38,72,7);showhanzi(70,72,28);showhanzi(102,72,27); }
 	if(page_index!=_Air_Blower_Child_3){showhanzi(6,108,6);showhanzi(38,108,7);showhanzi(70,108,29);showhanzi(102,108,27);}
@@ -2068,10 +2254,29 @@ void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
 	if(page_index!=_Air_Blower_Child_8){showhanzi(346,108,6);showhanzi(378,108,7);showhanzi(410,108,34);showhanzi(442,108,27);}
 	if(page_index!=_Air_Blower_Child_9){showhanzi(346,144,6);showhanzi(378,144,7);showhanzi(410,144,35);showhanzi(442,144,27);  }
 	if(page_index!=_Air_Blower_Child_10){showhanzi(346,180,6);showhanzi(378,180,7);showdigit_color(410,180,1,WHITE,BLACK);showdigit_color(426,180,0,WHITE,BLACK);showhanzi(442,180,27); }
+	#endif
 	
+	#if (ROAD_COUNT==8)
+	if(page_index!=_Air_Blower_Child_1){showhanzi(11,51,6);showhanzi(43,51,7);showhanzi(75,51,26);showhanzi(107,51,27); }
+	if(page_index!=_Air_Blower_Child_2){showhanzi(11,113,6);showhanzi(43,113,7);showhanzi(75,113,28);showhanzi(107,113,27); }
+	if(page_index!=_Air_Blower_Child_3){showhanzi(11,175,6);showhanzi(43,175,7);showhanzi(75,175,29);showhanzi(107,175,27);}
+	if(page_index!=_Air_Blower_Child_4){showhanzi(11,237,6);showhanzi(43,237,7);showhanzi(75,237,30);showhanzi(107,237,27); }
+	if(page_index!=_Air_Blower_Child_5){showhanzi(340,51,6);showhanzi(372,51,7);showhanzi(404,51,31);showhanzi(436,51,27); }
+	if(page_index!=_Air_Blower_Child_6){showhanzi(340,113,6);showhanzi(372,113,7);showhanzi(404,113,32);showhanzi(436,113,27);}
+	if(page_index!=_Air_Blower_Child_7){showhanzi(340,175,6);showhanzi(372,175,7);showhanzi(404,175,33);showhanzi(436,175,27);  }
+	if(page_index!=_Air_Blower_Child_8){showhanzi(340,237,6);showhanzi(372,237,7);showhanzi(404,237,34);showhanzi(436,237,27);}
+	#endif
+	
+	#if (ROAD_COUNT==4)
+	if(page_index!=_Air_Blower_Child_1){showhanzi(176,51,6);showhanzi(208,51,7);showhanzi(240,51,26);showhanzi(272,51,27); }
+	if(page_index!=_Air_Blower_Child_2){showhanzi(176,113,6);showhanzi(208,113,7);showhanzi(240,113,28);showhanzi(272,113,27); }
+	if(page_index!=_Air_Blower_Child_3){showhanzi(176,175,6);showhanzi(208,175,7);showhanzi(240,175,29);showhanzi(272,175,27);}
+	if(page_index!=_Air_Blower_Child_4){showhanzi(176,237,6);showhanzi(208,237,7);showhanzi(240,237,30);showhanzi(272,237,27); }
+	#endif
 
 	switch(page_index)
 	{
+		#if (ROAD_COUNT==10)
 		case _Air_Blower_Child_1://显示风机1
 			showhanzi_1(6,36,6,1);showhanzi_1(38,36,7,1);showhanzi_1(70,36,26,1);showhanzi_1(102,36,27,1); 
 			break;
@@ -2102,6 +2307,49 @@ void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
 		case _Air_Blower_Child_10://显示风机
 			showhanzi_1(346,180,6,1);showhanzi_1(378,180,7,1);showdigit_color(410,180,1,BLACK,WHITE);showdigit_color(426,180,0,BLACK,WHITE);showhanzi_1(442,180,27,1); 
 			break;
+		#endif
+		
+		#if (ROAD_COUNT==8)
+		case _Air_Blower_Child_1://显示风机1
+			showhanzi_1(11,51,6,1);showhanzi_1(43,51,7,1);showhanzi_1(75,51,26,1);showhanzi_1(107,51,27,1); 
+			break;
+		case _Air_Blower_Child_2://显示风机2
+			showhanzi_1(11,113,6,1);showhanzi_1(43,113,7,1);showhanzi_1(75,113,28,1);showhanzi_1(107,113,27,1);  
+			break;
+		case _Air_Blower_Child_3://显示风机3
+			showhanzi_1(11,175,6,1);showhanzi_1(43,175,7,1);showhanzi_1(75,175,29,1);showhanzi_1(107,175,27,1);
+			break;
+		case _Air_Blower_Child_4://显示风机
+			showhanzi_1(11,237,6,1);showhanzi_1(43,237,7,1);showhanzi_1(75,237,30,1);showhanzi_1(107,237,27,1);  
+			break;
+		case _Air_Blower_Child_5://显示风机
+			showhanzi_1(340,51,6,1);showhanzi_1(372,51,7,1);showhanzi_1(404,51,31,1);showhanzi_1(436,15,27,1); 
+			break;
+		case _Air_Blower_Child_6://显示风机
+			showhanzi_1(340,113,6,1);showhanzi_1(372,113,7,1);showhanzi_1(404,113,32,1);showhanzi_1(436,113,27,1);  
+			break;
+		case _Air_Blower_Child_7://显示风机
+			showhanzi_1(340,175,6,1);showhanzi_1(372,175,7,1);showhanzi_1(404,175,33,1);showhanzi_1(436,175,27,1);  
+			break;
+		case _Air_Blower_Child_8://显示风机8
+			showhanzi_1(340,237,6,1);showhanzi_1(372,237,7,1);showhanzi_1(404,237,34,1);showhanzi_1(436,237,27,1);
+			break;
+		#endif
+		
+		#if (ROAD_COUNT==4)
+		case _Air_Blower_Child_1://显示风机1
+			showhanzi_1(176,51,6,1);showhanzi_1(208,51,7,1);showhanzi_1(240,51,26,1);showhanzi_1(272,51,27,1); 
+			break;
+		case _Air_Blower_Child_2://显示风机2
+			showhanzi_1(176,113,6,1);showhanzi_1(208,113,7,1);showhanzi_1(240,113,28,1);showhanzi_1(272,113,27,1);  
+			break;
+		case _Air_Blower_Child_3://显示风机3
+			showhanzi_1(176,175,6,1);showhanzi_1(208,175,7,1);showhanzi_1(240,175,29,1);showhanzi_1(272,175,27,1);
+			break;
+		case _Air_Blower_Child_4://显示风机4
+			showhanzi_1(176,237,6,1);showhanzi_1(208,237,7,1);showhanzi_1(240,237,30,1);showhanzi_1(272,237,27,1);  
+			break;
+		#endif
 		default:break;		
 	}
 }
@@ -2133,16 +2381,21 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 //		printf("func_index:%d\n",func_index);
 
 	
-	if(last_index!=_Air_Blower_Child_1 && 
-	   last_index!=_Air_Blower_Child_2 &&
-	   last_index!=_Air_Blower_Child_3 &&
-	   last_index!=_Air_Blower_Child_4 &&
-	   last_index!=_Air_Blower_Child_5 &&
-	   last_index!=_Air_Blower_Child_6 &&
-	   last_index!=_Air_Blower_Child_7 &&
-	   last_index!=_Air_Blower_Child_8 &&
-	   last_index!=_Air_Blower_Child_9 &&
+	if(
+	   #if (ROAD_COUNT==10)
+	   last_index!=_Air_Blower_Child_1 && last_index!=_Air_Blower_Child_2 && last_index!=_Air_Blower_Child_3 &&
+	   last_index!=_Air_Blower_Child_4 && last_index!=_Air_Blower_Child_5 && last_index!=_Air_Blower_Child_6 &&
+	   last_index!=_Air_Blower_Child_7 && last_index!=_Air_Blower_Child_8 && last_index!=_Air_Blower_Child_9 &&
 	   last_index!=_Air_Blower_Child_10
+	   #endif
+	   #if (ROAD_COUNT==8)
+	   last_index!=_Air_Blower_Child_1 && last_index!=_Air_Blower_Child_2 && last_index!=_Air_Blower_Child_3 &&
+	   last_index!=_Air_Blower_Child_4 && last_index!=_Air_Blower_Child_5 && last_index!=_Air_Blower_Child_6 &&
+	   last_index!=_Air_Blower_Child_7 && last_index!=_Air_Blower_Child_8
+	   #endif
+	   #if (ROAD_COUNT==4)
+	   last_index!=_Air_Blower_Child_1 && last_index!=_Air_Blower_Child_2 && last_index!=_Air_Blower_Child_3 && last_index!=_Air_Blower_Child_4
+	   #endif
 	  )//判断是否是s第一次进入此界面
 	{
 
@@ -2243,7 +2496,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				
 					break;			
 			case KEY_ENTER://确定(设置)按键
-				
+				#if(ROAD_COUNT==10)
 				if(last_index_save-12==0){enter_config_flag_1 += 1;}
 				if(last_index_save-12==1){enter_config_flag_2 += 1;}
 				if(last_index_save-12==2){enter_config_flag_3 += 1;}
@@ -2254,6 +2507,23 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				if(last_index_save-12==7){enter_config_flag_8 += 1;}
 				if(last_index_save-12==8){enter_config_flag_9 += 1;}
 				if(last_index_save-12==9){enter_config_flag_10 += 1;}
+				#endif
+				#if(ROAD_COUNT==8)
+				if(last_index_save-12==0){enter_config_flag_1 += 1;}
+				if(last_index_save-12==1){enter_config_flag_2 += 1;}
+				if(last_index_save-12==2){enter_config_flag_3 += 1;}
+				if(last_index_save-12==3){enter_config_flag_4 += 1;}
+				if(last_index_save-12==4){enter_config_flag_5 += 1;}
+				if(last_index_save-12==5){enter_config_flag_6 += 1;}
+				if(last_index_save-12==6){enter_config_flag_7 += 1;}
+				if(last_index_save-12==7){enter_config_flag_8 += 1;}
+				#endif
+				#if(ROAD_COUNT==4)
+				if(last_index_save-12==0){enter_config_flag_1 += 1;}
+				if(last_index_save-12==1){enter_config_flag_2 += 1;}
+				if(last_index_save-12==2){enter_config_flag_3 += 1;}
+				if(last_index_save-12==3){enter_config_flag_4 += 1;}
+				#endif
 				relay_structure_temp[last_index_save-12].relay_mode=relay_mode_buf[last_index_save-12];
 				
 				//printf("%d\n---",enter_config_flag_1);

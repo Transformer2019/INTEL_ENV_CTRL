@@ -14,6 +14,9 @@
 //主页时间显示颜色
 #define HOME_Page_time 2 // 1:白色 2：绿色
 
+//几路风机 8-8路  4-4路 10-10路
+#define ROAD_COUNT 8
+
 extern uint8_t ctrl_ui;
 
 extern uint8_t network_flag;
@@ -139,7 +142,9 @@ enum
 	_Data_Change_Child,
 	_Iot_Child,
 	//_RS485_Child,
+
 	
+#if (ROAD_COUNT==10)
 	_Air_Blower_Child_1,
 	_Air_Blower_Child_2,
 	_Air_Blower_Child_3,
@@ -150,6 +155,30 @@ enum
 	_Air_Blower_Child_8,
 	_Air_Blower_Child_9,
 	_Air_Blower_Child_10,
+#endif
+	
+#if (ROAD_COUNT==8)
+	_Air_Blower_Child_1,//12
+	_Air_Blower_Child_2,
+	_Air_Blower_Child_3,
+	_Air_Blower_Child_4,
+	_Air_Blower_Child_5,
+	_Air_Blower_Child_6,
+	_Air_Blower_Child_7,
+	_Air_Blower_Child_8,//19
+//	_Air_Blower_Child_9,
+//	_Air_Blower_Child_10,
+#endif
+
+#if (ROAD_COUNT==4)
+	_Air_Blower_Child_1,
+	_Air_Blower_Child_2,
+	_Air_Blower_Child_3,
+	_Air_Blower_Child_4,
+
+#endif
+
+
 	
 	_Air_Blower_Child_Ctrl_1,
 	

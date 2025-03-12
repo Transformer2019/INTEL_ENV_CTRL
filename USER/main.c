@@ -353,7 +353,7 @@ int main(void)
 		static uint32_t current_time = 0;
 
         // 仅当未完成所有继电器操作时执行
-        if (current_relay < 10) {
+        if (current_relay < ROAD_COUNT) {
             // 检查是否到达操作时间
             if (current_time >= next_action_time && relay_structure[current_relay].on_off) {
 				
@@ -371,12 +371,12 @@ int main(void)
 			if(relay_structure[current_relay].on_off==0)current_relay++;
         }
 		//
-		if (current_relay >= 10){current_relay=0;current_time=0;next_action_time=0;}
+		if (current_relay >= ROAD_COUNT){current_relay=0;current_time=0;next_action_time=0;}
 		//关闭风机时，不间隔时间
 		static u8 count_595 = 0;
 		if(count_595%8==0){
 			//风机
-			for(int i =0; i<10; i++){
+			for(int i =0; i<ROAD_COUNT; i++){
 				if(relay_structure[i].on_off==0)update_relay_control(i,0);
 			}
 			//报警继电器
@@ -1234,7 +1234,7 @@ int main(void)
 		}//if(mqtt_flag)
 		
 		//关闭风机-常关   开启风机-常开
-		for(int i=0; i<10; i++){
+		for(int i=0; i<ROAD_COUNT; i++){
 			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;
 			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==1)relay_structure[i].on_off=1;
 		}
@@ -1440,10 +1440,24 @@ int main(void)
 			TIM4_Counter_10s=0;
 			//实时发送采集数据
 			char send_data_collect[20] ="";
+			#if(ROAD_COUNT==10)
 			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,relay_structure[8].on_off,relay_structure[9].on_off,
 			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
+			#endif
+			#if(ROAD_COUNT==8)
+			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
+			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,
+			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
+			u16 data_collect_len = strlen(send_data_collect);
+			#endif
+			#if(ROAD_COUNT==4)
+			sprintf(send_data_collect,"%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
+			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,
+			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
+			u16 data_collect_len = strlen(send_data_collect);
+			#endif
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",1,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
 			UART3_RxCounter = 0; //重新等待接收下一个推送消息
 			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0

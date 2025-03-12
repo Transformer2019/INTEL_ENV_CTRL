@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Model_c8t6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Model_c8t6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Mar 11 18:19:40 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Mar 12 16:45:59 2025
 <BR><P>
 <H3>Maximum Stack Usage =          0 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -22,7 +22,7 @@ Mutually Recursive functions
 Function Pointers
 </H3><UL>
  <LI><a href="#[2b]">ADC1_2_IRQHandler</a> from startup_stm32f10x_md.o(.text) referenced from startup_stm32f10x_md.o(RESET)
- <LI><a href="#[a]">Air_Blower_Child_Ctrl</a> from gui.o(i.Air_Blower_Child_Ctrl) referenced 20 times from gui.o(.data)
+ <LI><a href="#[a]">Air_Blower_Child_Ctrl</a> from gui.o(i.Air_Blower_Child_Ctrl) referenced 16 times from gui.o(.data)
  <LI><a href="#[b]">Air_Blower_Child_Ctrl_1_Fun</a> from gui.o(i.Air_Blower_Child_Ctrl_1_Fun) referenced 2 times from gui.o(.data)
  <LI><a href="#[6]">Alarm_Child</a> from gui.o(i.Alarm_Child) referenced 2 times from gui.o(.data)
  <LI><a href="#[13]">BusFault_Handler</a> from stm32f10x_it.o(i.BusFault_Handler) referenced from startup_stm32f10x_md.o(RESET)
@@ -241,7 +241,7 @@ Global Symbols
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
-<P><STRONG><a name="[8a]"></a>__aeabi_memcpy</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, memmovea.o(.text))
+<P><STRONG><a name="[89]"></a>__aeabi_memcpy</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, memmovea.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Refresh
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -725,27 +725,26 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Configuration
 </UL>
 
-<P><STRONG><a name="[a]"></a>Air_Blower_Child_Ctrl</STRONG> (Thumb, 1114 bytes, Stack size 0 bytes, gui.o(i.Air_Blower_Child_Ctrl))
-<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<P><STRONG><a name="[a]"></a>Air_Blower_Child_Ctrl</STRONG> (Thumb, 852 bytes, Stack size 0 bytes, gui.o(i.Air_Blower_Child_Ctrl))
+<BR><BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
-<P><STRONG><a name="[b]"></a>Air_Blower_Child_Ctrl_1_Fun</STRONG> (Thumb, 24768 bytes, Stack size 0 bytes, gui.o(i.Air_Blower_Child_Ctrl_1_Fun))
+<P><STRONG><a name="[b]"></a>Air_Blower_Child_Ctrl_1_Fun</STRONG> (Thumb, 24704 bytes, Stack size 0 bytes, gui.o(i.Air_Blower_Child_Ctrl_1_Fun))
 <BR><BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
 <P><STRONG><a name="[6]"></a>Alarm_Child</STRONG> (Thumb, 4036 bytes, Stack size 0 bytes, gui.o(i.Alarm_Child))
-<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<BR><BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
@@ -808,7 +807,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
@@ -896,14 +895,13 @@ Global Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HC595_CS
 </UL>
 
-<P><STRONG><a name="[9f]"></a>GUI_Refresh</STRONG> (Thumb, 2832 bytes, Stack size 0 bytes, gui.o(i.GUI_Refresh))
+<P><STRONG><a name="[9f]"></a>GUI_Refresh</STRONG> (Thumb, 2590 bytes, Stack size 0 bytes, gui.o(i.GUI_Refresh))
 <BR><BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_KEY_Value
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear_upper_tail
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fresh_page
@@ -969,9 +967,9 @@ Global Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
@@ -1019,7 +1017,7 @@ Global Symbols
 
 <P><STRONG><a name="[9]"></a>Iot_Child</STRONG> (Thumb, 188 bytes, Stack size 0 bytes, gui.o(i.Iot_Child))
 <BR><BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
@@ -1101,9 +1099,9 @@ Global Symbols
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowChar
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_4g
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear_upper_tail
@@ -1159,9 +1157,9 @@ Global Symbols
 <P><STRONG><a name="[a8]"></a>Lcd_WriteData_16Bit</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, lcd.o(i.Lcd_WriteData_16Bit))
 <BR><BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowChar
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_4g
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear_upper_tail
@@ -1170,23 +1168,23 @@ Global Symbols
 
 <P><STRONG><a name="[c]"></a>Main_Back_UI</STRONG> (Thumb, 1816 bytes, Stack size 0 bytes, gui.o(i.Main_Back_UI))
 <BR><BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
 <P><STRONG><a name="[4]"></a>Main_Menu_Func</STRONG> (Thumb, 666 bytes, Stack size 0 bytes, gui.o(i.Main_Menu_Func))
-<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
+<BR><BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_1
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
-<P><STRONG><a name="[3]"></a>Main_UI</STRONG> (Thumb, 4660 bytes, Stack size 0 bytes, gui.o(i.Main_UI))
+<P><STRONG><a name="[3]"></a>Main_UI</STRONG> (Thumb, 4424 bytes, Stack size 0 bytes, gui.o(i.Main_UI))
 <BR><BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi_color
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_4g
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gui_Drawbmp16
@@ -1606,7 +1604,7 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>Time_Child</STRONG> (Thumb, 2396 bytes, Stack size 0 bytes, gui.o(i.Time_Child))
 <BR><BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Set
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showhanzi
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showdigit_color
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> gui.o(.data)
 </UL>
@@ -1649,7 +1647,7 @@ Global Symbols
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
@@ -2077,7 +2075,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[156]"></a>jsonp_strndup</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memory.o(i.jsonp_strndup))
-<BR><BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jsonp_malloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_create
@@ -2120,7 +2118,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Temperature
 </UL>
 
-<P><STRONG><a name="[44]"></a>main</STRONG> (Thumb, 13584 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[44]"></a>main</STRONG> (Thumb, 13568 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Calls]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_send
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_poll
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbh_init
@@ -2171,7 +2169,7 @@ Global Symbols
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -2322,7 +2320,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[172]"></a>mbh_send</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, mb_host.o(i.mbh_send))
-<BR><BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_port_uartEnable
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mb_crc16
 </UL>
@@ -2372,12 +2370,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main_UI
 </UL>
 
-<P><STRONG><a name="[88]"></a>showdigit_color</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, ui.o(i.showdigit_color))
+<P><STRONG><a name="[8a]"></a>showdigit_color</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, ui.o(i.showdigit_color))
 <BR><BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lcd_WriteData_16Bit
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetWindows
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Refresh
-<LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Time_Child
+<BR>[Called By]<UL><LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Time_Child
 <LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main_UI
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main_Back_UI
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Iot_Child
@@ -2385,7 +2382,6 @@ Global Symbols
 <LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Data_Change_Child
 <LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Child
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Air_Blower_Child_Ctrl_1_Fun
-<LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Air_Blower_Child_Ctrl
 </UL>
 
 <P><STRONG><a name="[87]"></a>showhanzi</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, ui.o(i.showhanzi))
@@ -2403,7 +2399,7 @@ Global Symbols
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Air_Blower_Child_Ctrl
 </UL>
 
-<P><STRONG><a name="[89]"></a>showhanzi_1</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, ui.o(i.showhanzi_1))
+<P><STRONG><a name="[88]"></a>showhanzi_1</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, ui.o(i.showhanzi_1))
 <BR><BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lcd_WriteData_16Bit
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetWindows
 </UL>
@@ -2432,7 +2428,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[195]"></a>strbuffer_append_bytes</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, strbuffer.o(i.strbuffer_append_bytes))
-<BR><BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jsonp_malloc
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jsonp_free
 </UL>

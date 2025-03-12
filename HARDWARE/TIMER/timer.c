@@ -337,7 +337,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 		uint8_t min_nh3[11] = {0};	
 		//此处是否可以判断是否需要for循环
 		//温控
-		for(int i=0; i<10; i++){
+		for(int i=0; i<ROAD_COUNT; i++){
 			if(relay_structure[i].relay_mode == 1){
 				relay_No_temp[j] = relay_structure[i].relayNo;
 				max_temp[j] = relay_structure[i].temp_control.max_temp;
@@ -460,7 +460,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			
 			//此处是否可以判断是否需要for循环
 			//时控
-			for(int ii=0; ii<10; ii++){
+			for(int ii=0; ii<ROAD_COUNT; ii++){
 				if(relay_structure[ii].relay_mode == 2){
 					relay_No[j] = relay_structure[ii].relayNo;
 					relay_on_times[relay_No[j]-1] = relay_structure[ii].time_control.time_open*60;
@@ -515,7 +515,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			
 			//温时控
 			uint8_t t = 0;
-		    for(int i=0; i<10; i++){
+		    for(int i=0; i<ROAD_COUNT; i++){
 				if(relay_structure[i].relay_mode == 3){
 					//温控参数
 					relay_No_t[t] = relay_structure[i].relayNo;
