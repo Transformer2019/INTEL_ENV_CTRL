@@ -5,9 +5,9 @@
 #include "sys.h"
 
 
-#define STARTADDR 0x0801E800 //风机数据的起始地址
-#define STARTADDR_ALARM 0x0801E9E0 //报警数据的起始地址
-#define STARTADDR_HZ 0x0801EA00 //变频数据的起始地址
+#define STARTADDR 0x0801F000 //风机数据的起始地址
+#define STARTADDR_ALARM 0x0801F290 //报警数据的起始地址
+#define STARTADDR_HZ 0x0801F300 //变频数据的起始地址
 // E9E0  EA00
 extern volatile FLASH_Status FLASHStatus;
 

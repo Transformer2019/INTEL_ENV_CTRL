@@ -12,24 +12,24 @@
 
 //#pragma pack(4) 
 
-Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=2,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=3,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=4,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=5,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=6,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=7,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=8,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=9,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
-{.relayNo=10,.relay_mode=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+Relay_Structure relay_structure[10] ={{.relayNo=1,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=2,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=3,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=4,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=5,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=6,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=7,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=8,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=9,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
+{.relayNo=10,.relay_mode=0,.no_Ctrl.all_open_or_close=0,.temp_control.max_temp=30.0,.temp_control.min_temp=20.0,.temp_control.max_nh3=20,.temp_control.min_nh3=1,.time_control.time_open=10,.time_control.time_stop=10},
 };
 
 //变频控制结构体
 volatile Hz_Control hz_control={
-	.max_temp=30,
-	.min_temp=15,
-	.voltage_high=10,
-	.voltage_low=0,
+	.max_temp=35.00,
+	.min_temp=15.00,
+	.voltage_high=10.0,
+	.voltage_low=0.0,
 	.temp_choose=1
 };
 
@@ -86,8 +86,6 @@ uint8_t limit_rh_minvalue=50;
 volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 
 
-
-
 float temp1_correct=0.0;// 
 float temp2_correct=0.0;// 
 float temp3_correct=0.0;// 
@@ -126,7 +124,7 @@ static u8 enter_config_flag_9=0;//风机一
 static u8 enter_config_flag_10=0;//风机二
 
 
-
+static u8 cur_pos0=1;
 static u8 cur_pos1=1;
 static u8 cur_pos2=1;
 static u8 cur_pos3=1;
@@ -225,14 +223,16 @@ uint8_t GUI_Refresh(void)
 					break;
 			case KEY_BACK:
 				//按返回键后，如果修改风机控制模式和或参数，保存新的参数
+				//如果用户远程操作风机参数的话，并且用在设备正在操作风机参数，此时设备操作优先级高
 				if(table[func_index].back==_Air_Blower_Child_1){
-					send_CONFIG_INDEX = last_index_save-12;
+					
 					// 检查是否发生了变化
 					//printf("KEY_BACK\n");
 					if (memcmp(relay_structure, relay_structure_temp, sizeof(relay_structure)) != 0) {
+						send_CONFIG_INDEX = last_index_save-12;
 						send_CONFIG_FLAG=1;
 						memcpy(relay_structure, relay_structure_temp, sizeof(relay_structure));
-						printf("---%d---\n",send_CONFIG_INDEX);
+						//printf("---%d---\n",send_CONFIG_INDEX);
 					}
 				}
 				func_index=table[func_index].back;//更新索引值
@@ -1457,8 +1457,8 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	Hz_Control hz_control_buf;
 	memcpy(&hz_control_buf,&hz_control,sizeof(Hz_Control));
 
-	showhanzi_color(0,288,16,RED,WHITE);showhanzi_color(32,288,17,RED,WHITE);showhanzi_color(64,288,128,BLACK,WHITE);showhanzi_color(96,288,146,BLACK,WHITE);
-	showhanzi_color(128,288,147,BLACK,WHITE);showhanzi_color(170,288,138,RED,WHITE);showhanzi_color(202,288,119,RED,WHITE);showhanzi_color(234,288,128,BLACK,WHITE);
+	showhanzi_color(0,288,16,GREEN,WHITE);showhanzi_color(32,288,17,GREEN,WHITE);showhanzi_color(64,288,128,BLACK,WHITE);showhanzi_color(96,288,146,BLACK,WHITE);
+	showhanzi_color(128,288,147,BLACK,WHITE);showhanzi_color(170,288,138,GREEN,WHITE);showhanzi_color(202,288,119,GREEN,WHITE);showhanzi_color(234,288,128,BLACK,WHITE);
 	showhanzi_color(266,288,20,BLACK,WHITE);showhanzi_color(298,288,120,BLACK,WHITE);
 	
 	//中间部分
@@ -1538,7 +1538,7 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 		if(hz_control.temp_choose == 4) {showhanzi(208,240,67);showhanzi(240,240,68);showhanzi(272,240,39);showhanzi(304,240,66);}//平均温度
 		if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,WHITE,BLACK);showdigit_color(224,240,8,WHITE,BLACK);showdigit_color(240,240,5,WHITE,BLACK);showhanzi(256,240,39);showhanzi(288,240,66);showdigit_color(320,240,13,BLACK,BLACK);}
 	}
-		
+	//showdigit_color(280,0,(uint16_t)(hz_control.max_temp*10)%10,WHITE,HOME_BACK);
 	switch(cur_pos){
 		case 1:
 			showdigit_color(176,48,(uint8_t)hz_control.max_temp/10,BLACK,WHITE);showdigit_color(192,48,(uint8_t)hz_control.max_temp%10,BLACK,WHITE);
@@ -2111,7 +2111,7 @@ void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
 void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 	
 	//保存原始的结构体,用于判断用户是否操作
-    Relay_Structure original_relay_structure[10];
+    //Relay_Structure original_relay_structure[10];
 
 	
 	//static u8 last_index_save=0;
@@ -2146,7 +2146,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 	  )//判断是否是s第一次进入此界面
 	{
 
-switch(key_val)
+	switch(key_val)
 		{
 			case KEY_PREVIOUS:
 				if(enter_config_flag_1 == 0 && enter_config_flag_2 == 0 && enter_config_flag_3 == 0  && enter_config_flag_4 == 0 && enter_config_flag_5 == 0 
@@ -2155,6 +2155,9 @@ switch(key_val)
 					relay_mode_buf[last_index_save-12] +=1;
 					if(relay_mode_buf[last_index_save-12]==5)relay_mode_buf[last_index_save-12]=0;//不使用该风机
 				}else{
+					if(relay_structure_temp[last_index_save-12].relay_mode == 0){
+						relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close=!(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close);
+					}
 					if(relay_structure_temp[last_index_save-12].relay_mode == 1){
 						if(cur_pos1 == 1)relay_structure_temp[last_index_save-12].temp_control.max_temp+=1;
 						if(cur_pos1 == 2){if((relay_structure_temp[last_index_save-12].temp_control.min_temp+1)<relay_structure_temp[last_index_save-12].temp_control.max_temp)relay_structure_temp[last_index_save-12].temp_control.min_temp+=1;}
@@ -2258,6 +2261,7 @@ switch(key_val)
 				if(enter_config_flag_1>1 || enter_config_flag_2>1||enter_config_flag_3>1||enter_config_flag_4>1||enter_config_flag_5>1
 					||enter_config_flag_6>1||enter_config_flag_7>1||enter_config_flag_8>1||enter_config_flag_9>1||enter_config_flag_10>1
 				){
+					
 					if(relay_structure_temp[last_index_save-12].relay_mode == 1){
 						cur_pos1++;
 						if(cur_pos1 == 7){
@@ -2291,6 +2295,9 @@ switch(key_val)
 					relay_mode_buf[last_index_save-12] -=1;
 					if(relay_mode_buf[last_index_save-12]==255)relay_mode_buf[last_index_save-12]=4;//分时控
 				}else{
+					if(relay_structure_temp[last_index_save-12].relay_mode == 0){
+						relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close=!(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close);
+					}
 					if(relay_structure_temp[last_index_save-12].relay_mode == 1){
 						if(cur_pos1 == 1){if((relay_structure_temp[last_index_save-12].temp_control.max_temp-1)>relay_structure_temp[last_index_save-12].temp_control.min_temp) relay_structure_temp[last_index_save-12].temp_control.max_temp-=1;}
 						if(cur_pos1 == 2)relay_structure_temp[last_index_save-12].temp_control.min_temp-=1;
@@ -2422,6 +2429,13 @@ switch(key_val)
 					
 			case 0:
 				showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,91);//不使用
+				showhanzi(128,109,151);showhanzi(192,109,71);//常关
+				showhanzi(128,178,151);showhanzi(192,178,70);//常开
+				if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
+					showhanzi(240,109,150);showhanzi(240,178,149);
+				}else{
+					showhanzi(240,109,149);showhanzi(240,178,150);
+				}
 					break;	
 			case 1:
 			//显示温控信息
@@ -2621,6 +2635,13 @@ switch(key_val)
 		)
 	&& relay_structure_temp[last_index_save-12].relay_mode==0){
 	    showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,91);//不使用
+		showhanzi(128,109,151);showhanzi(192,109,71);//常关
+		showhanzi(128,178,151);showhanzi(192,178,70);//常开
+		if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
+			showhanzi(240,109,150);showhanzi(240,178,149);
+		}else{
+			showhanzi(240,109,149);showhanzi(240,178,150);
+		}
 	}
 	
 	//温控界面

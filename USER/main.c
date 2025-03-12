@@ -26,6 +26,9 @@
 #define REMOVE_memset 0  //去除发布消息后清零串口接收缓冲区
 #define REMOVE_PUBLISH_memset 0  //去除发布消息后清零串口接收缓冲区
 
+//是否掉电丢失数据
+#define ADD_FLASH_SAVE 1 // 0:丢失 1：不丢失
+
 uint8_t network_flag=0;
 uint8_t register_flag=0;
 uint8_t mqtt_flag=0;
@@ -153,71 +156,72 @@ int main(void)
 		Relay_Structure relay_structure_buffer[10];
 		
 		//读取flash固定位置的数据
-//		ReadFlashData(0, (uint8_t *)relay_structure_buffer, 10*sizeof(Relay_Structure));
-//		if(is_all_ff((uint8_t *)relay_structure_buffer, sizeof(relay_structure_buffer))) {
-//			// 如果数组中的所有元素都是 0xFF
-//			//printf("is 1all 0Xff\n");
-//		}else{
-//			// 如果数组中有元素不是 0xFF
-//			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
-//			if(relay_structure_buffer[0].relayNo==1&&relay_structure_buffer[1].relayNo==2&&relay_structure_buffer[2].relayNo==3&&relay_structure_buffer[3].relayNo==4
-//				&&relay_structure_buffer[4].relayNo==5&&relay_structure_buffer[5].relayNo==6&&relay_structure_buffer[6].relayNo==7&&relay_structure_buffer[7].relayNo==8
-//				&&relay_structure_buffer[8].relayNo==9&&relay_structure_buffer[9].relayNo==10)
-//			{
-//				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));			
-//		    }
+#if ADD_FLASH_SAVE
+		ReadFlashData(0, (uint8_t *)relay_structure_buffer, 10*sizeof(Relay_Structure));
+		if(is_all_ff((uint8_t *)relay_structure_buffer, sizeof(relay_structure_buffer))) {
+			// 如果数组中的所有元素都是 0xFF
+			//printf("is 1all 0Xff\n");
+		}else{
+			// 如果数组中有元素不是 0xFF
+			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
+			if(relay_structure_buffer[0].relayNo==1&&relay_structure_buffer[1].relayNo==2&&relay_structure_buffer[2].relayNo==3&&relay_structure_buffer[3].relayNo==4
+				&&relay_structure_buffer[4].relayNo==5&&relay_structure_buffer[5].relayNo==6&&relay_structure_buffer[6].relayNo==7&&relay_structure_buffer[7].relayNo==8
+				&&relay_structure_buffer[8].relayNo==9&&relay_structure_buffer[9].relayNo==10)
+			{
+				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));			
+		    }
 
-//		}
-//		
-//		uint8_t warn_data_buffer[19];
-//		ReadFlashData(480, warn_data_buffer, sizeof(warn_data_buffer));
-//		if(is_all_ff(warn_data_buffer, sizeof(warn_data_buffer))) {
-//			// 如果数组中的所有元素都是 0xFF
-//			//printf("is 2all 0Xff\n");
-//		}else{
-//			// 如果数组中有元素不是 0xFF
-//			//memcpy(relay_structure, warn_data_buffer, sizeof(warn_data_buffer));
-//			
-//			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<60 && warn_data_buffer[8]<60 && warn_data_buffer[13]<60 & warn_data_buffer[14]<60 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
-//			{
-//				NH3_warn_flag=warn_data_buffer[0];
-//				warn_temp1_flag=warn_data_buffer[1];
-//				warn_temp2_flag=warn_data_buffer[2];
-//				warn_temp3_flag=warn_data_buffer[3];
-//				warn_temp485_flag=warn_data_buffer[4];
-//				warn_rh_flag=warn_data_buffer[5];
-//				NH3_max=warn_data_buffer[6];
-//				limit_temp1_maxvalue=warn_data_buffer[7];
-//				limit_temp1_minvalue=warn_data_buffer[8];
-//				limit_temp2_maxvalue=warn_data_buffer[9];
-//				limit_temp2_minvalue=warn_data_buffer[10];
-//				limit_temp3_maxvalue=warn_data_buffer[11];
-//				limit_temp3_minvalue=warn_data_buffer[12];
-//				limit_temp485_maxvalue=warn_data_buffer[13];
-//				limit_temp485_minvalue=warn_data_buffer[14];
-//				limit_rh_maxvalue=warn_data_buffer[15];
-//				limit_rh_minvalue=warn_data_buffer[16];
-//			}
-//			
-//		}
-//		
-//		Hz_Control HZctrl_buffer;
-//		Hz_Control *HZctrl_data_buffer=&HZctrl_buffer;
-//		
-//		ReadFlashData(512, (uint8_t *)HZctrl_data_buffer, sizeof(Hz_Control));
-//		if(is_all_ff((uint8_t *)HZctrl_data_buffer, sizeof(HZctrl_data_buffer))) {
-//			// 如果数组中的所有元素都是 0xFF
-//			//printf("is 3all 0Xff\n");
-//		}else{
-//			// 如果数组中有元素不是 0xFF
-//			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
-//			if(hz_control.max_temp<60 && hz_control.min_temp<50 && hz_control.voltage_high<11 && hz_control.voltage_low<10 && hz_control.temp_choose<6)
-//			{
-//				memcpy(&hz_control, HZctrl_data_buffer, sizeof(Hz_Control));
-//			}
-//		}
+		}
+		
+		uint8_t warn_data_buffer[19];
+		ReadFlashData(STARTADDR_ALARM-STARTADDR, warn_data_buffer, sizeof(warn_data_buffer));
+		if(is_all_ff(warn_data_buffer, sizeof(warn_data_buffer))) {
+			// 如果数组中的所有元素都是 0xFF
+			//printf("is 2all 0Xff\n");
+		}else{
+			// 如果数组中有元素不是 0xFF
+			//memcpy(relay_structure, warn_data_buffer, sizeof(warn_data_buffer));
+			
+			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<60 && warn_data_buffer[8]<60 && warn_data_buffer[13]<60 & warn_data_buffer[14]<60 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
+			{
+				NH3_warn_flag=warn_data_buffer[0];
+				warn_temp1_flag=warn_data_buffer[1];
+				warn_temp2_flag=warn_data_buffer[2];
+				warn_temp3_flag=warn_data_buffer[3];
+				warn_temp485_flag=warn_data_buffer[4];
+				warn_rh_flag=warn_data_buffer[5];
+				NH3_max=warn_data_buffer[6];
+				limit_temp1_maxvalue=warn_data_buffer[7];
+				limit_temp1_minvalue=warn_data_buffer[8];
+				limit_temp2_maxvalue=warn_data_buffer[9];
+				limit_temp2_minvalue=warn_data_buffer[10];
+				limit_temp3_maxvalue=warn_data_buffer[11];
+				limit_temp3_minvalue=warn_data_buffer[12];
+				limit_temp485_maxvalue=warn_data_buffer[13];
+				limit_temp485_minvalue=warn_data_buffer[14];
+				limit_rh_maxvalue=warn_data_buffer[15];
+				limit_rh_minvalue=warn_data_buffer[16];
+			}
+			
+		}
+		
+		Hz_Control HZctrl_buffer;
+		Hz_Control *HZctrl_data_buffer=&HZctrl_buffer;
+		
+		ReadFlashData(STARTADDR_HZ-STARTADDR, (uint8_t *)HZctrl_data_buffer, sizeof(Hz_Control));
+		if(is_all_ff((uint8_t *)HZctrl_data_buffer, sizeof(HZctrl_data_buffer))) {
+			// 如果数组中的所有元素都是 0xFF
+			//printf("is 3all 0Xff\n");
+		}else{
+			// 如果数组中有元素不是 0xFF
+			//Relay_Structure * tt = (Relay_Structure *)relay_structure_buffer;
+			if(hz_control.max_temp<60 && hz_control.min_temp<50 && hz_control.voltage_high<11 && hz_control.voltage_low<10 && hz_control.temp_choose<6)
+			{
+				memcpy(&hz_control, HZctrl_data_buffer, sizeof(Hz_Control));
+			}
+		}
 
-
+#endif
 		
 	while(1) 
 	{	
@@ -587,27 +591,37 @@ int main(void)
 							switch(mode){
 								case 0:
 									relay_structure[no].relay_mode = 0;
-									UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M0OK\"\r\n",imei_no);//发布消息
-									#if(REMOVE_memset)
-									delay_ms(30);
-									UART3_RxCounter = 0; //重新等待接收下一个推送消息
-									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-									#endif
-									break;
-								
-								case 5:
-									relay_structure[no].relay_mode = 5;
-									UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M5OK\"\r\n",imei_no);//发布消息
-									#if(REMOVE_memset)
-									delay_ms(30);
-									UART3_RxCounter = 0; //重新等待接收下一个推送消息
-									memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-									#endif
+									json_t *no_ctrl = json_object_get(root, "no_ctrl");
+									if(json_is_object(no_ctrl)){
+										json_t *all_on_off = json_object_get(no_ctrl, "all_on_off");
+										if(json_is_integer(all_on_off)){
+											relay_structure[no].no_Ctrl.all_open_or_close = json_integer_value(all_on_off);
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"M0OK\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+											#endif
+										}else{
+											UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,16,\"M0V Invalid data\"\r\n",imei_no);//发布消息
+											#if(REMOVE_memset)
+											delay_ms(30);
+											UART3_RxCounter = 0; //重新等待接收下一个推送消息
+											memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
+											#endif
+										}
+									}else{
+										UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,15,\"M0 Invalid data\"\r\n",imei_no);//发布消息
+										#if(REMOVE_memset)
+										delay_ms(30);
+										UART3_RxCounter = 0; //重新等待接收下一个推送消息
+										memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+										#endif
+									}
 									break;
 								case 1:	
 									json_t *temp_ctrl = json_object_get(root, "temp_ctrl");
 									if(json_is_object(temp_ctrl)){
-										
 										json_t *max_temp = json_object_get(temp_ctrl, "max_temp");
 										json_t *min_temp = json_object_get(temp_ctrl, "min_temp");
 										json_t *temp_choose_flag = json_object_get(temp_ctrl, "temp_choose_flag");
@@ -1219,14 +1233,11 @@ int main(void)
 		
 		}//if(mqtt_flag)
 		
-		//关闭风机-常关
-//		for(int i=0; i<10; i++){
-//			if(relay_structure[i].relay_mode==0)relay_structure[i].on_off=0;
-//		}
-//		//开启风机-常开
-//		for(int i=0; i<10; i++){
-//			if(relay_structure[i].relay_mode==5)relay_structure[i].on_off=1;
-//		}
+		//关闭风机-常关   开启风机-常开
+		for(int i=0; i<10; i++){
+			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;
+			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==1)relay_structure[i].on_off=1;
+		}
 
 		if(TIM3_flag){
 		    /*定时器标志归零*/
@@ -1449,10 +1460,10 @@ int main(void)
 //			TIM5_flag = 0;
 //			TIM5_Counter_10s = 0;
 			send_CONFIG_FLAG=0;
-			u8 send_index = send_CONFIG_INDEX-12;
+			u8 send_index = send_CONFIG_INDEX;
 			char send_data_config[50]="";
-			sprintf(send_data_config,"%d,%d,%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d",
-			relay_structure[send_index].relayNo,relay_structure[send_index].relay_mode,relay_structure[send_index].on_off,
+			sprintf(send_data_config,"%d,%d,%d;%d;%d,%d,%d,%d,%d,%d;%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d;%d,%d,%d,%d,%d",
+			relay_structure[send_index].relayNo,relay_structure[send_index].relay_mode,relay_structure[send_index].on_off,relay_structure[send_index].no_Ctrl.all_open_or_close,
 			relay_structure[send_index].temp_control.max_temp,relay_structure[send_index].temp_control.min_temp,relay_structure[send_index].temp_control.temp_choose_flag,relay_structure[send_index].temp_control.startup_mode,
 			relay_structure[send_index].temp_control.max_nh3,relay_structure[send_index].temp_control.min_nh3,
 			relay_structure[send_index].time_control.time_stop,relay_structure[send_index].time_control.time_open,
@@ -1604,15 +1615,6 @@ int main(void)
 
 		}
 		if(warn_flag==0)warn_timer_count=0;
-//		if(warn_flag && mqtt_flag){
-//			char send_data_warn[20]="";
-//			sprintf(send_data_warn,"%0.1f,%0.1f,%d,%d,%d",temperature1,temperature2,(warn_flag2<<1)|warn_flag1,send_NH3,warn_NH3);//sprintf
-//			u16 warn_len = strlen(send_data_warn);
-//			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",0,0,0,%d,\"%s\"\r\n",imei_no,warn_len,send_data_warn);//发布消息
-//			delay_ms(10);
-//			UART3_RxCounter = 0;
-//			memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0
-//		}
 		//发布报警配置信息
 		if(send_warn_Flag && mqtt_flag && network_flag){
 			send_warn_Flag = 0;
@@ -1626,7 +1628,7 @@ int main(void)
 		if(send_HZ_Flag && mqtt_flag && network_flag){
 			send_HZ_Flag = 0;
 			char send_hz_config[30]="";
-			sprintf(send_hz_config,"%.1f,%.1f,%.1f,%.1f,%d",hz_control.max_temp,hz_control.min_temp,hz_control.voltage_high,hz_control.voltage_low,hz_control.temp_choose);//sprintf
+			sprintf(send_hz_config,"%.1f,%.1f,%.1f,%.1f,%d",(int)(hz_control.max_temp*10)/10.0,(int)(hz_control.min_temp*10)/10.0,(int)(hz_control.voltage_high*10)/10.0,(int)(hz_control.voltage_low*10)/10.0,hz_control.temp_choose);//sprintf
 			u16 hz_config_len = strlen(send_hz_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/HZCONFIG\",2,0,0,%d,\"%s\"\r\n",imei_no,hz_config_len,send_hz_config);//发布消息
 		}

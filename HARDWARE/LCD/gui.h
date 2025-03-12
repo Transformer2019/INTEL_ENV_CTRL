@@ -78,10 +78,10 @@ extern volatile u8 last_index_save;
 
 //变频控制
 typedef struct {
-	double max_temp;
-    double min_temp;
-	double voltage_high;
-	double voltage_low;
+	float max_temp;
+    float min_temp;
+	float voltage_high;
+	float voltage_low;
 	u8 temp_choose; // 1:温度一 2:温度二 3:温度三 4:平均温度 5:485温度
 } Hz_Control;
 extern volatile Hz_Control hz_control;
