@@ -6,24 +6,25 @@
 extern volatile uint16_t TIM3_Counter_10s;
 extern volatile u8 TIM3_flag;
 
-extern volatile uint16_t TIM4_Counter_10s;
+extern volatile uint32_t TIM4_Counter_10s;
 extern volatile u8 TIM4_flag;
 
 extern volatile uint16_t TIM5_Counter_10s;
 extern volatile u8 TIM5_flag;
 
-extern volatile uint16_t TIM6_Counter;
+extern volatile uint32_t TIM6_Counter;
 extern volatile u8 TIM6_flag;
 
-extern volatile uint16_t TIM7_Counter;
+extern volatile uint32_t TIM7_Counter;
 
-extern volatile uint8_t Heartbeat_Counter_1s;
+//开机后长按设置返回测试继电器开关状态标志
+extern volatile uint32_t TIM8_Counter_test;
+
+extern volatile uint32_t Heartbeat_Counter_1s;
 extern volatile u8 Heartbeat_flag;
 
-extern volatile u8 TIM1_Counter;
-extern volatile u8 TIM1_flag;
 
-extern volatile uint16_t MQTT_CON_Counter;
+extern volatile uint32_t MQTT_CON_Counter;
 extern volatile u8 MQTT_CON_flag;
 
 //ui风机转速计数器

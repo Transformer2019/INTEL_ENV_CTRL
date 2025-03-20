@@ -223,6 +223,15 @@ int main(void)
 
 #endif
 		
+	//测试代码
+//	for(int i=0; i<ROAD_COUNT; i++){
+//		relay_structure[i].relay_mode=0;relay_structure[i].no_Ctrl.all_open_or_close=1;
+//	}
+	//测试代码结束
+		
+
+	
+		
 	while(1) 
 	{	
 		u8 warn_flag1=0;
@@ -1233,10 +1242,13 @@ int main(void)
 		
 		}//if(mqtt_flag)
 		
+		
+		
 		//关闭风机-常关   开启风机-常开
 		for(int i=0; i<ROAD_COUNT; i++){
-			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;
+			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;		
 			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==1)relay_structure[i].on_off=1;
+			
 		}
 
 		if(TIM3_flag){
@@ -1297,8 +1309,10 @@ int main(void)
 				UART3_RxCounter = 0; //重新等待接收下一个推送消息
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				//UART3_Puts("AT+MQTTCONN=0,\"8.130.168.245\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
-				UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
+				//UART3_Puts("AT+MQTTCONN=0,\"yukephysics.com\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
+				//UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
 				//UART3_Puts("AT+MQTTCONN=0,\"39.105.15.166\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
+				UART3_Puts("AT+MQTTCONN=0,\"bdywl.cn\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
 				delay_ms(500);
 				
 

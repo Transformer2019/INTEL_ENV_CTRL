@@ -6,6 +6,8 @@
 #include "mb_hook.h"
 #include "GP8201S.h"
 #include "flash.h"
+
+#include "key.h"
 	  
 //通用定时器3中断初始化
 //这里时钟选择为APB1的2倍，而APB1为36M
@@ -17,23 +19,22 @@
 volatile uint16_t TIM3_Counter_10s=0;
 volatile u8 TIM3_flag=0;
 
-volatile uint16_t TIM4_Counter_10s=1;
+volatile uint32_t TIM4_Counter_10s=1;
 volatile u8 TIM4_flag=0;
 
 volatile uint16_t TIM5_Counter_10s=0;
 volatile u8 TIM5_flag=0;
 
-volatile uint16_t TIM6_Counter=0;
+volatile uint32_t TIM6_Counter=0;
 volatile u8 TIM6_flag=0;
 
-volatile u8 TIM1_Counter=0;
-volatile u8 TIM1_flag=0;
-
-volatile uint8_t Heartbeat_Counter_1s=0;
+volatile uint32_t Heartbeat_Counter_1s=0;
 volatile u8 Heartbeat_flag=0;
 
 
-volatile uint16_t TIM7_Counter=0;
+volatile uint32_t TIM7_Counter=0;
+
+volatile uint32_t TIM8_Counter_test=0;
 
 //volatile u8 relay_Control[2] = {0x00, 0x00}; //控制继电器
 
@@ -41,7 +42,7 @@ volatile uint16_t TIM7_Counter=0;
 //volatile uint16_t TIM3_Add_Counter=0;
 
 //判断是否连接服务器
-volatile uint16_t MQTT_CON_Counter=0;
+volatile uint32_t MQTT_CON_Counter=0;
 volatile u8 MQTT_CON_flag=0;
 
 //ui风机转速计数器
@@ -206,6 +207,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
 	{   
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx的中断待处理位:TIM 中断源
+		
 		//发送采集频率
 		if(TIM4_Counter_10s>60)
 		{
@@ -424,7 +426,47 @@ void TIM3_IRQHandler(void)   //TIM3中断
 		{   
 			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx的中断待处理位:TIM 中断源 
 			
+			
+			//测试代码
+			static u8 test_code=0;
+			if(MQTT_CON_Counter<10)
+			{
+				if(KEY_LEFT==0 && KEY_RIGHT==0)test_code=8;
+//				printf("KEY_LEFT:%d/n",KEY_LEFT);
+//				printf("KEY_RIGHT:%d/n",KEY_RIGHT);
+//				printf("KEY_UP:%d/n",KEY_UP);
+//				printf("KEY_DOWN:%d/n",KEY_DOWN);
+				//printf("test_code:%d\n",test_code);
+			}
+			
+			if(test_code==8 && MQTT_CON_Counter>12){
+//				printf("TIM8_Counter_test:%d\n",TIM8_Counter_test);
+//				for(int i=0; i<8; i++){
+//					printf("relay_structure[%d].on_off:%d\n",i,relay_structure[i].on_off);
+//				}		
 
+				if(TIM8_Counter_test==0){relay_structure[0].relay_mode=0;relay_structure[0].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==5){relay_structure[0].relay_mode=0;relay_structure[0].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==10){relay_structure[1].relay_mode=0;relay_structure[1].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==15){relay_structure[1].relay_mode=0;relay_structure[1].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==20){relay_structure[2].relay_mode=0;relay_structure[2].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==25){relay_structure[2].relay_mode=0;relay_structure[2].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==30){relay_structure[3].relay_mode=0;relay_structure[3].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==35){relay_structure[3].relay_mode=0;relay_structure[3].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==40){relay_structure[4].relay_mode=0;relay_structure[4].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==45){relay_structure[4].relay_mode=0;relay_structure[4].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==50){relay_structure[5].relay_mode=0;relay_structure[5].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==55){relay_structure[5].relay_mode=0;relay_structure[5].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==60){relay_structure[6].relay_mode=0;relay_structure[6].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==65){relay_structure[6].relay_mode=0;relay_structure[6].no_Ctrl.all_open_or_close=0;}
+				if(TIM8_Counter_test==70){relay_structure[7].relay_mode=0;relay_structure[7].no_Ctrl.all_open_or_close=1;}
+				if(TIM8_Counter_test==75){relay_structure[7].relay_mode=0;relay_structure[7].no_Ctrl.all_open_or_close=0;}
+				
+				TIM8_Counter_test++;
+				if(TIM8_Counter_test>=78)test_code=0;
+			}
+			//测试代码结束
+			
 			
 			if(TIM3_Counter_10s>2)//一秒进一次中断，累计8秒后标志置1，再中断处理
 			{
@@ -705,6 +747,12 @@ void TIM1_UP_IRQHandler(void){
 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); //清除TIM4更新中断标志
 		
+		//
+		for(int i=0; i<ROAD_COUNT; i++){
+			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;
+			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==1)relay_structure[i].on_off=1;
+		}
+		
 		//继电器输出
 //		u8 temp;
 //		temp = relay_Control[1] & 0X3f | (relay_structure[0].on_off << 7) | (relay_structure[1].on_off << 6);
@@ -730,17 +778,25 @@ void TIM1_UP_IRQHandler(void){
 //		HC595_Send_Multi_Byte(relay_Control, 2);
 		
 		//控制显示的风机转的频率（控制风机顺序输出）
-		if(relay_speed_ui_count>=99999)
-		{
-		  relay_speed_ui_count=0;
-		}
-		relay_speed_ui_count++;
-		if(TIM1_Counter>10)
-		{
-		  //TIM1_flag=1;
-		  TIM1_Counter=0;
-		}
-		TIM1_Counter++;
+//		if(relay_speed_ui_count>=99999)
+//		{
+//		  relay_speed_ui_count=0;
+//		}
+//		relay_speed_ui_count++;
+
+
+
+
+
+//		if(TIM1_Counter>10)
+//		{
+//		  //TIM1_flag=1;
+//		  TIM1_Counter=0;
+//		}
+//		TIM1_Counter++;
+		
+		
+		
 		
 //		static float temp1_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};
 //		static float temp2_list_buff[10]={99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0,99.0};

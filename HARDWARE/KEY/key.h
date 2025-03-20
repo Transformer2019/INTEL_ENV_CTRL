@@ -37,5 +37,6 @@ extern uint16_t cont_key_count;
 
 void KEY_Init(void);
 u8 Get_KEY_Value(void);
+u8 Test_Get_KEY_Value(void);
 
 #endif

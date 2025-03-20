@@ -29,3 +29,4 @@
 ..\obj\timer.o: ..\HARDWARE\MMODBUS\mb_hook.h
 ..\obj\timer.o: ..\HARDWARE\GP8201S\GP8201S.h
 ..\obj\timer.o: ..\HARDWARE\FLASH\flash.h
+..\obj\timer.o: ..\HARDWARE\KEY\key.h

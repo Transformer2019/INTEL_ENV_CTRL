@@ -106,3 +106,30 @@ u8 Get_KEY_Value(void)
 	return 0;
 }
 
+u8 Test_Get_KEY_Value(void)
+{
+	static u8 Flag=0;
+	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&Flag==0)
+	{
+		Flag=1;
+		delay_ms(15);//按键消抖
+//		if(KEY_UP==0)return 2; //加
+//		if(KEY_LEFT==0)return 3; //设置
+//		if(KEY_DOWN==0)return 4; //减
+//		if(KEY_RIGHT==0)return 5; // 返回
+		
+		if(KEY_UP==0)return 4; //加
+		if(KEY_LEFT==0)return 5; //设置
+		if(KEY_DOWN==0)return 2; //减
+		if(KEY_RIGHT==0)return 3; // 返回
+		if(KEY_LEFT==0 && KEY_RIGHT==0)return 8;
+		
+	}
+
+	
+	if((KEY_UP&&KEY_DOWN&&KEY_LEFT&&KEY_RIGHT)&&Flag==1){Flag=0;cont_key_count=0;}//检测是否松开
+	
+	
+	return 0;
+}
+

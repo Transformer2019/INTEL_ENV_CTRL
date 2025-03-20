@@ -2218,7 +2218,7 @@ void Iot_Child(u8 page_index,u8 key_val){
 	showhanzi(28,138,79);showhanzi(64,138,101);showhanzi(96,138,102);showhanzi(128,138,103);showhanzi(160,138,104);
 
 	
-	LCD_ShowString(50,250,16,"IMEI:",0);LCD_ShowString(90,250,16,imei_no,0);
+	LCD_ShowString(64,202,16,"IMEI:",0);LCD_ShowString(104,202,16,imei_no,0);
 //	showdigit_color(20,230,15,BLUE,BLACK);
 //	showdigit_color(36,230,16,BLUE,BLACK);
 //	showdigit_color(52,230,17,BLUE,BLACK);
@@ -2323,7 +2323,7 @@ void Air_Blower_Child_Ctrl(u8 page_index,u8 key_val){
 			showhanzi_1(11,237,6,1);showhanzi_1(43,237,7,1);showhanzi_1(75,237,30,1);showhanzi_1(107,237,27,1);  
 			break;
 		case _Air_Blower_Child_5://显示风机
-			showhanzi_1(340,51,6,1);showhanzi_1(372,51,7,1);showhanzi_1(404,51,31,1);showhanzi_1(436,15,27,1); 
+			showhanzi_1(340,51,6,1);showhanzi_1(372,51,7,1);showhanzi_1(404,51,31,1);showhanzi_1(436,51,27,1); 
 			break;
 		case _Air_Blower_Child_6://显示风机
 			showhanzi_1(340,113,6,1);showhanzi_1(372,113,7,1);showhanzi_1(404,113,32,1);showhanzi_1(436,113,27,1);  
