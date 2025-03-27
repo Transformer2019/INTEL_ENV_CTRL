@@ -7,6 +7,7 @@
 #include "GP8201S.h"
 #include "flash.h"
 
+
 #include "key.h"
 	  
 //通用定时器3中断初始化
@@ -298,7 +299,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 			case 2:Hz_temp_choose = temperature2;break;
 			case 3:Hz_temp_choose = temperature3;break;
 			case 4:Hz_temp_choose = average_temp;break;
-			case 5:Hz_temp_choose = send_TEMP/10;break;
+			//case 5:Hz_temp_choose = send_TEMP/10;break;
 			default:break;
 		}
 		u16 data_v;
@@ -436,7 +437,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 //				printf("KEY_RIGHT:%d/n",KEY_RIGHT);
 //				printf("KEY_UP:%d/n",KEY_UP);
 //				printf("KEY_DOWN:%d/n",KEY_DOWN);
-				//printf("test_code:%d\n",test_code);
+//				printf("test_code:%d\n",test_code);
 			}
 			
 			if(test_code==8 && MQTT_CON_Counter>12){
@@ -885,38 +886,27 @@ void TIM1_UP_IRQHandler(void){
 		if(temperature2<0 || temperature2>90.0)temperature2=99.0;
 
 		
-		float temperature3_buff = 0.0;
-		list_change(temp3_list_buff,ADC_Channel_4,10);
-		//if(TIM1_Counter%1 == 0){
-		if(1){
-			float temperature3_buff = middleValueFilter(temp3_list_buff,10);
-			list_change_end(temp3_list,temperature3_buff,10);
-			if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
-			(int)temp3_list[3]==99 || (int)temp3_list[4]==99 || (int)temp3_list[5]==99 ||
-			(int)temp3_list[6]==99 || (int)temp3_list[7]==99 || (int)temp3_list[8]==99 ||
-			(int)temp3_list[9]==99){
-				temperature3 = 99.0;
-			}else{
-				temperature3 = middleValueFilter(temp3_list,10)-temp3_correct;
-			}
-		}
-		
-		
-//		list_change(temp3_list,ADC_Channel_4,10);
-//		if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
+//		float temperature3_buff = 0.0;
+//		list_change(temp3_list_buff,ADC_Channel_4,10);
+//		//if(TIM1_Counter%1 == 0){
+//		if(1){
+//			float temperature3_buff = middleValueFilter(temp3_list_buff,10);
+//			list_change_end(temp3_list,temperature3_buff,10);
+//			if((int)temp3_list[0]==99 || (int)temp3_list[1]==99 || (int)temp3_list[2]==99 || 
 //			(int)temp3_list[3]==99 || (int)temp3_list[4]==99 || (int)temp3_list[5]==99 ||
 //			(int)temp3_list[6]==99 || (int)temp3_list[7]==99 || (int)temp3_list[8]==99 ||
 //			(int)temp3_list[9]==99){
 //				temperature3 = 99.0;
 //			}else{
-//				temperature3= middleValueFilter(temp3_list,10)-temp3_correct;
+//				temperature3 = middleValueFilter(temp3_list,10)-temp3_correct;
 //			}
+//		}
+//		
+//		
+		temperature3 = send_TEMP / 10.0;
 		if(temperature3<0 || temperature3>90.0)temperature3=99.0;			
-	
 		
-//		printf("Temperature1: %.2f degrees Celsius\r\n", temperature1);	
-//		printf("Temperature2: %.2f degrees Celsius\r\n", temperature2);	
-//		printf("Temperature3: %.2f degrees Celsius\r\n", temperature3);	
+		
 		
 		if((((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0)) == 0){average_temp=99.0;}else{
 			average_temp = (((temperature1>=0 && temperature1<=90) ? temperature1 :0)+ ((temperature2>=0 && temperature2<=90) ? temperature2 :0) + ((temperature3>=0 && temperature3<=90) ? temperature3 :0)) / (((temperature1>=0 && temperature1<=90) ? 1 :0)+ ((temperature2>=0 && temperature2<=90) ? 1 :0) + ((temperature3>=0 && temperature3<=90) ? 1 :0));	

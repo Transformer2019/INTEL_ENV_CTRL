@@ -236,7 +236,7 @@ int main(void)
 	{	
 		u8 warn_flag1=0;
 		u8 warn_flag2=0;
-		u8 warn_flag3=0;
+		//u8 warn_flag3=0;
 		u8 warn_485temp_flag=0;
 		u8 warn_485rh_flag=0;
 
@@ -244,8 +244,8 @@ int main(void)
 		u8 warn_flag1_low = 0;
 		u8 warn_flag2_high = 0;
 		u8 warn_flag2_low = 0;
-		u8 warn_flag3_high = 0;
-		u8 warn_flag3_low = 0;
+		//u8 warn_flag3_high = 0;
+		//u8 warn_flag3_low = 0;
 		
 		u8 warn_485temp_flag_high = 0;
 		u8 warn_485temp_flag_low = 0;
@@ -313,13 +313,13 @@ int main(void)
 				if(temperature2<limit_temp2_minvalue)warn_flag2_low=1;
 			}else{warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
 		}
-		if(warn_temp3_flag && (temperature3>0.0) && (temperature3<90.0)){
-			if(temperature3>limit_temp3_maxvalue || temperature3<limit_temp3_minvalue){
-				warn_flag3=1;
-				if(temperature3>limit_temp3_maxvalue)warn_flag3_high=1;
-				if(temperature3<limit_temp3_minvalue)warn_flag3_low=1;
-			}else{warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
-		}
+//		if(warn_temp3_flag && (temperature3>0.0) && (temperature3<90.0)){
+//			if(temperature3>limit_temp3_maxvalue || temperature3<limit_temp3_minvalue){
+//				warn_flag3=1;
+//				if(temperature3>limit_temp3_maxvalue)warn_flag3_high=1;
+//				if(temperature3<limit_temp3_minvalue)warn_flag3_low=1;
+//			}else{warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
+//		}
 		if(warn_temp485_flag && (send_TEMP>0) && (send_TEMP<900)){
 			if((send_TEMP/10)>limit_temp485_maxvalue || (send_TEMP/10)<limit_temp485_minvalue){
 				warn_485temp_flag=1;
@@ -343,13 +343,13 @@ int main(void)
 		
 		if(warn_temp1_flag==0 || temperature1>90){warn_flag1=0;warn_flag1_high=0;warn_flag1_low=0;}
 		if(warn_temp2_flag==0 || temperature2>90){warn_flag2=0;warn_flag2_high=0;warn_flag2_low=0;}
-		if(warn_temp3_flag==0 || temperature3>90){warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
+		//if(warn_temp3_flag==0 || temperature3>90){warn_flag3=0;warn_flag3_high=0;warn_flag3_low=0;}
 		if(warn_temp485_flag==0 || send_TEMP>900){warn_485temp_flag=0;warn_485temp_flag_high=0;warn_485temp_flag_low=0;}
 		if(warn_rh_flag==0 || send_RH>999){warn_485rh_flag=0;warn_485rh_flag_high=0;warn_485rh_flag_low=0;}
 		if(NH3_warn_flag==0 || send_NH3>900)warn_NH3=0;
 		
 		
-		warn_flag = warn_flag1 || warn_flag2 || warn_flag3 || warn_485temp_flag || warn_485rh_flag || warn_NH3;
+		warn_flag = warn_flag1 || warn_flag2 || warn_485temp_flag || warn_485rh_flag || warn_NH3;
 		//printf("warn_flag:%d\n",warn_flag);
 		//showdigit_color(150,210,warn_flag,WHITE,HOME_BACK);
 		
@@ -771,12 +771,12 @@ int main(void)
 								case 3:
 									json_t *temp_time_ctrl = json_object_get(root, "temp_time_ctrl");
 									if(json_is_object(temp_time_ctrl)){
-										json_t *max_temp_j = json_object_get(temp_ctrl, "max_temp");
-										json_t *min_temp_j = json_object_get(temp_ctrl, "min_temp");
-										json_t *temp_choose_flag_j = json_object_get(temp_ctrl, "temp_choose_flag");
-										json_t *startup_mode_j = json_object_get(temp_ctrl, "startup_mode");
-										json_t *time_stop_j = json_object_get(time_ctrl, "time_stop");
-										json_t *time_open_j = json_object_get(time_ctrl, "time_open");
+										json_t *max_temp_j = json_object_get(temp_time_ctrl, "max_temp");
+										json_t *min_temp_j = json_object_get(temp_time_ctrl, "min_temp");
+										json_t *temp_choose_flag_j = json_object_get(temp_time_ctrl, "temp_choose_flag");
+										json_t *startup_mode_j = json_object_get(temp_time_ctrl, "startup_mode");
+										json_t *time_stop_j = json_object_get(temp_time_ctrl, "time_stop");
+										json_t *time_open_j = json_object_get(temp_time_ctrl, "time_open");
 										
 										if(json_is_integer(max_temp_j) && json_is_integer(min_temp_j) && json_is_integer(temp_choose_flag_j) && json_is_integer(startup_mode_j) &&
 										    json_is_integer(time_stop_j) && json_is_integer(time_open_j)
@@ -1130,7 +1130,6 @@ int main(void)
 							
 							json_t *t1_flag = json_object_get(root, "t1");
 							json_t *t2_flag = json_object_get(root, "t2");
-							json_t *t3_flag = json_object_get(root, "t3");
 							json_t *t485_flag = json_object_get(root, "t485");
 							json_t *rh_flag = json_object_get(root, "rh");
 
@@ -1139,9 +1138,6 @@ int main(void)
 							
 							json_t *t2_max = json_object_get(root, "t2_max");
 							json_t *t2_min = json_object_get(root, "t2_min");
-							
-							json_t *t3_max = json_object_get(root, "t3_max");
-							json_t *t3_min = json_object_get(root, "t3_min");
 							
 							json_t *t485_max = json_object_get(root, "t485_max");
 							json_t *t485_min = json_object_get(root, "t485_min");
@@ -1160,10 +1156,9 @@ int main(void)
 							json_t *v_low = json_object_get(root, "v_low");
 							json_t *t_flag = json_object_get(root, "t_flag");
 							
-							if(t1_flag && t2_flag && t3_flag && t1_max && t1_min && t2_max && t2_min && t3_max && t3_min && t485_max && t485_min && rh_max && rh_min && NH3_max_data && NH3_flag_data){
+							if(t1_flag && t2_flag && t1_max && t1_min && t2_max && t2_min && t485_max && t485_min && rh_max && rh_min && NH3_max_data && NH3_flag_data){
 								warn_temp1_flag = json_integer_value(t1_flag);
 								warn_temp2_flag = json_integer_value(t2_flag);
-								warn_temp3_flag = json_integer_value(t3_flag);
 								warn_temp485_flag = json_integer_value(t485_flag);
 								warn_rh_flag = json_integer_value(rh_flag);
 								
@@ -1172,9 +1167,6 @@ int main(void)
 								
 								limit_temp2_maxvalue = json_integer_value(t2_max);
 								limit_temp2_minvalue = json_integer_value(t2_min);
-								
-								limit_temp3_maxvalue = json_integer_value(t3_max);
-								limit_temp3_minvalue = json_integer_value(t3_min);
 								
 								limit_temp485_maxvalue = json_integer_value(t485_max);
 								limit_temp485_minvalue = json_integer_value(t485_min);
@@ -1325,7 +1317,7 @@ int main(void)
 //					}
 				
 				if(UART3_RxCounter != 0){
-					if(strstr(UART3_RxBuff,"\"conn\",0,0")!=NULL){
+					if(strstr(UART3_RxBuff,"\"conn\",0,0")!=NULL || strstr(UART3_RxBuff,"\"conn\",0,1")!=NULL){
 						mqtt_flag = 1;
 	                    //LCD_ShowString(0,0,16,"sub",0);
 	                    
@@ -1457,19 +1449,19 @@ int main(void)
 			#if(ROAD_COUNT==10)
 			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,relay_structure[8].on_off,relay_structure[9].on_off,
-			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
+			temperature1,temperature2,average_temp,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
 			#endif
 			#if(ROAD_COUNT==8)
 			sprintf(send_data_collect,"%d,%d,%d,%d,%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,relay_structure[4].on_off,relay_structure[5].on_off,relay_structure[6].on_off,relay_structure[7].on_off,
-			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
+			temperature1,temperature2,average_temp,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
 			#endif
 			#if(ROAD_COUNT==4)
 			sprintf(send_data_collect,"%d,%d,%d,%d;%.2f,%.2f,%.2f,%d,%d,%d,%d,%d",
 			relay_structure[0].on_off,relay_structure[1].on_off,relay_structure[2].on_off,relay_structure[3].on_off,
-			temperature1,temperature2,temperature3,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
+			temperature1,temperature2,average_temp,warn_flag,out_voltage,send_NH3,send_RH,send_TEMP);
 			u16 data_collect_len = strlen(send_data_collect);
 			#endif
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/COLLECT\",1,0,0,%d,\"%s\"\r\n",imei_no,data_collect_len,send_data_collect);//发布消息
@@ -1555,31 +1547,31 @@ int main(void)
 				}
 
 			}
-			if((warn_flag3_high || warn_flag3_low) && (warn_timer_count%20==0)){
-				char temp3_str[8];
-				sprintf(temp3_str, "%.1f", temperature3);
-				if(warn_flag3_high){
-					char t3_warn_str_h[50] = "{\"b3\" \"NO3 High-temperature alarm\"}-";
-					strcat(t3_warn_str_h,temp3_str);
-					u16 t3_warn_len_h = strlen(t3_warn_str_h);
-					UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t3_warn_len_h,t3_warn_str_h);//发布消息
-					delay_ms(5);
-					UART3_RxCounter = 0; 
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 			
-				
-				}
-				if(warn_flag3_low){
-					char t3_warn_str_l[50] = "{\"w3\" \"NO3 Low-temperature alarm\"}-";
-					strcat(t3_warn_str_l,temp3_str);
-					u16 t3_warn_len_l = strlen(t3_warn_str_l);
-					UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t3_warn_len_l,t3_warn_str_l);//发布消息
-					delay_ms(5);
-					UART3_RxCounter = 0; 
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 			
-				
-				}
+//			if((warn_flag3_high || warn_flag3_low) && (warn_timer_count%20==0)){
+//				char temp3_str[8];
+//				sprintf(temp3_str, "%.1f", temperature3);
+//				if(warn_flag3_high){
+//					char t3_warn_str_h[50] = "{\"b3\" \"NO3 High-temperature alarm\"}-";
+//					strcat(t3_warn_str_h,temp3_str);
+//					u16 t3_warn_len_h = strlen(t3_warn_str_h);
+//					UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t3_warn_len_h,t3_warn_str_h);//发布消息
+//					delay_ms(5);
+//					UART3_RxCounter = 0; 
+//					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 			
+//				
+//				}
+//				if(warn_flag3_low){
+//					char t3_warn_str_l[50] = "{\"w3\" \"NO3 Low-temperature alarm\"}-";
+//					strcat(t3_warn_str_l,temp3_str);
+//					u16 t3_warn_len_l = strlen(t3_warn_str_l);
+//					UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARN\",2,0,0,%d,\"%s\"\r\n",imei_no,t3_warn_len_l,t3_warn_str_l);//发布消息
+//					delay_ms(5);
+//					UART3_RxCounter = 0; 
+//					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 			
+//				
+//				}
 
-			}
+//			}
 			if((warn_485temp_flag_high ||  warn_485temp_flag_low) && (warn_timer_count%25==0)){
 				char temp485_str[8];
 				float send_TEMP_BUF=send_TEMP/10;
@@ -1647,7 +1639,7 @@ int main(void)
 		if(send_warn_Flag && mqtt_flag && network_flag){
 			send_warn_Flag = 0;
 			char send_warn_config[30]="";
-			sprintf(send_warn_config,"%d,%d,%d,%d,%d,%d;%d,%d;%d,%d;%d,%d;%d,%d;%d,%d;%d",warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,NH3_warn_flag,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,NH3_max);//sprintf
+			sprintf(send_warn_config,"%d,%d,%d,%d,%d;%d,%d;%d,%d;%d,%d;%d,%d;%d",warn_temp1_flag,warn_temp2_flag,warn_temp485_flag,warn_rh_flag,NH3_warn_flag,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp485_maxvalue,limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,NH3_max);//sprintf
 			u16 warn_config_len = strlen(send_warn_config);
 			UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/WARNCONFIG\",2,0,0,%d,\"%s\"\r\n",imei_no,warn_config_len,send_warn_config);//发布消息
 		}	

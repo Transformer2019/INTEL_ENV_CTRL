@@ -1672,7 +1672,7 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 				if(hz_control.min_temp>45)hz_control.min_temp=45;
 				if(hz_control.voltage_high>10)hz_control.voltage_high=10;
 				if(hz_control.voltage_low>8)hz_control.voltage_low=8;
-				if(hz_control.temp_choose>5)hz_control.temp_choose=1;
+				if(hz_control.temp_choose>4)hz_control.temp_choose=1;
 				
 					break;
 			case KEY_ENTER:
@@ -1691,7 +1691,7 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 				if(hz_control.min_temp<0)hz_control.min_temp=0;
 				if(hz_control.voltage_high<2)hz_control.voltage_high=2;
 				if(hz_control.voltage_low<0)hz_control.voltage_low=0;
-				if(hz_control.temp_choose==0)hz_control.temp_choose=5;
+				if(hz_control.temp_choose==0)hz_control.temp_choose=4;
 
 					break;
 			default:break;
@@ -1718,9 +1718,12 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	if(cur_pos!=5){
 		if(hz_control.temp_choose == 1) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,63);showhanzi(304,240,38);}
 		if(hz_control.temp_choose == 2) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,64);showhanzi(304,240,38);}
-		if(hz_control.temp_choose == 3) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,65);showhanzi(304,240,38);}	
+		//if(hz_control.temp_choose == 3) {showhanzi(208,240,39);showhanzi(240,240,66);showhanzi(272,240,65);showhanzi(304,240,38);}	
+		if(hz_control.temp_choose == 3) {
+			showdigit_color(208,240,4,WHITE,BLACK);showdigit_color(224,240,8,WHITE,BLACK);showdigit_color(240,240,5,WHITE,BLACK);showhanzi(256,240,39);showhanzi(288,240,66);showdigit_color(320,240,13,BLACK,BLACK);
+		}	
 		if(hz_control.temp_choose == 4) {showhanzi(208,240,67);showhanzi(240,240,68);showhanzi(272,240,39);showhanzi(304,240,66);}//平均温度
-		if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,WHITE,BLACK);showdigit_color(224,240,8,WHITE,BLACK);showdigit_color(240,240,5,WHITE,BLACK);showhanzi(256,240,39);showhanzi(288,240,66);showdigit_color(320,240,13,BLACK,BLACK);}
+		//if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,WHITE,BLACK);showdigit_color(224,240,8,WHITE,BLACK);showdigit_color(240,240,5,WHITE,BLACK);showhanzi(256,240,39);showhanzi(288,240,66);showdigit_color(320,240,13,BLACK,BLACK);}
 	}
 	//showdigit_color(280,0,(uint16_t)(hz_control.max_temp*10)%10,WHITE,HOME_BACK);
 	switch(cur_pos){
@@ -1745,9 +1748,9 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 		case 5:
 			if(hz_control.temp_choose == 1) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,63,1);showhanzi_1(304,240,38,1);}
 			if(hz_control.temp_choose == 2) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,64,1);showhanzi_1(304,240,38,1);}
-			if(hz_control.temp_choose == 3) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,65,1);showhanzi_1(304,240,38,1);}	
+			//if(hz_control.temp_choose == 3) {showhanzi_1(208,240,39,1);showhanzi_1(240,240,66,1);showhanzi_1(272,240,65,1);showhanzi_1(304,240,38,1);}	
 			if(hz_control.temp_choose == 4) {showhanzi_1(208,240,67,1);showhanzi_1(240,240,68,1);showhanzi_1(272,240,39,1);showhanzi_1(304,240,66,1);}//平均温度
-			if(hz_control.temp_choose == 5) {showdigit_color(208,240,4,BLACK,WHITE);showdigit_color(224,240,8,BLACK,WHITE);showdigit_color(240,240,5,BLACK,WHITE);showhanzi_1(256,240,39,1);showhanzi_1(288,240,66,1);showdigit_color(320,240,13,WHITE,WHITE);}
+			if(hz_control.temp_choose == 3) {showdigit_color(208,240,4,BLACK,WHITE);showdigit_color(224,240,8,BLACK,WHITE);showdigit_color(240,240,5,BLACK,WHITE);showhanzi_1(256,240,39,1);showhanzi_1(288,240,66,1);showdigit_color(320,240,13,WHITE,WHITE);}
 			break;
 		default:break;
 	}
@@ -1802,7 +1805,7 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	
 	u8 w1_buff = warn_temp1_flag;
 	u8 w2_buff = warn_temp2_flag;
-	u8 w3_buff = warn_temp3_flag;
+//	u8 w3_buff = warn_temp3_flag;
 	u8 w485_buff = warn_temp485_flag;
 	u8 w_rh_buff = warn_rh_flag;
 	
@@ -1810,8 +1813,8 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	u8 limit_min_temp1_buff = limit_temp1_minvalue;
 	u8 limit_max_temp2_buff = limit_temp2_maxvalue;
 	u8 limit_min_temp2_buff = limit_temp2_minvalue;
-	u8 limit_max_temp3_buff = limit_temp3_maxvalue;
-	u8 limit_min_temp3_buff = limit_temp3_minvalue;
+//	u8 limit_max_temp3_buff = limit_temp3_maxvalue;
+//	u8 limit_min_temp3_buff = limit_temp3_minvalue;
 	u8 limit_max_temp485_buff = limit_temp485_maxvalue;
 	u8 limit_min_temp485_buff = limit_temp485_minvalue;
 	u8 limit_max_rh_buff = limit_rh_maxvalue;
@@ -1834,13 +1837,13 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	//温度二
 	showhanzi(0,110,39);showhanzi(32,110,66);showhanzi(64,110,64);showhanzi(96,110,44);
 	//温度三
-	showhanzi(0,145,39);showhanzi(32,145,66);showhanzi(64,145,65);showhanzi(96,145,44);
+	//showhanzi(0,145,39);showhanzi(32,145,66);showhanzi(64,145,65);showhanzi(96,145,44);
 	//485温度
-	showdigit_color(0,180,4,WHITE,BLACK);showdigit_color(16,180,8,WHITE,BLACK);showdigit_color(32,180,5,WHITE,BLACK);showhanzi(48,180,39);showhanzi(80,180,66);showhanzi(112,180,44);
+	showdigit_color(0,145,4,WHITE,BLACK);showdigit_color(16,145,8,WHITE,BLACK);showdigit_color(32,145,5,WHITE,BLACK);showhanzi(48,145,39);showhanzi(80,145,66);showhanzi(112,145,44);
 	//485湿度
-	showdigit_color(0,215,4,WHITE,BLACK);showdigit_color(16,215,8,WHITE,BLACK);showdigit_color(32,215,5,WHITE,BLACK);showhanzi(48,215,148);showhanzi(80,215,66);showhanzi(112,215,44);
+	showdigit_color(0,180,4,WHITE,BLACK);showdigit_color(16,180,8,WHITE,BLACK);showdigit_color(32,180,5,WHITE,BLACK);showhanzi(48,180,148);showhanzi(80,180,66);showhanzi(112,180,44);
 	//485氨气
-	showdigit_color(0,250,4,WHITE,BLACK);showdigit_color(16,250,8,WHITE,BLACK);showdigit_color(32,250,5,WHITE,BLACK);showhanzi(48,250,105);showhanzi(80,250,106);showhanzi(112,250,44);
+	showdigit_color(0,215,4,WHITE,BLACK);showdigit_color(16,215,8,WHITE,BLACK);showdigit_color(32,215,5,WHITE,BLACK);showhanzi(48,215,105);showhanzi(80,215,106);showhanzi(112,215,44);
 	
 	
 	if(last_index!=_Alarm_Option)//判断是否是s第一次进入此界面
@@ -1854,27 +1857,27 @@ void Alarm_Child(u8 page_index,u8 key_val){
 				if(cur_pos == 4) warn_temp2_flag = !warn_temp2_flag;
 				if(cur_pos == 5) limit_temp2_maxvalue += 1;
 				if(cur_pos == 6) if(limit_temp2_minvalue+2<limit_temp2_maxvalue){limit_temp2_minvalue += 1;}
-			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
-				if(cur_pos == 8) limit_temp3_maxvalue += 1;
-				if(cur_pos == 9) if(limit_temp3_minvalue+2<limit_temp3_maxvalue){limit_temp3_minvalue += 1;}
-				if(cur_pos == 10) warn_temp485_flag = !warn_temp485_flag;
-				if(cur_pos == 11) limit_temp485_maxvalue += 1;
-				if(cur_pos == 12) if(limit_temp485_minvalue+2<limit_temp485_maxvalue){limit_temp485_minvalue += 1;}
-				if(cur_pos == 13) warn_rh_flag = !warn_rh_flag;
-				if(cur_pos == 14) limit_rh_maxvalue += 1;
-				if(cur_pos == 15) if(limit_rh_minvalue+2<limit_rh_maxvalue){limit_rh_minvalue += 1;}
-				if(cur_pos == 16) NH3_warn_flag = !NH3_warn_flag;
-				if(cur_pos == 17) NH3_max += 1;
+//			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
+//				if(cur_pos == 8) limit_temp3_maxvalue += 1;
+//				if(cur_pos == 9) if(limit_temp3_minvalue+2<limit_temp3_maxvalue){limit_temp3_minvalue += 1;}
+				if(cur_pos == 7) warn_temp485_flag = !warn_temp485_flag;
+				if(cur_pos == 8) limit_temp485_maxvalue += 1;
+				if(cur_pos == 9) if(limit_temp485_minvalue+2<limit_temp485_maxvalue){limit_temp485_minvalue += 1;}
+				if(cur_pos == 10) warn_rh_flag = !warn_rh_flag;
+				if(cur_pos == 11) limit_rh_maxvalue += 1;
+				if(cur_pos == 12) if(limit_rh_minvalue+2<limit_rh_maxvalue){limit_rh_minvalue += 1;}
+				if(cur_pos == 13) NH3_warn_flag = !NH3_warn_flag;
+				if(cur_pos == 14) NH3_max += 1;
 				if(limit_temp1_maxvalue>=50)limit_temp1_maxvalue=50;
 				if(limit_temp2_maxvalue>=50)limit_temp2_maxvalue=50;
-				if(limit_temp3_maxvalue>=50)limit_temp3_maxvalue=50;
+				//if(limit_temp3_maxvalue>=50)limit_temp3_maxvalue=50;
 				if(limit_temp485_maxvalue>=50)limit_temp485_maxvalue=50;
 				if(limit_rh_maxvalue>=80)limit_rh_maxvalue=80;
 				if(NH3_max>=30)NH3_max=30;
 					break;
 			case KEY_ENTER://确定(设置)按键
 				cur_pos++;
-				if(cur_pos == 18){
+				if(cur_pos == 15){
 					cur_pos = 1;
 				}
 					break;
@@ -1885,20 +1888,20 @@ void Alarm_Child(u8 page_index,u8 key_val){
 				if(cur_pos == 4) warn_temp2_flag = !warn_temp2_flag;
 				if(cur_pos == 5) if(limit_temp2_maxvalue-2>limit_temp2_minvalue){limit_temp2_maxvalue -= 1;}
 				if(cur_pos == 6) limit_temp2_minvalue -= 1;
-			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
-				if(cur_pos == 8) if(limit_temp3_maxvalue-2>limit_temp3_minvalue){limit_temp3_maxvalue -= 1;}
-				if(cur_pos == 9) limit_temp3_minvalue -= 1;
-				if(cur_pos == 10) warn_temp485_flag = !warn_temp485_flag;
-				if(cur_pos == 11) if(limit_temp485_maxvalue-2>limit_temp485_minvalue){limit_temp485_maxvalue -= 1;}
-				if(cur_pos == 12) limit_temp485_minvalue -= 1;
-				if(cur_pos == 13) warn_rh_flag = !warn_rh_flag;
-				if(cur_pos == 14) if(limit_rh_maxvalue-2>limit_rh_minvalue){limit_rh_maxvalue -= 1;}
-				if(cur_pos == 15) limit_rh_minvalue -= 1;
-				if(cur_pos == 16) NH3_warn_flag = !NH3_warn_flag;
-				if(cur_pos == 17) NH3_max -= 1;
+//			    if(cur_pos == 7) warn_temp3_flag = !warn_temp3_flag;
+//				if(cur_pos == 8) if(limit_temp3_maxvalue-2>limit_temp3_minvalue){limit_temp3_maxvalue -= 1;}
+//				if(cur_pos == 9) limit_temp3_minvalue -= 1;
+				if(cur_pos == 7) warn_temp485_flag = !warn_temp485_flag;
+				if(cur_pos == 8) if(limit_temp485_maxvalue-2>limit_temp485_minvalue){limit_temp485_maxvalue -= 1;}
+				if(cur_pos == 9) limit_temp485_minvalue -= 1;
+				if(cur_pos == 10) warn_rh_flag = !warn_rh_flag;
+				if(cur_pos == 11) if(limit_rh_maxvalue-2>limit_rh_minvalue){limit_rh_maxvalue -= 1;}
+				if(cur_pos == 12) limit_rh_minvalue -= 1;
+				if(cur_pos == 13) NH3_warn_flag = !NH3_warn_flag;
+				if(cur_pos == 14) NH3_max -= 1;
 				if(limit_temp1_minvalue==255)limit_temp1_minvalue=0;
 				if(limit_temp2_minvalue==255)limit_temp2_minvalue=0;
-				if(limit_temp3_minvalue==255)limit_temp3_minvalue=0;
+				//if(limit_temp3_minvalue==255)limit_temp3_minvalue=0;
 				if(limit_temp485_minvalue==255)limit_temp485_minvalue=0;
 				if(limit_rh_minvalue==255)limit_rh_minvalue=0;
 				if(NH3_max==255)NH3_max=0;
@@ -1922,10 +1925,10 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	uint8_t temp2_min_1 = limit_temp2_minvalue / 10;
 	uint8_t temp2_min_2 = limit_temp2_minvalue % 10;
 	
-	uint8_t temp3_max_1 = limit_temp3_maxvalue / 10;
-	uint8_t temp3_max_2 = limit_temp3_maxvalue % 10;
-	uint8_t temp3_min_1 = limit_temp3_minvalue / 10;
-	uint8_t temp3_min_2 = limit_temp3_minvalue % 10;
+//	uint8_t temp3_max_1 = limit_temp3_maxvalue / 10;
+//	uint8_t temp3_max_2 = limit_temp3_maxvalue % 10;
+//	uint8_t temp3_min_1 = limit_temp3_minvalue / 10;
+//	uint8_t temp3_min_2 = limit_temp3_minvalue % 10;
 		
 	uint8_t temp485_max_1 = limit_temp485_maxvalue / 10;
 	uint8_t temp485_max_2 = limit_temp485_maxvalue % 10;
@@ -1943,17 +1946,17 @@ void Alarm_Child(u8 page_index,u8 key_val){
 	if(cur_pos!=4){if(warn_temp2_flag){showhanzi(153,110,90);showhanzi(185,110,91);}else{showhanzi(153,110,92);showhanzi(185,110,91);}}
 	if(cur_pos!=5){showdigit_color(300,110,temp2_max_1,WHITE,BLACK);showdigit_color(316,110,temp2_max_2,WHITE,BLACK);}
 	if(cur_pos!=6){showdigit_color(415,110,temp2_min_1,WHITE,BLACK);showdigit_color(431,110,temp2_min_2,WHITE,BLACK);}	
-	if(cur_pos!=7){if(warn_temp3_flag){showhanzi(153,145,90);showhanzi(185,145,91);}else{showhanzi(153,145,92);showhanzi(185,145,91);}}
-	if(cur_pos!=8){showdigit_color(300,145,temp3_max_1,WHITE,BLACK);showdigit_color(316,145,temp3_max_2,WHITE,BLACK);}
-	if(cur_pos!=9){showdigit_color(415,145,temp3_min_1,WHITE,BLACK);showdigit_color(431,145,temp3_min_2,WHITE,BLACK);}
-	if(cur_pos!=10){if(warn_temp485_flag){showhanzi(153,180,90);showhanzi(185,180,91);}else{showhanzi(153,180,92);showhanzi(185,180,91);}}
-	if(cur_pos!=11){showdigit_color(300,180,temp485_max_1,WHITE,BLACK);showdigit_color(316,180,temp485_max_2,WHITE,BLACK);}
-	if(cur_pos!=12){showdigit_color(415,180,temp485_min_1,WHITE,BLACK);showdigit_color(431,180,temp485_min_2,WHITE,BLACK);}	
-	if(cur_pos!=13){if(warn_rh_flag){showhanzi(153,215,90);showhanzi(185,215,91);}else{showhanzi(153,215,92);showhanzi(185,215,91);}}
-	if(cur_pos!=14){showdigit_color(300,215,rh_max_1,WHITE,BLACK);showdigit_color(316,215,rh_max_2,WHITE,BLACK);}
-	if(cur_pos!=15){showdigit_color(415,215,rh_min_1,WHITE,BLACK);showdigit_color(431,215,rh_min_2,WHITE,BLACK);}
-	if(cur_pos!=16){if(NH3_warn_flag){showhanzi(153,250,90);showhanzi(185,250,91);}else{showhanzi(153,250,92);showhanzi(185,250,91);}}
-	if(cur_pos!=17){showdigit_color(300,250,nh3_max_1,WHITE,BLACK);showdigit_color(316,250,nh3_max_2,WHITE,BLACK);}	
+//	if(cur_pos!=7){if(warn_temp3_flag){showhanzi(153,145,90);showhanzi(185,145,91);}else{showhanzi(153,145,92);showhanzi(185,145,91);}}
+//	if(cur_pos!=8){showdigit_color(300,145,temp3_max_1,WHITE,BLACK);showdigit_color(316,145,temp3_max_2,WHITE,BLACK);}
+//	if(cur_pos!=9){showdigit_color(415,145,temp3_min_1,WHITE,BLACK);showdigit_color(431,145,temp3_min_2,WHITE,BLACK);}
+	if(cur_pos!=7){if(warn_temp485_flag){showhanzi(153,145,90);showhanzi(185,145,91);}else{showhanzi(153,145,92);showhanzi(185,145,91);}}
+	if(cur_pos!=8){showdigit_color(300,145,temp485_max_1,WHITE,BLACK);showdigit_color(316,145,temp485_max_2,WHITE,BLACK);}
+	if(cur_pos!=9){showdigit_color(415,145,temp485_min_1,WHITE,BLACK);showdigit_color(431,145,temp485_min_2,WHITE,BLACK);}	
+	if(cur_pos!=10){if(warn_rh_flag){showhanzi(153,180,90);showhanzi(185,180,91);}else{showhanzi(153,180,92);showhanzi(185,180,91);}}
+	if(cur_pos!=11){showdigit_color(300,180,rh_max_1,WHITE,BLACK);showdigit_color(316,180,rh_max_2,WHITE,BLACK);}
+	if(cur_pos!=12){showdigit_color(415,180,rh_min_1,WHITE,BLACK);showdigit_color(431,180,rh_min_2,WHITE,BLACK);}
+	if(cur_pos!=13){if(NH3_warn_flag){showhanzi(153,215,90);showhanzi(185,215,91);}else{showhanzi(153,215,92);showhanzi(185,215,91);}}
+	if(cur_pos!=14){showdigit_color(300,215,nh3_max_1,WHITE,BLACK);showdigit_color(316,215,nh3_max_2,WHITE,BLACK);}	
 	
 	switch(cur_pos)
 	{
@@ -1975,52 +1978,52 @@ void Alarm_Child(u8 page_index,u8 key_val){
 		case 6:
 			showdigit_color(415,110,temp2_min_1,BLACK,WHITE);showdigit_color(431,110,temp2_min_2,BLACK,WHITE);
 			break;
+//		case 7:
+//			if(warn_temp3_flag){showhanzi_1(153,145,90,1);showhanzi_1(185,145,91,1);}else{showhanzi_1(153,145,92,1);showhanzi_1(185,145,91,1);}
+//			break;
+//		case 8:
+//			showdigit_color(300,145,temp3_max_1,BLACK,WHITE);showdigit_color(316,145,temp3_max_2,BLACK,WHITE);
+//			break;
+//		case 9:
+//			showdigit_color(415,145,temp3_min_1,BLACK,WHITE);showdigit_color(431,145,temp3_min_2,BLACK,WHITE);
+//			break;
 		case 7:
-			if(warn_temp3_flag){showhanzi_1(153,145,90,1);showhanzi_1(185,145,91,1);}else{showhanzi_1(153,145,92,1);showhanzi_1(185,145,91,1);}
+			if(warn_temp485_flag){showhanzi_1(153,145,90,1);showhanzi_1(185,145,91,1);}else{showhanzi_1(153,145,92,1);showhanzi_1(185,145,91,1);}
 			break;
 		case 8:
-			showdigit_color(300,145,temp3_max_1,BLACK,WHITE);showdigit_color(316,145,temp3_max_2,BLACK,WHITE);
+			showdigit_color(300,145,temp485_max_1,BLACK,WHITE);showdigit_color(316,145,temp485_max_2,BLACK,WHITE);
 			break;
 		case 9:
-			showdigit_color(415,145,temp3_min_1,BLACK,WHITE);showdigit_color(431,145,temp3_min_2,BLACK,WHITE);
+			showdigit_color(415,145,temp485_min_1,BLACK,WHITE);showdigit_color(431,145,temp485_min_2,BLACK,WHITE);
 			break;
 		case 10:
-			if(warn_temp485_flag){showhanzi_1(153,180,90,1);showhanzi_1(185,180,91,1);}else{showhanzi_1(153,180,92,1);showhanzi_1(185,180,91,1);}
+			if(warn_rh_flag){showhanzi_1(153,180,90,1);showhanzi_1(185,180,91,1);}else{showhanzi_1(153,180,92,1);showhanzi_1(185,180,91,1);}
 			break;
 		case 11:
-			showdigit_color(300,180,temp485_max_1,BLACK,WHITE);showdigit_color(316,180,temp485_max_2,BLACK,WHITE);
+			showdigit_color(300,180,rh_max_1,BLACK,WHITE);showdigit_color(316,180,rh_max_2,BLACK,WHITE);
 			break;
 		case 12:
-			showdigit_color(415,180,temp485_min_1,BLACK,WHITE);showdigit_color(431,180,temp485_min_2,BLACK,WHITE);
+			showdigit_color(415,180,rh_min_1,BLACK,WHITE);showdigit_color(431,180,rh_min_2,BLACK,WHITE);
 			break;
 		case 13:
-			if(warn_rh_flag){showhanzi_1(153,215,90,1);showhanzi_1(185,215,91,1);}else{showhanzi_1(153,215,92,1);showhanzi_1(185,215,91,1);}
+			if(NH3_warn_flag){showhanzi_1(153,215,90,1);showhanzi_1(185,215,91,1);}else{showhanzi_1(153,215,92,1);showhanzi_1(185,215,91,1);}
 			break;
 		case 14:
-			showdigit_color(300,215,rh_max_1,BLACK,WHITE);showdigit_color(316,215,rh_max_2,BLACK,WHITE);
-			break;
-		case 15:
-			showdigit_color(415,215,rh_min_1,BLACK,WHITE);showdigit_color(431,215,rh_min_2,BLACK,WHITE);
-			break;
-		case 16:
-			if(NH3_warn_flag){showhanzi_1(153,250,90,1);showhanzi_1(185,250,91,1);}else{showhanzi_1(153,250,92,1);showhanzi_1(185,250,91,1);}
-			break;
-		case 17:
-			showdigit_color(300,250,nh3_max_1,BLACK,WHITE);showdigit_color(316,250,nh3_max_2,BLACK,WHITE);
+			showdigit_color(300,215,nh3_max_1,BLACK,WHITE);showdigit_color(316,215,nh3_max_2,BLACK,WHITE);
 			break;
 		default:break;
 	}
 	if(w1_buff != warn_temp1_flag ||
 		w2_buff != warn_temp2_flag ||
-		w3_buff != warn_temp3_flag ||
+//		w3_buff != warn_temp3_flag ||
 		w485_buff != warn_temp485_flag ||
 		w_rh_buff != warn_rh_flag ||
 		limit_max_temp1_buff != limit_temp1_maxvalue ||
 		limit_min_temp1_buff != limit_temp1_minvalue ||
 		limit_max_temp2_buff != limit_temp2_maxvalue ||
 		limit_min_temp2_buff != limit_temp2_minvalue ||
-		limit_max_temp3_buff != limit_temp3_maxvalue ||
-		limit_min_temp3_buff != limit_temp3_minvalue ||
+//		limit_max_temp3_buff != limit_temp3_maxvalue ||
+//		limit_min_temp3_buff != limit_temp3_minvalue ||
 		limit_max_temp485_buff != limit_temp485_maxvalue ||
 		limit_min_temp485_buff != limit_temp485_minvalue ||
 		limit_max_rh_buff != limit_rh_maxvalue ||
@@ -2571,9 +2574,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					if(relay_structure_temp[last_index_save-12].relay_mode == 1){
 						if(cur_pos1 == 1){if((relay_structure_temp[last_index_save-12].temp_control.max_temp-1)>relay_structure_temp[last_index_save-12].temp_control.min_temp) relay_structure_temp[last_index_save-12].temp_control.max_temp-=1;}
 						if(cur_pos1 == 2)relay_structure_temp[last_index_save-12].temp_control.min_temp-=1;
-						if(cur_pos1 == 3)relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag+=1;
+						if(cur_pos1 == 3)relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag-=1;
 						if(cur_pos1 == 4)relay_structure_temp[last_index_save-12].temp_control.startup_mode = !(relay_structure_temp[last_index_save-12].temp_control.startup_mode);
-						if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag = 0;
+						if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 255) relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag = 3;
 						if(cur_pos1 == 5){if((relay_structure_temp[last_index_save-12].temp_control.max_nh3-1)>relay_structure_temp[last_index_save-12].temp_control.min_nh3)relay_structure_temp[last_index_save-12].temp_control.max_nh3-=1;}
 						if(cur_pos1 == 6)relay_structure_temp[last_index_save-12].temp_control.min_nh3-=1;
 						//if(relay_structure_temp[last_index_save-12].temp_control.max_nh3<=1)relay_structure_temp[last_index_save-12].temp_control.max_nh3=1;
@@ -2589,9 +2592,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 					if(relay_structure_temp[last_index_save-12].relay_mode == 3){
 						if(cur_pos3 == 1){if((relay_structure_temp[last_index_save-12].temp_control.max_temp-1)>relay_structure_temp[last_index_save-12].temp_control.min_temp) relay_structure_temp[last_index_save-12].temp_control.max_temp-=1;}
 						if(cur_pos3 == 2)relay_structure_temp[last_index_save-12].temp_control.min_temp-=1;
-						if(cur_pos3 == 3)relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag+=1;
+						if(cur_pos3 == 3)relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag-=1;
 						if(cur_pos3 == 4)relay_structure_temp[last_index_save-12].temp_control.startup_mode = !(relay_structure_temp[last_index_save-12].temp_control.startup_mode);
-						if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 4) relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag = 0;
+						if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 255) relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag = 3;
 						
 						if(cur_pos3 == 5) relay_structure_temp[last_index_save-12].time_control.time_open -= 1;
 				        if(cur_pos3 == 6) relay_structure_temp[last_index_save-12].time_control.time_stop -= 1;
@@ -2698,7 +2701,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		switch(relay_mode_buf[last_index_save-12]){
 					
 			case 0:
-				showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,91);//不使用
+				showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,38);//手控
 				showhanzi(128,109,151);showhanzi(192,109,71);//常关
 				showhanzi(128,178,151);showhanzi(192,178,70);//常开
 				if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
@@ -2725,9 +2728,12 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 				
 			    showdigit_color(134,67,max_temp_v1/10,WHITE,BLACK);showdigit_color(150,67,max_temp_v1%10,WHITE,BLACK);
 			    showdigit_color(134,103,min_temp_v1/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v1%10,WHITE,BLACK);
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}//温度一
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}//温度二
+				//if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}//温度三改为485温度
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+					showdigit_color(199,139,4,WHITE,BLACK);showdigit_color(215,139,8,WHITE,BLACK);showdigit_color(231,139,5,WHITE,BLACK);showhanzi(247,139,39);showhanzi(279,139,66);showdigit_color(311,139,13,BLACK,BLACK);
+				}	
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 				if(relay_structure_temp[last_index_save-12].temp_control.startup_mode){
 					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
@@ -2770,7 +2776,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 			    showdigit_color(134,103,min_temp_v11/10,WHITE,BLACK);showdigit_color(150,103,min_temp_v11%10,WHITE,BLACK);
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+					showdigit_color(199,139,4,WHITE,BLACK);showdigit_color(215,139,8,WHITE,BLACK);showdigit_color(231,139,5,WHITE,BLACK);showhanzi(247,139,39);showhanzi(279,139,66);showdigit_color(311,139,13,BLACK,BLACK);
+				}	
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 				if(relay_structure_temp[last_index_save-12].temp_control.startup_mode){
 					showhanzi(167,175,61);showhanzi(199,175,62);}//加热
@@ -2899,12 +2907,12 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		fresh_flag_6 = 0;fresh_flag_7 = 0;fresh_flag_8 = 0;fresh_flag_9 = 0;fresh_flag_10 = 0;
 	}
 	
-	//不使用界面
+	//手控界面
 	if((enter_config_flag_1 || enter_config_flag_2 ||enter_config_flag_3 || enter_config_flag_4 ||enter_config_flag_5
 		|| enter_config_flag_6 ||enter_config_flag_7 || enter_config_flag_8 || enter_config_flag_9 || enter_config_flag_10
 		)
 	&& relay_structure_temp[last_index_save-12].relay_mode==0){
-	    showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,91);//不使用
+	    showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,38);//手控
 		showhanzi(128,109,151);showhanzi(192,109,71);//常关
 		showhanzi(128,178,151);showhanzi(192,178,70);//常开
 		if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
@@ -2938,7 +2946,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		if(cur_pos1!=3){
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+				showdigit_color(199,139,4,WHITE,BLACK);showdigit_color(215,139,8,WHITE,BLACK);showdigit_color(231,139,5,WHITE,BLACK);showhanzi(247,139,39);showhanzi(279,139,66);showdigit_color(311,139,13,BLACK,BLACK);
+			}	
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 		}
 		if(cur_pos1!=4){				
@@ -2957,7 +2967,10 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 			case 3:
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,63,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,64,1);showhanzi_1(295,139,38,1);}
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,65,1);showhanzi_1(295,139,38,1);}
+				//if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,65,1);showhanzi_1(295,139,38,1);}
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+					showdigit_color(199,139,4,BLACK,WHITE);showdigit_color(215,139,8,BLACK,WHITE);showdigit_color(231,139,5,BLACK,WHITE);showhanzi_1(247,139,39,1);showhanzi_1(279,139,66,1);showdigit_color(311,139,13,WHITE,WHITE);
+				}	
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi_1(199,139,67,1);showhanzi_1(231,139,68,1);showhanzi_1(263,139,39,1);showhanzi_1(295,139,66,1);}//平均温度
 				break;
 			case 4:
@@ -3035,7 +3048,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		if(cur_pos3!=3){
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,63);showhanzi(295,139,38);}
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,64);showhanzi(295,139,38);}
-			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi(199,139,39);showhanzi(231,139,66);showhanzi(263,139,65);showhanzi(295,139,38);}
+			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+				showdigit_color(199,139,4,WHITE,BLACK);showdigit_color(215,139,8,WHITE,BLACK);showdigit_color(231,139,5,WHITE,BLACK);showhanzi(247,139,39);showhanzi(279,139,66);showdigit_color(311,139,13,BLACK,BLACK);
+			}	
 			if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi(199,139,67);showhanzi(231,139,68);showhanzi(263,139,39);showhanzi(295,139,66);}//平均温度
 		}
 		if(cur_pos3!=4){
@@ -3064,7 +3079,9 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 			case 3:
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 0) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,63,1);showhanzi_1(295,139,38,1);}
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 1) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,64,1);showhanzi_1(295,139,38,1);}
-				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {showhanzi_1(199,139,39,1);showhanzi_1(231,139,66,1);showhanzi_1(263,139,65,1);showhanzi_1(295,139,38,1);}
+				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 2) {
+					showdigit_color(199,139,4,BLACK,WHITE);showdigit_color(215,139,8,BLACK,WHITE);showdigit_color(231,139,5,BLACK,WHITE);showhanzi_1(247,139,39,1);showhanzi_1(279,139,66,1);showdigit_color(311,139,13,WHITE,WHITE);
+				}	
 				if(relay_structure_temp[last_index_save-12].temp_control.temp_choose_flag == 3) {showhanzi_1(199,139,67,1);showhanzi_1(231,139,68,1);showhanzi_1(263,139,39,1);showhanzi_1(295,139,66,1);}//平均温度
 				break;
 			case 4:
