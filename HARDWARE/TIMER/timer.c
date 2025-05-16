@@ -247,14 +247,14 @@ void TIM2_IRQHandler(void)   //TIM2中断
 #endif	
 		
 		//获取是否联网频率
-		if(TIM5_Counter_10s>300)
+		if(TIM5_Counter_10s>60)
 		{
 			TIM5_flag=1;
 		}
 		TIM5_Counter_10s++;
 		
 		//获取网络时间频率
-		if(TIM6_Counter>43200)
+		if(TIM6_Counter>21600)
 		{
 			TIM6_flag=1;
 		}
@@ -469,14 +469,14 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			//测试代码结束
 			
 			
-			if(TIM3_Counter_10s>2)//一秒进一次中断，累计8秒后标志置1，再中断处理
+			if(TIM3_Counter_10s>5)//
 			{
 			  TIM3_flag=1;
 			}
 			TIM3_Counter_10s++;
 			
-			//mqtt连接判断计数器，一小时判断一次是否连接服务器-----修改为10分钟
-			if(MQTT_CON_Counter>600)
+			//mqtt连接判断计数器，一小时判断一次是否连接服务器-----修改为5分钟
+			if(MQTT_CON_Counter>300)
 			{
 			  MQTT_CON_flag=1;
 			}

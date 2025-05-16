@@ -20,7 +20,6 @@
 
 #include "mb_hook.h"
 
-
 #define SIZE_OF_RELAY_STRUCTURE (10 * sizeof(Relay_Structure)) // 计算数组大小
 	
 #define REMOVE_memset 0  //去除发布消息后清零串口接收缓冲区
@@ -1290,7 +1289,7 @@ int main(void)
 				}
 
 			}
-			
+
 
 			if(network_flag==1 && mqtt_flag==0){
 				//判断是否连接mqtt服务器
@@ -1349,6 +1348,7 @@ int main(void)
 					delay_ms(10);
 				}
 				
+				
 				//获取网络时间
 				UART3_Puts("AT+CCLK?\r\n"); 
 				delay_ms(25);
@@ -1357,46 +1357,55 @@ int main(void)
 					if(strstr(UART3_RxBuff,"+CCLK:")){
 						memset(time_str,0,21);
 						char *clock_str = strstr(UART3_RxBuff, "+CCLK: ");
+						//char *clock_str = "+CCLK: \"21/12/27,20:57:30+32\"";
 						if (clock_str != NULL) {
 							clock_str += 8; // 跳过 "+CGSN: " 部分
 							strncpy(time_str, clock_str, 20);
 							time_str[20] = '\0'; // 确保字符串以 '\0' 结束
 							//LCD_ShowString(0,40,16,time_str,0);
-							uint16_t year_t = 0;
-							uint8_t month_t = 0;
-							uint8_t day_t = 0;
-							uint8_t hour_t = 0;
-							uint8_t minute_t = 0;
-							uint8_t second_t = 0;
-							uint8_t tz_offset = 0;
-							int result = sscanf(time_str, "%d/%d/%d,%d:%d:%d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
-							if(result==7){
-								year_t+=2000;
-								if((hour_t+(tz_offset/4))>=24){
-									hour_t-=24;
-									if ((year_t % 4 == 0 && year_t % 100 != 0) || (year_t % 400 == 0)) {
-										// 闰年 366
-										if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==10) && day_t==30) || (month_t==2 || day_t==29)) {
-											day_t=1;month_t+=1;
-										}else{
-											if(month_t==12 && day_t==31){year_t+=1;month_t=1;day_t=1;}else day_t+=1;
+							if (strstr(time_str, "+32") != NULL) {
+								uint16_t year_t = 0;
+								uint8_t month_t = 0;
+								uint8_t day_t = 0;
+								uint8_t hour_t = 0;
+								uint8_t minute_t = 0;
+								uint8_t second_t = 0;
+								uint8_t tz_offset = 0;
+								int result = sscanf(time_str, "%2d/%2d/%2d,%2d:%2d:%2d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
+								if(result==7){
+									year_t+=2000;
+									if((hour_t+8)>=24){
+										hour_t-=16;
+										if ((year_t % 4 == 0 && year_t % 100 != 0) || (year_t % 400 == 0)) {
+											// 闰年 366
+											if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==11) && day_t==30) || (month_t==2 && day_t==29)) {
+												day_t=1;month_t+=1;
+											}else if(month_t==12 && day_t==31){
+												year_t+=1;month_t=1;day_t=1;
+											}else{
+												day_t+=1;
+											}
+										} else {
+											// 平年 365
+											if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==11) && day_t==30) || (month_t==2 && day_t==28)) {
+												day_t=1;month_t+=1;
+											}else if(month_t==12 && day_t==31){
+												year_t+=1;month_t=1;day_t=1;
+											}else{
+												day_t+=1;
+											}
 										}
+										//赋值给系统时间
+										RTC_Set(year_t,month_t,day_t,hour_t,minute_t,second_t);
 									} else {
-										// 平年 365
-										if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==10) && day_t==30) || (month_t==2 || day_t==28)) {
-											day_t=1;month_t+=1;
-										}else{
-											if(month_t==12 && day_t==31){year_t+=1;month_t=1;day_t=1;}else day_t+=1;
-										}
+										//赋值给系统时间
+										RTC_Set(year_t,month_t,day_t,hour_t+8,minute_t,second_t);
 									}
-									//赋值给系统时间
-									RTC_Set(year_t,month_t,day_t,hour_t,minute_t,second_t);
-								} else {
-									//赋值给系统时间
-									RTC_Set(year_t,month_t,day_t,hour_t+(tz_offset/4),minute_t,second_t);
-								}
 
+								}
+							
 							}
+							
 						}
 //						UART3_RxCounter = 0; //重新等待接收下一个推送消息
 //						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1661,21 +1670,22 @@ int main(void)
 		ctrl_ui++;
 		if(ctrl_ui>3)ctrl_ui=0;
 		
-		//10分钟判断一次连接服务器状态
+		//5分钟判断一次连接服务器状态
 		if(network_flag==1 && MQTT_CON_flag){
 			//判断是否连接mqtt服务器
 			UART3_Puts("AT+MQTTSTATE=0\r\n");
-			delay_ms(10);
+			delay_ms(20);
 			MQTT_CON_Counter=0;
 			MQTT_CON_flag=0;
-			
+			//LCD_ShowString(0,40,16,(char *)UART3_RxBuff,0);
 			if(UART3_RxCounter != 0){
-				if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
+				
+				if(strstr(UART3_RxBuff,"+MQTTSTATE: 2")!=NULL){
 					mqtt_flag = 1;
 					//订阅报文
 					UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",2\r\n",imei_no);
 					delay_ms(10);
-					
+					//LCD_ShowString(0,40,16,"1564huiuhuii",0);
 					//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1683,7 +1693,7 @@ int main(void)
 					UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNHZCTRL/%s\",2\r\n",imei_no);
 					
 					
-				}else if(strstr(UART3_RxBuff,"+MQTTSTATE:3")!=NULL){
+				}else if(strstr(UART3_RxBuff,"+MQTTSTATE: 3")!=NULL){
 					mqtt_flag = 0;
 				}
 				
@@ -1693,7 +1703,7 @@ int main(void)
 
 		}
 		
-		// 10分钟一次: 判断是否连接网络（改为5分钟一次）
+		// 10分钟一次: 判断是否连接网络（改为1分钟一次）
 		if(TIM5_flag)
 		{
 			TIM5_flag=0;
@@ -1724,12 +1734,12 @@ int main(void)
 			
 		}// TIM5_flag
 		
-		//获取网络时间（12个小时一次）
+		//获取网络时间（6个小时一次）
 		if(network_flag && TIM6_flag){
 			TIM6_flag=0;
 			TIM6_Counter=0;
 			UART3_Puts("AT+CCLK?\r\n"); 
-			delay_ms(10);
+			delay_ms(25);
 			if(UART3_RxCounter != 0){
 				char time_str_test[21]="";
 				memset(time_str_test,0,21);
@@ -1745,41 +1755,50 @@ int main(void)
 						//u16 time_str_test_len = 20;
 						UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/TIMETEST\",0,0,0,%d,\"%s\"\r\n",imei_no,time_str_test_len,time_str_test);//发布消息
 						
-						uint16_t year_t = 0;
-						uint8_t month_t = 0;
-						uint8_t day_t = 0;
-						uint8_t hour_t = 0;
-						uint8_t minute_t = 0;
-						uint8_t second_t = 0;
-						uint8_t tz_offset = 0;
-						int result = sscanf(time_str_test, "%d/%d/%d,%d:%d:%d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
-						if(result==7){
-							year_t+=2000;
-							if((hour_t+(tz_offset/4))>=24){
-								hour_t-=24;
-								if ((year_t % 4 == 0 && year_t % 100 != 0) || (year_t % 400 == 0)) {
-									// 闰年 366
-									if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==10) && day_t==30) || (month_t==2 || day_t==29)) {
-										day_t=1;month_t+=1;
-									}else{
-										if(month_t==12 && day_t==31){year_t+=1;month_t=1;day_t=1;}else day_t+=1;
+						if (strstr(time_str_test, "+32") != NULL) {
+			
+							uint16_t year_t = 0;
+							uint8_t month_t = 0;
+							uint8_t day_t = 0;
+							uint8_t hour_t = 0;
+							uint8_t minute_t = 0;
+							uint8_t second_t = 0;
+							uint8_t tz_offset = 0;
+							int result = sscanf(time_str_test, "%2d/%2d/%2d,%2d:%2d:%2d+%d",&year_t, &month_t, &day_t, &hour_t, &minute_t, &second_t, &tz_offset);
+							if(result==7){
+								year_t+=2000;
+								if((hour_t+(tz_offset/4))>=24){
+									hour_t-=16;
+									if ((year_t % 4 == 0 && year_t % 100 != 0) || (year_t % 400 == 0)) {
+										// 闰年 366
+										if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==11) && day_t==30) || (month_t==2 && day_t==29)) {
+											day_t=1;month_t+=1;
+										}else if(month_t==12 && day_t==31){
+											year_t+=1;month_t=1;day_t=1;
+										}else{
+											day_t+=1;
+										}
+									} else {
+										// 平年 365
+										if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==11) && day_t==30) || (month_t==2 && day_t==28)) {
+											day_t=1;month_t+=1;
+										}else if(month_t==12 && day_t==31){
+											year_t+=1;month_t=1;day_t=1;
+										}else{
+											day_t+=1;
+										}
 									}
+									//赋值给系统时间
+									RTC_Set(year_t,month_t,day_t,hour_t,minute_t,second_t);
 								} else {
-									// 平年 365
-									if (((month_t==1 || month_t==3 || month_t==5 || month_t==7 || month_t==8 || month_t==10) && day_t==31) || ((month_t==4 || month_t==6 || month_t==8 || month_t==10) && day_t==30) || (month_t==2 || day_t==28)) {
-										day_t=1;month_t+=1;
-									}else{
-										if(month_t==12 && day_t==31){year_t+=1;month_t=1;day_t=1;}else day_t+=1;
-									}
+									//赋值给系统时间
+									RTC_Set(year_t,month_t,day_t,hour_t+(tz_offset/4),minute_t,second_t);
 								}
-								//赋值给系统时间
-								RTC_Set(year_t,month_t,day_t,hour_t,minute_t,second_t);
-							} else {
-								//赋值给系统时间
-								RTC_Set(year_t,month_t,day_t,hour_t+(tz_offset/4),minute_t,second_t);
-							}
 
+							}
 						}
+						
+						
 					}
 //						UART3_RxCounter = 0; //重新等待接收下一个推送消息
 //						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
