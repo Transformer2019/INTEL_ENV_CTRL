@@ -247,14 +247,14 @@ void TIM2_IRQHandler(void)   //TIM2中断
 #endif	
 		
 		//获取是否联网频率
-		if(TIM5_Counter_10s>600)
+		if(TIM5_Counter_10s>300)
 		{
 			TIM5_flag=1;
 		}
 		TIM5_Counter_10s++;
 		
 		//获取网络时间频率
-		if(TIM6_Counter>3600)
+		if(TIM6_Counter>43200)
 		{
 			TIM6_flag=1;
 		}
@@ -315,7 +315,7 @@ void TIM2_IRQHandler(void)   //TIM2中断
 				float data_v_t = ((Hz_temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
 				data_v = data_v_t*4095/10;
 				out_voltage=data_v_t*5.0;
-				printf("out_voltage:%d\n",out_voltage);
+				//printf("out_voltage:%d\n",out_voltage);
 			}
 		}else{
 			data_v=0;
@@ -475,8 +475,8 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			}
 			TIM3_Counter_10s++;
 			
-			//mqtt连接判断计数器，一小时判断一次是否连接服务器
-			if(MQTT_CON_Counter>3600)
+			//mqtt连接判断计数器，一小时判断一次是否连接服务器-----修改为10分钟
+			if(MQTT_CON_Counter>600)
 			{
 			  MQTT_CON_flag=1;
 			}

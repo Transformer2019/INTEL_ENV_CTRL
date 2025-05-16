@@ -1259,10 +1259,10 @@ int main(void)
 						network_flag=1;
 					}else if(strstr(UART3_RxBuff,"+CEREG: 0,0")){
 						network_flag=0;
-						mqtt_flag=0;
+						//mqtt_flag=0;
 					}else if(strstr(UART3_RxBuff,"error")){
 						network_flag=0;
-						mqtt_flag=0;
+						//mqtt_flag=0;
 					}
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1295,7 +1295,10 @@ int main(void)
 			if(network_flag==1 && mqtt_flag==0){
 				//判断是否连接mqtt服务器
 				
+				//UART3_Puts("AT+MQTTCFG=\"pingreq\",0,60\r\n"); 
 				UART3_Puts("AT+MQTTCFG=\"pingresp\",0,1\r\n"); 
+				//UART3_Puts("AT+MQTTCFG=\"keepalive\",0,80\r\n"); 
+				
 
 				delay_ms(20);
 				UART3_RxCounter = 0; //重新等待接收下一个推送消息
@@ -1305,7 +1308,7 @@ int main(void)
 				//UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
 				//UART3_Puts("AT+MQTTCONN=0,\"39.105.15.166\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
 				UART3_Puts("AT+MQTTCONN=0,\"bdywl.cn\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
-				delay_ms(500);
+				delay_ms(600);
 				
 
 //					char im[10];
@@ -1320,7 +1323,7 @@ int main(void)
 					if(strstr(UART3_RxBuff,"\"conn\",0,0")!=NULL || strstr(UART3_RxBuff,"\"conn\",0,1")!=NULL){
 						mqtt_flag = 1;
 	                    //LCD_ShowString(0,0,16,"sub",0);
-	                    
+						
 						//订阅报文
 						UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",2\r\n",imei_no);
 						delay_ms(50);
@@ -1339,6 +1342,7 @@ int main(void)
 					}else{
 						//LCD_ShowString(0,220,16,"no sub",0);
 						mqtt_flag = 0;
+						
 					}
 					UART3_RxCounter = 0; //重新等待接收下一个推送消息
 					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1402,41 +1406,26 @@ int main(void)
 			    }
 			}//if(network_flag==1 && mqtt_flag==0)
 			
-			if(network_flag==1 && MQTT_CON_flag){
-				//判断是否连接mqtt服务器
-				UART3_Puts("AT+MQTTSTATE=0\r\n");
-				delay_ms(10);
-				MQTT_CON_Counter=0;
-				MQTT_CON_flag=0;
+//			if(network_flag==1 && MQTT_CON_flag){
+//				//判断是否连接mqtt服务器
+//				UART3_Puts("AT+MQTTSTATE=0\r\n");
+//				delay_ms(10);
+//				MQTT_CON_Counter=0;
+//				MQTT_CON_flag=0;
+//				
 //				if(UART3_RxCounter != 0){
 //					if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
 //						mqtt_flag = 1;
-//						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-//						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 //					}else if(strstr(UART3_RxBuff,"+MQTTSTATE:3")!=NULL){
-//						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-//						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-//						mqtt_flag = 0;
-//					}else if(strstr(UART3_RxBuff,"+MQTTSTATE:1")!=NULL){
-//						UART3_RxCounter = 0; //重新等待接收下一个推送消息
-//						memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+
 //						mqtt_flag = 0;
 //					}
+//					
+//					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+//					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 //				}
-				
-				if(UART3_RxCounter != 0){
-					if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
-						mqtt_flag = 1;
-					}else if(strstr(UART3_RxBuff,"+MQTTSTATE:3")!=NULL || strstr(UART3_RxBuff,"+MQTTSTATE:1")!=NULL){
 
-						mqtt_flag = 0;
-					}
-					
-					UART3_RxCounter = 0; //重新等待接收下一个推送消息
-					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
-				}
-
-			}
+//			}
 			
 		}//TIM3_flag
 		//向服务器发布采集信息
@@ -1522,7 +1511,7 @@ int main(void)
 				}
 
 			}
-			if((warn_flag2_high || warn_flag2_low) && (warn_timer_count%25==0)){
+			if((warn_flag2_high || warn_flag2_low) && (warn_timer_count%30==0)){
 				char temp2_str[8];
 				sprintf(temp2_str, "%.1f", temperature2);
 				if(warn_flag2_high){
@@ -1596,7 +1585,7 @@ int main(void)
 				}
 
 			}
-			if((warn_485rh_flag_high || warn_485rh_flag_low) && (warn_timer_count%20==0)){
+			if((warn_485rh_flag_high || warn_485rh_flag_low) && (warn_timer_count%35==0)){
 				char rh_str[8];
 				float send_RH_BUF = send_RH/10;
 				sprintf(rh_str, "%.1f", send_RH_BUF);
@@ -1672,9 +1661,39 @@ int main(void)
 		ctrl_ui++;
 		if(ctrl_ui>3)ctrl_ui=0;
 		
-		//将配置参数写入flash
+		//10分钟判断一次连接服务器状态
+		if(network_flag==1 && MQTT_CON_flag){
+			//判断是否连接mqtt服务器
+			UART3_Puts("AT+MQTTSTATE=0\r\n");
+			delay_ms(10);
+			MQTT_CON_Counter=0;
+			MQTT_CON_flag=0;
+			
+			if(UART3_RxCounter != 0){
+				if(strstr(UART3_RxBuff,"+MQTTSTATE:2")!=NULL){
+					mqtt_flag = 1;
+					//订阅报文
+					UART3_Puts("AT+MQTTSUB=0,\"YKWL/CTRL/%s\",2\r\n",imei_no);
+					delay_ms(10);
+					
+					//UART3_Puts("AT+MQTTSUB=0,\"testTopic/1234586\",1\r\n");
+					UART3_RxCounter = 0; //重新等待接收下一个推送消息
+					memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+					
+					UART3_Puts("AT+MQTTSUB=0,\"YKWL/TNHZCTRL/%s\",2\r\n",imei_no);
+					
+					
+				}else if(strstr(UART3_RxBuff,"+MQTTSTATE:3")!=NULL){
+					mqtt_flag = 0;
+				}
+				
+				UART3_RxCounter = 0; //重新等待接收下一个推送消息
+				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+			}
+
+		}
 		
-		// 10分钟一次: 判断是否连接网络
+		// 10分钟一次: 判断是否连接网络（改为5分钟一次）
 		if(TIM5_flag)
 		{
 			TIM5_flag=0;
@@ -1682,7 +1701,6 @@ int main(void)
 			// 将结构体转换为字节数据
 //			uint16_t *data = (uint16_t *)&relay_structure;
 //			WriteFlashData(0,data,sizeof(SIZE_OF_RELAY_STRUCTURE));//只写进去一个字节
-			
 			// 判断是否连接网络
 			UART3_Puts("AT+CEREG?\r\n"); 
 			delay_ms(10);
@@ -1692,13 +1710,13 @@ int main(void)
 					network_flag=1;
 				}else if(strstr(UART3_RxBuff,"+CEREG: 0,0")){
 					network_flag=0;
-					mqtt_flag=0;
+					//mqtt_flag=0;
 				}else if(strstr(UART3_RxBuff,"error")){
 					network_flag=0;
-					mqtt_flag=0;
+					//mqtt_flag=0;
 				}else{
 					network_flag=0;
-					mqtt_flag=0;
+					//mqtt_flag=0;
 				}
 				UART3_RxCounter = 0; //重新等待接收下一个推送消息
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
@@ -1706,7 +1724,7 @@ int main(void)
 			
 		}// TIM5_flag
 		
-		//获取网络时间（一个小时一次）
+		//获取网络时间（12个小时一次）
 		if(network_flag && TIM6_flag){
 			TIM6_flag=0;
 			TIM6_Counter=0;
@@ -1725,7 +1743,7 @@ int main(void)
 						//LCD_ShowString(0,88,16,time_str_test,0);
 						u16 time_str_test_len = strlen(time_str_test);
 						//u16 time_str_test_len = 20;
-						UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/TIMETEST\",2,0,0,%d,\"%s\"\r\n",imei_no,time_str_test_len,time_str_test);//发布消息
+						UART3_Puts("AT+MQTTPUB=0,\"YKWL/%s/TIMETEST\",0,0,0,%d,\"%s\"\r\n",imei_no,time_str_test_len,time_str_test);//发布消息
 						
 						uint16_t year_t = 0;
 						uint8_t month_t = 0;
@@ -1770,10 +1788,7 @@ int main(void)
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 			}
 			
-		}// network_flag
-
-		
-next:
+		}// network_flag && TIM6_flag
 
 	}//while 
 	

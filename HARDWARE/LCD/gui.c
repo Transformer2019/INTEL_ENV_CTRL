@@ -2701,7 +2701,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		switch(relay_mode_buf[last_index_save-12]){
 					
 			case 0:
-				showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,38);//手控
+				showhanzi(160,35,153);showhanzi(192,35,152);showhanzi(224,35,38);//手控
 				showhanzi(128,109,151);showhanzi(192,109,71);//常关
 				showhanzi(128,178,151);showhanzi(192,178,70);//常开
 				if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
@@ -2912,7 +2912,7 @@ void Air_Blower_Child_Ctrl_1_Fun(u8 page_index,u8 key_val){
 		|| enter_config_flag_6 ||enter_config_flag_7 || enter_config_flag_8 || enter_config_flag_9 || enter_config_flag_10
 		)
 	&& relay_structure_temp[last_index_save-12].relay_mode==0){
-	    showhanzi(160,35,92);showhanzi(192,35,90);showhanzi(224,35,38);//手控
+	    showhanzi(160,35,153);showhanzi(192,35,152);showhanzi(224,35,38);//手控
 		showhanzi(128,109,151);showhanzi(192,109,71);//常关
 		showhanzi(128,178,151);showhanzi(192,178,70);//常开
 		if(relay_structure_temp[last_index_save-12].no_Ctrl.all_open_or_close){
