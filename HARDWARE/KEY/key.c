@@ -73,7 +73,7 @@ void KEY_Init(void) //IO初始化
 u8 Get_KEY_Value(void)
 {
 	static u8 Flag=0;
-	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&Flag==0)
+	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&(Flag==0))
 	{
 		Flag=1;
 		delay_ms(15);//按键消抖
@@ -90,10 +90,10 @@ u8 Get_KEY_Value(void)
 	}
 
 	
-	if((KEY_UP&&KEY_DOWN&&KEY_LEFT&&KEY_RIGHT)&&Flag==1){Flag=0;cont_key_count=0;}//检测是否松开
+	if((KEY_UP&&KEY_DOWN&&KEY_LEFT&&KEY_RIGHT)&&(Flag==1)){Flag=0;cont_key_count=0;}//检测是否松开
 	
 	
-	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&Flag==1)
+	if((!KEY_UP||!KEY_DOWN||!KEY_LEFT||!KEY_RIGHT)&&(Flag==1))
 	{
 		//printf("Get_KEY_Value:%d\n",cont_key_count);
 		//在此处的快加快减功能，每秒加减的数不超过每秒屏幕刷新次数，因为加减是在GUI_Refresh函数中进行的，如果想更快加减，需要用定时器实现

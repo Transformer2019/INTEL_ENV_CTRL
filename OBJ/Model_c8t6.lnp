@@ -37,7 +37,7 @@
 "..\obj\mb_hook.o"
 "..\obj\mb_host.o"
 "..\obj\mb_port.o"
-"D:\develop\keil\Packs\Keil\Jansson\1.0.0\lib\jansson_CM3LE.lib"
+"D:\develop\keil-5.42\Packs\Keil\Jansson\1.0.0\lib\jansson_CM3LE.lib"
 "..\obj\jansson_config.o"
 --library_type=microlib --nodebug --strict --scatter "..\OBJ\Model_c8t6.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

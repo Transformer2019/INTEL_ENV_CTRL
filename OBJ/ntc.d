@@ -2,7 +2,7 @@
 ..\obj\ntc.o: ..\HARDWARE\NTC\ntc.h
 ..\obj\ntc.o: ..\USER\stm32f10x.h
 ..\obj\ntc.o: ..\CORE\core_cm3.h
-..\obj\ntc.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\ntc.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\ntc.o: ..\USER\system_stm32f10x.h
 ..\obj\ntc.o: ..\USER\stm32f10x_conf.h
 ..\obj\ntc.o: ..\FWLib\inc\stm32f10x_adc.h
@@ -20,6 +20,6 @@
 ..\obj\ntc.o: ..\FWLib\inc\stm32f10x_tim.h
 ..\obj\ntc.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\ntc.o: ..\FWLib\inc\misc.h
-..\obj\ntc.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\math.h
+..\obj\ntc.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\ntc.o: ..\SYSTEM\delay\delay.h
 ..\obj\ntc.o: ..\SYSTEM\sys\sys.h

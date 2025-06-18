@@ -1,6 +1,6 @@
 ..\obj\mb_hook.o: ..\HARDWARE\MMODBUS\mb_hook.c
 ..\obj\mb_hook.o: ..\HARDWARE\MMODBUS\mb_include.h
-..\obj\mb_hook.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\mb_hook.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\mb_hook.o: ..\USER\stm32f10x.h
 ..\obj\mb_hook.o: ..\CORE\core_cm3.h
 ..\obj\mb_hook.o: ..\USER\system_stm32f10x.h

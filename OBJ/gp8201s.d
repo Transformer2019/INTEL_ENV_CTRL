@@ -3,7 +3,7 @@
 ..\obj\gp8201s.o: ..\SYSTEM\sys\sys.h
 ..\obj\gp8201s.o: ..\USER\stm32f10x.h
 ..\obj\gp8201s.o: ..\CORE\core_cm3.h
-..\obj\gp8201s.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\gp8201s.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\gp8201s.o: ..\USER\system_stm32f10x.h
 ..\obj\gp8201s.o: ..\USER\stm32f10x_conf.h
 ..\obj\gp8201s.o: ..\FWLib\inc\stm32f10x_adc.h

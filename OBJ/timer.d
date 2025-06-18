@@ -3,7 +3,7 @@
 ..\obj\timer.o: ..\SYSTEM\sys\sys.h
 ..\obj\timer.o: ..\USER\stm32f10x.h
 ..\obj\timer.o: ..\CORE\core_cm3.h
-..\obj\timer.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\timer.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\timer.o: ..\USER\system_stm32f10x.h
 ..\obj\timer.o: ..\USER\stm32f10x_conf.h
 ..\obj\timer.o: ..\FWLib\inc\stm32f10x_adc.h
@@ -29,4 +29,5 @@
 ..\obj\timer.o: ..\HARDWARE\MMODBUS\mb_hook.h
 ..\obj\timer.o: ..\HARDWARE\GP8201S\GP8201S.h
 ..\obj\timer.o: ..\HARDWARE\FLASH\flash.h
+..\obj\timer.o: ..\HARDWARE\74HC595\74HC595.h
 ..\obj\timer.o: ..\HARDWARE\KEY\key.h

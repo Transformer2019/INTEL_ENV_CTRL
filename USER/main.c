@@ -63,48 +63,48 @@ u8 is_all_ff(uint8_t *buffer, uint16_t length) {
 
 
 // 状态控制变量
-static uint8_t current_relay = 0;             // 当前操作的第几个继电器 (0-9)
-static uint32_t next_action_time = 0;         // 下次允许操作的时间戳
-const uint32_t interval = 50;                // 间隔时间 50*120ms
+//static uint8_t current_relay = 0;             // 当前操作的第几个继电器 (0-9)
+//static uint32_t next_action_time = 0;         // 下次允许操作的时间戳
+//const uint32_t interval = 20;                // 间隔时间 50*120ms
 
 //修改函数，参数包括第几个风机以及开还是关
-void update_relay_control(u8 index, u8 on_or_off){
-    // 更新 relay_Control[1] (控制继电器 0-6)
-	
-	switch(index){
-		case 0:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x80;}else{relay_Control[1] = relay_Control[1] & ~0x80;}
-			break;
-		case 1:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x40;}else{relay_Control[1] = relay_Control[1] & ~0x40;}
-			break;
-		case 2:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x20;}else{relay_Control[1] = relay_Control[1] & ~0x20;}
-			break;
-		case 3:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x10;}else{relay_Control[1] = relay_Control[1] & ~0x10;}
-			break;
-		case 4:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x08;}else{relay_Control[1] = relay_Control[1] & ~0x08;}
-			break;
-		case 5:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x04;}else{relay_Control[1] = relay_Control[1] & ~0x04;}
-			break;
-		case 6:
-			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x02;}else{relay_Control[1] = relay_Control[1] & ~0x02;}
-			break;
-		case 7:
-			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x80;}else{relay_Control[0] = relay_Control[0] & ~0x80;}
-			break;
-		case 8:
-			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x40;}else{relay_Control[0] = relay_Control[0] & ~0x40;}
-			break;
-		case 9:
-			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x20;}else{relay_Control[0] = relay_Control[0] & ~0x20;}
-			break;
-		default:break;
-	}
-}
+//void update_relay_control(u8 index, u8 on_or_off){
+//    // 更新 relay_Control[1] (控制继电器 0-6)
+//	
+//	switch(index){
+//		case 0:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x80;}else{relay_Control[1] = relay_Control[1] & ~0x80;}
+//			break;
+//		case 1:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x40;}else{relay_Control[1] = relay_Control[1] & ~0x40;}
+//			break;
+//		case 2:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x20;}else{relay_Control[1] = relay_Control[1] & ~0x20;}
+//			break;
+//		case 3:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x10;}else{relay_Control[1] = relay_Control[1] & ~0x10;}
+//			break;
+//		case 4:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x08;}else{relay_Control[1] = relay_Control[1] & ~0x08;}
+//			break;
+//		case 5:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x04;}else{relay_Control[1] = relay_Control[1] & ~0x04;}
+//			break;
+//		case 6:
+//			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x02;}else{relay_Control[1] = relay_Control[1] & ~0x02;}
+//			break;
+//		case 7:
+//			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x80;}else{relay_Control[0] = relay_Control[0] & ~0x80;}
+//			break;
+//		case 8:
+//			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x40;}else{relay_Control[0] = relay_Control[0] & ~0x40;}
+//			break;
+//		case 9:
+//			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x20;}else{relay_Control[0] = relay_Control[0] & ~0x20;}
+//			break;
+//		default:break;
+//	}
+//}
 
 int main(void)
 {	
@@ -358,43 +358,47 @@ int main(void)
 		
 		
 		// 获取当前时间（假设使用 HAL_GetTick() 或类似函数）
-		static uint32_t current_time = 0;
+//		static uint32_t current_time = 0;
 
-        // 仅当未完成所有继电器操作时执行
-        if (current_relay < ROAD_COUNT) {
-            // 检查是否到达操作时间
-            if (current_time >= next_action_time && relay_structure[current_relay].on_off) {
-				
-                // 更新控制寄存器---只发送一位
-				update_relay_control(current_relay, relay_structure[current_relay].on_off);
-                // 发送数据到硬件
-                HC595_Send_Multi_Byte(relay_Control, 2);
+//		static Relay_Structure relay_str[10]={0};
+//		memcpy(relay_str, relay_structure, sizeof(relay_structure));
+//		// 仅当未完成所有继电器操作时执行
+//		while(current_relay < ROAD_COUNT) {
+//			
+//				if(relay_structure[current_relay].on_off==0){current_relay++;break;}
+//				// 检查是否到达操作时间
+//				if (current_time >= next_action_time && relay_structure[current_relay].on_off) {
+//		
+//						// 更新控制寄存器---只发送一位
+//						update_relay_control(current_relay, relay_structure[current_relay].on_off);
+//						// 发送数据到硬件
+//						HC595_Send_Multi_Byte(relay_Control, 2);
 
-                // 更新下一次操作时间
-                next_action_time = current_time + interval;
+//						// 更新下一次操作时间
+//						next_action_time = current_time + interval;
 
-                // 移动到下一个继电器
-                current_relay++;
-            }
-			if(relay_structure[current_relay].on_off==0)current_relay++;
-        }
-		//
-		if (current_relay >= ROAD_COUNT){current_relay=0;current_time=0;next_action_time=0;}
-		//关闭风机时，不间隔时间
-		static u8 count_595 = 0;
-		if(count_595%8==0){
-			//风机
-			for(int i =0; i<ROAD_COUNT; i++){
-				if(relay_structure[i].on_off==0)update_relay_control(i,0);
-			}
-			//报警继电器
-			if(warn_flag){relay_Control[0] = relay_Control[0] | 0x10;}else{relay_Control[0] = relay_Control[0] & ~0x10;}
-			HC595_Send_Multi_Byte(relay_Control, 2);
-		}
-		if(++count_595>=32)count_595=0;
-		
-		current_time++;
-		if(current_time>99999)current_time=0;
+//						// 移动到下一个继电器
+//						current_relay++;
+//				}
+//				
+//		}
+//		//
+//		if (current_relay >= ROAD_COUNT){current_relay=0;current_time=0;next_action_time=0;}
+//		//关闭风机时，不间隔时间
+//		static u8 count_595 = 0;
+//		if(count_595%8==0){
+//			//风机
+//			for(int i =0; i<ROAD_COUNT; i++){
+//				if(relay_structure[i].on_off==0)update_relay_control(i,0);
+//			}
+//			//报警继电器
+//			if(warn_flag){relay_Control[0] = relay_Control[0] | 0x10;}else{relay_Control[0] = relay_Control[0] & ~0x10;}
+//			HC595_Send_Multi_Byte(relay_Control, 2);
+//		}
+//		if(++count_595>=32)count_595=0;
+//		
+//		current_time++;
+//		if(current_time>99999)current_time=0;
 		
 		
 		//顺序开启继电器
@@ -1235,12 +1239,7 @@ int main(void)
 		
 		
 		
-		//关闭风机-常关   开启风机-常开
-		for(int i=0; i<ROAD_COUNT; i++){
-			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==0)relay_structure[i].on_off=0;		
-			if(relay_structure[i].relay_mode==0 && relay_structure[i].no_Ctrl.all_open_or_close==1)relay_structure[i].on_off=1;
-			
-		}
+
 
 		if(TIM3_flag){
 		    /*定时器标志归零*/
@@ -1304,9 +1303,10 @@ int main(void)
 				memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
 				//UART3_Puts("AT+MQTTCONN=0,\"8.130.168.245\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
 				//UART3_Puts("AT+MQTTCONN=0,\"yukephysics.com\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
-				//UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",1883,\"%s\",\"admin\",\"public\"\r\n",imei_no);
+				//UART3_Puts("AT+MQTTCONN=0,\"1.192.215.33\",10083,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
 				//UART3_Puts("AT+MQTTCONN=0,\"39.105.15.166\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
 				UART3_Puts("AT+MQTTCONN=0,\"bdywl.cn\",1883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
+				//UART3_Puts("AT+MQTTCONN=0,\"1.95.33.186\",10883,\"%s\",\"admin\",\"bdwl123456\"\r\n",imei_no);
 				delay_ms(600);
 				
 

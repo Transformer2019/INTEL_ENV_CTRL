@@ -2,7 +2,7 @@
 ..\obj\gui.o: ..\HARDWARE\LCD\gui.h
 ..\obj\gui.o: ..\USER\stm32f10x.h
 ..\obj\gui.o: ..\CORE\core_cm3.h
-..\obj\gui.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\gui.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\gui.o: ..\USER\system_stm32f10x.h
 ..\obj\gui.o: ..\USER\stm32f10x_conf.h
 ..\obj\gui.o: ..\FWLib\inc\stm32f10x_adc.h
@@ -25,7 +25,7 @@
 ..\obj\gui.o: ..\HARDWARE\KEY\key.h
 ..\obj\gui.o: ..\SYSTEM\sys\sys.h
 ..\obj\gui.o: ..\HARDWARE\LCD\lcd.h
-..\obj\gui.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\gui.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\gui.o: ..\SYSTEM\delay\delay.h
 ..\obj\gui.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\gui.o: ..\HARDWARE\RTC\rtc.h

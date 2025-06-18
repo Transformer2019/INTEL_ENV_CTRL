@@ -465,11 +465,11 @@ ARM Macro Assembler    Page 8
               00000000 
 Command Line: --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interwork --de
 pend=..\obj\startup_stm32f10x_md.d -o..\obj\startup_stm32f10x_md.o -I.\RTE\_Mod
-el -ID:\develop\keil\Packs\Geehy\APM32F1xx_DFP\1.1.0\Device\Device\Geehy\APM32F
-10x\Include -ID:\develop\keil\Packs\Keil\Jansson\1.0.0\src --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 538" --predefine="_RTE_ SETA 1"
- --predefine="APM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings
-\startup_stm32f10x_md.lst ..\CORE\startup_stm32f10x_md.s
+el -ID:\develop\keil-5.42\Packs\Geehy\APM32F1xx_DFP\1.1.0\Device\Device\Geehy\A
+PM32F10x\Include -ID:\develop\keil-5.42\Packs\Keil\Jansson\1.0.0\src --predefin
+e="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 542" --predefine="APM
+32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\startup_stm32f10
+x_md.lst ..\CORE\startup_stm32f10x_md.s
 
 
 

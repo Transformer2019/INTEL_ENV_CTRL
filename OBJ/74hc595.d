@@ -1,7 +1,7 @@
 ..\obj\74hc595.o: ..\HARDWARE\74HC595\74HC595.c
 ..\obj\74hc595.o: ..\USER\stm32f10x.h
 ..\obj\74hc595.o: ..\CORE\core_cm3.h
-..\obj\74hc595.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\74hc595.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\74hc595.o: ..\USER\system_stm32f10x.h
 ..\obj\74hc595.o: ..\USER\stm32f10x_conf.h
 ..\obj\74hc595.o: ..\FWLib\inc\stm32f10x_adc.h

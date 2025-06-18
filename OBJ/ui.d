@@ -3,7 +3,7 @@
 ..\obj\ui.o: ..\SYSTEM\sys\sys.h
 ..\obj\ui.o: ..\USER\stm32f10x.h
 ..\obj\ui.o: ..\CORE\core_cm3.h
-..\obj\ui.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\ui.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\ui.o: ..\USER\system_stm32f10x.h
 ..\obj\ui.o: ..\USER\stm32f10x_conf.h
 ..\obj\ui.o: ..\FWLib\inc\stm32f10x_adc.h
@@ -21,8 +21,8 @@
 ..\obj\ui.o: ..\FWLib\inc\stm32f10x_tim.h
 ..\obj\ui.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\ui.o: ..\FWLib\inc\misc.h
-..\obj\ui.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\ui.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\string.h
+..\obj\ui.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\ui.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\ui.o: ..\HARDWARE\LCD\font.h
 ..\obj\ui.o: ..\SYSTEM\delay\delay.h
 ..\obj\ui.o: ..\HARDWARE\LCD\UI.h

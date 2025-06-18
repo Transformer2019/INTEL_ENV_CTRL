@@ -6,7 +6,7 @@
 #include "mb_hook.h"
 #include "GP8201S.h"
 #include "flash.h"
-
+#include "74HC595.h"
 
 #include "key.h"
 	  
@@ -60,6 +60,49 @@ volatile float temperature1 = 99.0;
 volatile float temperature2 = 99.0;
 volatile float temperature3 = 99.0;
 volatile float average_temp = 99.0;
+
+
+
+
+//修改函数，参数包括第几个风机以及开还是关
+void update_relay_control(u8 index, u8 on_or_off){
+    // 更新 relay_Control[1] (控制继电器 0-6)
+	
+	switch(index){
+		case 0:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x80;}else{relay_Control[1] = relay_Control[1] & ~0x80;}
+			break;
+		case 1:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x40;}else{relay_Control[1] = relay_Control[1] & ~0x40;}
+			break;
+		case 2:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x20;}else{relay_Control[1] = relay_Control[1] & ~0x20;}
+			break;
+		case 3:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x10;}else{relay_Control[1] = relay_Control[1] & ~0x10;}
+			break;
+		case 4:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x08;}else{relay_Control[1] = relay_Control[1] & ~0x08;}
+			break;
+		case 5:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x04;}else{relay_Control[1] = relay_Control[1] & ~0x04;}
+			break;
+		case 6:
+			if(on_or_off){relay_Control[1] = relay_Control[1] | 0x02;}else{relay_Control[1] = relay_Control[1] & ~0x02;}
+			break;
+		case 7:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x80;}else{relay_Control[0] = relay_Control[0] & ~0x80;}
+			break;
+		case 8:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x40;}else{relay_Control[0] = relay_Control[0] & ~0x40;}
+			break;
+		case 9:
+			if(on_or_off){relay_Control[0] = relay_Control[0] | 0x20;}else{relay_Control[0] = relay_Control[0] & ~0x20;}
+			break;
+		default:break;
+	}
+}
+
 
 void TIM1_Int_Init(u16 arr,u16 psc)
 {
@@ -424,11 +467,83 @@ void TIM2_IRQHandler(void)   //TIM2中断
 void TIM3_IRQHandler(void)   //TIM3中断
 {
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
-		{   
+	{   
 			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx的中断待处理位:TIM 中断源 
 			
+
+
+			//顺序间隔开启风机（2025.06.18修改）延迟启动，顺序启动----------开始
+			static uint32_t current_time = 0;
+
+			//static uint8_t relay_on_off_temp[10]={0};
+
+			static uint8_t on_flag=0;
+			static uint8_t relay_no[20]={9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9};
+			static uint8_t relay_off_on_count = 0;
+			static uint8_t current_relay = 0;
+			static uint8_t last_state[10] = {0};
+				
 			
-			//测试代码
+			//for(int i=0;i<9;i++)relay_structure[i].on_off=1;
+			
+			uint8_t relay_index = 0;
+			while(relay_index < ROAD_COUNT)
+			{
+
+				if(relay_structure[relay_index].on_off==0)last_state[relay_index]=0;
+				if(last_state[relay_index]==0 && relay_structure[relay_index].on_off==1){
+					relay_no[relay_off_on_count]=relay_index;
+					relay_off_on_count++;
+					last_state[relay_index]=1;
+					//printf("relay_index:%d\n",relay_index);
+				}
+				
+				relay_index++;
+				
+			}
+			
+			if(relay_no[0] != 9 && relay_structure[relay_no[0]].on_off)
+				current_time++;
+			else {
+				if(relay_no[0] != 9){
+					for (int i = 0; i < relay_off_on_count; i++) {
+						relay_no[i] = relay_no[i + 1];
+					}
+					current_time=0;
+					relay_off_on_count--;
+				}
+			}
+			
+			if(current_time>2){
+					// 更新控制寄存器---只发送一位
+					update_relay_control(relay_no[0], relay_structure[relay_no[0]].on_off);
+					// 发送数据到硬件
+					HC595_Send_Multi_Byte(relay_Control, 2);
+					current_time=0;
+					for (int i = 0; i < relay_off_on_count; i++) {
+						relay_no[i] = relay_no[i + 1];
+					}
+					relay_off_on_count--;
+			}
+
+			
+			//关闭风机时，不间隔时间
+			//static u8 count_595 = 0;
+			//if(count_595%8==0){
+				//风机
+				for(int i =0; i<ROAD_COUNT; i++){
+					if(relay_structure[i].on_off==0)update_relay_control(i,0);
+				}
+				//报警继电器
+				if(warn_flag){relay_Control[0] = relay_Control[0] | 0x10;}else{relay_Control[0] = relay_Control[0] & ~0x10;}
+				HC595_Send_Multi_Byte(relay_Control, 2);
+			//}
+			//if(++count_595>=32)count_595=0;
+				
+			//顺序间隔开启风机（2025.06.18修改）延迟启动，顺序启动----------结束
+			
+			
+			//开机测试代码
 			static u8 test_code=0;
 			if(MQTT_CON_Counter<10)
 			{
@@ -469,7 +584,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 			//测试代码结束
 			
 			
-			if(TIM3_Counter_10s>5)//
+			if(TIM3_Counter_10s>8)//
 			{
 			  TIM3_flag=1;
 			}
@@ -744,9 +859,103 @@ void TIM3_IRQHandler(void)   //TIM3中断
 }
 
 
+
+
+//#include <stdint.h>
+
+//uint8_t atomic_load(volatile uint8_t *ptr) {
+//    uint8_t val;
+//    do {
+//        val = __ldrex(ptr);  // 原子加载
+//    } while (__strex(val, ptr));  // 确保原子性
+//    return val;
+//}
+
+
 void TIM1_UP_IRQHandler(void){
 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); //清除TIM4更新中断标志
+		
+//		static uint16_t timer_ralay = 0;
+//		timer_ralay++;
+//		if(timer_ralay>=200)timer_ralay=0;
+
+//		//顺序间隔开启风机
+//		static uint32_t current_time = 0;
+//		static uint32_t next_action_time = 0;         // 下次允许操作的时间戳
+//		
+//		//static uint8_t relay_on_off[10]={0};
+//		static uint8_t relay_on_off_temp[10]={0};
+//		
+
+//		//for(int i=0; i<ROAD_COUNT; i++){relay_on_off_temp[i]=relay_structure[i].on_off;}//
+
+
+//		static uint8_t on_flag=0;
+//		static uint8_t relay_no[20]={9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9};
+//		static uint8_t relay_off_on_count = 0;
+//		static uint8_t current_relay = 0;
+//		static uint8_t last_state[10] = {0};
+//			
+//		uint8_t relay_index = 0;
+//		while(relay_index < ROAD_COUNT)
+//		{
+
+//			relay_on_off_temp[relay_index]=relay_structure[relay_index].on_off;
+//	
+//			if(last_state[relay_index]==0 && relay_structure[relay_index].on_off==1){
+//				relay_no[relay_off_on_count]=relay_index;
+//				relay_off_on_count++;
+//				last_state[relay_index]=1;
+//				//printf("relay_index:%d\n",relay_index);
+//			}
+//			relay_index++;
+//			
+//	  }
+//		
+//		if(relay_no[0] != 9 && relay_structure[relay_no[0]].on_off)
+//			current_time++;
+//		else {
+//			if(relay_no[0] != 9){
+//				for (int i = 0; i < relay_off_on_count; i++) {
+//					relay_no[i] = relay_no[i + 1];
+//				}
+//				current_time=0;
+//				relay_off_on_count--;
+//			}
+//		}
+//		
+//		if(current_time>=100){
+//				// 更新控制寄存器---只发送一位
+//				update_relay_control(relay_no[0], relay_structure[relay_no[0]].on_off);
+//				// 发送数据到硬件
+//				HC595_Send_Multi_Byte(relay_Control, 2);
+//				current_time=0;
+//				for (int i = 0; i < relay_off_on_count; i++) {
+//					relay_no[i] = relay_no[i + 1];
+//				}
+//				relay_off_on_count--;
+//		}
+
+//		
+//		
+//		//关闭风机时，不间隔时间
+//		static u8 count_595 = 0;
+//		if(count_595%8==0){
+//			//风机
+//			for(int i =0; i<ROAD_COUNT; i++){
+//				if(relay_structure[i].on_off==0)update_relay_control(i,0);
+//			}
+//			//报警继电器
+//			if(warn_flag){relay_Control[0] = relay_Control[0] | 0x10;}else{relay_Control[0] = relay_Control[0] & ~0x10;}
+//			HC595_Send_Multi_Byte(relay_Control, 2);
+//		}
+//		if(++count_595>=32)count_595=0;
+
+		
+		
+		
+		
 		
 		//
 		for(int i=0; i<ROAD_COUNT; i++){

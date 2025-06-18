@@ -2,7 +2,7 @@
 ..\obj\usart1.o: ..\SYSTEM\usart\usart1.h
 ..\obj\usart1.o: ..\USER\stm32f10x.h
 ..\obj\usart1.o: ..\CORE\core_cm3.h
-..\obj\usart1.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\usart1.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\usart1.o: ..\USER\system_stm32f10x.h
 ..\obj\usart1.o: ..\USER\stm32f10x_conf.h
 ..\obj\usart1.o: ..\FWLib\inc\stm32f10x_adc.h
@@ -21,6 +21,6 @@
 ..\obj\usart1.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\usart1.o: ..\FWLib\inc\misc.h
 ..\obj\usart1.o: ..\SYSTEM\sys\sys.h
-..\obj\usart1.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\usart1.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\string.h
-..\obj\usart1.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\usart1.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\usart1.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\string.h
+..\obj\usart1.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdarg.h

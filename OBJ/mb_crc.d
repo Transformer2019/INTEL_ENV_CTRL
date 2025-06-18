@@ -1,6 +1,6 @@
 ..\obj\mb_crc.o: ..\HARDWARE\MMODBUS\mb_crc.c
 ..\obj\mb_crc.o: ..\HARDWARE\MMODBUS\mb_include.h
-..\obj\mb_crc.o: D:\develop\keil\app\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\mb_crc.o: D:\develop\keil-5.42\appl\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\mb_crc.o: ..\USER\stm32f10x.h
 ..\obj\mb_crc.o: ..\CORE\core_cm3.h
 ..\obj\mb_crc.o: ..\USER\system_stm32f10x.h
