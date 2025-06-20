@@ -262,31 +262,83 @@ void TIM2_IRQHandler(void)   //TIM2中断
 
 #if 1	//将配置参数写入flash	
 		
-		//将配置参数写入flash频率
-		//65500 18小时写入一次
-		//uint32_t address = STARTADDR;
-		//uint32_t totalSize = 5*sizeof(Relay_Structure);
-		//uint16_t halfWord;
-		if(TIM7_Counter>65500){
-			TIM7_Counter=0;
-			//向flash里写入需要存储的数据
-			uint16_t *pData = (uint16_t *)relay_structure;
-			
-			uint8_t warn_temp[18]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
-				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
-                limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
-			};			
-			uint16_t *pData_alarm = (uint16_t *)warn_temp;
-			
-			//uint16_t *pData_hz = (uint16_t *)(&hz_control_cur);
-			Hz_Control *hz_control_cur=&hz_control;
-			uint16_t *pData_hz = (uint16_t *)hz_control_cur;
-			
-			WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10,pData_hz,(sizeof(hz_control)%2==0)?(sizeof(hz_control)/2):(sizeof(hz_control)/2+1));
-			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure));
+		//		if(TIM7_Counter>65500){
+//			TIM7_Counter=0;
+//			//向flash里写入需要存储的数据
+//			uint16_t *pData = (uint16_t *)relay_structure;
+//			
+//			uint8_t warn_temp[18]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
+//				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
+//                limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
+//			};			
+//			uint16_t *pData_alarm = (uint16_t *)warn_temp;
+//			
+//			//uint16_t *pData_hz = (uint16_t *)(&hz_control_cur);
+//			Hz_Control *hz_control_cur=&hz_control;
+//			uint16_t *pData_hz = (uint16_t *)hz_control_cur;
+//			
+//			WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10,pData_hz,(sizeof(hz_control)%2==0)?(sizeof(hz_control)/2):(sizeof(hz_control)/2+1));
+//			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure));
 
-		}
-		TIM7_Counter++;
+//		}
+//		TIM7_Counter++;
+		
+	if(TIM7_Counter>2){
+			TIM7_Counter=0;
+	    //向flash里写入需要存储的数据
+			//向flash里写入风机控制数据
+			if(relay_change_falg){
+				relay_change_falg=0;
+				uint16_t *pData = (uint16_t *)relay_structure;
+				WriteFlashData_relay(0, pData, 5*sizeof(Relay_Structure));
+				memcpy(relay_change_buffer, relay_structure, sizeof(relay_structure));
+			}
+			
+			
+			
+			//向flash里写入报警控制数据
+			if(warn_change_falg){
+				warn_change_falg=0;
+				uint8_t warn_temp[18]={NH3_warn_flag,warn_temp1_flag,warn_temp2_flag,warn_temp3_flag,warn_temp485_flag,warn_rh_flag,
+				NH3_max,limit_temp1_maxvalue,limit_temp1_minvalue,limit_temp2_maxvalue,limit_temp2_minvalue,limit_temp3_maxvalue,limit_temp3_minvalue,limit_temp485_maxvalue,
+								limit_temp485_minvalue,limit_rh_maxvalue,limit_rh_minvalue,0xff
+				};	
+				uint16_t *pData_alarm = (uint16_t *)warn_temp;
+				WriteFlashData_alarm(0,pData_alarm,10);
+				
+				warn_change_buffer.warn_temp1_flag = warn_temp1_flag;
+				warn_change_buffer.warn_temp2_flag = warn_temp2_flag;
+				warn_change_buffer.warn_temp485_flag = warn_temp485_flag;
+				warn_change_buffer.warn_rh_flag = warn_rh_flag;
+				
+				warn_change_buffer.limit_temp1_maxvalue = limit_temp1_maxvalue;
+				warn_change_buffer.limit_temp1_minvalue = limit_temp1_minvalue;
+				warn_change_buffer.limit_temp2_maxvalue = limit_temp2_maxvalue;
+				warn_change_buffer.limit_temp2_minvalue = limit_temp2_minvalue;
+				warn_change_buffer.limit_temp485_maxvalue = limit_temp485_maxvalue;
+				warn_change_buffer.limit_temp485_minvalue = limit_temp485_minvalue;
+				warn_change_buffer.limit_rh_maxvalue = limit_rh_maxvalue;
+				warn_change_buffer.limit_rh_minvalue = limit_rh_minvalue;
+				
+				warn_change_buffer.NH3_warn_flag = NH3_warn_flag;
+				warn_change_buffer.NH3_max = NH3_max;
+			}
+	
+			
+			
+			//向flash里写入变频控制数据
+			if(hz_change_falg){
+				hz_change_falg=0;
+				Hz_Control *hz_control_cur=&hz_control;
+				uint16_t *pData_hz = (uint16_t *)hz_control_cur;
+				WriteFlashData_hz(0,pData_hz,(sizeof(hz_control)%2==0)?(sizeof(hz_control)/2):(sizeof(hz_control)/2+1));
+				memcpy(&hz_change_buffer,&hz_control,sizeof(Hz_Control));
+			}
+
+			//WriteFlashData(0, pData, 5*sizeof(Relay_Structure),pData_alarm,10,pData_hz,(sizeof(hz_control)%2==0)?(sizeof(hz_control)/2):(sizeof(hz_control)/2+1));
+		
+	}
+	TIM7_Counter++;
 #endif	
 		
 		//获取是否联网频率
@@ -495,7 +547,7 @@ void TIM3_IRQHandler(void)   //TIM3中断
 					relay_no[relay_off_on_count]=relay_index;
 					relay_off_on_count++;
 					last_state[relay_index]=1;
-					//printf("relay_index:%d\n",relay_index);
+					//printf("relay_index:%d\n",relay_index);		
 				}
 				
 				relay_index++;

@@ -7,8 +7,6 @@
 #define ON 1
 #define OFF 0
 
-
-//主页显示哪个页面
 #define HOME_Page 3 // 1,2代表不同主页显示效果，1简单显示；2显示全部传感器信息和变频器输出；3在2的基础上修改不显示温度三
 
 //主页时间显示颜色
@@ -16,6 +14,14 @@
 
 //几路风机 8-8路  4-4路 10-10路
 #define ROAD_COUNT 8
+
+
+
+
+
+
+
+//主页显示哪个页面
 
 extern uint8_t ctrl_ui;
 
@@ -79,6 +85,7 @@ extern Relay_Structure relay_structure_temp[10];
 //保存风机编号
 extern volatile u8 last_index_save;
 
+
 //变频控制
 typedef struct {
 	float max_temp;
@@ -92,6 +99,41 @@ extern volatile Hz_Control hz_control;
 extern volatile float Hz_temp_choose;
 //变频输出
 extern volatile u8 out_voltage;
+
+
+
+
+//报警参数结构体
+typedef struct {
+	u8 warn_temp1_flag;
+	u8 warn_temp2_flag;
+	u8 warn_temp485_flag;
+	u8 warn_rh_flag;
+	
+	u8 limit_temp1_maxvalue;
+	u8 limit_temp1_minvalue;
+	u8 limit_temp2_maxvalue;
+	u8 limit_temp2_minvalue;
+	u8 limit_temp485_maxvalue;
+	u8 limit_temp485_minvalue;
+	u8 limit_rh_maxvalue;
+	u8 limit_rh_minvalue;
+	
+	u8 NH3_warn_flag;
+	u8 NH3_max;
+} Warn_Control;
+
+//风机参数变化标志及缓存
+extern uint8_t relay_change_falg;
+extern Relay_Structure relay_change_buffer[10];
+//变频控制参数变化标志及缓存
+extern uint8_t hz_change_falg;
+extern Hz_Control hz_change_buffer;
+//报警参数变化标志及缓存
+extern uint8_t warn_change_falg;
+extern Warn_Control warn_change_buffer;
+
+
 
 
 //MQTT配置数据发送标志

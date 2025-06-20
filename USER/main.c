@@ -144,7 +144,7 @@ int main(void)
 		IIC_Init();
 		GP8201S_Write(0,0,0x00,0x00);//上电输出0V
 		
-        /* 74HC595初始化 */
+    /* 74HC595初始化 */
 		HC595_GPIO_Config();
         HC595_Send_Multi_Byte(relay1_Control_1, 2);
 		
@@ -156,6 +156,8 @@ int main(void)
 		
 		//读取flash固定位置的数据
 #if ADD_FLASH_SAVE
+
+		//读风机参数
 		ReadFlashData(0, (uint8_t *)relay_structure_buffer, 10*sizeof(Relay_Structure));
 		if(is_all_ff((uint8_t *)relay_structure_buffer, sizeof(relay_structure_buffer))) {
 			// 如果数组中的所有元素都是 0xFF
@@ -167,12 +169,13 @@ int main(void)
 				&&relay_structure_buffer[4].relayNo==5&&relay_structure_buffer[5].relayNo==6&&relay_structure_buffer[6].relayNo==7&&relay_structure_buffer[7].relayNo==8
 				&&relay_structure_buffer[8].relayNo==9&&relay_structure_buffer[9].relayNo==10)
 			{
-				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));			
+				memcpy(relay_structure, relay_structure_buffer, 10*sizeof(Relay_Structure));		
+				memcpy(relay_change_buffer, relay_structure_buffer, 10*sizeof(Relay_Structure));		
 		    }
 
 		}
-		
-		uint8_t warn_data_buffer[19];
+		//读报警参数
+		uint8_t warn_data_buffer[18];
 		ReadFlashData(STARTADDR_ALARM-STARTADDR, warn_data_buffer, sizeof(warn_data_buffer));
 		if(is_all_ff(warn_data_buffer, sizeof(warn_data_buffer))) {
 			// 如果数组中的所有元素都是 0xFF
@@ -181,7 +184,7 @@ int main(void)
 			// 如果数组中有元素不是 0xFF
 			//memcpy(relay_structure, warn_data_buffer, sizeof(warn_data_buffer));
 			
-			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<60 && warn_data_buffer[8]<60 && warn_data_buffer[13]<60 & warn_data_buffer[14]<60 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
+			if(warn_data_buffer[6]<50 && warn_data_buffer[7]<90 && warn_data_buffer[8]<90 && warn_data_buffer[13]<90 & warn_data_buffer[14]<100 && (warn_data_buffer[7]>warn_data_buffer[8]) &&  (warn_data_buffer[13]>warn_data_buffer[14]))
 			{
 				NH3_warn_flag=warn_data_buffer[0];
 				warn_temp1_flag=warn_data_buffer[1];
@@ -200,10 +203,28 @@ int main(void)
 				limit_temp485_minvalue=warn_data_buffer[14];
 				limit_rh_maxvalue=warn_data_buffer[15];
 				limit_rh_minvalue=warn_data_buffer[16];
+				
+				warn_change_buffer.NH3_warn_flag=warn_data_buffer[0];
+				warn_change_buffer.warn_temp1_flag=warn_data_buffer[1];
+				warn_change_buffer.warn_temp2_flag=warn_data_buffer[2];
+				//warn_change_buffer.warn_temp3_flag=warn_data_buffer[3];
+				warn_change_buffer.warn_temp485_flag=warn_data_buffer[4];
+				warn_change_buffer.warn_rh_flag=warn_data_buffer[5];
+				warn_change_buffer.NH3_max=warn_data_buffer[6];
+				warn_change_buffer.limit_temp1_maxvalue=warn_data_buffer[7];
+				warn_change_buffer.limit_temp1_minvalue=warn_data_buffer[8];
+				warn_change_buffer.limit_temp2_maxvalue=warn_data_buffer[9];
+				warn_change_buffer.limit_temp2_minvalue=warn_data_buffer[10];
+				//warn_change_buffer.limit_temp3_maxvalue=warn_data_buffer[11];
+				//warn_change_buffer.limit_temp3_minvalue=warn_data_buffer[12];
+				warn_change_buffer.limit_temp485_maxvalue=warn_data_buffer[13];
+				warn_change_buffer.limit_temp485_minvalue=warn_data_buffer[14];
+				warn_change_buffer.limit_rh_maxvalue=warn_data_buffer[15];
+				warn_change_buffer.limit_rh_minvalue=warn_data_buffer[16];
 			}
 			
 		}
-		
+		//读变频参数
 		Hz_Control HZctrl_buffer;
 		Hz_Control *HZctrl_data_buffer=&HZctrl_buffer;
 		
@@ -217,6 +238,7 @@ int main(void)
 			if(hz_control.max_temp<60 && hz_control.min_temp<50 && hz_control.voltage_high<11 && hz_control.voltage_low<10 && hz_control.temp_choose<6)
 			{
 				memcpy(&hz_control, HZctrl_data_buffer, sizeof(Hz_Control));
+				memcpy(&hz_change_buffer, HZctrl_data_buffer, sizeof(Hz_Control));
 			}
 		}
 
@@ -596,6 +618,11 @@ int main(void)
 //						}
 
 						if(json_is_integer(mode_j) && json_is_integer(no_j)){
+							
+						
+							memcpy(relay_change_buffer, relay_structure, 10*sizeof(Relay_Structure));		
+							
+							
 							uint8_t no = json_integer_value(no_j)-1;
 							uint8_t mode = json_integer_value(mode_j);
 //							relay_structure[no].relay_mode = mode;
@@ -1122,6 +1149,9 @@ int main(void)
 								default:break;
 							}
 						
+							
+							
+							
 						
 							//发送回执消息
 //							UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,2,\"OK\"\r\n",imei_no);//发布消息
@@ -1129,6 +1159,12 @@ int main(void)
 //							
 //							UART3_RxCounter = 0; //重新等待接收下一个推送消息
 //							memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); //将串口3接收缓冲区清0	
+							
+							if (memcmp(relay_structure, relay_structure_temp, sizeof(relay_structure)) != 0) {
+								relay_change_falg=1;
+							}
+							
+							
 						}else{
 							
 							json_t *t1_flag = json_object_get(root, "t1");
@@ -1160,6 +1196,26 @@ int main(void)
 							json_t *t_flag = json_object_get(root, "t_flag");
 							
 							if(t1_flag && t2_flag && t1_max && t1_min && t2_max && t2_min && t485_max && t485_min && rh_max && rh_min && NH3_max_data && NH3_flag_data){
+								
+							  
+									warn_change_buffer.warn_temp1_flag = warn_temp1_flag;
+									warn_change_buffer.warn_temp2_flag = warn_temp2_flag;
+									warn_change_buffer.warn_temp485_flag = warn_temp485_flag;
+									warn_change_buffer.warn_rh_flag = warn_rh_flag;
+									
+									warn_change_buffer.limit_temp1_maxvalue = limit_temp1_maxvalue;
+									warn_change_buffer.limit_temp1_minvalue = limit_temp1_minvalue;
+									warn_change_buffer.limit_temp2_maxvalue = limit_temp2_maxvalue;
+									warn_change_buffer.limit_temp2_minvalue = limit_temp2_minvalue;
+									warn_change_buffer.limit_temp485_maxvalue = limit_temp485_maxvalue;
+									warn_change_buffer.limit_temp485_minvalue = limit_temp485_minvalue;
+									warn_change_buffer.limit_rh_maxvalue = limit_rh_maxvalue;
+									warn_change_buffer.limit_rh_minvalue = limit_rh_minvalue;
+									
+									warn_change_buffer.NH3_warn_flag = NH3_warn_flag;
+									warn_change_buffer.NH3_max = NH3_max;
+								
+								
 								warn_temp1_flag = json_integer_value(t1_flag);
 								warn_temp2_flag = json_integer_value(t2_flag);
 								warn_temp485_flag = json_integer_value(t485_flag);
@@ -1180,18 +1236,53 @@ int main(void)
 								NH3_max = json_integer_value(NH3_max_data);
 								NH3_warn_flag = json_integer_value(NH3_flag_data);
 								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"TNOK\"\r\n",imei_no);//发布消息
+								
+								
+								if(
+									warn_change_buffer.warn_temp1_flag != warn_temp1_flag||
+									warn_change_buffer.warn_temp2_flag != warn_temp2_flag||
+									warn_change_buffer.warn_temp485_flag != warn_temp485_flag||
+									warn_change_buffer.warn_rh_flag != warn_rh_flag||
+									
+									warn_change_buffer.limit_temp1_maxvalue != limit_temp1_maxvalue||
+									warn_change_buffer.limit_temp1_minvalue != limit_temp1_minvalue||
+									warn_change_buffer.limit_temp2_maxvalue != limit_temp2_maxvalue||
+									warn_change_buffer.limit_temp2_minvalue != limit_temp2_minvalue||
+									warn_change_buffer.limit_temp485_maxvalue != limit_temp485_maxvalue||
+									warn_change_buffer.limit_temp485_minvalue != limit_temp485_minvalue||
+									warn_change_buffer.limit_rh_maxvalue != limit_rh_maxvalue||
+									warn_change_buffer.limit_rh_minvalue != limit_rh_minvalue||
+									
+									warn_change_buffer.NH3_warn_flag != NH3_warn_flag||
+									warn_change_buffer.NH3_max != NH3_max
+								){
+									warn_change_falg=1;
+								}
+								
+
+								
 								#if(REMOVE_memset)
 								delay_ms(30);
 								UART3_RxCounter = 0; 
 								memset(UART3_RxBuff, 0, UART3_RXBUFF_SIZE); 
 								#endif
 							}else if(t_high && t_low && v_high && v_low && t_flag){
+								
+
+								memcpy(&hz_change_buffer,(void*)&hz_control,sizeof(Hz_Control));
+							
+								
 								hz_control.max_temp = json_real_value(t_high);
 								hz_control.min_temp = json_real_value(t_low);
 								hz_control.voltage_high = json_real_value(v_high);
 								hz_control.voltage_low = json_real_value(v_low);
 								hz_control.temp_choose = json_integer_value(t_flag);
 								UART3_Puts("AT+MQTTPUB=0,\"YKWL/Callback/%s\",0,0,0,4,\"HZOK\"\r\n",imei_no);//发布消息
+								
+								if (memcmp(&hz_change_buffer, (void*)&hz_control, sizeof(Hz_Control)) != 0) {
+									hz_change_falg=1;
+								}
+								
 								#if(REMOVE_memset)
 								delay_ms(30);
 								UART3_RxCounter = 0; 

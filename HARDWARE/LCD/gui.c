@@ -96,6 +96,44 @@ static u8 func_index=_Main_UI;//当前页面索引值
 static u8 last_index=_Main_UI;//上一个界面索引值
 static void (*current_operation_func)(u8,u8);//定义一个函数指针
 
+
+
+
+
+//风机参数变化标志及缓存
+uint8_t relay_change_falg=0;
+Relay_Structure relay_change_buffer[10]={0};
+//变频控制参数变化标志及缓存
+uint8_t hz_change_falg=0;
+Hz_Control hz_change_buffer={
+	.max_temp=35.00,
+	.min_temp=15.00,
+	.voltage_high=10.0,
+	.voltage_low=0.0,
+	.temp_choose=1
+};
+//报警参数变化标志及缓存
+uint8_t warn_change_falg=0;
+Warn_Control warn_change_buffer={
+	.NH3_warn_flag=0,
+	.warn_temp1_flag=0,
+	.warn_temp2_flag=0,
+	.warn_temp485_flag=0,
+	.warn_rh_flag=0,
+  .NH3_max=13,
+	.limit_temp1_maxvalue=50,//温度高限值
+	.limit_temp1_minvalue=0,
+	.limit_temp2_maxvalue=50,//温度高限值
+	.limit_temp2_minvalue=0,
+	.limit_temp485_maxvalue=50,//485温度高限值
+	.limit_temp485_minvalue=0,
+	.limit_rh_maxvalue=70,//湿度高限值
+	.limit_rh_minvalue=50
+};
+
+
+
+
 uint8_t ctrl_ui=0;
 
 
@@ -253,8 +291,9 @@ uint8_t GUI_Refresh(void)
 					//printf("KEY_BACK\n");
 					if (memcmp(relay_structure, relay_structure_temp, sizeof(relay_structure)) != 0) {
 						send_CONFIG_INDEX = last_index_save-12;
-						send_CONFIG_FLAG=1;
 						memcpy(relay_structure, relay_structure_temp, sizeof(relay_structure));
+						relay_change_falg=1;
+						send_CONFIG_FLAG=1;
 						//printf("---%d---\n",send_CONFIG_INDEX);
 					}
 				}
@@ -1757,49 +1796,10 @@ void Hz_Ctrl_Child(u8 page_index,u8 key_val){
 	
 	//判断是否改变变频器控制参数
 	if (memcmp(&hz_control_buf, &hz_control, sizeof(Hz_Control)) != 0) {
+		hz_change_falg=1;
 		send_HZ_Flag=1;
+		
 	}
-	
-//	switch(hz_control.temp_choose){
-//		case 1:
-//			Hz_temp_choose = temperature1;
-//			break;
-//		case 2:
-//			Hz_temp_choose = temperature2;
-//			break;
-//		case 3:
-//			Hz_temp_choose = temperature3;
-//			break;
-//		case 4:
-//			Hz_temp_choose = average_temp;
-//			break;
-//		case 5:
-//			Hz_temp_choose = send_TEMP/10;
-//			break;
-//		default:break;
-//	}
-	
-//	if(Hz_temp_choose<=90){
-//		if(Hz_temp_choose<=hz_control.min_temp){
-//			data_v = hz_control.voltage_low*4095/10;
-//			out_voltage=hz_control.voltage_low*5;
-//		}else if(Hz_temp_choose>=hz_control.max_temp){
-//			data_v = hz_control.voltage_high*4095/10;
-//			out_voltage=hz_control.voltage_high*5;
-//		}else{
-//			float data_v_t = ((Hz_temp_choose-hz_control.min_temp)/(hz_control.max_temp-hz_control.min_temp)*(hz_control.voltage_high-hz_control.voltage_low))+hz_control.voltage_low;
-//			data_v = data_v_t*4095/10;
-//			out_voltage=data_v_t;
-//		}
-//	}else{
-//		data_v=0;
-//		out_voltage=data_v;
-//	}
-
-//	v_low = data_v<<4 | 0x00;
-//	v_high = data_v>>4 | 0x00;
-//	GP8201S_Write(0,0,v_low,v_high);
-//	
 }
 void Alarm_Child(u8 page_index,u8 key_val){
 	
@@ -2030,6 +2030,7 @@ void Alarm_Child(u8 page_index,u8 key_val){
 		limit_min_rh_buff != limit_rh_minvalue ||
 		NH3_warn_buff != NH3_warn_flag ||
 		NH3_buff != NH3_max){
+			warn_change_falg=1;
 			send_warn_Flag=1;
 		}
 	
